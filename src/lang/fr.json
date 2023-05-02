@@ -1,0 +1,13 @@
+{
+  "sidebar.dashboard": "Tableau de bord",
+  "sidebar.calendar": "Calendrier",
+  "sidebar.events": "Mes Evènements",
+  "sidebar.customers": "Clients",
+  "sidebar.billing": "Facturation",
+  "sidebar.products": "Produits",
+  "sidebar.marketing": "Marketing",
+  "sidebar.analytics": "Analyses",
+  "navbar.profile": "Profil",
+  "navbar.logout": "Déconnexion",
+  "navbar.settings": "Paramètres"
+}
