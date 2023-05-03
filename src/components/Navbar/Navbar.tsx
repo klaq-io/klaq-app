@@ -21,7 +21,9 @@ export const Header = () => {
         <div className="form-control">
           <input
             type="text"
-            placeholder="Search"
+            placeholder={intl.formatMessage({
+              id: `navbar.searchbar`,
+            })}
             className="input input-bordered"
           />
         </div>

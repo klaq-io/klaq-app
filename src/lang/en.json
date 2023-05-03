@@ -9,5 +9,6 @@
   "sidebar.analytics": "Analytics",
   "navbar.profile": "Profile",
   "navbar.logout": "Logout",
-  "navbar.settings": "Settings"
+  "navbar.settings": "Settings",
+  "navbar.searchbar": "Search..."
 }

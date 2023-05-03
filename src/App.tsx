@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { Dashboard, Login } from "./pages";
 import { PATHS } from "./routes";
@@ -18,6 +18,7 @@ function App() {
             // </PrivateRoute>
           }
         />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

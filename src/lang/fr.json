@@ -9,5 +9,6 @@
   "sidebar.analytics": "Analyses",
   "navbar.profile": "Profil",
   "navbar.logout": "Déconnexion",
-  "navbar.settings": "Paramètres"
+  "navbar.settings": "Paramètres",
+  "navbar.searchbar": "Rechercher"
 }
