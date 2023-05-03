@@ -25,14 +25,14 @@ export const Sidebar = (props: Props) => {
   );
 
   return (
-    <div className="drawer drawer-mobile bg-base-100">
+    <div className="drawer drawer-mobile bg-primary">
       <div className="drawer-side">
-        <div className="m-3 flex-1 text-center">
-          <a className="btn btn-ghost normal-case text-xl "> ⚡ Klaq.io</a>
+        <div className="m-3 flex-1 text-center py-2">
+          <span className="text-xl text-base-100 font-bold ">⚡ Klaq.io</span>
         </div>
-        <ul className="menu bg-base-100 w-56 p-2 rounded-box">
-          <li>
-            <a className="active">
+        <ul className="menu w-56 p-2 text-base-100 ">
+          <li className="bg-base-100 rounded-2xl text-primary">
+            <a>
               <HiOutlineHome />
               {intl.formatMessage({
                 id: `sidebar.dashboard`,

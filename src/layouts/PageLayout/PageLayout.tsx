@@ -8,14 +8,14 @@ type Props = {
 export const PageLayout = (props: Props) => {
   const { children } = props;
   return (
-    <main className="relative h-screen overflow-hidden bg-gray-100 rounded-2xl">
+    <main className="relative h-screen overflow-hidden bg-gray-100 ">
       <div className="flex items-start justify-between">
         <div className="relative hidden h-screen lg:block w-60">
           <Sidebar />
         </div>
-        <div className="flex flex-col w-full pl-0 md:space-y-4">
+        <div className="flex flex-col w-full ">
           <Header />
-          {children}
+          <div className="m-4">{children}</div>
         </div>
       </div>
     </main>

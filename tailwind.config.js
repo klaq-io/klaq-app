@@ -7,5 +7,9 @@ module.exports = {
       sidebar: "#111c43",
     },
   },
+  important: true,
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    themes: ["winter"],
+  },
 };
