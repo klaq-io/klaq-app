@@ -16,7 +16,6 @@ type Props = {
 };
 
 export const Sidebar = (props: Props) => {
-  const { classes } = props;
   const intl = useIntl();
   console.log(
     intl.formatMessage({

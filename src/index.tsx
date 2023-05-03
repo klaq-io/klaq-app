@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
     <IntlProvider
       locale={navigator.language}
-      messages={language == "fr" ? msg_fr : msg_en}
+      messages={language === "fr" ? msg_fr : msg_en}
       defaultLocale="en"
     >
       <Provider store={store}>

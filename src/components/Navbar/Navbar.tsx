@@ -29,11 +29,6 @@ export const Header = () => {
         </div>
         <div className="flex-none">
           <button className="btn btn-square btn-ghost text-xl">
-            <HiOutlineMagnifyingGlass />
-          </button>
-        </div>
-        <div className="flex-none">
-          <button className="btn btn-square btn-ghost text-xl">
             <div className="indicator">
               <HiOutlineBell />
               <span className="badge badge-xs badge-primary indicator-item"></span>
