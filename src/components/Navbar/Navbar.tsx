@@ -13,7 +13,7 @@ export const Header = () => {
   const actualPageName = path.charAt(0).toUpperCase() + path.slice(1);
 
   return (
-    <div className="navbar bg-base-100 rounded-2xl">
+    <div className="navbar bg-base-100">
       <div className="flex-1 px-2 mx-2 lg:flex">
         <span className="text-lg font-bold"> {actualPageName}</span>
       </div>

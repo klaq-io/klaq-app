@@ -24,7 +24,7 @@ export const Sidebar = (props: Props) => {
   );
 
   return (
-    <div className="drawer drawer-mobile bg-base-100 rounded-2xl">
+    <div className="drawer drawer-mobile bg-base-100">
       <div className="drawer-side">
         <div className="m-3 flex-1 text-center">
           <a className="btn btn-ghost normal-case text-xl "> ⚡ Klaq.io</a>
