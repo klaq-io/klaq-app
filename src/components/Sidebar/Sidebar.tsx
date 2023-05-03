@@ -9,6 +9,7 @@ import {
   HiOutlinePresentationChartLine,
   HiOutlineChartPie,
 } from "react-icons/hi";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 
 type Props = {
   classes?: string;
@@ -91,6 +92,14 @@ export const Sidebar = (props: Props) => {
               <HiOutlineChartPie />{" "}
               {intl.formatMessage({
                 id: `sidebar.analytics`,
+              })}
+            </a>
+          </li>
+          <li>
+            <a>
+              <HiOutlineQuestionMarkCircle />{" "}
+              {intl.formatMessage({
+                id: `sidebar.help`,
               })}
             </a>
           </li>

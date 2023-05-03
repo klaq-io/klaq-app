@@ -10,7 +10,7 @@ export const PageLayout = (props: Props) => {
   return (
     <main className="relative h-screen overflow-hidden bg-gray-100 rounded-2xl">
       <div className="flex items-start justify-between">
-        <div className="relative hidden h-screen shadow-lg lg:block w-60">
+        <div className="relative hidden h-screen lg:block w-60">
           <Sidebar />
         </div>
         <div className="flex flex-col w-full pl-0 md:space-y-4">
