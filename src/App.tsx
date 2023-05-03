@@ -13,9 +13,9 @@ function App() {
         <Route
           path={PATHS.DASHBOARD}
           element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Dashboard />
+            // </PrivateRoute>
           }
         />
       </Routes>
