@@ -50,7 +50,7 @@ export const Login = () => {
           className="input input-bordered w-full max-w-xs"
         />
         <div className="flex flex-row items-center space-x-4 mt-8">
-          <button className="btn btn-primary text-white">
+          <button className="btn btn-primary">
             {intl.formatMessage({ id: "login.submit" })}
           </button>
           <a className="link link-primary" onClick={handleForgetPassword}>

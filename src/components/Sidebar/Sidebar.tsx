@@ -30,7 +30,7 @@ export const Sidebar = (props: Props) => {
           <span className="text-xl text-base-100 font-bold ">⚡ Klaq.io</span>
         </div>
         <ul className="menu w-56 p-2 text-base-100 ">
-          <li className="bg-base-100 rounded-2xl text-primary">
+          <li className="active">
             <a>
               <HiOutlineHome />
               {intl.formatMessage({
