@@ -5,6 +5,7 @@ module.exports = {
     extend: {},
     colors: {
       sidebar: "#111c43",
+      white: "#ffffff",
     },
   },
   important: true,

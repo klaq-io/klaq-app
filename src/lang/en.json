@@ -11,5 +11,22 @@
   "navbar.profile": "Profile",
   "navbar.logout": "Logout",
   "navbar.settings": "Settings",
-  "navbar.searchbar": "Search..."
+  "navbar.searchbar": "Search...",
+  "layout.login.header": "Do what you do best: perform. We take care of the rest.",
+  "login.header": "Welcome !",
+  "login.label.email": "E-mail address",
+  "login.label.password": "Password",
+  "login.input.email": "Enter your e-mail address",
+  "login.input.password": "Enter your password",
+  "login.submit": "Login",
+  "login.forget-password": "Forgot your password?",
+  "login.signup": "No account yet? ",
+  "login.signup.cta": "Create an account",
+  "forget-password.header": "Change your password",
+  "forget-password.text": "Forgot your password? Enter the email address you usually use to login to Klaq.",
+  "forget-password.label.email": "Email address",
+  "forget-password.input.email": "Enter your email address",
+  "forget-password.submit": "Change your password",
+  "forget-password.login": "Do you already have an account?",
+  "forget-password.login.cta": "Login"
 }

@@ -3,6 +3,7 @@ import "./App.css";
 import { Dashboard, Login } from "./pages";
 import { PATHS } from "./routes";
 import PrivateRoute from "./utils/PrivateRoute";
+import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path={PATHS.SIGN_UP} element={<div>SignUp</div>} />
         <Route path={PATHS.LOGIN} element={<Login />} />
+        <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route
           path={PATHS.DASHBOARD}
           element={
@@ -18,7 +20,6 @@ function App() {
             // </PrivateRoute>
           }
         />
-        <Route path="/" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
