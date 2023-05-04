@@ -7,8 +7,8 @@ import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { useState, useEffect } from "react";
 
 const MINIMUM_SCREEN_SIZE = {
-  width: 1024,
-  height: 690,
+  width: 1000,
+  height: 600,
 };
 
 function App() {
