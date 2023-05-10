@@ -17,7 +17,7 @@ export const PageLayout = (props: Props) => {
         </div>
         <div className="flex flex-col w-full ">
           <Header />
-          <div className="m-4">{children}</div>
+          <div className="m-4 h-screen">{children}</div>
         </div>
       </div>
     </main>
