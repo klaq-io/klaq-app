@@ -61,7 +61,7 @@ export const Header = () => {
               </a>
             </li>
             <li>
-              <a>
+              <a className="text-error">
                 {intl.formatMessage({
                   id: `navbar.logout`,
                 })}

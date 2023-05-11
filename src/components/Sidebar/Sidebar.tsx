@@ -17,11 +17,6 @@ type Props = {
 
 export const Sidebar = (props: Props) => {
   const intl = useIntl();
-  console.log(
-    intl.formatMessage({
-      id: "sidebar.dashboard",
-    })
-  );
 
   return (
     <div className="drawer drawer-mobile bg-primary">

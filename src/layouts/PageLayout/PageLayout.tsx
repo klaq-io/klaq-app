@@ -10,14 +10,20 @@ export const PageLayout = (props: Props) => {
   const { children } = props;
 
   return (
-    <main className="relative h-screen overflow-hidden bg-gray-100 ">
+    <main className="relative h-screen bg-gray-100 overflow-hidden">
       <div className="flex items-start justify-between">
         <div className="relative hidden h-screen lg:block w-60">
           <Sidebar />
         </div>
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col w-full">
           <Header />
-          <div className="m-4 h-screen">{children}</div>
+          <div className="m-4 h-screen overflow-scroll">
+            {children}
+            <br />
+            <br />
+            <br />
+            <br />
+          </div>
         </div>
       </div>
     </main>

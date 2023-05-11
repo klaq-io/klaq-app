@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
-  height: 600,
+  height: 400,
 };
 
 function App() {
