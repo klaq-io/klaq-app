@@ -1,32 +1,82 @@
 {
-  "sidebar.dashboard": "Tableau de bord",
-  "sidebar.calendar": "Calendrier",
-  "sidebar.events": "Mes événements",
-  "sidebar.customers": "Clients",
-  "sidebar.billing": "Facturation",
-  "sidebar.products": "Produits",
-  "sidebar.marketing": "Marketing",
-  "sidebar.analytics": "Analyses",
-  "sidebar.help": "Aide",
-  "navbar.profile": "Profil",
-  "navbar.logout": "Déconnexion",
-  "navbar.settings": "Paramètres",
-  "navbar.searchbar": "Rechercher...",
-  "layout.login.header": "Faites ce que vous savez faire de mieux : vous produire.",
-  "login.header": "Bienvenue !",
-  "login.label.email": "Adresse e-mail",
-  "login.label.password": "Mot de passe",
-  "login.input.email": "Saisissez votre adresse e-mail",
-  "login.input.password": "Saisissez votre mot de passe",
-  "login.submit": "Se connecter",
-  "login.forget-password": "Mot de passe oublié ?",
-  "login.signup": "Pas encore de compte ? ",
-  "login.signup.cta": "Créer un compte",
-  "forget-password.header": "Modifier votre mot de passe",
-  "forget-password.text": " Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",
-  "forget-password.label.email": "Adresse e-mail",
-  "forget-password.input.email": "Saisissez votre adresse e-mail",
-  "forget-password.submit": "Modifier votre mot de passe",
-  "forget-password.login": "Vous avez déjà un compte ?",
-  "forget-password.login.cta": "Se connecter"
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "calendar": "Calendrier",
+    "events": "Mes événements",
+    "customers": "Clients",
+    "billing": "Facturation",
+    "products": "Produits",
+    "marketing": "Marketing",
+    "analytics": "Analyses",
+    "help": "Aide"
+  },
+  "navbar": {
+    "profile": "Profil",
+    "logout": "Déconnexion",
+    "settings": "Paramètres",
+    "searchbar": "Rechercher..."
+  },
+  "layout": {
+    "login": {
+      "header": "Faites ce que vous savez faire de mieux : vous produire."
+    }
+  },
+  "login": {
+    "header": "Bienvenue !",
+    "label": {
+      "email": "Adresse e-mail",
+      "password": "Mot de passe"
+    },
+    "input": {
+      "email": "Saisissez votre adresse e-mail",
+      "password": "Saisissez votre mot de passe"
+    },
+    "submit": "Se connecter",
+    "forget-password": "Mot de passe oublié ?",
+    "signup": {
+      "text": "Pas encore de compte ? ",
+      "link": "Créer un compte"
+    }
+  },
+  "forget-password": {
+    "header": "Modifier votre mot de passe",
+    "text": "Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",
+    "label": {
+      "email": "Adresse e-mail"
+    },
+    "input": {
+      "email": "Saisissez votre adresse e-mail"
+    },
+    "submit": "Modifier votre mot de passe",
+    "login": {
+      "text": "Vous avez déjà un compte ?",
+      "link": "Se connecter"
+    }
+  },
+  "new-event": {
+    "form": {
+      "header": {
+        "date": "Date",
+        "location": "Emplacement",
+        "customer": "Client"
+      },
+      "label": {
+        "date": "Quand",
+        "time": "Heure",
+        "duration": "Durée",
+        "event-type": "Type d'événements",
+        "number-of-guest": "Nombre d'invités",
+        "public-event": "Évènement public",
+        "address": "Adresse",
+        "city": "Ville",
+        "state": "Région",
+        "zipcode": "Code postal",
+        "first-name": "Prénom",
+        "last-name": "Nom",
+        "phone-number": "Numéro de téléphone",
+        "email": "Adresse e-mail"
+      },
+      "submit": "Créer un nouvel évènement"
+    }
+  }
 }

@@ -1,13 +1,14 @@
+import flatten from "flat";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import { IntlProvider } from "react-intl";
+import { Provider } from "react-redux";
+import App from "./App";
+import "./index.css";
 import * as msg_en from "./lang/en.json";
 import * as msg_fr from "./lang/fr.json";
+import store from "./redux/store";
+import reportWebVitals from "./reportWebVitals";
 
 const language = navigator.language.split(/[-_]/)[0];
 
@@ -18,7 +19,7 @@ root.render(
   <React.StrictMode>
     <IntlProvider
       locale={navigator.language}
-      messages={language === "fr" ? msg_fr : msg_en}
+      messages={flatten(language === "fr" ? msg_fr : msg_en)}
       defaultLocale="en"
     >
       <Provider store={store}>

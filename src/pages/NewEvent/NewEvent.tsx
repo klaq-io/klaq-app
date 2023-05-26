@@ -5,6 +5,7 @@ import { format, parse } from "date-fns";
 import { useIntl } from "react-intl";
 import { initialValues, validationSchema } from "./form";
 import PhoneInput from "react-phone-input-2";
+import { EventType } from "../../interface/event.interface";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -22,6 +23,7 @@ export const NewEvent = () => {
       alert(JSON.stringify(values));
     },
   });
+
   return (
     <PageLayout>
       <div className="flex flex-row">
@@ -29,11 +31,15 @@ export const NewEvent = () => {
           className="w-1/2 flex flex-col p-4 "
           onSubmit={formik.handleSubmit}
         >
-          <h1 className="text-lg font-bold text-primary">Date</h1>
+          <h1 className="text-lg font-bold text-primary">
+            {intl.formatMessage({ id: "new-event.form.header.date" })}
+          </h1>
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">When</span>
+                <span className="label-text">
+                  {intl.formatMessage({ id: "new-event.form.label.date" })}
+                </span>
               </label>
               <input
                 name="date"
@@ -46,7 +52,9 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">Time</span>
+                <span className="label-text">
+                  {intl.formatMessage({ id: "new-event.form.label.time" })}
+                </span>
               </label>
               <input
                 name="time"
@@ -60,7 +68,9 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">Duration</span>
+                <span className="label-text">
+                  {intl.formatMessage({ id: "new-event.form.label.duration" })}
+                </span>
               </label>
               <input
                 name="duration"
@@ -76,7 +86,11 @@ export const NewEvent = () => {
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">Event Type</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.event-type",
+                  })}
+                </span>
               </label>
               <select
                 name="eventType"
@@ -85,13 +99,18 @@ export const NewEvent = () => {
                 value={formik.values.eventType}
               >
                 <option disabled>Select an option</option>
-                <option>Han Solo</option>
-                <option>Greedo</option>
+                {Object.keys(EventType).map((type) => (
+                  <option value={type}>{type}</option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">Number of guests</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.number-of-guest",
+                  })}
+                </span>
               </label>
               <input
                 type="number"
@@ -106,7 +125,11 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/3">
               <label className="label">
-                <span className="label-text">Public Event</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.public-event",
+                  })}
+                </span>
               </label>
               <select
                 name="publicEvent"
@@ -126,7 +149,11 @@ export const NewEvent = () => {
               : " "}{" "}
             from {formik.values.time} until X.
           </div>
-          <h1 className="text-lg font-bold text-primary mt-4">Location</h1>
+          <h1 className="text-lg font-bold text-primary mt-4">
+            {intl.formatMessage({
+              id: "new-event.form.header.location",
+            })}
+          </h1>
           {/* //todo: add google map */}
           {/* <div className="flex flex-row justify-between">
             <div className="flex flex-col w-full">
@@ -146,7 +173,11 @@ export const NewEvent = () => {
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-full">
               <label className="label">
-                <span className="label-text">Address</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.address",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -161,7 +192,11 @@ export const NewEvent = () => {
           <div className="flex flex-row justify-between">
             <div className="flex flex-col w-full">
               <label className="label">
-                <span className="label-text">City</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.city",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -176,7 +211,11 @@ export const NewEvent = () => {
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">State</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.state",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -189,7 +228,11 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">Zipcode</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.zipcode",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -205,11 +248,19 @@ export const NewEvent = () => {
             This place is X km away from your office. You will need X min to
             reach this location, and will cost you around X.
           </div>
-          <h1 className="text-lg font-bold text-primary mt-4">Customer</h1>
+          <h1 className="text-lg font-bold text-primary mt-4">
+            {intl.formatMessage({
+              id: "new-event.form.header.customer",
+            })}
+          </h1>
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">First Name</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.first-name",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -222,7 +273,11 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">Last Name</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.last-name",
+                  })}
+                </span>
               </label>
               <input
                 type="text"
@@ -237,7 +292,11 @@ export const NewEvent = () => {
           <div className="flex flex-row justify-start space-x-4">
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">Phone Number</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.phone-number",
+                  })}
+                </span>
               </label>
               <PhoneInput
                 inputProps={{
@@ -258,7 +317,11 @@ export const NewEvent = () => {
             </div>
             <div className="flex flex-col w-1/2">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text">
+                  {intl.formatMessage({
+                    id: "new-event.form.label.email",
+                  })}
+                </span>
               </label>
               <input
                 type="email"
@@ -271,7 +334,9 @@ export const NewEvent = () => {
             </div>
           </div>
           <button type="submit" className="btn btn-primary mt-4">
-            Create Event
+            {intl.formatMessage({
+              id: "new-event.form.submit",
+            })}
           </button>
         </form>
         <div className="w-1/2 p-4">calendar map additionnal note</div>

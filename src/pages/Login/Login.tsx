@@ -59,9 +59,9 @@ export const Login = () => {
         </div>
         <div className="divider"></div>
         <p>
-          {intl.formatMessage({ id: "login.signup" })}{" "}
+          {intl.formatMessage({ id: "login.signup.text" })}{" "}
           <a className="link link-primary">
-            {intl.formatMessage({ id: "login.signup.cta" })}
+            {intl.formatMessage({ id: "login.signup.link" })}
           </a>
         </p>
       </div>

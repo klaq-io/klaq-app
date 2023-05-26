@@ -43,11 +43,11 @@ export const ForgetPassword = () => {
         <div className="divider"></div>
         <p>
           {intl.formatMessage({
-            id: "forget-password.login",
+            id: "forget-password.login.text",
           })}{" "}
           <a className="link link-primary" onClick={handleLogin}>
             {intl.formatMessage({
-              id: "forget-password.login.cta",
+              id: "forget-password.login.link",
             })}
           </a>
         </p>
