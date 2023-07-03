@@ -32,17 +32,22 @@ function App() {
 
   return dimensions.width <= MINIMUM_SCREEN_SIZE.width ||
     dimensions.height <= MINIMUM_SCREEN_SIZE.height ? (
-    <div className="flex justify-center bg-primary h-full">
-      <div className="card w-96 bg-base-100 shadow-xl m-6">
-        <div className="card-body items-center text-center">
-          <h2 className="card-title">Oups!</h2>
-          <p className="text-xl">
-            Please use a computer to use{" "}
-            <span className="font-bold">Klaq.io</span>
-          </p>
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={PATHS.SIGN_UP} element={<div>SignUp</div>} />
+        <Route path={PATHS.LOGIN} element={<Login />} />
+        <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
+        <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
+        <Route
+          path={PATHS.DASHBOARD}
+          element={
+            // <PrivateRoute>
+            <Dashboard />
+            // </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   ) : (
     <BrowserRouter>
       <Routes>

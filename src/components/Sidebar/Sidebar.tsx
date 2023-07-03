@@ -1,15 +1,3 @@
-import { useIntl } from "react-intl";
-import {
-  HiOutlineHome,
-  HiOutlineCalendar,
-  HiOutlineBriefcase,
-  HiOutlineUsers,
-  HiOutlineCurrencyEuro,
-  HiOutlineShoppingBag,
-  HiOutlinePresentationChartLine,
-  HiOutlineChartPie,
-} from "react-icons/hi";
-import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 import {
   CalendarIcon,
   ChartPieIcon,
@@ -17,12 +5,13 @@ import {
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
-  QuestionMarkCircleIcon,
-  CurrencyEuroIcon,
-  ShoppingBagIcon,
   PresentationChartLineIcon,
+  QuestionMarkCircleIcon,
+  ShoppingBagIcon,
+  UsersIcon,
 } from "@heroicons/react/24/outline";
+import { useIntl } from "react-intl";
+import { PATHS } from "../../routes";
 
 type Props = {
   classes?: string;
@@ -35,10 +24,22 @@ function classNames(...classes: any) {
 export const Sidebar = (props: Props) => {
   const intl = useIntl();
 
+  const currentPage = window.location.pathname;
+
   const navigation = [
-    { name: "sidebar.dashboard", href: "#", icon: HomeIcon, current: true },
+    {
+      name: "sidebar.dashboard",
+      href: PATHS.DASHBOARD,
+      icon: HomeIcon,
+      current: currentPage === PATHS.DASHBOARD ? true : false,
+    },
     { name: "sidebar.calendar", href: "#", icon: CalendarIcon, current: false },
-    { name: "sidebar.events", href: "#", icon: FolderIcon, current: false },
+    {
+      name: "sidebar.events",
+      href: PATHS.NEW_EVENT,
+      icon: FolderIcon,
+      current: currentPage === PATHS.NEW_EVENT ? true : false,
+    },
     {
       name: "sidebar.customers",
       href: "#",
