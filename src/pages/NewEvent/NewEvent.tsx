@@ -1,11 +1,10 @@
+import { format } from "date-fns";
 import { useFormik } from "formik";
-import { Calendar } from "../../components";
-import { PageLayout } from "../../layouts";
-import { format, parse } from "date-fns";
 import { useIntl } from "react-intl";
-import { initialValues, validationSchema } from "./form";
 import PhoneInput from "react-phone-input-2";
 import { EventType } from "../../interface/event.interface";
+import { PageLayout } from "../../layouts";
+import { initialValues, validationSchema } from "./form";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -53,7 +52,9 @@ export const NewEvent = () => {
             <div className="flex flex-col w-1/3">
               <label className="label">
                 <span className="label-text">
-                  {intl.formatMessage({ id: "new-event.form.label.time" })}
+                  {intl.formatMessage({
+                    id: "new-event.form.label.start-time",
+                  })}
                 </span>
               </label>
               <input
@@ -69,17 +70,17 @@ export const NewEvent = () => {
             <div className="flex flex-col w-1/3">
               <label className="label">
                 <span className="label-text">
-                  {intl.formatMessage({ id: "new-event.form.label.duration" })}
+                  {intl.formatMessage({ id: "new-event.form.label.end-time" })}
                 </span>
               </label>
               <input
-                name="duration"
-                type="number"
-                min={0}
-                placeholder="Duration (in hour)"
-                className="input input-bordered hour-suffix"
+                name="time"
+                type="time"
+                step={900}
+                placeholder="Time"
+                className="input input-bordered"
                 onChange={formik.handleChange}
-                value={formik.values.duration}
+                value={formik.values.time}
               />
             </div>
           </div>

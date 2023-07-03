@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Sidebar } from "../../components";
-import Header from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Navbar/Navbar";
 
 type Props = {
   children: string | JSX.Element | JSX.Element[];
@@ -10,23 +10,18 @@ export const PageLayout = (props: Props) => {
   const { children } = props;
 
   return (
-    <main className="relative h-screen bg-gray-100 overflow-hidden">
-      <div className="flex items-start justify-between">
-        <div className="relative hidden h-screen lg:block w-60">
-          <Sidebar />
-        </div>
-        <div className="flex flex-col w-full">
-          <Header />
-          <div className="m-4 h-screen overflow-scroll">
-            {children}
-            <br />
-            <br />
-            <br />
-            <br />
-          </div>
-        </div>
+    <div>
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <Sidebar />
       </div>
-    </main>
+
+      <div className="lg:pl-72">
+        <Navbar />
+        <main className="py-10">
+          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+        </main>
+      </div>
+    </div>
   );
 };
 

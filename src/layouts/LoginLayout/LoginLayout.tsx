@@ -1,25 +1,23 @@
-import { useIntl } from "react-intl";
-import AppScreenshot from "../../assets/login-screenshot.png";
-
 type Props = {
   children: string | JSX.Element | JSX.Element[];
+  backgroundImg?: string;
 };
 
 export const LoginLayout = (props: Props) => {
-  const intl = useIntl();
-  const { children } = props;
+  const { children, backgroundImg } = props;
   return (
-    <div className="flex flex-row min-h-screen bg-white h-screen">
-      <div className="flex justify-center w-1/2">{children}</div>
-      <div className="flex flex-col bg-primary text-center h-screen w-1/2 p-8 justify-center">
-        <div className="mb-24">
-          <h1 className="text-2xl font-bold text-base-100">
-            {intl.formatMessage({ id: "layout.login.header" })}
-          </h1>
-        </div>
-        <div className="mockup-window border bg-base-300 drop-shadow-lg mx-24">
-          <img src={AppScreenshot} />
-        </div>
+    <div className="flex h-screen flex-1">
+      {children}
+      <div className="relative hidden w-0 flex-1 lg:block">
+        <img
+          className="absolute inset-0 h-full w-full object-cover"
+          src={
+            backgroundImg
+              ? backgroundImg
+              : "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          }
+          alt=""
+        />
       </div>
     </div>
   );

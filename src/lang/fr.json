@@ -8,12 +8,12 @@
     "products": "Produits",
     "marketing": "Marketing",
     "analytics": "Analyses",
-    "help": "Aide"
+    "help": "Aide",
+    "settings": "Paramètres"
   },
   "navbar": {
     "profile": "Profil",
     "logout": "Déconnexion",
-    "settings": "Paramètres",
     "searchbar": "Rechercher..."
   },
   "layout": {
@@ -22,7 +22,7 @@
     }
   },
   "login": {
-    "header": "Bienvenue !",
+    "header": "Connexion à votre compte",
     "label": {
       "email": "Adresse e-mail",
       "password": "Mot de passe"
@@ -32,10 +32,11 @@
       "password": "Saisissez votre mot de passe"
     },
     "submit": "Se connecter",
+    "remember-me": "Se souvenir de moi",
     "forget-password": "Mot de passe oublié ?",
     "signup": {
       "text": "Pas encore de compte ? ",
-      "link": "Créer un compte"
+      "link": "Démarrer un essai gratuit de 31 jours"
     }
   },
   "forget-password": {
@@ -62,7 +63,8 @@
       },
       "label": {
         "date": "Quand",
-        "time": "Heure",
+        "start-time": "Heure d'arrivée",
+        "end-time": "Heure de départ",
         "duration": "Durée",
         "event-type": "Type d'événements",
         "number-of-guest": "Nombre d'invités",

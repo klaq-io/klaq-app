@@ -8,7 +8,8 @@
     "products": "Products",
     "marketing": "Marketing",
     "analytics": "Analyses",
-    "help": "Help"
+    "help": "Help",
+    "settings": "Paramètres"
   },
   "navbar": {
     "profile": "Profile",
@@ -22,7 +23,7 @@
     }
   },
   "login": {
-    "header": "Welcome!",
+    "header": "Sign in to your account",
     "label": {
       "email": "Email address",
       "password": "Password"
@@ -32,10 +33,11 @@
       "password": "Enter your password"
     },
     "submit": "Login",
+    "remember-me": "Remember me",
     "forget-password": "Forgot your password?",
     "signup": {
       "text": "No account yet? ",
-      "link": "Create an account"
+      "link": "Start a 31 days free trial"
     }
   },
   "forget-password": {

@@ -1,77 +1,119 @@
+import { Menu, Transition } from "@headlessui/react";
 import {
-  HiOutlineBell,
-  HiOutlinePlus,
-  HiOutlineMagnifyingGlass,
-} from "react-icons/hi2";
+  BellIcon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 
-export const Header = () => {
+type Props = {
+  classes?: string;
+};
+
+const userNavigation = [
+  { name: "navbar.profile", href: "#" },
+  { name: "navbar.logout", href: "#" },
+];
+
+function classNames(...classes: any) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export const Navbar = (props: Props) => {
   const intl = useIntl();
-  const location = useLocation();
-  const path = location.pathname.slice(1);
-  const actualPageName = path.charAt(0).toUpperCase() + path.slice(1);
 
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-1 px-2 mx-2 lg:flex">
-        <span className="text-lg font-bold"> {actualPageName}</span>
-      </div>
-      <div className="flex-none gap-2">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder={intl.formatMessage({
-              id: `navbar.searchbar`,
-            })}
-            className="input input-bordered"
-          />
-        </div>
-        <div className="flex-none">
-          <button className="btn btn-square btn-ghost text-xl">
-            <div className="indicator">
-              <HiOutlineBell />
-              <span className="badge badge-xs badge-primary indicator-item"></span>
-            </div>
-          </button>
-        </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src="https://i.ibb.co/drBHxQw/B87-AE7-AD-84-D0-45-D4-923-F-DE49-DCE41534.jpg" />
-            </div>
+    <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+      {/* Separator */}
+      <div className="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
+
+      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+        <form className="relative flex flex-1" action="#" method="GET">
+          <label htmlFor="search-field" className="sr-only">
+            {intl.formatMessage({ id: "navbar.searchbar" })}
           </label>
-          <ul
-            tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+          <MagnifyingGlassIcon
+            className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+            aria-hidden="true"
+          />
+          <input
+            id="search-field"
+            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+            placeholder="Search..."
+            type="search"
+            name="search"
+          />
+        </form>
+        <div className="flex items-center gap-x-4 lg:gap-x-6">
+          <button
+            type="button"
+            className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
           >
-            <li>
-              <a className="justify-between">
-                {intl.formatMessage({
-                  id: `navbar.profile`,
-                })}
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                {intl.formatMessage({
-                  id: `navbar.settings`,
-                })}
-              </a>
-            </li>
-            <li>
-              <a className="text-error">
-                {intl.formatMessage({
-                  id: `navbar.logout`,
-                })}
-              </a>
-            </li>
-          </ul>
+            <span className="sr-only">View notifications</span>
+            <BellIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
+
+          {/* Separator */}
+          <div
+            className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
+            aria-hidden="true"
+          />
+
+          {/* Profile dropdown */}
+          <Menu as="div" className="relative">
+            <Menu.Button className="-m-1.5 flex items-center p-1.5">
+              <span className="sr-only">Open user menu</span>
+              <img
+                className="h-8 w-8 rounded-full bg-gray-50"
+                src="https://i.ibb.co/drBHxQw/B87-AE7-AD-84-D0-45-D4-923-F-DE49-DCE41534.jpg"
+                alt=""
+              />
+              <span className="hidden lg:flex lg:items-center">
+                <span
+                  className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                  aria-hidden="true"
+                >
+                  Company Name
+                </span>
+                <ChevronDownIcon
+                  className="ml-2 h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </span>
+            </Menu.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                {userNavigation.map((item) => (
+                  <Menu.Item key={item.name}>
+                    {({ active }) => (
+                      <a
+                        href={item.href}
+                        className={classNames(
+                          active ? "bg-gray-50" : "",
+                          "block px-3 py-1 text-sm leading-6 text-gray-900"
+                        )}
+                      >
+                        {intl.formatMessage({ id: item.name })}
+                      </a>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
       </div>
     </div>
   );
 };
 
-export default Header;
+export default Navbar;

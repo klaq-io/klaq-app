@@ -24,46 +24,129 @@ export const Login = () => {
   }, []);
   return (
     <LoginLayout>
-      <div className="flex flex-col justify-center content-center w-1/2">
-        {/* <h1 className="text-xl text-primary font-bold">⚡ Klaq.io</h1> */}
-        <h1 className="text-xl text-primary font-bold mb-8">
-          {intl.formatMessage({ id: "login.header" })}
-        </h1>
-        <label className="label">
-          <span className="label-text">
-            {intl.formatMessage({ id: "login.label.email" })}
-          </span>
-        </label>
-        <input
-          type="email"
-          placeholder={intl.formatMessage({ id: "login.input.email" })}
-          className="input input-bordered w-full max-w-xs"
-        />
-        <label className="label">
-          <span className="label-text">
-            {intl.formatMessage({ id: "login.label.password" })}
-          </span>
-        </label>
-        <input
-          type="password"
-          placeholder={intl.formatMessage({ id: "login.input.password" })}
-          className="input input-bordered w-full max-w-xs"
-        />
-        <div className="flex flex-row items-center space-x-4 mt-8">
-          <button className="btn btn-primary">
-            {intl.formatMessage({ id: "login.submit" })}
-          </button>
-          <a className="link link-primary" onClick={handleForgetPassword}>
-            {intl.formatMessage({ id: "login.forget-password" })}
-          </a>
+      <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div className="mx-auto w-full max-w-sm lg:w-96">
+          <div>
+            <img
+              className="h-10 w-auto"
+              src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
+              alt="klaq.io"
+            />
+            <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
+              {intl.formatMessage({
+                id: "login.header",
+              })}
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-gray-500">
+              {intl.formatMessage({
+                id: "login.signup.text",
+              })}
+              <a
+                href="#"
+                className="font-semibold text-blue-600 hover:text-blue-500"
+              >
+                {intl.formatMessage({
+                  id: "login.signup.link",
+                })}
+              </a>
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <div>
+              <form action="#" method="POST" className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    {intl.formatMessage({
+                      id: "login.label.email",
+                    })}
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      placeholder={intl.formatMessage({
+                        id: "login.input.email",
+                      })}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    {intl.formatMessage({
+                      id: "login.label.password",
+                    })}
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      placeholder={intl.formatMessage({
+                        id: "login.input.password",
+                      })}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600"
+                    />
+                    <label
+                      htmlFor="remember-me"
+                      className="ml-3 block text-sm leading-6 text-gray-700"
+                    >
+                      {intl.formatMessage({
+                        id: "login.remember-me",
+                      })}
+                    </label>
+                  </div>
+
+                  <div className="text-sm leading-6">
+                    <a
+                      onClick={handleForgetPassword}
+                      className="font-semibold text-blue-600 hover:text-blue-500 cursor-pointer"
+                    >
+                      {intl.formatMessage({
+                        id: "login.forget-password",
+                      })}
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  >
+                    {intl.formatMessage({
+                      id: "login.submit",
+                    })}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="divider"></div>
-        <p>
-          {intl.formatMessage({ id: "login.signup.text" })}{" "}
-          <a className="link link-primary">
-            {intl.formatMessage({ id: "login.signup.link" })}
-          </a>
-        </p>
       </div>
     </LoginLayout>
   );

@@ -3,22 +3,6 @@
 @tailwind utilities;
 @tailwindcss /typography;
 
-.btn-primary {
-  color: white;
-}
-
-.active {
-  background-color: white;
-  border-radius: 0.5rem;
-  color: theme("colors.primary");
-}
-
-.border-debug {
-  @apply border;
-  @apply border-solid;
-  border-color: red !important;
-}
-
 .hour-suffix {
   content: "h";
 }

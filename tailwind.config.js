@@ -1,16 +1,32 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+      },
+    },
     colors: {
-      sidebar: "#111c43",
-      white: "#ffffff",
+      transparent: "transparent",
+      current: "currentColor",
+      black: colors.black,
+      white: colors.white,
+      emerald: colors.emerald,
+      indigo: colors.indigo,
+      yellow: colors.yellow,
+      stone: colors.stone,
+      sky: colors.sky,
+      neutral: colors.neutral,
+      gray: colors.gray,
+      slate: colors.slate,
+      white: colors.white,
+      blue: colors.blue,
     },
   },
   important: true,
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
-  daisyui: {
-    themes: ["winter"],
-  },
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 };
