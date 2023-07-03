@@ -54,31 +54,64 @@
       "link": "Se connecter"
     }
   },
+
   "new-event": {
-    "form": {
-      "header": {
-        "date": "Date",
-        "location": "Emplacement",
-        "customer": "Client"
-      },
+    "title": "Nouvel évènement",
+    "date": {
+      "header": "Date & Information",
+      "description": "Heure et date de l'évènement, type d'évènement, nombre d'invités",
       "label": {
         "date": "Quand",
         "start-time": "Heure d'arrivée",
         "end-time": "Heure de départ",
-        "duration": "Durée",
         "event-type": "Type d'événements",
         "number-of-guest": "Nombre d'invités",
-        "public-event": "Évènement public",
+        "public-event": "Évènement public"
+      },
+      "input": {
+        "event-type": {
+          "wedding": "Mariage",
+          "birthday": "Anniversaire",
+          "corporate": "Évènement d'entreprise"
+        },
+        "public-event": {
+          "yes": "Oui",
+          "no": "Non"
+        }
+      }
+    },
+    "location": {
+      "header": "Localisation",
+      "description": "Adresse de l'évènement",
+      "label": {
         "address": "Adresse",
         "city": "Ville",
         "state": "Région",
-        "zipcode": "Code postal",
+        "zipcode": "Code postal"
+      },
+      "input": {
+        "address": "Saisissez l'adresse",
+        "city": "Saisissez la ville",
+        "state": "Saisissez la région",
+        "zipcode": "Saisissez le code postal"
+      }
+    },
+    "customer": {
+      "header": "Client",
+      "description": "Informations sur le client",
+      "label": {
         "first-name": "Prénom",
         "last-name": "Nom",
         "phone-number": "Numéro de téléphone",
         "email": "Adresse e-mail"
       },
-      "submit": "Créer un nouvel évènement"
-    }
+      "input": {
+        "first-name": "Saisissez le prénom",
+        "last-name": "Saisissez le nom",
+        "phone-number": "Saisissez le numéro de téléphone",
+        "email": "Saisissez l'adresse e-mail"
+      }
+    },
+    "submit": "Créer un nouvel évènement"
   }
 }

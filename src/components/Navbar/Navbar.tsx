@@ -3,9 +3,12 @@ import {
   BellIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../routes";
 
 type Props = {
   classes?: string;
@@ -21,7 +24,12 @@ function classNames(...classes: any) {
 }
 
 export const Navbar = (props: Props) => {
+  const navigate = useNavigate();
   const intl = useIntl();
+
+  const handleNewEvent = () => {
+    navigate(PATHS.NEW_EVENT);
+  };
 
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
@@ -33,6 +41,7 @@ export const Navbar = (props: Props) => {
           <label htmlFor="search-field" className="sr-only">
             {intl.formatMessage({ id: "navbar.searchbar" })}
           </label>
+
           <MagnifyingGlassIcon
             className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
             aria-hidden="true"
@@ -46,6 +55,14 @@ export const Navbar = (props: Props) => {
           />
         </form>
         <div className="flex items-center gap-x-4 lg:gap-x-6">
+          <button
+            type="button"
+            className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+            onClick={handleNewEvent}
+          >
+            <span className="sr-only">New event</span>
+            <PlusIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"

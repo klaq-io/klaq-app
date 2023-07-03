@@ -56,29 +56,62 @@
     }
   },
   "new-event": {
-    "form": {
-      "header": {
-        "date": "Date",
-        "location": "Location",
-        "customer": "Customer"
-      },
+    "title": "New Event",
+    "date": {
+      "header": "Date & Information",
+      "description": "",
       "label": {
         "date": "When",
-        "time": "Time",
-        "duration": "Duration",
-        "event-type": "Event Type",
-        "number-of-guest": "Number of guest",
-        "public-event": "Public Event",
-        "address": "Address",
-        "city": "City",
-        "state": "State",
-        "zipcode": "Zipcode",
-        "first-name": "First Name",
-        "last-name": "Last Name",
-        "phone-number": "Phone Number",
-        "email": "Email Address"
+        "start-time": "Arrival time",
+        "end-time": "Departure time",
+        "event-type": "Type of events",
+        "number-of-guest": "Number of guests",
+        "public-event": "Public event"
       },
-      "submit": "Create an event"
-    }
+      "input": {
+        "event-type": {
+          "wedding": "Wedding",
+          "birthday": "Anniversary",
+          "corporate": "corporate event"
+        },
+        "public-event": {
+          "yes": "Oui",
+          "no": "Non"
+        }
+      }
+    },
+    "location": {
+      "header": "Location",
+      "description": "Event address",
+      "label": {
+        "address": "Address",
+        "city": "Ville",
+        "state": "Region",
+        "zipcode": "Postcode"
+      },
+      "input": {
+        "address": "Enter address",
+        "city": "Enter city",
+        "state": "Enter region",
+        "zipcode": "Enter zip code"
+      }
+    },
+    "customer": {
+      "header": "Customer",
+      "description": "Customer information",
+      "label": {
+        "first-name": "First name",
+        "last-name": "Last name",
+        "phone-number": "Telephone number",
+        "email": "E-mail address"
+      },
+      "input": {
+        "first-name": "Enter first name",
+        "last-name": "Enter last name",
+        "phone-number": "Enter phone number",
+        "email": "Enter email address"
+      }
+    },
+    "submit": "Create a new event"
   }
 }

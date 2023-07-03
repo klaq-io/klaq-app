@@ -75,11 +75,7 @@ export const Sidebar = (props: Props) => {
   return (
     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-600 px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center">
-        <img
-          className="h-8 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=white"
-          alt="Klaq"
-        />
+        <h1 className="text-lg leading-6 font-semibold text-white">Klaq.io</h1>
       </div>
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
