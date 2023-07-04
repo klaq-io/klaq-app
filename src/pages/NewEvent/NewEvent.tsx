@@ -1,9 +1,8 @@
 import { useFormik } from "formik";
 import { useIntl } from "react-intl";
+import PhoneInput from "react-phone-input-2";
 import { PageLayout } from "../../layouts";
 import { initialValues, validationSchema } from "./form";
-import PhoneInput from "react-phone-input-2";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -239,7 +238,7 @@ export const NewEvent = () => {
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                   <dt className="text-sm font-medium leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "new-event.date.label.start-time",
+                      id: "new-event.location.label.zipcode",
                     })}
                   </dt>
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
@@ -361,7 +360,7 @@ export const NewEvent = () => {
           <div className="flex-1">additionnal information</div>
         </div>
         <button
-          type="button"
+          type="submit"
           className="mt-10 w-1/4 rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           {intl.formatMessage({

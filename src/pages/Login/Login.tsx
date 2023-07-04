@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useLogin } from "../../redux/Login/hooks";
-import AppScreenshot from "../../assets/login-screenshot.png";
-import { LoginLayout } from "../../layouts";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { LoginLayout } from "../../layouts";
+import { useLogin } from "../../redux/Login/hooks";
+import { PATHS } from "../../routes";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -27,11 +26,9 @@ export const Login = () => {
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <img
-              className="h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
-              alt="klaq.io"
-            />
+            <h1 className="text-lg leading-6 font-semibold text-blue-600">
+              Klaq.io
+            </h1>
             <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
               {intl.formatMessage({
                 id: "login.header",

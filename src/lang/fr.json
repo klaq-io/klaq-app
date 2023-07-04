@@ -58,12 +58,12 @@
   "new-event": {
     "title": "Nouvel évènement",
     "date": {
-      "header": "Date & Information",
+      "header": "Date & Heure",
       "description": "Heure et date de l'évènement, type d'évènement, nombre d'invités",
       "label": {
         "date": "Quand",
-        "start-time": "Heure d'arrivée",
-        "end-time": "Heure de départ",
+        "start-time": "Heure de début",
+        "end-time": "Heure de fin",
         "event-type": "Type d'événements",
         "number-of-guest": "Nombre d'invités",
         "public-event": "Évènement public"

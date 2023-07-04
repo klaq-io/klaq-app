@@ -2,8 +2,8 @@ import * as Yup from "yup";
 
 export const initialValues = {
   date: "",
-  time: "",
-  duration: "",
+  startTime: "",
+  endTime: "",
   eventType: "",
   numberOfGuests: "",
   publicEvent: "Yes",
@@ -18,7 +18,6 @@ export const initialValues = {
     email: "",
     phoneNumber: "",
   },
-  budget: "",
 };
 
 export const validationSchema = Yup.object({});
