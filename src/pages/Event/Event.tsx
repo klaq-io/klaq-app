@@ -1,10 +1,10 @@
+import { useEffect } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
-import { useIntl } from "react-intl";
 import { useFetchEvents } from "../../redux/Events/hooks";
-import { useEffect } from "react";
-import { getAllEvents, getEventById } from "../../redux/Events/selectors";
-import { useSelector } from "react-redux";
+import { getEventById } from "../../redux/Events/selectors";
 
 export const Event = () => {
   const { id } = useParams();
@@ -27,6 +27,11 @@ export const Event = () => {
                 Evenement du {new Date(event.date).toLocaleDateString()} pour{" "}
                 {event.customer.firstName} {event.customer.lastName}
               </h2>
+            </div>
+            <div>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                ({event.id})
+              </p>
             </div>
           </div>
           <div className="flex flex-row">
@@ -107,7 +112,7 @@ export const Event = () => {
                 </dl>
               </div>
             </div>
-            <div className="flex-1">{/** firstpart */}</div>
+            <div className="flex-1"></div>
           </div>
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
@@ -117,11 +122,6 @@ export const Event = () => {
                     id: "new-event.location.header",
                   })}
                 </h3>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                  {intl.formatMessage({
-                    id: "new-event.location.description",
-                  })}
-                </p>
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
@@ -167,8 +167,16 @@ export const Event = () => {
                   </div>
                 </dl>
               </div>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                Cette évènement se situe à{" "}
+                <span className="text-blue-600">X km</span> de votre bureau.
+                Vous aurez besoin de{" "}
+                <span className="text-blue-600">X minutes</span> pour vous y
+                rendre. Le coût estimé s'élève à{" "}
+                <span className="text-blue-600">X€</span>.
+              </p>
             </div>
-            <div className="flex-1">map</div>
+            <div className="flex-1">{/** second part */}</div>
           </div>
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
@@ -178,11 +186,6 @@ export const Event = () => {
                     id: "new-event.customer.header",
                   })}
                 </h3>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                  {intl.formatMessage({
-                    id: "new-event.customer.description",
-                  })}
-                </p>
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
@@ -229,7 +232,7 @@ export const Event = () => {
                 </dl>
               </div>
             </div>
-            <div className="flex-1"></div>
+            <div className="flex-1">{/** third part */}</div>
           </div>
         </>
       ) : null}

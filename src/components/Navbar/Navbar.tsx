@@ -54,7 +54,7 @@ export const Navbar = (props: Props) => {
           <input
             id="search-field"
             className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-            placeholder="Search..."
+            placeholder={intl.formatMessage({ id: "navbar.searchbar" })}
             type="search"
             name="search"
           />
