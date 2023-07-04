@@ -6,18 +6,15 @@ export const initialValues = {
   endTime: "",
   eventType: "",
   numberOfGuests: "",
-  publicEvent: "Yes",
-  location: "",
+  publicEvent: "yes",
   address: "",
   city: "",
   state: "",
   zipCode: "",
-  customer: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-  },
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
 };
 
 export const validationSchema = Yup.object({});
