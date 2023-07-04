@@ -10,6 +10,8 @@ export interface Event {
   price: number;
   numberOfGuests: number;
   eventType: string;
+  publicEvent: string;
+  phoneNumber?: string;
   address: string;
   city: string;
   state: string;
@@ -19,6 +21,7 @@ export interface Event {
   additionalInfo?: string;
   status: string;
   desiredProduct?: string;
+  customer: any;
 }
 
 type EventsSliceType = [];

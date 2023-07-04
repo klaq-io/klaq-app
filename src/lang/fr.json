@@ -37,6 +37,12 @@
     "signup": {
       "text": "Pas encore de compte ? ",
       "link": "Démarrer un essai gratuit de 31 jours"
+    },
+    "toast": {
+      "error": {
+        "title": "Erreur",
+        "message": "Veuillez vérifier vos identifiants"
+      }
     }
   },
   "forget-password": {
@@ -78,6 +84,12 @@
           "yes": "Oui",
           "no": "Non"
         }
+      },
+      "error": {
+        "date": "Veuillez sélectionner une date",
+        "start-time": "Veuillez sélectionner une heure de début",
+        "end-time": "Veuillez sélectionner une heure de fin",
+        "event-type": "Veuillez sélectionner un type d'évènement"
       }
     },
     "location": {
@@ -94,6 +106,12 @@
         "city": "Saisissez la ville",
         "state": "Saisissez la région",
         "zipcode": "Saisissez le code postal"
+      },
+      "error": {
+        "address": "Veuillez saisir une adresse",
+        "city": "Veuillez saisir une ville",
+        "state": "Veuillez saisir une région",
+        "zipcode": "Veuillez saisir un code postal"
       }
     },
     "customer": {
@@ -110,8 +128,33 @@
         "last-name": "Saisissez le nom",
         "phone-number": "Saisissez le numéro de téléphone",
         "email": "Saisissez l'adresse e-mail"
+      },
+      "error": {
+        "first-name": "Veuillez saisir un prénom",
+        "last-name": "Veuillez saisir un nom",
+        "phone-number": "Veuillez saisir un numéro de téléphone",
+        "email": "Veuillez saisir une adresse e-mail"
       }
     },
-    "submit": "Créer un nouvel évènement"
+    "submit": "Créer un nouvel évènement",
+    "toast": {
+      "error": {
+        "same-time": {
+          "title": "Erreur dans les horaires",
+          "message": "L'heure de fin doit être supérieure à l'heure de début"
+        },
+        "no-customer": {
+          "title": "Erreur dans les informations du client",
+          "message": "Veuillez sélectionner un client"
+        },
+        "default": {
+          "title": "Erreur lors de la création de l'évènement"
+        }
+      },
+      "success": {
+        "title": "Succès",
+        "message": "L'évènement a bien été créé"
+      }
+    }
   }
 }

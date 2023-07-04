@@ -4,10 +4,17 @@ import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents } from "../../redux/Events/selectors";
 import { useEffect } from "react";
 import { Event } from "../../redux/Events/slices";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../routes";
 
 export const Events = () => {
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const events: Event[] = useSelector(getAllEvents);
+  const navigate = useNavigate();
+
+  const handleEventDetails = (id: string) => {
+    navigate(`${PATHS.EVENTS}/${id}`);
+  };
 
   useEffect(() => {
     fetchEvents();
@@ -18,7 +25,15 @@ export const Events = () => {
       <div>Events</div>
       {isLoading ? <div>Loading...</div> : null}
       {events
-        ? events.map((event) => <div key={event.id}>{event.id}</div>)
+        ? events.map((event) => (
+            <div
+              className="cursor-pointer"
+              key={event.id}
+              onClick={() => handleEventDetails(event.id)}
+            >
+              {event.id}
+            </div>
+          ))
         : null}
     </PageLayout>
   );

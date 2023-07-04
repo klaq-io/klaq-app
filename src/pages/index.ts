@@ -3,3 +3,4 @@ export * from "./Dashboard";
 export * from "./ForgetPassword";
 export * from "./NewEvent";
 export * from "./Events";
+export * from "./Event";

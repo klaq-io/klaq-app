@@ -9,15 +9,13 @@ import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
+import { useSignout } from "../../redux/Login/hooks";
 
 type Props = {
   classes?: string;
 };
 
-const userNavigation = [
-  { name: "navbar.profile", href: "#" },
-  { name: "navbar.logout", href: "#" },
-];
+const userNavigation = [{ name: "navbar.profile", href: "#" }];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -29,6 +27,13 @@ export const Navbar = (props: Props) => {
 
   const handleNewEvent = () => {
     navigate(PATHS.NEW_EVENT);
+  };
+
+  const [, logout] = useSignout();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate(PATHS.LOGIN);
   };
 
   return (
@@ -124,6 +129,14 @@ export const Navbar = (props: Props) => {
                     )}
                   </Menu.Item>
                 ))}
+                <Menu.Item key="logout">
+                  <a
+                    onClick={handleLogout}
+                    className="block px-3 py-1 text-sm leading-6 text-danger-900 cursor-pointer hover:bg-gray"
+                  >
+                    {intl.formatMessage({ id: "navbar.logout" })}
+                  </a>
+                </Menu.Item>
               </Menu.Items>
             </Transition>
           </Menu>

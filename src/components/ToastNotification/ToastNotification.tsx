@@ -7,16 +7,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { StatusIcon } from "../StatusIcon";
+import { useIntl } from "react-intl";
 
 type Props = {
   classes?: string;
   status: "success" | "danger" | "warning";
-  title: string;
-  message?: string;
+  titleId: string;
+  messageId?: string;
 };
 
 export const ToastNotification = (props: Props) => {
-  const { status, title, message } = props;
+  const { status, titleId, messageId } = props;
+  const intl = useIntl();
   const [show, setShow] = useState(true);
 
   return (
@@ -45,9 +47,17 @@ export const ToastNotification = (props: Props) => {
                     <StatusIcon status={status} />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">{title}</p>
-                    {message ? (
-                      <p className="mt-1 text-sm text-gray-500">{message}</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {intl.formatMessage({
+                        id: `${titleId}`,
+                      })}
+                    </p>
+                    {messageId ? (
+                      <p className="mt-1 text-sm text-gray-500">
+                        {intl.formatMessage({
+                          id: `${messageId}`,
+                        })}
+                      </p>
                     ) : null}
                   </div>
                   <div className="ml-4 flex flex-shrink-0">

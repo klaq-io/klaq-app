@@ -2,7 +2,7 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "calendar": "Calendar",
-    "events": "My events",
+    "events": "Events",
     "customers": "Customers",
     "billing": "Billing",
     "products": "Products",
@@ -38,6 +38,12 @@
     "signup": {
       "text": "No account yet? ",
       "link": "Start a 31 days free trial"
+    },
+    "toast": {
+      "error": {
+        "title": "Error",
+        "message": "Invalid email or password"
+      }
     }
   },
   "forget-password": {
@@ -78,6 +84,13 @@
           "yes": "Oui",
           "no": "Non"
         }
+      },
+      "error": {
+        "date": "Date is required",
+        "start-time": "Start time is required",
+        "end-time": "End time is required",
+        "event-type": "Event type is required",
+        "public-event": "Public event is required"
       }
     },
     "location": {
@@ -94,6 +107,12 @@
         "city": "Enter city",
         "state": "Enter region",
         "zipcode": "Enter zip code"
+      },
+      "error": {
+        "address": "Address is required",
+        "city": "City is required",
+        "state": "State is required",
+        "zipcode": "Zip code is required"
       }
     },
     "customer": {
@@ -110,8 +129,33 @@
         "last-name": "Enter last name",
         "phone-number": "Enter phone number",
         "email": "Enter email address"
+      },
+      "error": {
+        "first-name": "First name is required",
+        "last-name": "Last name is required",
+        "phone-number": "Phone number is required",
+        "email": "Email address is required"
       }
     },
-    "submit": "Create a new event"
+    "submit": "Create a new event",
+    "toast": {
+      "error": {
+        "same-time": {
+          "title": "Error in date and time",
+          "message": "End time must be greater than start time"
+        },
+        "no-customer": {
+          "title": "No customer found",
+          "message": "Please select a customer"
+        },
+        "default": {
+          "title": "Error while creating the event"
+        }
+      },
+      "success": {
+        "title": "Success",
+        "message": "The event has been created"
+      }
+    }
   }
 }

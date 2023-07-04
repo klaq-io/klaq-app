@@ -20,8 +20,6 @@ export const NewEvent = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      alert(JSON.stringify(values, null, 2));
       addEvent(values);
     },
   });
@@ -77,7 +75,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.date.error.date",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -97,15 +97,6 @@ export const NewEvent = () => {
                       id="numberOfGuest"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                     />
-                    {formik.errors.numberOfGuests &&
-                    formik.touched.numberOfGuests ? (
-                      <p
-                        className="mt-2 text-sm text-danger-600"
-                        id="email-error"
-                      >
-                        Not a valid email address.
-                      </p>
-                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -128,7 +119,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.date.error.start-time",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -153,7 +146,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.date.error.end-time",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -255,7 +250,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.location.error.address",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -283,7 +280,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.location.error.city",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -311,7 +310,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.location.error.state",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -339,7 +340,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.location.error.zipcode",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -388,7 +391,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.customer.error.first-name",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -416,7 +421,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.customer.error.last-name",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -450,7 +457,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.customer.error.phone-number",
+                        })}
                       </p>
                     ) : null}
                   </dd>
@@ -478,7 +487,9 @@ export const NewEvent = () => {
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
                       >
-                        Not a valid email address.
+                        {intl.formatMessage({
+                          id: "new-event.customer.error.email",
+                        })}
                       </p>
                     ) : null}
                   </dd>
