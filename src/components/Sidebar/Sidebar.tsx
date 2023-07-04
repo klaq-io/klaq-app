@@ -36,9 +36,9 @@ export const Sidebar = (props: Props) => {
     { name: "sidebar.calendar", href: "#", icon: CalendarIcon, current: false },
     {
       name: "sidebar.events",
-      href: PATHS.NEW_EVENT,
+      href: PATHS.EVENTS,
       icon: FolderIcon,
-      current: currentPage === PATHS.NEW_EVENT ? true : false,
+      current: currentPage === PATHS.EVENTS ? true : false,
     },
     {
       name: "sidebar.customers",

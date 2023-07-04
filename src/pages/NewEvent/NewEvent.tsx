@@ -3,9 +3,12 @@ import { useIntl } from "react-intl";
 import PhoneInput from "react-phone-input-2";
 import { PageLayout } from "../../layouts";
 import { initialValues, validationSchema } from "./form";
+import { useAddEvent } from "../../redux/Events/hooks";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 export const NewEvent = () => {
   const intl = useIntl();
+  const [, addEvent] = useAddEvent();
 
   const setPhoneNumber = (phone: string) => {
     formik.setValues({
@@ -19,6 +22,7 @@ export const NewEvent = () => {
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2));
       alert(JSON.stringify(values, null, 2));
+      addEvent(values);
     },
   });
 
@@ -68,6 +72,14 @@ export const NewEvent = () => {
                       id="date"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                     />
+                    {formik.errors.date && formik.touched.date ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -85,6 +97,15 @@ export const NewEvent = () => {
                       id="numberOfGuest"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                     />
+                    {formik.errors.numberOfGuests &&
+                    formik.touched.numberOfGuests ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -102,6 +123,14 @@ export const NewEvent = () => {
                       id="startTime"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                     />
+                    {formik.errors.startTime && formik.touched.startTime ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -119,6 +148,14 @@ export const NewEvent = () => {
                       id="endTime"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                     />
+                    {formik.errors.endTime && formik.touched.endTime ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -134,7 +171,7 @@ export const NewEvent = () => {
                       id="eventType"
                       name="eventType"
                       className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
-                      defaultValue={eventType[0]}
+                      defaultValue={formik.values.eventType}
                     >
                       {eventType.map((type) => (
                         <option key={type} value={type}>
@@ -213,6 +250,14 @@ export const NewEvent = () => {
                         id: "new-event.location.input.address",
                       })}
                     />
+                    {formik.errors.address && formik.touched.address ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -233,6 +278,14 @@ export const NewEvent = () => {
                         id: "new-event.location.input.city",
                       })}
                     />
+                    {formik.errors.city && formik.touched.city ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -253,6 +306,14 @@ export const NewEvent = () => {
                         id: "new-event.location.input.state",
                       })}
                     />
+                    {formik.errors.state && formik.touched.state ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -264,15 +325,23 @@ export const NewEvent = () => {
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                     <input
                       onChange={formik.handleChange}
-                      value={formik.values.zipCode}
+                      value={formik.values.zipcode}
                       type="text"
-                      name="zipCode"
-                      id="zipCode"
+                      name="zipcode"
+                      id="zipcode"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
                         id: "new-event.location.input.zipcode",
                       })}
                     />
+                    {formik.errors.zipcode && formik.touched.zipcode ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
               </dl>
@@ -314,6 +383,14 @@ export const NewEvent = () => {
                         id: "new-event.customer.input.first-name",
                       })}
                     />
+                    {formik.errors.firstName && formik.touched.lastName ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -334,6 +411,14 @@ export const NewEvent = () => {
                         id: "new-event.customer.input.last-name",
                       })}
                     />
+                    {formik.errors.lastName && formik.touched.lastName ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -360,6 +445,14 @@ export const NewEvent = () => {
                       showDropdown={false}
                       disableDropdown={true}
                     />
+                    {formik.errors.phoneNumber && formik.touched.phoneNumber ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -380,6 +473,14 @@ export const NewEvent = () => {
                         id: "new-event.customer.input.email",
                       })}
                     />
+                    {formik.errors.email && formik.touched.email ? (
+                      <p
+                        className="mt-2 text-sm text-danger-600"
+                        id="email-error"
+                      >
+                        Not a valid email address.
+                      </p>
+                    ) : null}
                   </dd>
                 </div>
               </dl>

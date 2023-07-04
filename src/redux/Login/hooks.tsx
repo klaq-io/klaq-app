@@ -2,10 +2,12 @@ import { useAsyncCallback } from "@react-hooks-library/core";
 import webClient from "../../utils/webclient";
 import { useDispatch } from "react-redux";
 import { setUser, resetUser } from "./slice";
+import { ToastNotification } from "../../components";
+import toast from "react-hot-toast";
 
-export const useLogin = (email: string, password: string) => {
+export const useLogin = () => {
   const dispatch = useDispatch();
-  return useAsyncCallback(async () => {
+  return useAsyncCallback(async (email: string, password: string) => {
     try {
       const res = await webClient.post("auth/login", {
         email,
@@ -13,6 +15,14 @@ export const useLogin = (email: string, password: string) => {
       });
       dispatch(setUser(res.data));
     } catch (error: any) {
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          title={error.response.data.message}
+        />
+      );
+
+      console.error(error);
       return error.response;
     }
   });

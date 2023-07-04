@@ -8,4 +8,5 @@ export const PATHS = {
   SETTINGS: "/settings",
   FORGET_PASSWORD: "/forget-password",
   NEW_EVENT: "/new",
+  EVENTS: "/events",
 };

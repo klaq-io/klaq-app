@@ -1,36 +1,39 @@
 import { initialState } from "../states";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Event {
+export interface Event {
   id: string;
   date: Date;
   arrivalTime: string;
   startTime: string;
-  duration: number;
+  endTime: string;
   price: number;
-  numberOfPeople: number;
+  numberOfGuests: number;
   eventType: string;
   address: string;
-  placeName: string;
-  contactPhone: string;
-  additionalInfo: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  placeName?: string;
+  contactPhone?: string;
+  additionalInfo?: string;
   status: string;
-  desiredProduct: string;
+  desiredProduct?: string;
 }
 
-type EventsSliceType = Event[];
+type EventsSliceType = [];
 
-// export const eventsSlice = createSlice({
-//   name: "events",
-//   initialState,
-//   reducers: {
-//     setEvents: (state, action: PayloadAction<EventsSliceType>) => ({
-//       ...state.user,
-//       events: action.payload,
-//     }),
-//   },
-// });
+export const eventsSlice = createSlice({
+  name: "events",
+  initialState,
+  reducers: {
+    setEvents: (state, action: PayloadAction<EventsSliceType>) => ({
+      ...state,
+      events: action.payload,
+    }),
+  },
+});
 
-// export const { setEvents } = eventsSlice.actions;
+export const { setEvents } = eventsSlice.actions;
 
-// export default eventsSlice.reducer;
+export default eventsSlice.reducer;

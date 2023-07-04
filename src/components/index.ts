@@ -1,3 +1,4 @@
 export * from "./Sidebar";
 export * from "./Navbar";
-export * from "./Notification";
+export * from "./ToastNotification";
+export * from "./StatusIcon";

@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { eventsSlice } from "./Events/slices";
+import { eventsSlice } from "./Events/slices";
 import { userSlice } from "./Login/slice";
 
 const store = configureStore({
   reducer: {
-    // events: eventsSlice.reducer,
     user: userSlice.reducer,
+    events: eventsSlice.reducer,
   },
 });
 

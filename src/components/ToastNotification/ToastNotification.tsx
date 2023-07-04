@@ -1,16 +1,21 @@
 import { Fragment, useState } from "react";
 import { Transition } from "@headlessui/react";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { StatusIcon } from "../StatusIcon";
 
 type Props = {
   classes?: string;
-  status: "success" | "error" | "warning";
+  status: "success" | "danger" | "warning";
   title: string;
-  message: string;
+  message?: string;
 };
 
-export const Notification = (props: Props) => {
+export const ToastNotification = (props: Props) => {
   const { status, title, message } = props;
   const [show, setShow] = useState(true);
 
@@ -37,18 +42,13 @@ export const Notification = (props: Props) => {
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <CheckCircleIcon
-                      className="h-6 w-6 text-green-400"
-                      aria-hidden="true"
-                    />
+                    <StatusIcon status={status} />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">
-                      Successfully saved!
-                    </p>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Anyone with a link can now view this file.
-                    </p>
+                    <p className="text-sm font-medium text-gray-900">{title}</p>
+                    {message ? (
+                      <p className="mt-1 text-sm text-gray-500">{message}</p>
+                    ) : null}
                   </div>
                   <div className="ml-4 flex flex-shrink-0">
                     <button
@@ -72,4 +72,4 @@ export const Notification = (props: Props) => {
   );
 };
 
-export default Notification;
+export default ToastNotification;

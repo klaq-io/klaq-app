@@ -3,7 +3,7 @@ import { Sidebar } from "../../components";
 import { Navbar } from "../../components/Navbar/Navbar";
 
 type Props = {
-  children: string | JSX.Element | JSX.Element[];
+  children: any;
 };
 
 export const PageLayout = (props: Props) => {
