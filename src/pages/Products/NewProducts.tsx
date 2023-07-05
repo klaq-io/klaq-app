@@ -4,7 +4,10 @@ import { classNames } from "../../utils/classNames";
 import { initialValues, validationSchema } from "./form";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useAddProductItem } from "../../redux/Products/hooks";
+import {
+  useAddProductItem,
+  useFetchProductItems,
+} from "../../redux/Products/hooks";
 
 type Props = {
   openSidePanel: boolean;
@@ -14,20 +17,25 @@ type Props = {
 export const NewProducts = (props: Props) => {
   const intl = useIntl();
   const [{ isLoading }, addProduct] = useAddProductItem();
-  const { openSidePanel, setOpenSidePanel } = props;
-  const [currentVTARate, setCurrentVTARate] = useState(20);
+  const [, fetchProducts] = useFetchProductItems();
 
-  const VTA_RATES = [0, 2.1, 5.5, 10, 20];
+  const { openSidePanel, setOpenSidePanel } = props;
+  const [currentVTARate, setCurrentVTARate] = useState("20");
+
+  const VTA_RATES = ["0", "2.1", "5.5", "10", "20"];
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      addProduct(values);
+    onSubmit: async (values, { resetForm }) => {
+      const state = await addProduct(values);
+      setOpenSidePanel(state);
+      resetForm();
+      fetchProducts();
     },
   });
 
-  const handleVTAChange = (vta: number) => {
+  const handleVTAChange = (vta: string) => {
     formik.setValues({ ...formik.values, vtaRate: vta });
     setCurrentVTARate(vta);
   };
@@ -163,7 +171,7 @@ export const NewProducts = (props: Props) => {
             <div className="flex flex-row space-x-4 mt-2">
               {VTA_RATES.map((rate) => (
                 <button
-                  key={rate}
+                  key={`tva-${rate}`}
                   type="button"
                   onClick={() => handleVTAChange(rate)}
                   className={classNames(

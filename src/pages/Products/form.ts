@@ -5,7 +5,7 @@ export const initialValues = {
   description: "",
   files: [],
   price: 0,
-  vtaRate: 20,
+  vtaRate: "20",
 };
 
 export const validationSchema = Yup.object({
@@ -13,5 +13,5 @@ export const validationSchema = Yup.object({
   description: Yup.string().required("Required"),
   files: Yup.array(),
   price: Yup.number().min(1).required("Required"),
-  vtaRate: Yup.number().required("Required"),
+  vtaRate: Yup.string().required("Required"),
 });

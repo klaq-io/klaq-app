@@ -27,7 +27,7 @@ export const useAddProductItem = () => {
       title: string;
       description: string;
       price: number;
-      vtaRate: number;
+      vtaRate: string;
     }) => {
       try {
         const res = await webClient.post("item", values);
@@ -38,6 +38,7 @@ export const useAddProductItem = () => {
             messageId={"products.new-product.toast.success.message"}
           />
         );
+        return false;
       } catch (error: any) {
         toast.custom(
           <ToastNotification
@@ -48,6 +49,7 @@ export const useAddProductItem = () => {
         );
         console.log(error.response);
         console.error(error);
+        return true;
       }
     }
   );
