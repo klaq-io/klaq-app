@@ -156,5 +156,39 @@
         "message": "L'évènement a bien été créé"
       }
     }
+  },
+  "products": {
+    "title": "Produits",
+    "header": "Liste des produits",
+    "description": "Liste des produits disponibles",
+    "no-product": "Aucun produit disponible",
+    "get-started": "Cliquer pour commencer à ajouter un produit",
+    "add-product": "Ajouter un produit",
+    "new-product": {
+      "header": "Nouveau produit",
+      "description": "",
+      "label": {
+        "name": "Nom du produit",
+        "short-description": "Description courte",
+        "attach-file": "Ajouter une plaquette explicative",
+        "default-vta-rate": "Taux de TVA",
+        "default-price": "Prix par défault"
+      },
+      "input": {
+        "name": "Saisissez le nom du produit",
+        "short-description": "Saisissez la description courte",
+        "attach-file": "Joindre une plaquette explicative",
+        "default-vta-rate": "Saisissez le taux de TVA",
+        "default-price": "Saisissez le prix par défault"
+      },
+      "error": {
+        "name": "Veuillez saisir un nom de produit",
+        "short-description": "Veuillez saisir une description courte",
+        "attach-file": "Veuillez joindre une plaquette explicative",
+        "default-vta-rate": "Veuillez saisir un taux de TVA",
+        "default-price": "Veuillez saisir un prix par défault supérieur à 0€"
+      },
+      "submit": "Ajouter un produit"
+    }
   }
 }

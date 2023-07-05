@@ -54,9 +54,9 @@ export const Sidebar = (props: Props) => {
     },
     {
       name: "sidebar.products",
-      href: "#",
+      href: PATHS.PRODUCTS,
       icon: ShoppingBagIcon,
-      current: false,
+      current: currentPage === PATHS.PRODUCTS ? true : false,
     },
     {
       name: "sidebar.marketing",

@@ -2,9 +2,8 @@ import { useFormik } from "formik";
 import { useIntl } from "react-intl";
 import PhoneInput from "react-phone-input-2";
 import { PageLayout } from "../../layouts";
-import { initialValues, validationSchema } from "./form";
 import { useAddEvent } from "../../redux/Events/hooks";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { initialValues, validationSchema } from "./form";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -39,6 +38,7 @@ export const NewEvent = () => {
             </h2>
           </div>
         </div>
+        {/** Date */}
         <div className="flex flex-row">
           <div className="flex-1 mt-10">
             <div className="px-4 sm:px-0">
@@ -211,6 +211,7 @@ export const NewEvent = () => {
           </div>
           <div className="flex-1">calendar</div>
         </div>
+        {/** Location */}
         <div className="flex flex-row">
           <div className="flex-1 mt-10">
             <div className="px-4 sm:px-0">
@@ -352,6 +353,7 @@ export const NewEvent = () => {
           </div>
           <div className="flex-1">map</div>
         </div>
+        {/** Customer */}
         <div className="flex flex-row">
           <div className="flex-1 mt-10">
             <div className="px-4 sm:px-0">
