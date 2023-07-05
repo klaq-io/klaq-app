@@ -48,7 +48,6 @@ export const useAddEvent = () => {
       }
       try {
         const res = await webClient.post("/events", values);
-        console.log(res);
         toast.custom(
           <ToastNotification
             status="success"

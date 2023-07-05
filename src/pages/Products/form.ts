@@ -15,3 +15,5 @@ export const validationSchema = Yup.object({
   price: Yup.number().min(1).required("Required"),
   vtaRate: Yup.string().required("Required"),
 });
+
+export const validationSchemaEdit = Yup.object({});

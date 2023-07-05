@@ -201,6 +201,10 @@
           "message": "Le produit a bien été ajouté"
         }
       }
+    },
+    "edit-product": {
+      "header": "Modifier le produit",
+      "submit": "Modifier le produit"
     }
   }
 }

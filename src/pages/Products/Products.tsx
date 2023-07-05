@@ -7,9 +7,13 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { PageLayout } from "../../layouts";
-import { useFetchProductItems } from "../../redux/Products/hooks";
+import {
+  useDeleteProductItem,
+  useFetchProductItems,
+} from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
+import { EditProduct } from "./EditProduct";
 
 const shortenString = (maxLen: number, str?: string): string => {
   if (!str) return "";
@@ -23,10 +27,23 @@ export const Products = () => {
   const [{ isLoading }, fetchProducts] = useFetchProductItems();
   const productItems = useSelector(getAllProducts);
 
+  const [, deleteProduct] = useDeleteProductItem();
+
   const [openSidePanel, setOpenSidePanel] = useState(false);
+  const [openEditSidePanel, setEditOpenSidePanel] = useState(false);
+  const [productToEdit, setProductToEdit] = useState("");
 
   const handleOpenSidePanel = () => {
     setOpenSidePanel(true);
+  };
+
+  const handleEditProduct = (productId: string) => {
+    setEditOpenSidePanel(true);
+    setProductToEdit(productId);
+  };
+
+  const handleDeleteProduct = (productId: string) => {
+    deleteProduct(productId);
   };
 
   useEffect(() => {
@@ -144,6 +161,7 @@ export const Products = () => {
                         </td>
                         <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
+                            onClick={() => handleEditProduct(product.id)}
                             type="button"
                             className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                           >
@@ -157,6 +175,7 @@ export const Products = () => {
                         </td>
                         <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
+                            onClick={() => handleDeleteProduct(product.id)}
                             type="button"
                             className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                           >
@@ -204,6 +223,11 @@ export const Products = () => {
           )}
         </div>
       </div>
+      <EditProduct
+        productId={productToEdit}
+        openSidePanel={openEditSidePanel}
+        setOpenSidePanel={setEditOpenSidePanel}
+      />
       <NewProducts
         openSidePanel={openSidePanel}
         setOpenSidePanel={setOpenSidePanel}

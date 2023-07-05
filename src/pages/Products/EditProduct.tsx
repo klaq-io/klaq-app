@@ -1,38 +1,45 @@
-import { useIntl } from "react-intl";
-import SidePanel from "../../components/SidePanel";
-import { classNames } from "../../utils/classNames";
-import { initialValues, validationSchema } from "./form";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import SidePanel from "../../components/SidePanel";
 import {
-  useAddProductItem,
+  useEditProductItem,
   useFetchProductItems,
 } from "../../redux/Products/hooks";
+import { getProductById } from "../../redux/Products/selectors";
+import { classNames } from "../../utils/classNames";
+import { initialValues, validationSchemaEdit } from "./form";
 
 type Props = {
   openSidePanel: boolean;
   setOpenSidePanel: (open: boolean) => void;
+  productId: string;
 };
 
-export const NewProducts = (props: Props) => {
+export const EditProduct = (props: Props) => {
   const intl = useIntl();
-  const [{ isLoading }, addProduct] = useAddProductItem();
+  const [{ isLoading }, editProduct] = useEditProductItem();
   const [, fetchProducts] = useFetchProductItems();
-
-  const { openSidePanel, setOpenSidePanel } = props;
   const [currentVTARate, setCurrentVTARate] = useState("20");
+
+  const { openSidePanel, setOpenSidePanel, productId } = props;
 
   const VTA_RATES = ["0", "2.1", "5.5", "10", "20"];
 
+  const product = useSelector((state: any) =>
+    getProductById(state, productId!)
+  );
+
   const formik = useFormik({
-    initialValues,
-    validationSchema,
+    initialValues: product || initialValues,
+    validationSchema: validationSchemaEdit,
     onSubmit: async (values, { resetForm }) => {
-      await addProduct(values);
+      editProduct(values, productId);
       setOpenSidePanel(false);
       resetForm();
-      fetchProducts();
     },
+    enableReinitialize: true,
   });
 
   const handleVTAChange = (vta: string) => {
@@ -44,7 +51,7 @@ export const NewProducts = (props: Props) => {
     <SidePanel
       open={openSidePanel}
       setOpen={setOpenSidePanel}
-      titleId={"products.new-product.header"}
+      titleId={"products.edit-product.header"}
     >
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col space-y-4">
@@ -148,13 +155,6 @@ export const NewProducts = (props: Props) => {
                   // onChange={formik.handleChange}
                   // value={formik.values.files}
                 />
-                {formik.errors.files && formik.touched.files ? (
-                  <p className="mt-2 text-sm text-danger-600" id="email-error">
-                    {intl.formatMessage({
-                      id: "products.new-product.error.attach-file",
-                    })}
-                  </p>
-                ) : null}
               </button>
             </div>
           </div>
@@ -239,7 +239,7 @@ export const NewProducts = (props: Props) => {
           className="absolute m-4 bottom-0 right-0 rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         >
           {intl.formatMessage({
-            id: "products.new-product.submit",
+            id: "products.edit-product.submit",
           })}
         </button>
       </form>
