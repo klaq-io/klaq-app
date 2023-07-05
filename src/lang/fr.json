@@ -188,7 +188,19 @@
         "default-vta-rate": "Veuillez saisir un taux de TVA",
         "default-price": "Veuillez saisir un prix par défault supérieur à 0€"
       },
-      "submit": "Ajouter un produit"
+      "submit": "Ajouter un produit",
+      "toast": {
+        "error": {
+          "add-product": {
+            "title": "Erreur lors de l'ajout du produit",
+            "message": "Le produit n'a pas pu être ajouté"
+          }
+        },
+        "success": {
+          "title": "Succès",
+          "message": "Le produit a bien été ajouté"
+        }
+      }
     }
   }
 }

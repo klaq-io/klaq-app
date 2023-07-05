@@ -30,10 +30,9 @@ export const eventsSlice = createSlice({
   name: "events",
   initialState,
   reducers: {
-    setEvents: (state, action: PayloadAction<EventsSliceType>) => ({
-      ...state,
-      events: action.payload,
-    }),
+    setEvents: (state, action: PayloadAction<EventsSliceType>) => {
+      state.events = action.payload;
+    },
   },
 });
 

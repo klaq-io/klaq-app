@@ -21,9 +21,8 @@ export const Events = () => {
   }, []);
 
   return (
-    <PageLayout>
+    <PageLayout isLoading={isLoading}>
       <div>Events</div>
-      {isLoading ? <div>Loading...</div> : null}
       {events
         ? events.map((event) => (
             <div
