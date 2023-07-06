@@ -15,12 +15,7 @@ import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
 import { DangerModal } from "../../components";
-
-const shortenString = (maxLen: number, str?: string): string => {
-  if (!str) return "";
-  if (str.length <= maxLen) return str;
-  return str.substring(0, maxLen).trim() + "...";
-};
+import { shortenString } from "../../utils/utils";
 
 export const Products = () => {
   const intl = useIntl();
@@ -34,6 +29,8 @@ export const Products = () => {
   const [openEditSidePanel, setEditOpenSidePanel] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [productToEdit, setProductToEdit] = useState("");
+
+  console.log(JSON.stringify(productItems, null, 2));
 
   const handleOpenSidePanel = () => {
     setOpenSidePanel(true);
@@ -57,8 +54,6 @@ export const Products = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  // TODO: edit les traductions + les messages d'erreur
 
   return (
     <PageLayout isLoading={isLoading}>

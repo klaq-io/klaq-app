@@ -5,6 +5,10 @@ import { useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { getAllProducts } from "../../redux/Products/selectors";
+import { shortenString } from "../../utils/utils";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 
 export const Event = () => {
   const { id } = useParams();
@@ -13,12 +17,19 @@ export const Event = () => {
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
 
+  const [, fetchProducts] = useFetchProductItems();
+  const productItems = useSelector(getAllProducts);
+
+  console.log(event?.products);
+
   useEffect(() => {
     fetchEvents();
+    fetchProducts();
   }, []);
 
+  // todo: implement that https://stackoverflow.com/questions/76599564/how-establish-typeorm-relation-between-orders-products
   return (
-    <PageLayout>
+    <PageLayout isLoading={isLoading}>
       {event ? (
         <>
           <div className="md:flex md:items-center md:justify-between">
@@ -233,6 +244,88 @@ export const Event = () => {
               </div>
             </div>
             <div className="flex-1">{/** third part */}</div>
+          </div>
+          <div className="sm:w-2/3">
+            <div className="mt-10">
+              <div className="px-4 sm:px-0">
+                <h3 className="text-base font-semibold leading-7 text-blue-600">
+                  {/* {intl.formatMessage({
+                    id: "new-event.customer.header",
+                  })} */}
+                  Mes prestations
+                </h3>
+              </div>
+              <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+                <table className="min-w-full">
+                  <colgroup>
+                    <col className="w-full sm:w-1/2" />
+                    <col className="sm:w-1/6" />
+                    <col className="sm:w-1/6" />
+                    <col className="sm:w-1/6" />
+                  </colgroup>
+                  <thead className="border-b border-gray-300 text-gray-900">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                      >
+                        Product
+                      </th>
+                      <th
+                        scope="col"
+                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                      >
+                        Quantity
+                      </th>
+                      <th
+                        scope="col"
+                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                      >
+                        Price
+                      </th>
+                      <th
+                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                        scope="col"
+                      >
+                        <span className="sr-only">Delete</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {event.products.map((product) => (
+                      <tr key={product.id} className="border-b border-gray-200">
+                        <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
+                          <div className="font-medium text-gray-900">
+                            {product.title}
+                          </div>
+                          <div className="mt-1 truncate text-gray-500">
+                            {shortenString(40, product.description)}
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <input
+                            type="number"
+                            className="block w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                          />
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          {product.price} €
+                        </td>
+                        <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                          <button
+                            type="button"
+                            className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
+                          >
+                            <XCircleIcon className="w-6 h-6 text-danger-500" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="flex-1"></div>
           </div>
         </>
       ) : null}

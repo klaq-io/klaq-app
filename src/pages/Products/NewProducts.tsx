@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import SidePanel from "../../components/SidePanel";
-import { classNames } from "../../utils/classNames";
+import { classNames } from "../../utils/utils";
 import { initialValues, validationSchema } from "./form";
 import { useFormik } from "formik";
 import { useState } from "react";

@@ -8,7 +8,7 @@ import {
   useFetchProductItems,
 } from "../../redux/Products/hooks";
 import { getProductById } from "../../redux/Products/selectors";
-import { classNames } from "../../utils/classNames";
+import { classNames } from "../../utils/utils";
 import { initialValues, validationSchemaEdit } from "./form";
 
 type Props = {

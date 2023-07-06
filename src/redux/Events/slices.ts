@@ -1,3 +1,4 @@
+import { ProductItem } from "../Products/slices";
 import { initialState } from "../states";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -22,6 +23,7 @@ export interface Event {
   status: string;
   desiredProduct?: string;
   customer: any;
+  products: ProductItem[];
 }
 
 type EventsSliceType = [];

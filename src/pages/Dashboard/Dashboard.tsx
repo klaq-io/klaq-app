@@ -1,63 +1,85 @@
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/outline";
 import { PageLayout } from "../../layouts";
+import { classNames } from "../../utils/utils";
+
+const stats = [
+  {
+    name: "Total Subscribers",
+    stat: "71,897",
+    previousStat: "70,946",
+    change: "12%",
+    changeType: "increase",
+  },
+  {
+    name: "Avg. Open Rate",
+    stat: "58.16%",
+    previousStat: "56.14%",
+    change: "2.02%",
+    changeType: "increase",
+  },
+  {
+    name: "Avg. Click Rate",
+    stat: "24.57%",
+    previousStat: "28.62%",
+    change: "4.05%",
+    changeType: "decrease",
+  },
+];
 
 export const Dashboard = () => {
   return (
     <PageLayout>
-      <div className="stats shadow">
-        <div className="stat">
-          <div className="stat-figure text-primary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              ></path>
-            </svg>
-          </div>
-          <div className="stat-title">Total Likes</div>
-          <div className="stat-value text-primary">25.6K</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
+      <div>
+        <h3 className="text-base font-semibold leading-6 text-gray-900">
+          Last 30 days
+        </h3>
+        <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x md:divide-y-0">
+          {stats.map((item) => (
+            <div key={item.name} className="px-4 py-5 sm:p-6">
+              <dt className="text-base font-normal text-gray-900">
+                {item.name}
+              </dt>
+              <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
+                <div className="flex items-baseline text-2xl font-semibold text-blue-600">
+                  {item.stat}
+                  <span className="ml-2 text-sm font-medium text-gray-500">
+                    from {item.previousStat}
+                  </span>
+                </div>
 
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
-          </div>
-          <div className="stat-title">Page Views</div>
-          <div className="stat-value text-secondary">2.6M</div>
-          <div className="stat-desc">21% more than last month</div>
-        </div>
+                <div
+                  className={classNames(
+                    item.changeType === "increase"
+                      ? "bg-success-100 text-success-800"
+                      : "bg-danger-100 text-danger-800",
+                    "inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0"
+                  )}
+                >
+                  {item.changeType === "increase" ? (
+                    <ArrowUpIcon
+                      className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-success-500"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <ArrowDownIcon
+                      className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-danger-500"
+                      aria-hidden="true"
+                    />
+                  )}
 
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <div className="avatar online">
-              <div className="w-16 rounded-full">
-                <img src="https://i.ibb.co/drBHxQw/B87-AE7-AD-84-D0-45-D4-923-F-DE49-DCE41534.jpg" />
-              </div>
+                  <span className="sr-only">
+                    {" "}
+                    {item.changeType === "increase"
+                      ? "Increased"
+                      : "Decreased"}{" "}
+                    by{" "}
+                  </span>
+                  {item.change}
+                </div>
+              </dd>
             </div>
-          </div>
-          <div className="stat-value">86%</div>
-          <div className="stat-title">Tasks done</div>
-          <div className="stat-desc text-secondary">31 tasks remaining</div>
-        </div>
+          ))}
+        </dl>
       </div>
     </PageLayout>
   );
