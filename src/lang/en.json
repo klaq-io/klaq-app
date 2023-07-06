@@ -180,7 +180,8 @@
         "short-description": "Short description",
         "attach-file": "Add an explanatory leaflet",
         "default-vta-rate": "VAT rate",
-        "default-price": "Default price"
+        "default-price": "Default price (excluding tax)",
+        "default-price-with-vta": "Default price (all taxes included): {price}€"
       },
       "input": {
         "name": "Enter product name",

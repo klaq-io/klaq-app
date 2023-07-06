@@ -181,7 +181,8 @@
         "short-description": "Description courte",
         "attach-file": "Ajouter une plaquette explicative",
         "default-vta-rate": "Taux de TVA",
-        "default-price": "Prix par défaut"
+        "default-price": "Prix par défaut (Hors Taxes)",
+        "default-price-with-vta": "Prix par défaut (Toutes Taxes Comprises): {price}€"
       },
       "input": {
         "name": "Saisissez le nom du produit",

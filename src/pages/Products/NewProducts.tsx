@@ -232,6 +232,21 @@ export const NewProducts = (props: Props) => {
                 })}
               </p>
             ) : null}
+            {formik.values.price ? (
+              <p className="mt-2 text-sm text-gray-500" id="email-error">
+                {intl.formatMessage(
+                  {
+                    id: "products.new-product.label.default-price-with-vta",
+                  },
+                  {
+                    price: (
+                      formik.values.price *
+                      (1 + parseInt(formik.values.vtaRate) / 100)
+                    ).toFixed(2),
+                  }
+                )}
+              </p>
+            ) : null}
           </div>
         </div>
         <button
