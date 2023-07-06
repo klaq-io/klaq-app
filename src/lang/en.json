@@ -156,5 +156,93 @@
         "message": "The event has been created"
       }
     }
+  },
+  "products": {
+    "title": "Products",
+    "header": "List of products",
+    "description": "List of available products",
+    "my-products": {
+      "header": "My products",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "Product",
+      "short-description": "Description",
+      "price": "Price (€)",
+      "vta-rate": "VAT (%)"
+    },
+    "no-product": "No product available",
+    "get-started": "Click to start adding a product",
+    "add-product": "Add a product",
+    "new-product": {
+      "header": "New product",
+      "description": "",
+      "label": {
+        "name": "Product name",
+        "short-description": "Short description",
+        "attach-file": "Add an explanatory leaflet",
+        "default-vta-rate": "VAT rate",
+        "default-price": "Default price"
+      },
+      "input": {
+        "name": "Enter product name",
+        "short-description": "Enter the short description",
+        "attach-file": "Attach a brochure",
+        "default-vta-rate": "Enter VAT rate",
+        "default-price": "Enter default price"
+      },
+      "error": {
+        "name": "Please enter a product name",
+        "short-description": "Please enter a short description",
+        "attach-file": "Please attach an explanatory leaflet",
+        "default-vta-rate": "Please enter a VAT rate",
+        "default-price": "Please enter a default price greater than 0€"
+      },
+      "submit": "Add a product",
+      "toast": {
+        "error": {
+          "add-product": {
+            "title": "Error adding product",
+            "message": "Product could not be added"
+          }
+        },
+        "success": {
+          "title": "Success",
+          "message": "Product was successfully added"
+        }
+      }
+    },
+    "edit-product": {
+      "header": "Edit product",
+      "submit": "Edit product",
+      "toast": {
+        "error": {
+          "title": "Error while editing product",
+          "message": "Product could not be modified"
+        },
+        "success": {
+          "title": "Success",
+          "message": "Product was successfully modified"
+        }
+      }
+    },
+    "delete-product": {
+      "toast": {
+        "error": {
+          "title": "Error deleting product",
+          "message": "Product could not be deleted"
+        },
+        "success": {
+          "title": "Success",
+          "message": "The product was successfully deleted"
+        }
+      },
+      "modal": {
+        "title": "Delete product",
+        "message": "Are you sure you want to delete the product {productTitle}?",
+        "button": {
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
+      }
+    }
   }
 }
