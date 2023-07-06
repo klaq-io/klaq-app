@@ -14,6 +14,7 @@ import {
 import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
+import { DangerModal } from "../../components";
 
 const shortenString = (maxLen: number, str?: string): string => {
   if (!str) return "";
@@ -31,6 +32,7 @@ export const Products = () => {
 
   const [openSidePanel, setOpenSidePanel] = useState(false);
   const [openEditSidePanel, setEditOpenSidePanel] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [productToEdit, setProductToEdit] = useState("");
 
   const handleOpenSidePanel = () => {
@@ -42,13 +44,21 @@ export const Products = () => {
     setProductToEdit(productId);
   };
 
+  const handleModalOpening = (productId: string) => {
+    setOpenDeleteModal(true);
+    setProductToEdit(productId);
+  };
+
   const handleDeleteProduct = (productId: string) => {
     deleteProduct(productId);
+    setOpenDeleteModal(false);
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  // TODO: edit les traductions + les messages d'erreur
 
   return (
     <PageLayout isLoading={isLoading}>
@@ -74,12 +84,15 @@ export const Products = () => {
               <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
-                    Mes produits ({productItems.length})
+                    {intl.formatMessage({
+                      id: "products.my-products.header",
+                    })}{" "}
+                    ({productItems.length})
                   </h1>
                   <p className="mt-2 text-sm text-gray-700">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer sit amet elit laoreet, maximus neque in, hendrerit
-                    lectus.
+                    {intl.formatMessage({
+                      id: "products.my-products.description",
+                    })}
                   </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -102,25 +115,33 @@ export const Products = () => {
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                       >
-                        Produit
+                        {intl.formatMessage({
+                          id: "products.my-products.title",
+                        })}
                       </th>
                       <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
-                        Description
+                        {intl.formatMessage({
+                          id: "products.my-products.short-description",
+                        })}
                       </th>
                       <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
-                        TVA (%)
+                        {intl.formatMessage({
+                          id: "products.my-products.vta-rate",
+                        })}
                       </th>
                       <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
-                        Prix (€)
+                        {intl.formatMessage({
+                          id: "products.my-products.price",
+                        })}
                       </th>
                       <th
                         scope="col"
@@ -137,7 +158,7 @@ export const Products = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {productItems.map((product) => (
+                    {productItems.map((product: any) => (
                       <tr key={product.id}>
                         <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                           <div className="font-medium text-gray-900">
@@ -175,7 +196,7 @@ export const Products = () => {
                         </td>
                         <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                           <button
-                            onClick={() => handleDeleteProduct(product.id)}
+                            onClick={() => handleModalOpening(product.id)}
                             type="button"
                             className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                           >
@@ -223,6 +244,30 @@ export const Products = () => {
           )}
         </div>
       </div>
+      <DangerModal
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+        onClick={() => handleDeleteProduct(productToEdit)}
+        title={intl.formatMessage({
+          id: "products.delete-product.modal.title",
+        })}
+        message={intl.formatMessage(
+          {
+            id: "products.delete-product.modal.message",
+          },
+          {
+            productTitle: productItems.find(
+              (product: any) => product.id === productToEdit
+            )?.title,
+          }
+        )}
+        button1={intl.formatMessage({
+          id: "products.delete-product.modal.button.delete",
+        })}
+        button2={intl.formatMessage({
+          id: "products.delete-product.modal.button.cancel",
+        })}
+      />
       <EditProduct
         productId={productToEdit}
         openSidePanel={openEditSidePanel}

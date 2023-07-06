@@ -89,7 +89,8 @@
         "date": "Veuillez sélectionner une date",
         "start-time": "Veuillez sélectionner une heure de début",
         "end-time": "Veuillez sélectionner une heure de fin",
-        "event-type": "Veuillez sélectionner un type d'évènement"
+        "event-type": "Veuillez sélectionner un type d'évènement",
+        "public-event": "Veuillez sélectionner si l'évènement est public ou non"
       }
     },
     "location": {
@@ -161,6 +162,14 @@
     "title": "Produits",
     "header": "Liste des produits",
     "description": "Liste des produits disponibles",
+    "my-products": {
+      "header": "Mes produits",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "Produit",
+      "short-description": "Description",
+      "price": "Prix (€)",
+      "vta-rate": "TVA (%)"
+    },
     "no-product": "Aucun produit disponible",
     "get-started": "Cliquer pour commencer à ajouter un produit",
     "add-product": "Ajouter un produit",
@@ -172,21 +181,21 @@
         "short-description": "Description courte",
         "attach-file": "Ajouter une plaquette explicative",
         "default-vta-rate": "Taux de TVA",
-        "default-price": "Prix par défault"
+        "default-price": "Prix par défaut"
       },
       "input": {
         "name": "Saisissez le nom du produit",
         "short-description": "Saisissez la description courte",
         "attach-file": "Joindre une plaquette explicative",
         "default-vta-rate": "Saisissez le taux de TVA",
-        "default-price": "Saisissez le prix par défault"
+        "default-price": "Saisissez le prix par défaut"
       },
       "error": {
         "name": "Veuillez saisir un nom de produit",
         "short-description": "Veuillez saisir une description courte",
         "attach-file": "Veuillez joindre une plaquette explicative",
         "default-vta-rate": "Veuillez saisir un taux de TVA",
-        "default-price": "Veuillez saisir un prix par défault supérieur à 0€"
+        "default-price": "Veuillez saisir un prix par défaut supérieur à 0€"
       },
       "submit": "Ajouter un produit",
       "toast": {
@@ -204,7 +213,37 @@
     },
     "edit-product": {
       "header": "Modifier le produit",
-      "submit": "Modifier le produit"
+      "submit": "Modifier le produit",
+      "toast": {
+        "error": {
+          "title": "Erreur lors de la modification du produit",
+          "message": "Le produit n'a pas pu être modifié"
+        },
+        "success": {
+          "title": "Succès",
+          "message": "Le produit a bien été modifié"
+        }
+      }
+    },
+    "delete-product": {
+      "toast": {
+        "error": {
+          "title": "Erreur lors de la suppression du produit",
+          "message": "Le produit n'a pas pu être supprimé"
+        },
+        "success": {
+          "title": "Succès",
+          "message": "Le produit a bien été supprimé"
+        }
+      },
+      "modal": {
+        "title": "Supprimer le produit",
+        "message": "Êtes-vous sûr de vouloir supprimer le produit {productTitle} ?",
+        "button": {
+          "cancel": "Annuler",
+          "delete": "Supprimer"
+        }
+      }
     }
   }
 }

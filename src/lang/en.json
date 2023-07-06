@@ -9,12 +9,11 @@
     "marketing": "Marketing",
     "analytics": "Analyses",
     "help": "Help",
-    "settings": "Paramètres"
+    "settings": "Settings"
   },
   "navbar": {
     "profile": "Profile",
     "logout": "Logout",
-    "settings": "Settings",
     "searchbar": "Search..."
   },
   "layout": {

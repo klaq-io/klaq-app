@@ -62,8 +62,8 @@ export const useDeleteProductItem = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={"products.new-product.toast.success.title"}
-          messageId={"products.new-product.toast.success.message"}
+          titleId={"products.delete-product.toast.success.title"}
+          messageId={"products.delete-product.toast.success.message"}
         />
       );
       dispatch(deleteProduct(id));
@@ -71,8 +71,10 @@ export const useDeleteProductItem = () => {
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={"products.new-product.toast.error.delete-product.title"}
-          messageId={"products.new-product.toast.error.delete-product.message"}
+          titleId={"products.delete-product.toast.error.delete-product.title"}
+          messageId={
+            "products.delete-product.toast.error.delete-product.message"
+          }
         />
       );
       console.error(error.response);
@@ -98,16 +100,16 @@ export const useEditProductItem = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"products.new-product.toast.success.title"}
-            messageId={"products.new-product.toast.success.message"}
+            titleId={"products.edit-product.toast.success.title"}
+            messageId={"products.edit-product.toast.success.message"}
           />
         );
       } catch (error: any) {
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={"products.new-product.toast.error.edit-product.title"}
-            messageId={"products.new-product.toast.error.edit-product.message"}
+            titleId={"products.edit-product.toast.error.edit-product.title"}
+            messageId={"products.edit-product.toast.error.edit-product.message"}
           />
         );
         console.error(error.response);
