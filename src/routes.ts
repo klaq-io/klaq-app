@@ -3,6 +3,7 @@ export const PATHS = {
   NEW_EVENT: "/new",
   EVENTS: "/events",
   EVENT: "/events/:id",
+  EVENT_EDIT: "/events/:id/edit",
   PRODUCTS: "/products",
   LOGIN: "/login",
   SIGN_UP: "/signup",

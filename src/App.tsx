@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Dashboard, Event, Events, Login, NewEvent } from "./pages";
+import { Dashboard, EditEvent, Event, Events, Login, NewEvent } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -42,6 +42,7 @@ function App() {
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route path={PATHS.EVENTS} element={<Events />} />
+        <Route path={PATHS.EVENT_EDIT} element={<EditEvent />} />
         <Route path={PATHS.EVENT} element={<Event />} />
         <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
         <Route path={PATHS.PRODUCTS} element={<Products />} />

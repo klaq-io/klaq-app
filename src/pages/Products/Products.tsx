@@ -162,7 +162,7 @@ export const Products = () => {
                         </td>
                         <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                           <div className="font-medium text-gray-500">
-                            {shortenString(50, product.description)}
+                            {shortenString(40, product.description)}
                           </div>
                         </td>
                         <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">

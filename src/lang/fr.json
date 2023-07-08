@@ -11,16 +11,19 @@
     "help": "Aide",
     "settings": "Paramètres"
   },
+
   "navbar": {
     "profile": "Profil",
     "logout": "Déconnexion",
     "searchbar": "Rechercher..."
   },
+
   "layout": {
     "login": {
       "header": "Faites ce que vous savez faire de mieux : vous produire."
     }
   },
+
   "login": {
     "header": "Connexion à votre compte",
     "label": {
@@ -45,6 +48,7 @@
       }
     }
   },
+
   "forget-password": {
     "header": "Modifier votre mot de passe",
     "text": "Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",
@@ -58,6 +62,16 @@
     "login": {
       "text": "Vous avez déjà un compte ?",
       "link": "Se connecter"
+    }
+  },
+
+  "edit-event": {
+    "my-products": {
+      "header": "Mes produits",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "Produit",
+      "price": "Prix (€)",
+      "quantity": "TVA (%)"
     }
   },
 
@@ -158,6 +172,7 @@
       }
     }
   },
+
   "products": {
     "title": "Produits",
     "header": "Liste des produits",

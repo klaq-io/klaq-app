@@ -23,7 +23,14 @@ export interface Event {
   status: string;
   desiredProduct?: string;
   customer: any;
-  products: ProductItem[];
+  products?: EventProduct[];
+}
+
+export interface EventProduct {
+  id: string;
+  productId: string;
+  quantity: number;
+  event: Event;
 }
 
 type EventsSliceType = [];
