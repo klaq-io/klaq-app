@@ -11,16 +11,13 @@
     "help": "Help",
     "settings": "Settings"
   },
+
   "navbar": {
     "profile": "Profile",
     "logout": "Logout",
     "searchbar": "Search..."
   },
-  "layout": {
-    "login": {
-      "header": "Do what you do best: produce yourself."
-    }
-  },
+
   "login": {
     "header": "Sign in to your account",
     "label": {
@@ -45,6 +42,7 @@
       }
     }
   },
+
   "forget-password": {
     "header": "Change your password",
     "text": "Forgot your password? Enter the email address you usually use to login to Klaq.",
@@ -60,6 +58,20 @@
       "link": "Sign in"
     }
   },
+
+  "edit-event": {
+    "my-products": {
+      "header": "My products",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "Product",
+      "price": "Price (€)",
+      "quantity": "Quantity",
+      "attach-product": "Attach a product to this event",
+      "add-new-product": "Add a new product",
+      "no-products-found": "No product found using that search term."
+    }
+  },
+
   "new-event": {
     "title": "New Event",
     "date": {
@@ -157,6 +169,7 @@
       }
     }
   },
+
   "products": {
     "title": "Products",
     "header": "List of products",

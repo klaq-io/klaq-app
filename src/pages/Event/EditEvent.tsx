@@ -1,5 +1,6 @@
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import {
+  CheckIcon,
   PaperClipIcon,
   PlusIcon,
   ShoppingBagIcon,
@@ -8,7 +9,7 @@ import {
 import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";
@@ -16,10 +17,14 @@ import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
+import { useFormik } from "formik";
+import { initialValues, validationSchemaEdit } from "./form";
+import { PATHS } from "../../routes";
 
 export const EditEvent = () => {
   const { id } = useParams();
   const intl = useIntl();
+  const navigate = useNavigate();
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
@@ -32,7 +37,17 @@ export const EditEvent = () => {
 
   const [openProductSidePanel, setOpenProductSidePanel] = useState(false);
 
-  console.log(event?.products);
+  const formik = useFormik({
+    initialValues: event || initialValues,
+    validationSchema: validationSchemaEdit,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      console.log(values);
+      navigate(`${PATHS.EVENTS}/${id}`);
+    },
+  });
+
+  const eventType = ["wedding", "birthday", "corporate"];
 
   const filteredProducts =
     query === ""
@@ -53,6 +68,16 @@ export const EditEvent = () => {
     setOpenProductSidePanel(true);
   };
 
+  const handleDeleteProductItem = (productId: string) => {
+    if (!formik.values.products) return;
+    formik.setFieldValue(
+      "products",
+      formik.values.products.filter(
+        (product) => product.productId !== productId
+      )
+    );
+  };
+
   useEffect(() => {
     fetchEvents();
     fetchProducts();
@@ -61,20 +86,34 @@ export const EditEvent = () => {
   return (
     <PageLayout isLoading={isLoading}>
       {event ? (
-        <>
+        <form onSubmit={formik.handleSubmit}>
           <div className="md:flex md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
               <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                Evenement du {new Date(event.date).toLocaleDateString()} pour{" "}
-                {event.customer.firstName} {event.customer.lastName}
+                {intl.formatMessage(
+                  {
+                    id: "edit-event.header",
+                  },
+                  {
+                    date: new Date(event.date).toLocaleDateString(),
+                    customerName: `${event.customer.firstName} ${event.customer.lastName}`,
+                  }
+                )}
               </h2>
             </div>
             <div>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                ({event.id})
-              </p>
+              <div className="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-x-2 rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                >
+                  <CheckIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                  Sauvegarder
+                </button>
+              </div>
             </div>
           </div>
+          {/** Date */}
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
@@ -83,6 +122,11 @@ export const EditEvent = () => {
                     id: "new-event.date.header",
                   })}
                 </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  {intl.formatMessage({
+                    id: "new-event.date.description",
+                  })}
+                </p>
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
@@ -93,7 +137,24 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {new Date(event.date).toLocaleDateString()}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.date.toString()}
+                        type="date"
+                        name="date"
+                        id="date"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      />
+                      {formik.errors.date && formik.touched.date ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.date.error.date",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -103,7 +164,14 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.numberOfGuests}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.numberOfGuests}
+                        type="number"
+                        name="numberOfGuests"
+                        id="numberOfGuest"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      />
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -113,7 +181,24 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.startTime}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.startTime}
+                        type="time"
+                        name="startTime"
+                        id="startTime"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      />
+                      {formik.errors.startTime && formik.touched.startTime ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.date.error.start-time",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -123,7 +208,24 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.endTime}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.endTime}
+                        type="time"
+                        name="endTime"
+                        id="endTime"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      />
+                      {formik.errors.endTime && formik.touched.endTime ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.date.error.end-time",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -133,9 +235,21 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {intl.formatMessage({
-                        id: `new-event.date.input.event-type.${event.eventType}`,
-                      })}
+                      <select
+                        onChange={formik.handleChange}
+                        value={formik.values.eventType}
+                        id="eventType"
+                        name="eventType"
+                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      >
+                        {eventType.map((type) => (
+                          <option key={type} value={type}>
+                            {intl.formatMessage({
+                              id: `new-event.date.input.event-type.${type}`,
+                            })}
+                          </option>
+                        ))}
+                      </select>
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -145,9 +259,25 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {intl.formatMessage({
-                        id: `new-event.date.input.public-event.${event.publicEvent}`,
-                      })}
+                      <select
+                        onChange={formik.handleChange}
+                        value={formik.values.publicEvent}
+                        id="publicEvent"
+                        name="publicEvent"
+                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        defaultValue="yes"
+                      >
+                        <option value="yes">
+                          {intl.formatMessage({
+                            id: "new-event.date.input.public-event.yes",
+                          })}
+                        </option>
+                        <option value="no">
+                          {intl.formatMessage({
+                            id: "new-event.date.input.public-event.no",
+                          })}
+                        </option>
+                      </select>
                     </dd>
                   </div>
                 </dl>
@@ -155,6 +285,7 @@ export const EditEvent = () => {
             </div>
             <div className="flex-1"></div>
           </div>
+          {/** Location */}
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
@@ -163,6 +294,11 @@ export const EditEvent = () => {
                     id: "new-event.location.header",
                   })}
                 </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  {intl.formatMessage({
+                    id: "new-event.location.description",
+                  })}
+                </p>
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
@@ -173,7 +309,27 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.address}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.address}
+                        type="text"
+                        name="address"
+                        id="address"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.location.input.address",
+                        })}
+                      />
+                      {formik.errors.address && formik.touched.address ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.location.error.address",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -183,7 +339,27 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.city}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.city}
+                        type="text"
+                        name="city"
+                        id="city"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.location.input.city",
+                        })}
+                      />
+                      {formik.errors.city && formik.touched.city ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.location.error.city",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -193,7 +369,27 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.state}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.state}
+                        type="text"
+                        name="state"
+                        id="state"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.location.input.state",
+                        })}
+                      />
+                      {formik.errors.state && formik.touched.state ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.location.error.state",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -203,22 +399,35 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.zipcode}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.zipcode}
+                        type="text"
+                        name="zipcode"
+                        id="zipcode"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.location.input.zipcode",
+                        })}
+                      />
+                      {formik.errors.zipcode && formik.touched.zipcode ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.location.error.zipcode",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                 </dl>
               </div>
-              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                Cette évènement se situe à{" "}
-                <span className="text-blue-600">X km</span> de votre bureau.
-                Vous aurez besoin de{" "}
-                <span className="text-blue-600">X minutes</span> pour vous y
-                rendre. Le coût estimé s'élève à{" "}
-                <span className="text-blue-600">X€</span>.
-              </p>
             </div>
-            <div className="flex-1">{/** second part */}</div>
+            <div className="flex-1"></div>
           </div>
+          {/** Customer */}
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
@@ -227,6 +436,11 @@ export const EditEvent = () => {
                     id: "new-event.customer.header",
                   })}
                 </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  {intl.formatMessage({
+                    id: "new-event.customer.description",
+                  })}
+                </p>
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
@@ -237,7 +451,30 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.customer.firstName}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.customer.firstName}
+                        type="text"
+                        name="customer.firstName"
+                        id="firstName"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.customer.input.first-name",
+                        })}
+                      />
+                      {formik.errors.customer &&
+                      formik.touched.customer &&
+                      formik.errors.customer.firstName &&
+                      formik.touched.customer.firstName ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.error.first-name",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -247,7 +484,30 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.customer.lastName}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.customer.lastName}
+                        type="text"
+                        name="customer.lastName"
+                        id="lastName"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.customer.input.last-name",
+                        })}
+                      />
+                      {formik.errors.customer &&
+                      formik.touched.customer &&
+                      formik.errors.customer.lastName &&
+                      formik.touched.customer.lastName ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.error.last-name",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -257,7 +517,28 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.phoneNumber}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.customer.phone}
+                        type="text"
+                        name="customer.phone"
+                        id="phoneNumber"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder="+33 6 12 34 56 78"
+                      />
+                      {formik.errors.customer &&
+                      formik.touched.customer &&
+                      formik.errors.customer.phone &&
+                      formik.touched.customer.phone ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.error.phone-number",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -267,25 +548,49 @@ export const EditEvent = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.customer.email}
+                      <input
+                        onChange={formik.handleChange}
+                        value={formik.values.customer.email}
+                        type="text"
+                        name="customer.email"
+                        id="email"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        placeholder={intl.formatMessage({
+                          id: "new-event.customer.input.email",
+                        })}
+                      />
+                      {formik.errors.customer &&
+                      formik.touched.customer &&
+                      formik.errors.customer.email &&
+                      formik.touched.customer.email ? (
+                        <p
+                          className="mt-2 text-sm text-danger-600"
+                          id="email-error"
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.error.email",
+                          })}
+                        </p>
+                      ) : null}
                     </dd>
                   </div>
                 </dl>
               </div>
             </div>
-            <div className="flex-1">{/** third part */}</div>
+            <div className="flex-1"></div>
           </div>
           <div className="sm:w-2/3">
             <div className="mt-10">
               <div className="px-4 sm:px-0">
                 <h3 className="text-base font-semibold leading-7 text-blue-600">
-                  {/* {intl.formatMessage({
-                    id: "new-event.customer.header",
-                  })} */}
-                  Mes prestations
+                  {intl.formatMessage({
+                    id: "edit-event.my-products.header",
+                  })}
                 </h3>
               </div>
-              {event.products ? (
+              {event.products &&
+              formik.values.products &&
+              formik.values.products.length > 0 ? (
                 <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
                   <table className="min-w-full">
                     <colgroup>
@@ -321,7 +626,7 @@ export const EditEvent = () => {
                           })}
                         </th>
                         <th
-                          className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                          className="hidden relative py-3.5 pl-3 pr-4 sm:pr-6"
                           scope="col"
                         >
                           <span className="sr-only">Delete</span>
@@ -329,11 +634,8 @@ export const EditEvent = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {event.products.map((product) => (
-                        <tr
-                          key={product.id}
-                          className="border-b border-gray-200"
-                        >
+                      {formik.values.products.map((product, idx) => (
+                        <tr key={product.id} className="">
                           <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                             <div className="font-medium text-gray-900">
                               {
@@ -355,9 +657,15 @@ export const EditEvent = () => {
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                             <input
-                              value={product.quantity}
+                              name={`products[${idx}].quantity`}
+                              onChange={formik.handleChange}
+                              value={
+                                formik.values.products
+                                  ? formik.values.products[idx].quantity
+                                  : 0
+                              }
                               type="number"
-                              className="block w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                              className="w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             />
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
@@ -371,6 +679,9 @@ export const EditEvent = () => {
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <button
+                              onClick={() =>
+                                handleDeleteProductItem(product.productId)
+                              }
                               type="button"
                               className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
                             >
@@ -383,6 +694,21 @@ export const EditEvent = () => {
                   </table>
                 </div>
               ) : null}
+              {/* todo: implement footer
+              <div className="flex flex-row-reverse mt-6">
+                <div className="flex flex-col">
+                  <div className="flex flex-row space-x-4">
+                    <p className="text-right text-sm font-semibold text-gray-900">
+                      Subtotal
+                    </p>
+                    <p className="text-right text-sm font-semibold text-gray-900">
+                      1400€
+                    </p>
+                  </div>
+                  <div className="flex flex-row">Tax</div>
+                  <div className="flex flex-row">Total</div>
+                </div>
+              </div> */}
               <div className="flex flex-row mt-10">
                 <div className="">
                   <button
@@ -391,7 +717,9 @@ export const EditEvent = () => {
                     className="mr-4 inline-flex items-center gap-x-2 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                    Ajouter un nouveau produit
+                    {intl.formatMessage({
+                      id: "edit-event.my-products.add-new-product",
+                    })}
                   </button>
                 </div>
                 <div className="">
@@ -404,7 +732,9 @@ export const EditEvent = () => {
                       className="-ml-0.5 h-5 w-5"
                       aria-hidden="true"
                     />
-                    Attacher un produit à cet évènement
+                    {intl.formatMessage({
+                      id: "edit-event.my-products.attach-product",
+                    })}
                   </button>
                 </div>
               </div>
@@ -486,7 +816,9 @@ export const EditEvent = () => {
                             aria-hidden="true"
                           />
                           <p className="mt-4 text-sm text-gray-900">
-                            No product found using that search term.
+                            {intl.formatMessage({
+                              id: "edit-event.my-products.no-products-found",
+                            })}
                           </p>
                         </div>
                       )}
@@ -500,7 +832,7 @@ export const EditEvent = () => {
             openSidePanel={openProductSidePanel}
             setOpenSidePanel={setOpenProductSidePanel}
           />
-        </>
+        </form>
       ) : null}
     </PageLayout>
   );

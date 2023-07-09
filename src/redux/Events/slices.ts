@@ -22,8 +22,20 @@ export interface Event {
   additionalInfo?: string;
   status: string;
   desiredProduct?: string;
-  customer: any;
+  customer: Customer;
   products?: EventProduct[];
+}
+
+export interface Customer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zipcode: string;
 }
 
 export interface EventProduct {

@@ -166,7 +166,6 @@ export const NewEvent = () => {
                       id="eventType"
                       name="eventType"
                       className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
-                      defaultValue={formik.values.eventType}
                     >
                       {eventType.map((type) => (
                         <option key={type} value={type}>
@@ -388,7 +387,7 @@ export const NewEvent = () => {
                         id: "new-event.customer.input.first-name",
                       })}
                     />
-                    {formik.errors.firstName && formik.touched.lastName ? (
+                    {formik.errors.firstName && formik.touched.firstName ? (
                       <p
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"

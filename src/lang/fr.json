@@ -18,12 +18,6 @@
     "searchbar": "Rechercher..."
   },
 
-  "layout": {
-    "login": {
-      "header": "Faites ce que vous savez faire de mieux : vous produire."
-    }
-  },
-
   "login": {
     "header": "Connexion à votre compte",
     "label": {
@@ -66,12 +60,16 @@
   },
 
   "edit-event": {
+    "header": "Évènement du {date} pour {customerName} ",
     "my-products": {
       "header": "Mes produits",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
       "title": "Produit",
       "price": "Prix (€)",
-      "quantity": "TVA (%)"
+      "quantity": "Quantité",
+      "attach-product": "Attacher un produit à cet évènement",
+      "add-new-product": "Ajouter un nouveau produit",
+      "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche"
     }
   },
 
