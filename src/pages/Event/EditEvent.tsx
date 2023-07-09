@@ -6,28 +6,29 @@ import {
   ShoppingBagIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useFormik } from "formik";
 import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
-import { useFetchEvents } from "../../redux/Events/hooks";
+import { useFetchEvents, useUpdateEvent } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";
 import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
-import { useFormik } from "formik";
 import { initialValues, validationSchemaEdit } from "./form";
-import { PATHS } from "../../routes";
+import { ProductItem } from "../../redux/Products/slices";
 
 export const EditEvent = () => {
   const { id } = useParams();
   const intl = useIntl();
-  const navigate = useNavigate();
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
+
+  const [, updateEvent] = useUpdateEvent();
 
   const [, fetchProducts] = useFetchProductItems();
   const productItems = useSelector(getAllProducts);
@@ -42,8 +43,8 @@ export const EditEvent = () => {
     validationSchema: validationSchemaEdit,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(values);
-      navigate(`${PATHS.EVENTS}/${id}`);
+      const date = new Date(values.date);
+      updateEvent({ ...values, date }, id!);
     },
   });
 
@@ -61,6 +62,13 @@ export const EditEvent = () => {
   };
 
   const handleAddProductToEvent = (productId: string) => {
+    if (!formik.values.products)
+      formik.setFieldValue("products", [{ productId, quantity: 1 }]);
+    else
+      formik.setFieldValue("products", [
+        ...formik.values.products,
+        { productId, quantity: 1 },
+      ]);
     setOpenAddProductModal(false);
   };
 
@@ -664,17 +672,19 @@ export const EditEvent = () => {
                                   ? formik.values.products[idx].quantity
                                   : 0
                               }
+                              min="1"
                               type="number"
                               className="w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             />
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                            {
-                              productItems?.find(
-                                (productItem) =>
-                                  productItem.id === product.productId
-                              )?.price
-                            }
+                            {formik.values.products
+                              ? (productItems?.find(
+                                  (productItem: ProductItem) =>
+                                    productItem.id === product.productId
+                                )?.price || 0) *
+                                formik.values.products[idx].quantity
+                              : 0}
                             €
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

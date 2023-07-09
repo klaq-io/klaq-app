@@ -64,11 +64,21 @@
       "header": "My products",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
       "title": "Product",
-      "price": "Price (€)",
+      "price": "Price No Taxes(€)",
       "quantity": "Quantity",
       "attach-product": "Attach a product to this event",
       "add-new-product": "Add a new product",
       "no-products-found": "No product found using that search term."
+    },
+    "toast": {
+      "success": {
+        "title": "Your event was successfully modified",
+        "message": "The event has been modified"
+      },
+      "error": {
+        "title": "Error while editing the event",
+        "message": "The event hasn't been modified"
+      }
     }
   },
 

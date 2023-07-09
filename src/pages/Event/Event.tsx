@@ -334,10 +334,7 @@ export const Event = () => {
                     </thead>
                     <tbody>
                       {event.products.map((product) => (
-                        <tr
-                          key={product.id}
-                          className="border-b border-gray-200"
-                        >
+                        <tr key={product.id}>
                           <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                             <div className="font-medium text-gray-900">
                               {
@@ -361,12 +358,10 @@ export const Event = () => {
                             {product.quantity}
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                            {
-                              productItems?.find(
-                                (productItem: ProductItem) =>
-                                  productItem.id === product.productId
-                              )?.price
-                            }
+                            {(productItems?.find(
+                              (productItem: ProductItem) =>
+                                productItem.id === product.productId
+                            )?.price || 0) * product.quantity}
                             €
                           </td>
                         </tr>

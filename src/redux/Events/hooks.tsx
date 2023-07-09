@@ -69,3 +69,53 @@ export const useAddEvent = () => {
     }
   );
 };
+
+export const useUpdateEvent = () => {
+  const navigate = useNavigate();
+
+  return useAsyncCallback(
+    async (
+      values: {
+        date: Date;
+        startTime: string;
+        endTime: string;
+        numberOfGuests: number;
+        eventType: string;
+        address: string;
+        city: string;
+        state: string;
+        zipcode: string;
+        customer: {
+          firstName: string;
+          lastName: string;
+          email: string;
+          phone: string;
+        };
+        products?: any;
+      },
+      id
+    ) => {
+      try {
+        webClient.put(`/events/${id}`, values);
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId="edit-event.toast.success.title"
+            messageId="edit-event.toast.success.message"
+          />
+        );
+        navigate(`${PATHS.EVENTS}/${id}`);
+      } catch (error: any) {
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId="edit-event.toast.error.title"
+            messageId="edit-event.toast.error.message"
+          />
+        );
+        console.error(error);
+        return error.response;
+      }
+    }
+  );
+};
