@@ -9,12 +9,6 @@ export const NewEvent = () => {
   const intl = useIntl();
   const [, addEvent] = useAddEvent();
 
-  const setPhoneNumber = (phone: string) => {
-    formik.setValues({
-      ...formik.values,
-      phoneNumber: phone,
-    });
-  };
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -378,16 +372,19 @@ export const NewEvent = () => {
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                     <input
                       onChange={formik.handleChange}
-                      value={formik.values.firstName}
+                      value={formik.values.customer.firstName}
                       type="text"
-                      name="firstName"
-                      id="firstName"
+                      name="customer.firstName"
+                      id="customer.firstName"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
                         id: "new-event.customer.input.first-name",
                       })}
                     />
-                    {formik.errors.firstName && formik.touched.firstName ? (
+                    {formik.errors.customer &&
+                    formik.touched.customer &&
+                    formik.errors.customer.firstName &&
+                    formik.touched.customer.firstName ? (
                       <p
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
@@ -408,16 +405,19 @@ export const NewEvent = () => {
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                     <input
                       onChange={formik.handleChange}
-                      value={formik.values.lastName}
+                      value={formik.values.customer.lastName}
                       type="text"
-                      name="lastName"
-                      id="lastName"
+                      name="customer.lastName"
+                      id="customer.lastName"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
                         id: "new-event.customer.input.last-name",
                       })}
                     />
-                    {formik.errors.lastName && formik.touched.lastName ? (
+                    {formik.errors.customer &&
+                    formik.touched.customer &&
+                    formik.errors.customer.lastName &&
+                    formik.touched.customer.lastName ? (
                       <p
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
@@ -438,14 +438,17 @@ export const NewEvent = () => {
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                     <input
                       onChange={formik.handleChange}
-                      value={formik.values.phoneNumber}
+                      value={formik.values.customer.phone}
                       type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
+                      name="customer.phone"
+                      id="customer.phone"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                       placeholder="+33 6 12 34 56 78"
                     />
-                    {formik.errors.phoneNumber && formik.touched.phoneNumber ? (
+                    {formik.errors.customer &&
+                    formik.touched.customer &&
+                    formik.errors.customer.phone &&
+                    formik.touched.customer.phone ? (
                       <p
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"
@@ -466,16 +469,19 @@ export const NewEvent = () => {
                   <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
                     <input
                       onChange={formik.handleChange}
-                      value={formik.values.email}
+                      value={formik.values.customer.email}
                       type="text"
-                      name="email"
-                      id="email"
+                      name="customer.email"
+                      id="customer.email"
                       className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
                         id: "new-event.customer.input.email",
                       })}
                     />
-                    {formik.errors.email && formik.touched.email ? (
+                    {formik.errors.customer &&
+                    formik.touched.customer &&
+                    formik.errors.customer.email &&
+                    formik.touched.customer.email ? (
                       <p
                         className="mt-2 text-sm text-danger-600"
                         id="email-error"

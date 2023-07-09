@@ -268,7 +268,7 @@ export const Event = () => {
                       })}
                     </dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
-                      {event.phoneNumber}
+                      {event.customer.phone}
                     </dd>
                   </div>
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -295,7 +295,7 @@ export const Event = () => {
                   })}
                 </h3>
               </div>
-              {event.products ? (
+              {event.products && event.products.length ? (
                 <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
                   <table className="min-w-full">
                     <colgroup>
@@ -369,7 +369,13 @@ export const Event = () => {
                     </tbody>
                   </table>
                 </div>
-              ) : null}
+              ) : (
+                <div>
+                  <p className="mt-6 max-w-2xl text-sm leading-6 text-gray-500">
+                    Vous n'avez pas spécifié de produits pour cet évènement.
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex-1"></div>
           </div>

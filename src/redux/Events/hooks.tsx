@@ -35,6 +35,12 @@ export const useAddEvent = () => {
       city: string;
       state: string;
       zipcode: string;
+      customer: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+      };
     }) => {
       if (!(values.startTime <= values.endTime)) {
         toast.custom(

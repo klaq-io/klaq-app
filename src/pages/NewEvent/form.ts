@@ -11,10 +11,12 @@ export const initialValues = {
   city: "",
   state: "",
   zipcode: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  phoneNumber: "",
+  customer: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  },
 };
 
 export const validationSchema = Yup.object({
@@ -28,8 +30,10 @@ export const validationSchema = Yup.object({
   city: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
   zipcode: Yup.string().required("Required"),
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email address").required("Required"),
-  phoneNumber: Yup.string().required("Required"),
+  customer: Yup.object({}).shape({
+    firstName: Yup.string().required("Required"),
+    lastName: Yup.string().required("Required"),
+    email: Yup.string().email("Invalid email address").required("Required"),
+    phone: Yup.string().required("Required"),
+  }),
 });
