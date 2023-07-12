@@ -16,6 +16,7 @@ export const initialValues = {
     lastName: "",
     email: "",
     phone: "",
+    type: "PRIVATE",
   },
 };
 

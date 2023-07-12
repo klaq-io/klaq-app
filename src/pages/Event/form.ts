@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { CustomerType } from "../../redux/Events/slices";
 
 export const initialValues = {
   date: "",
@@ -16,6 +17,7 @@ export const initialValues = {
     lastName: "Doe",
     email: "johndoe@gmail.com",
     phone: "0606060606",
+    type: CustomerType.PRIVATE,
   },
   products: [
     {

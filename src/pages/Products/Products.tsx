@@ -30,8 +30,6 @@ export const Products = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [productToEdit, setProductToEdit] = useState("");
 
-  console.log(JSON.stringify(productItems, null, 2));
-
   const handleOpenSidePanel = () => {
     setOpenSidePanel(true);
   };

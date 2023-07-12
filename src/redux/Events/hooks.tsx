@@ -96,19 +96,21 @@ export const useUpdateEvent = () => {
           lastName: string;
           email: string;
           phone: string;
+          type: string;
         };
         products?: any;
       },
       id
     ) => {
       try {
-        webClient.put(`/events/${id}`, values);
+        await webClient.put(`/events/${id}`, values);
         toast.custom(
           <ToastNotification
             status="success"
             titleId="edit-event.toast.success.title"
             messageId="edit-event.toast.success.message"
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${id}`);
       } catch (error: any) {

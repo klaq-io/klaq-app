@@ -143,7 +143,8 @@
         "first-name": "First name",
         "last-name": "Last name",
         "phone-number": "Telephone number",
-        "email": "E-mail address"
+        "email": "E-mail address",
+        "type": "Type of customer"
       },
       "input": {
         "first-name": "Enter first name",
@@ -156,6 +157,10 @@
         "last-name": "Last name is required",
         "phone-number": "Phone number is required",
         "email": "Email address is required"
+      },
+      "type": {
+        "private": "Private",
+        "company": "Company"
       }
     },
     "submit": "Create a new event",

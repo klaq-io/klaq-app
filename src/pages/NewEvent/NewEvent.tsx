@@ -4,10 +4,19 @@ import PhoneInput from "react-phone-input-2";
 import { PageLayout } from "../../layouts";
 import { useAddEvent } from "../../redux/Events/hooks";
 import { initialValues, validationSchema } from "./form";
+import { useState } from "react";
+import Button from "../../components/Button";
+import {
+  MagnifyingGlassIcon,
+  ShoppingBagIcon,
+} from "@heroicons/react/24/outline";
 
 export const NewEvent = () => {
   const intl = useIntl();
   const [, addEvent] = useAddEvent();
+
+  const [openLookForCustomer, setOpenLookForCustomer] = useState(false);
+  const [query, setQuery] = useState("");
 
   const formik = useFormik({
     initialValues,
@@ -19,6 +28,11 @@ export const NewEvent = () => {
 
   // TODO: call an enum instead
   const eventType = ["wedding", "birthday", "corporate"];
+
+  enum CustomerType {
+    COMPANY = "COMPANY",
+    PRIVATE = "PRIVATE",
+  }
 
   return (
     <PageLayout>
@@ -362,6 +376,45 @@ export const NewEvent = () => {
               </p>
             </div>
             <div className="mt-6">
+              <dl className="grid grid-cols-1 sm:grid-cols-2">
+                <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900">
+                    {intl.formatMessage({
+                      id: "new-event.customer.label.type",
+                    })}
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                    <select
+                      onChange={formik.handleChange}
+                      value={formik.values.customer.type}
+                      id="customer.type"
+                      name="customer.type"
+                      className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    >
+                      <option
+                        key={CustomerType.PRIVATE}
+                        value={CustomerType.PRIVATE}
+                      >
+                        {intl.formatMessage({
+                          id: "new-event.customer.type.private",
+                        })}
+                      </option>
+                      <option
+                        key={CustomerType.COMPANY}
+                        value={CustomerType.COMPANY}
+                      >
+                        {intl.formatMessage({
+                          id: "new-event.customer.type.company",
+                        })}
+                      </option>
+                    </select>
+                  </dd>
+                </div>
+                <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"></dd>
+                </div>
+              </dl>
               <dl className="grid grid-cols-1 sm:grid-cols-2">
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                   <dt className="text-sm font-medium leading-6 text-gray-900">

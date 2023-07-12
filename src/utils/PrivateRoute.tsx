@@ -29,7 +29,7 @@ const PrivateRoute = (props: Props) => {
     checkLogin();
   });
 
-  return <>{children}</>;
+  return children ? children : <div>loading...</div>;
 };
 
 export default PrivateRoute;

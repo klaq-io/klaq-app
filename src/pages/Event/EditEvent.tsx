@@ -14,12 +14,13 @@ import { useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents, useUpdateEvent } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";
+import { CustomerType } from "../../redux/Events/slices";
 import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
+import { ProductItem } from "../../redux/Products/slices";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
 import { initialValues, validationSchemaEdit } from "./form";
-import { ProductItem } from "../../redux/Products/slices";
 
 export const EditEvent = () => {
   const { id } = useParams();
@@ -451,6 +452,45 @@ export const EditEvent = () => {
                 </p>
               </div>
               <div className="mt-6">
+                <dl className="grid grid-cols-1 sm:grid-cols-2">
+                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "new-event.customer.label.type",
+                      })}
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                      <select
+                        onChange={formik.handleChange}
+                        value={formik.values.customer.type}
+                        id="customer.type"
+                        name="customer.type"
+                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      >
+                        <option
+                          key={CustomerType.PRIVATE}
+                          value={CustomerType.PRIVATE}
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.type.private",
+                          })}
+                        </option>
+                        <option
+                          key={CustomerType.COMPANY}
+                          value={CustomerType.COMPANY}
+                        >
+                          {intl.formatMessage({
+                            id: "new-event.customer.type.company",
+                          })}
+                        </option>
+                      </select>
+                    </dd>
+                  </div>
+                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"></dd>
+                  </div>
+                </dl>
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">

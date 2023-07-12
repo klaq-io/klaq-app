@@ -43,6 +43,48 @@
     }
   },
 
+  "sign-up": {
+    "header": "Faisons d'abord connaissance",
+    "label": {
+      "first-name": "Prénom",
+      "last-name": "Nom",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "phone": "Numéro de téléphone"
+    },
+    "input": {
+      "first-name": "Saisissez votre prénom",
+      "last-name": "Saisissez votre nom",
+      "email": "Saisissez votre adresse e-mail",
+      "password": "Saisissez votre mot de passe",
+      "phone": "Saisissez votre numéro de téléphone portable"
+    },
+    "error": {
+      "first-name": "Veuillez saisir votre prénom",
+      "last-name": "Veuillez saisir votre nom",
+      "email": "Veuillez saisir votre adresse e-mail",
+      "password": "Veuillez saisir votre mot de passe, celui doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial",
+      "phone": "Veuillez saisir votre numéro de téléphone portable"
+    },
+    "submit": "Continuer",
+    "toast": {
+      "error": {
+        "auth-user-already-exist": {
+          "title": "Erreur",
+          "message": "Un compte existe déjà avec cette adresse e-mail"
+        },
+        "auth-weak-password": {
+          "title": "Erreur",
+          "message": "Le mot de passe doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial"
+        }
+      },
+      "success": {
+        "title": "Succès",
+        "message": "Votre compte a bien été créé"
+      }
+    }
+  },
+
   "forget-password": {
     "header": "Modifier votre mot de passe",
     "text": "Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",
@@ -144,13 +186,18 @@
         "first-name": "Prénom",
         "last-name": "Nom",
         "phone-number": "Numéro de téléphone",
-        "email": "Adresse e-mail"
+        "email": "Adresse e-mail",
+        "type": "Type de client"
       },
       "input": {
         "first-name": "Saisissez le prénom",
         "last-name": "Saisissez le nom",
         "phone-number": "Saisissez le numéro de téléphone",
         "email": "Saisissez l'adresse e-mail"
+      },
+      "type": {
+        "private": "Particulier",
+        "company": "Entreprise"
       },
       "error": {
         "first-name": "Veuillez saisir un prénom",

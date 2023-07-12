@@ -239,7 +239,26 @@ export const Event = () => {
                   })}
                 </h3>
               </div>
+
               <div className="mt-6">
+                <dl className="grid grid-cols-1 sm:grid-cols-2">
+                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "new-event.customer.label.type",
+                      })}
+                    </dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+                      {intl.formatMessage({
+                        id: `new-event.customer.type.${event.customer.type.toLowerCase()}`,
+                      })}
+                    </dd>
+                  </div>
+                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                    <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
+                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"></dd>
+                  </div>
+                </dl>
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
                   <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">

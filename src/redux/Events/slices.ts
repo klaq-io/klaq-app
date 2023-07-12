@@ -36,6 +36,12 @@ export interface Customer {
   city: string;
   state: string;
   zipcode: string;
+  type: CustomerType;
+}
+
+export enum CustomerType {
+  PRIVATE = "PRIVATE",
+  COMPANY = "COMPANY",
 }
 
 export interface EventProduct {

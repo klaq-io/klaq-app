@@ -6,8 +6,8 @@ export const PATHS = {
   EVENT_EDIT: "/events/:id/edit",
   PRODUCTS: "/products",
   LOGIN: "/login",
-  SIGN_UP: "/signup",
   PROFILE: "/profile",
   SETTINGS: "/settings",
   FORGET_PASSWORD: "/forget-password",
+  SIGN_UP: "/sign-up/",
 };

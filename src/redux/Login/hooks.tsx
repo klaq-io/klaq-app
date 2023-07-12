@@ -60,3 +60,37 @@ export const useFetchUser = () => {
     }
   });
 };
+
+export const useSignUp = () => {
+  return useAsyncCallback(
+    async (values: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      password: string;
+      phone: string;
+    }) => {
+      try {
+        const res = await webClient.post("auth/register", values);
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId={"sign-up.toast.success.title"}
+            messageId={"sign-up.toast.success.message"}
+          />
+        );
+        return res.data;
+      } catch (error: any) {
+        console.error(error);
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.title`}
+            messageId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.message`}
+          />
+        );
+        return error.response;
+      }
+    }
+  );
+};
