@@ -273,3 +273,5 @@ export const Products = () => {
     </PageLayout>
   );
 };
+
+export default Products;

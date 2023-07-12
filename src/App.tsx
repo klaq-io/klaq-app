@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Dashboard, EditEvent, Event, Events, Login, NewEvent } from "./pages";
+import {
+  Dashboard,
+  EditEvent,
+  Event,
+  Events,
+  Login,
+  NewEvent,
+  ConfirmMail,
+  SignUp,
+  Products,
+} from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoute from "./utils/PrivateRoute";
-import { Products } from "./pages/Products/Products";
 import Onboarding from "./pages/Onboarding";
-import { SignUp } from "./pages/SignUp/SignUp";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -41,6 +49,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={PATHS.SIGN_UP} element={<SignUp />} />
+        <Route path={PATHS.CONFIRM_MAIL} element={<ConfirmMail />} />
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route path={PATHS.EVENTS} element={<Events />} />

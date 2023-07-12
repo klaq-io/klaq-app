@@ -62,6 +62,9 @@ export const useFetchUser = () => {
 };
 
 export const useSignUp = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return useAsyncCallback(
     async (values: {
       firstName: string;
@@ -79,6 +82,8 @@ export const useSignUp = () => {
             messageId={"sign-up.toast.success.message"}
           />
         );
+        dispatch(setUser(res.data));
+        navigate(`${PATHS.CONFIRM_MAIL}?email=${values.email}`);
         return res.data;
       } catch (error: any) {
         console.error(error);

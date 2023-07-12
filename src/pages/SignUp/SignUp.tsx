@@ -30,7 +30,9 @@ export const SignUp = () => {
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Faisons d'abord connaissance
+          {intl.formatMessage({
+            id: "sign-up.header",
+          })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage({
@@ -221,3 +223,5 @@ export const SignUp = () => {
     </OnboardingLayout>
   );
 };
+
+export default SignUp;

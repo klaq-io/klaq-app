@@ -10,4 +10,5 @@ export const PATHS = {
   SETTINGS: "/settings",
   FORGET_PASSWORD: "/forget-password",
   SIGN_UP: "/sign-up/",
+  CONFIRM_MAIL: "/confirm-email",
 };

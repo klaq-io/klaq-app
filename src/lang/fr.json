@@ -85,6 +85,35 @@
     }
   },
 
+  "confirm-mail": {
+    "header": "Votre e-mail de confirmation vous attend dans votre boîte",
+    "description": "Veuillez cliquer sur le lien de confirmation dans l'e-mail que nous venons de vous envoyer à l'adresse <b>{email}</b> pour continuer.",
+    "toast": {
+      "error": {
+        "email-already-confirmed": {
+          "title": "Erreur",
+          "message": "Votre email a déjà été confirmé"
+        },
+        "token-expired": {
+          "title": "Erreur",
+          "message": "Votre email a expiré, veuillez en demander un nouveau"
+        },
+        "invalid-token": {
+          "title": "Erreur",
+          "message": "Votre email est invalide, veuillez en demander un nouveau"
+        }
+      },
+      "success": {
+        "title": "Succès",
+        "message": "Votre email a bien été confirmé"
+      }
+    },
+    "resend": {
+      "text": "Votre email est peut-être dans vos spams. Toujours rien ?",
+      "link": "Cliquer ici pour renvoyer l'e-mail"
+    }
+  },
+
   "forget-password": {
     "header": "Modifier votre mot de passe",
     "text": "Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",
