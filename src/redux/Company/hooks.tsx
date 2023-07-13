@@ -20,13 +20,13 @@ export const useCreateCompany = () => {
   const dispatch = useDispatch();
   return useAsyncCallback(
     async (values: {
-      activityType: string;
-      inseeLegalFormCode: string;
+      activityType?: string;
+      inseeLegalFormCode?: string;
       legalForm: string;
       legalName: string;
       legalRegistrationNumber: string;
       legalVATNumber?: string;
-      registrationDate: Date;
+      registrationDate?: Date;
       address: string;
       city: string;
       zip: string;

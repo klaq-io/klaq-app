@@ -55,7 +55,7 @@ export const OnboardingCompanySearch = () => {
                   fetchCompanySuggestions(event.target.value)
                 }
               />
-              {suggestions.length > 0 && (
+              {suggestions && suggestions.length > 0 && (
                 <Combobox.Options
                   static
                   className="-mb-2 max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800"

@@ -3,18 +3,19 @@ import { CompanyLegalForm } from "../../interface/suggestion.interface";
 import { initialState } from "../states";
 
 export interface Company {
-  activityType: string;
-  inseeLegalFormCode: string;
+  id: string;
+  activityType?: string;
+  inseeLegalFormCode?: string;
   legalForm: CompanyLegalForm;
   legalName: string;
   legalRegistrationNumber: string;
   legalVATNumber?: string;
-  registrationDate: Date;
+  registrationDate?: Date;
   address: string;
   city: string;
   zip: string;
-  tradeName?: string;
   country: string;
+  tradeName?: string;
 }
 
 export const companySlice = createSlice({

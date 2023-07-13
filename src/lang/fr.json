@@ -161,7 +161,16 @@
       "no-result": "Aucun résultat trouvé"
     },
     "company-form": {
-      "header": "Votre entreprise",
+      "header": {
+        "company": "Votre entreprise",
+        "vta": "Votre numéro de TVA",
+        "address": "Votre adresse de facturation"
+      },
+      "description": {
+        "company": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats",
+        "vta": "Si vous disposez d'un numéro de TVA, vous pouvez le saisir ici, sinon passez à l'étape suivante",
+        "address": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats"
+      },
       "label": {
         "activity-type": "Type d'activité (Code NAF)",
         "insee-code": "Code INSEE",
@@ -170,7 +179,7 @@
         "legal-registration-number": "Numéro d'immatriculation",
         "legal-vat-number": "Numéro de TVA",
         "registration-date": "Date d'immatriculation",
-        "address": "Adresse du siège social",
+        "address": "Adresse",
         "city": "Ville",
         "zip": "Code postal",
         "country": "Pays"
@@ -183,7 +192,7 @@
         "legal-registration-number": "Saisissez le numéro d'immatriculation",
         "legal-vat-number": "Saisissez le numéro de TVA si vous en disposez",
         "registration-date": "Saisissez la date d'immatriculation",
-        "address": "Saisissez l'adresse du siège social",
+        "address": "Saisissez l'adresse",
         "city": "Saisissez la ville",
         "zip": "Saisissez le code postal",
         "country": "Saisissez le pays"
