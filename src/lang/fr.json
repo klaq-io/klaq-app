@@ -170,10 +170,10 @@
         "legal-registration-number": "Numéro d'immatriculation",
         "legal-vat-number": "Numéro de TVA",
         "registration-date": "Date d'immatriculation",
-        "legal-address": "Adresse du siège social",
-        "legal-city": "Ville",
-        "legal-zipcode": "Code postal",
-        "legal-country": "Pays"
+        "address": "Adresse du siège social",
+        "city": "Ville",
+        "zip": "Code postal",
+        "country": "Pays"
       },
       "input": {
         "activity-type": "Saisissez le type d'activité",
@@ -183,10 +183,10 @@
         "legal-registration-number": "Saisissez le numéro d'immatriculation",
         "legal-vat-number": "Saisissez le numéro de TVA si vous en disposez",
         "registration-date": "Saisissez la date d'immatriculation",
-        "legal-address": "Saisissez l'adresse du siège social",
-        "legal-city": "Saisissez la ville",
-        "legal-zipcode": "Saisissez le code postal",
-        "legal-country": "Saisissez le pays"
+        "address": "Saisissez l'adresse du siège social",
+        "city": "Saisissez la ville",
+        "zip": "Saisissez le code postal",
+        "country": "Saisissez le pays"
       },
       "error": {
         "activity-type": "Veuillez saisir le type d'activité",
@@ -196,10 +196,26 @@
         "legal-registration-number": "Veuillez saisir le numéro d'immatriculation",
         "legal-vat-number": "Veuillez saisir le numéro de TVA si vous en disposez",
         "registration-date": "Veuillez saisir la date d'immatriculation",
-        "legal-address": "Veuillez saisir l'adresse du siège social",
-        "legal-city": "Veuillez saisir la ville",
-        "legal-zipcode": "Veuillez saisir le code postal",
-        "legal-country": "Veuillez saisir le pays"
+        "address": "Veuillez saisir l'adresse du siège social",
+        "city": "Veuillez saisir la ville",
+        "zip": "Veuillez saisir le code postal",
+        "country": "Veuillez saisir le pays"
+      },
+      "toast": {
+        "success": {
+          "title": "Succès",
+          "message": "Votre entreprise a bien été créée"
+        },
+        "error": {
+          "company_already_exist": {
+            "title": "Erreur",
+            "message": "Une entreprise existe déjà avec ces informations"
+          },
+          "company_does_not_exist": {
+            "title": "Erreur",
+            "message": "Aucune entreprise n'a été trouvée avec ces informations"
+          }
+        }
       }
     }
   },
