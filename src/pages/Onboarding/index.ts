@@ -1,1 +1,2 @@
-export { Onboarding as default } from "./Onboarding";
+export * from "./Onboarding";
+export * from "./Company";

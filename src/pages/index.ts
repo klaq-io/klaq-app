@@ -1,4 +1,5 @@
 export * from "./ConfirmMail";
+export * from "./ConfirmSMS";
 export * from "./Dashboard";
 export * from "./Event";
 export * from "./Events";

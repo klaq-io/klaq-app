@@ -59,6 +59,35 @@
     }
   },
 
+  "confirm-mail": {
+    "header": "Your confirmation e-mail is waiting for you in your mailbox",
+    "description": "Please click on the confirmation link in the e-mail we just sent to <b>{email}</b> to continue.",
+    "toast": {
+      "error": {
+        "email-already-confirmed": {
+          "title": "Error",
+          "message": "Your email has already been confirmed"
+        },
+        "token-expired": {
+          "title": "Error",
+          "message": "Your email confirmation link has expired, please request a new one"
+        },
+        "invalid-token": {
+          "title": "Error",
+          "message": "Invalid email confirmation link"
+        }
+      },
+      "success": {
+        "title": "Success",
+        "message": "Your email has been confirmed"
+      }
+    },
+    "resend": {
+      "text": "Didn't receive the email?",
+      "link": "Resend the email"
+    }
+  },
+
   "edit-event": {
     "my-products": {
       "header": "My products",

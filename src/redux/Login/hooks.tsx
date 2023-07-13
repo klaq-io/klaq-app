@@ -66,13 +66,7 @@ export const useSignUp = () => {
   const dispatch = useDispatch();
 
   return useAsyncCallback(
-    async (values: {
-      firstName: string;
-      lastName: string;
-      email: string;
-      password: string;
-      phone: string;
-    }) => {
+    async (values: { email: string; password: string; phone: string }) => {
       try {
         const res = await webClient.post("auth/register", values);
         toast.custom(

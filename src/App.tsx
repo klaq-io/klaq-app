@@ -3,20 +3,22 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  ConfirmMail,
+  ConfirmPhone,
   Dashboard,
   EditEvent,
   Event,
   Events,
   Login,
   NewEvent,
-  ConfirmMail,
-  SignUp,
+  OnboardingCompany,
+  OnboardingCompanySearch,
+  OnboardingLegalFormChoice,
   Products,
+  SignUp,
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
-import PrivateRoute from "./utils/PrivateRoute";
-import Onboarding from "./pages/Onboarding";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -50,6 +52,19 @@ function App() {
       <Routes>
         <Route path={PATHS.SIGN_UP} element={<SignUp />} />
         <Route path={PATHS.CONFIRM_MAIL} element={<ConfirmMail />} />
+        <Route path={PATHS.CONFIRM_SMS} element={<ConfirmPhone />} />
+        <Route
+          path={PATHS.ONBOARDING_LEGAL_FORM_CHOICE}
+          element={<OnboardingLegalFormChoice />}
+        />
+        <Route
+          path={PATHS.ONBOARDING_COMPANY_SEARCH}
+          element={<OnboardingCompanySearch />}
+        />
+        <Route
+          path={PATHS.ONBOARDING_COMPANY}
+          element={<OnboardingCompany />}
+        />
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route path={PATHS.EVENTS} element={<Events />} />

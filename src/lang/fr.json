@@ -114,6 +114,100 @@
     }
   },
 
+  "confirm-sms": {
+    "header": "Votre code de confirmation vous attend sur votre téléphone",
+    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer.",
+    "toast": {
+      "error": {
+        "phone_number_already_confirmed": {
+          "title": "Erreur",
+          "message": "Votre numéro de téléphone a déjà été confirmé"
+        },
+        "invalid_verification_code": {
+          "title": "Erreur",
+          "message": "Votre code de confirmation est invalide"
+        }
+      },
+      "success": {
+        "title": "Succès",
+        "message": "Votre numéro de téléphone a bien été confirmé"
+      }
+    }
+  },
+
+  "onboarding": {
+    "legal-form-choice": {
+      "header": "Quelle est la forme juridique de votre entreprise ?",
+      "legal-form-type": {
+        "company": {
+          "title": "Société",
+          "description": "SASU, SAS, SARL, SA, SCI, EURL..."
+        },
+        "association": {
+          "title": "Association",
+          "description": "Association loi 1901, Association loi 1908..."
+        },
+        "intermittent": {
+          "title": "Intermittent",
+          "description": "Intermittent du spectacle..."
+        }
+      }
+    },
+    "search-company": {
+      "header": "Recherchez votre entreprise",
+      "divider": "ou",
+      "goto-next": "Remplir manuellement",
+      "input": "Entreprise, SIRET, SIREN, Dirigeant, Mot-clé...",
+      "no-result": "Aucun résultat trouvé"
+    },
+    "company-form": {
+      "header": "Votre entreprise",
+      "label": {
+        "activity-type": "Type d'activité (Code NAF)",
+        "insee-code": "Code INSEE",
+        "legal-form": "Forme juridique",
+        "legal-name": "Nom de l'entreprise",
+        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-vat-number": "Numéro de TVA",
+        "registration-date": "Date d'immatriculation",
+        "legal-address": "Adresse du siège social",
+        "legal-city": "Ville",
+        "legal-zipcode": "Code postal",
+        "legal-country": "Pays"
+      },
+      "input": {
+        "activity-type": "Saisissez le type d'activité",
+        "insee-code": "Saisissez le code INSEE",
+        "legal-form": "Saisissez la forme juridique",
+        "legal-name": "Saisissez le nom de l'entreprise",
+        "legal-registration-number": "Saisissez le numéro d'immatriculation",
+        "legal-vat-number": "Saisissez le numéro de TVA si vous en disposez",
+        "registration-date": "Saisissez la date d'immatriculation",
+        "legal-address": "Saisissez l'adresse du siège social",
+        "legal-city": "Saisissez la ville",
+        "legal-zipcode": "Saisissez le code postal",
+        "legal-country": "Saisissez le pays"
+      },
+      "error": {
+        "activity-type": "Veuillez saisir le type d'activité",
+        "insee-code": "Veuillez saisir le code INSEE",
+        "legal-form": "Veuillez saisir la forme juridique",
+        "legal-name": "Veuillez saisir le nom de l'entreprise",
+        "legal-registration-number": "Veuillez saisir le numéro d'immatriculation",
+        "legal-vat-number": "Veuillez saisir le numéro de TVA si vous en disposez",
+        "registration-date": "Veuillez saisir la date d'immatriculation",
+        "legal-address": "Veuillez saisir l'adresse du siège social",
+        "legal-city": "Veuillez saisir la ville",
+        "legal-zipcode": "Veuillez saisir le code postal",
+        "legal-country": "Veuillez saisir le pays"
+      }
+    }
+  },
+
+  "search-company": {
+    "header": ""
+  },
+
   "forget-password": {
     "header": "Modifier votre mot de passe",
     "text": "Vous avez oublié votre mot de passe ? Saisissez l'adresse e-mail que vous utilisez habituellement pour vous connecter à Klaq.",

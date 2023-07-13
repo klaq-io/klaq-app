@@ -52,68 +52,6 @@ export const SignUp = () => {
         <form onSubmit={formik.handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="firstName"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              {intl.formatMessage({
-                id: "sign-up.label.first-name",
-              })}
-            </label>
-            <div className="mt-2">
-              <input
-                onChange={formik.handleChange}
-                value={formik.values.firstName}
-                id="firstName"
-                name="firstName"
-                type="text"
-                required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                placeholder={intl.formatMessage({
-                  id: "sign-up.input.first-name",
-                })}
-              />
-              {formik.errors.firstName && formik.touched.firstName ? (
-                <p className="mt-2 text-sm text-danger-600" id="email-error">
-                  {intl.formatMessage({
-                    id: "sign-up.error.first-name",
-                  })}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              {intl.formatMessage({
-                id: "sign-up.label.last-name",
-              })}
-            </label>
-            <div className="mt-2">
-              <input
-                onChange={formik.handleChange}
-                value={formik.values.lastName}
-                id="lastName"
-                name="lastName"
-                type="text"
-                required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                placeholder={intl.formatMessage({
-                  id: "sign-up.input.last-name",
-                })}
-              />
-              {formik.errors.lastName && formik.touched.lastName ? (
-                <p className="mt-2 text-sm text-danger-600" id="email-error">
-                  {intl.formatMessage({
-                    id: "sign-up.error.last-name",
-                  })}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <div>
-            <label
               htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
