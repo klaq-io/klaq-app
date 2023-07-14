@@ -14,6 +14,7 @@ import {
   OnboardingCompany,
   OnboardingCompanySearch,
   OnboardingLegalFormChoice,
+  OnboardingPerformer,
   Products,
   SignUp,
 } from "./pages";
@@ -64,6 +65,10 @@ function App() {
         <Route
           path={PATHS.ONBOARDING_COMPANY}
           element={<OnboardingCompany />}
+        />
+        <Route
+          path={PATHS.ONBOARDING_PERFORMER}
+          element={<OnboardingPerformer />}
         />
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />

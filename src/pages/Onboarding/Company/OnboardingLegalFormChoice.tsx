@@ -4,6 +4,11 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../routes";
 
+const companyType = {
+  association: "association",
+  company: "company",
+};
+
 export const OnboardingLegalFormChoice = () => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -14,14 +19,20 @@ export const OnboardingLegalFormChoice = () => {
       title: "company.title",
       description: "company.description",
       onClick: () => {
-        navigate(PATHS.ONBOARDING_COMPANY_SEARCH);
+        navigate(
+          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.company}`
+        );
       },
     },
     {
       id: 2,
       title: "association.title",
       description: "association.description",
-      onClick: () => {},
+      onClick: () => {
+        navigate(
+          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.association}`
+        );
+      },
     },
     {
       id: 3,

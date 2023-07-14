@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { setCompany } from "./slices";
 import { toast } from "react-hot-toast";
 import { ToastNotification } from "../../components";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../routes";
 
 export const useFetchSuggestions = () => {
   return useAsyncCallback(async (query: string) => {
@@ -18,6 +20,8 @@ export const useFetchSuggestions = () => {
 
 export const useCreateCompany = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return useAsyncCallback(
     async (values: {
       activityType?: string;
@@ -43,6 +47,7 @@ export const useCreateCompany = () => {
             status="success"
           />
         );
+        navigate(PATHS.ONBOARDING_PERFORMER);
         return response.data;
       } catch (error: any) {
         toast.custom(

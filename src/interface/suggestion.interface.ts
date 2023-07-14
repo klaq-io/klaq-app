@@ -24,4 +24,5 @@ export enum CompanyLegalForm {
   "Entrepreneur individuel" = "Entrepreneur individuel",
   SC = "SC",
   SCA = "SCA",
+  ASSOCIATION = "Association déclarée",
 }

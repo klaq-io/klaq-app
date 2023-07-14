@@ -160,6 +160,30 @@
       "input": "Entreprise, SIRET, SIREN, Dirigeant, Mot-clé...",
       "no-result": "Aucun résultat trouvé"
     },
+    "search-association": {
+      "header": "Recherchez votre association",
+      "input": "Association, SIRET, SIREN, Dirigeant, Mot-clé..."
+    },
+    "association-form": {
+      "header": {
+        "company": "Votre association",
+        "vta": "Votre numéro de TVA",
+        "address": "Votre adresse de facturation"
+      },
+      "label": {
+        "activity-type": "Type d'activité (Code NAF)",
+        "insee-code": "Code INSEE",
+        "legal-form": "Forme juridique",
+        "legal-name": "Nom de l'association",
+        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-vat-number": "Numéro de TVA",
+        "registration-date": "Date d'immatriculation",
+        "address": "Adresse",
+        "city": "Ville",
+        "zip": "Code postal",
+        "country": "Pays"
+      }
+    },
     "company-form": {
       "header": {
         "company": "Votre entreprise",
@@ -224,6 +248,63 @@
             "title": "Erreur",
             "message": "Aucune entreprise n'a été trouvée avec ces informations"
           }
+        }
+      }
+    },
+    "performer": {
+      "header": {
+        "stage-name": "Apprenons à se connaître, quel est votre nom de scène ?",
+        "real-name": "Ravi de vous rencontrer <blue>{stageName}</blue>, quel est votre vrai nom ?",
+        "birthday": "Quelle est votre date de naissance <blue>{firstName}</blue> ?",
+        "public-email": "Juste pour être sure, pouvons nous afficher cette adresse email <blue>{email}</blue> à vos clients ?",
+        "public-phone": "Et ce numéro de téléphone <blue>{phone}</blue>, peut-on l'afficher à vos clients ?",
+        "category": "Quel catégorie vous correspond le mieux ?"
+      },
+      "description": {
+        "stage-name": "Comment voulez-vous que vos clients vous appellent ?",
+        "real-name": "Aucune inquiétude, nous recueillons ses informations pour des raisons juridiques et de facturation. Nous ne partagerons pas votre vrai nom avec vos clients.",
+        "birthday": "Nous ne partagerons pas votre date de naissance avec vos clients.",
+        "public-email": "Cette adresse email sera affichée sur vos factures, devis et contrats.",
+        "public-phone": "Ce numéro de téléphone sera affiché sur vos factures, devis et contrats.",
+        "category": "Cette information nous permettra de vous proposer des services adaptés à votre activité."
+      },
+      "label": {
+        "stage-name": "Nom de scène",
+        "real-name": {
+          "first-name": "Prénom",
+          "last-name": "Nom"
+        },
+        "birthday": "Date de naissance",
+        "public-email": "Adresse e-mail",
+        "public-phone": "Numéro de téléphone",
+        "category": "Catégorie"
+      },
+      "input": {
+        "stage-name": "Saisissez votre nom de scène",
+        "real-name": {
+          "first-name": "Saisissez votre prénom",
+          "last-name": "Saisissez votre nom"
+        },
+        "birthday": "Saisissez votre date de naissance",
+        "public-email": "Saisissez votre adresse e-mail",
+        "public-phone": "Saisissez votre numéro de téléphone",
+        "category": "Saisissez votre catégorie"
+      },
+      "error": {
+        "stage-name": "Veuillez saisir votre nom de scène",
+        "real-name": {
+          "first-name": "Veuillez saisir votre prénom",
+          "last-name": "Veuillez saisir votre nom"
+        },
+        "birthday": "Veuillez saisir votre date de naissance",
+        "public-email": "Veuillez saisir votre adresse e-mail",
+        "public-phone": "Veuillez saisir votre numéro de téléphone",
+        "category": "Veuillez saisir votre catégorie"
+      },
+      "select": {
+        "public-email": {
+          "yes": "Bien sur, vous pouvez utiliser cette adresse e-mail",
+          "no": "Hmm, je préfère utiliser une autre adresse e-mail"
         }
       }
     }
