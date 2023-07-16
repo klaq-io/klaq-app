@@ -1,5 +1,10 @@
 import * as Yup from "yup";
 
+enum selectOptions {
+  YES,
+  NO,
+}
+
 export const initialValues = {
   stageName: "",
   firstName: "",
@@ -8,6 +13,8 @@ export const initialValues = {
   publicPhone: "",
   category: "",
   birthDate: "",
+  selectPublicMail: selectOptions.YES,
+  selectPublicPhone: selectOptions.YES,
 };
 
 export const validationSchema = Yup.object().shape({
@@ -16,6 +23,6 @@ export const validationSchema = Yup.object().shape({
   lastName: Yup.string().required("Required"),
   publicEmail: Yup.string().email("Invalid email").required("Required"),
   publicPhone: Yup.string().required("Required"),
-  category: Yup.string().required("Required"),
   birthDate: Yup.date().required("Required"),
+  category: Yup.string(),
 });

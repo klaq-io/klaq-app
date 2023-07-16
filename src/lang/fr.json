@@ -305,6 +305,42 @@
         "public-email": {
           "yes": "Bien sur, vous pouvez utiliser cette adresse e-mail",
           "no": "Hmm, je préfère utiliser une autre adresse e-mail"
+        },
+        "public-phone": {
+          "yes": "Bien sur, vous pouvez utiliser ce numéro de téléphone",
+          "no": "Hmm, je préfère utiliser un autre numéro de téléphone"
+        },
+        "category": {
+          "dj": "🎧 DJ",
+          "singer": "🎤 Chanteur",
+          "musician": "🎸 Musicien",
+          "music_band": "🎹 Groupe de musique",
+          "dancer": "💃 Danseur",
+          "magician": "🎩 Magicien",
+          "comedian": "🎭 Humoriste",
+          "clown": "🤡 Clown",
+          "juggler": "🤹 Jongleur",
+          "fire_eater": "🔥 Cracheur de feu",
+          "acrobat": "🤸 Acrobate",
+          "drag_queen": "👸 Drag Queen Artist",
+          "florist": "🌷 Fleuriste",
+          "cartoonist": "🎨 Caricaturiste",
+          "speaker": "🎙️ Animateur",
+          "wood_toy": "🚂 Jouets en bois",
+          "balloon_artist": "🎈 Sculpteur de ballons",
+          "fireworks": "🎆 Feux d'artifice",
+          "car_rental": "🚗 Location de voiture",
+          "party_rental": "🎉 Location de matériel",
+          "photo_booth": "📸 Photobooth",
+          "photographer": "📷 Photographe",
+          "videographer": "🎥 Vidéaste",
+          "makeup_artist": "💄 Maquilleur",
+          "hair_stylist": "💇 Coiffeur",
+          "caterer": "🍽️ Traiteur",
+          "bartender": "🍸 Barman",
+          "waiter": "🍽️ Serveur",
+          "event_agency": "📋 Agence événementielle",
+          "other": "Autre..."
         }
       }
     }
