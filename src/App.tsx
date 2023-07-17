@@ -14,6 +14,7 @@ import {
   OnboardingCompany,
   OnboardingCompanySearch,
   OnboardingLegalFormChoice,
+  OnboardingOffice,
   OnboardingPerformer,
   Products,
   SignUp,
@@ -70,6 +71,7 @@ function App() {
           path={PATHS.ONBOARDING_PERFORMER}
           element={<OnboardingPerformer />}
         />
+        <Route path={PATHS.ONBOARDING_OFFICE} element={<OnboardingOffice />} />
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route path={PATHS.EVENTS} element={<Events />} />

@@ -15,6 +15,6 @@ export const PATHS = {
   ONBOARDING_LEGAL_FORM_CHOICE: "/onboarding/legal-form",
   ONBOARDING_COMPANY: "/onboarding/company",
   ONBOARDING_COMPANY_SEARCH: "/onboarding/company/search",
-  ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
   ONBOARDING_PERFORMER: "/onboarding/performer",
+  ONBOARDING_OFFICE: "/onboarding/office",
 };

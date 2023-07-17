@@ -18,6 +18,7 @@ import { subYears } from "date-fns";
 import { PerformingCategory } from "../../../interface/user.interface";
 import { Combobox } from "@headlessui/react";
 import { classNames } from "../../../utils/utils";
+import { useUpdateUser } from "../../../redux/User/hooks";
 
 type Props = {
   classes?: string;
@@ -41,7 +42,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const intl = useIntl();
   const [step, setStep] = useState(STEP.STAGE_NAME);
   const [query, setQuery] = useState("");
-  const [selectCategory, setSelectCategory] = useState(null);
+  const [selectCategory, setSelectCategory] = useState(undefined);
+
+  const [{ isLoading }, updateUser] = useUpdateUser();
 
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
@@ -50,19 +53,13 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      alert(
-        JSON.stringify(
-          {
-            ...values,
-            category:
-              selectCategory == PerformingCategory.OTHER
-                ? values.category
-                : selectCategory,
-          },
-          null,
-          2
-        )
-      );
+      updateUser({
+        ...values,
+        category:
+          selectCategory == PerformingCategory.OTHER
+            ? values.category
+            : selectCategory,
+      });
     },
     enableReinitialize: true,
   });
@@ -170,7 +167,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={() => setStep(STEP.REAL_NAME)}
@@ -247,7 +246,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => setStep(STEP.STAGE_NAME)}
@@ -255,7 +256,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={() => setStep(STEP.BIRTHDAY)}
@@ -294,7 +297,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => setStep(STEP.REAL_NAME)}
@@ -302,7 +307,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={() => setStep(STEP.PUBLIC_EMAIL)}
@@ -365,7 +372,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => setStep(STEP.BIRTHDAY)}
@@ -373,7 +382,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={handlePublicEmail}
@@ -439,7 +450,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => setStep(STEP.PUBLIC_EMAIL)}
@@ -447,7 +460,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={handlePublicPhone}
@@ -545,7 +560,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                           required
                           className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                           placeholder={intl.formatMessage({
-                            id: `onboarding.performer.input.public-phone`,
+                            id: `onboarding.performer.input.category`,
                           })}
                         />
                       </div>
@@ -557,15 +572,20 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => setStep(STEP.PUBLIC_PHONE)}
                 />
                 <Button
+                  isLoading={isLoading}
                   type="submit"
                   variant="primary"
-                  text={"Découvrir Klaq"}
+                  text={intl.formatMessage({
+                    id: "onboarding.performer.button.submit",
+                  })}
                   disabled={!selectCategory}
                 />
               </div>

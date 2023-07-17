@@ -16,7 +16,8 @@ export const useInitiateSMSVerification = () => {
           status="danger"
           titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
           messageId={`confirm-sms.toast.error.${error.response.data.code}}.message`}
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
     }
   });
@@ -32,7 +33,8 @@ export const useVerifySMS = () => {
           status="success"
           titleId={"confirm-sms.toast.success.title"}
           messageId={"confirm-sms.toast.success.message"}
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
       navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
     } catch (error: any) {
@@ -42,7 +44,8 @@ export const useVerifySMS = () => {
           status="danger"
           titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
           messageId={`confirm-sms.toast.error.${error.response.data.code}}.message`}
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
     }
   });

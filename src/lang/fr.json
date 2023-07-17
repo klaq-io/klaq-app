@@ -249,6 +249,11 @@
             "message": "Aucune entreprise n'a été trouvée avec ces informations"
           }
         }
+      },
+      "button": {
+        "next": "Continuer",
+        "previous": "Précédent",
+        "submit": "Ajouter mon entreprise"
       }
     },
     "performer": {
@@ -342,6 +347,66 @@
           "event_agency": "📋 Agence événementielle",
           "other": "Autre..."
         }
+      },
+      "toast": {
+        "error": {
+          "user-update-failed": {
+            "title": "Erreur",
+            "message": "Votre profil n'a pas pu être mis à jour"
+          }
+        },
+        "success": {
+          "title": "Succès",
+          "message": "Votre profil a bien été mis à jour"
+        }
+      },
+      "button": {
+        "next": "Continuer",
+        "previous": "Précédent",
+        "submit": "Ajouter mes informations"
+      }
+    },
+    "office": {
+      "header": "Est ce que le <blue>{address}, {zip} {city}</blue> en <blue>{country}</blue> est l’adresse de votre bureau ? ",
+      "description": "Nous utiliserons cette information pour calculer vos frais de déplacement",
+      "label": {
+        "address": "Adresse de votre bureau",
+        "city": "Ville",
+        "zip": "Code postal",
+        "country": "Pays"
+      },
+      "input": {
+        "address": "Saisissez l'adresse de votre bureau",
+        "city": "Saisissez la ville",
+        "zip": "Saisissez le code postal",
+        "country": "Saisissez le pays"
+      },
+      "select": {
+        "yes": "Exactement",
+        "no": "Mon bureau se situe à une autre adresse"
+      },
+      "submit": "Ajouter l'adresse de mon bureau",
+      "error": {
+        "address": "Veuillez saisir l'adresse de votre bureau",
+        "city": "Veuillez saisir la ville",
+        "zip": "Veuillez saisir le code postal",
+        "country": "Veuillez saisir le pays"
+      },
+      "toast": {
+        "success": {
+          "title": "Succès",
+          "message": "Votre entreprise a bien été modifié"
+        },
+        "error": {
+          "failed-to-update-company": {
+            "title": "Erreur",
+            "message": "Votre entreprise n'a pas pu être modifié"
+          },
+          "company_does_not_exist": {
+            "title": "Erreur",
+            "message": "Aucune entreprise n'a été trouvée avec ces informations"
+          }
+        }
       }
     }
   },
@@ -387,7 +452,8 @@
         "title": "Erreur lors de la modification de l'évènement",
         "message": "L'évènement n'a pas pu être modifié"
       }
-    }
+    },
+    "submit": "Sauvegarder"
   },
 
   "new-event": {

@@ -48,7 +48,8 @@ export const useAddEvent = () => {
             status="danger"
             titleId="new-event.toast.error.same-time.title"
             messageId="new-event.toast.error.same-time.message"
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         return;
       }
@@ -59,7 +60,8 @@ export const useAddEvent = () => {
             status="success"
             titleId="new-event.toast.success.title"
             messageId="new-event.toast.success.message"
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${res.data.id}`);
       } catch (error: any) {
@@ -67,7 +69,8 @@ export const useAddEvent = () => {
           <ToastNotification
             status="danger"
             titleId="new-event.toast.error.default.title"
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -119,7 +122,8 @@ export const useUpdateEvent = () => {
             status="danger"
             titleId="edit-event.toast.error.title"
             messageId="edit-event.toast.error.message"
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         console.error(error);
         return error.response;

@@ -1,4 +1,5 @@
 import { classNames } from "../../utils/utils";
+import { Spinner } from "../Spinner";
 
 const buttonVariants = {
   primary:
@@ -11,16 +12,18 @@ type Props = {
   text?: string;
   onClick?: () => void;
   variant: "primary" | "secondary";
+  type: "button" | "submit" | "reset";
+  classes?: string;
+  disabled?: boolean;
+  isLoading?: boolean;
+} & {
+  iconPosition?: "trailing" | "leading";
   Icon?: React.ForwardRefExoticComponent<
     Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
       title?: string | undefined;
       titleId?: string | undefined;
     } & React.RefAttributes<SVGSVGElement>
   >;
-  iconPosition?: "trailing" | "leading";
-  type: "button" | "submit" | "reset";
-  classes?: string;
-  disabled?: boolean;
 };
 
 export const Button = (props: Props) => {
@@ -33,6 +36,7 @@ export const Button = (props: Props) => {
     classes,
     iconPosition,
     disabled,
+    isLoading,
   } = props;
   return (
     <button
@@ -45,15 +49,26 @@ export const Button = (props: Props) => {
         ),
         classes
       )}
-      disabled={disabled}
+      disabled={disabled || isLoading}
     >
-      {Icon && iconPosition === "leading" ? (
-        <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-      ) : null}
-      {text}
-      {Icon && iconPosition === "trailing" ? (
-        <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-      ) : null}
+      {isLoading ? (
+        <>
+          <Spinner
+            size="small"
+            color={variant === "primary" ? "gray" : "blue"}
+          />
+        </>
+      ) : (
+        <>
+          {Icon && iconPosition === "leading" ? (
+            <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+          ) : null}
+          {text}
+          {Icon && iconPosition === "trailing" ? (
+            <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+          ) : null}
+        </>
+      )}
     </button>
   );
 };

@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { LoginLayout } from "../../layouts";
 import { PATHS } from "../../routes";
+import { Button } from "../../components/Button/Button";
 
 export const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -58,14 +59,13 @@ export const ForgetPassword = () => {
                 </div>
 
                 <div>
-                  <button
+                  <Button
                     type="submit"
-                    className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  >
-                    {intl.formatMessage({
+                    variant="primary"
+                    text={intl.formatMessage({
                       id: "forget-password.submit",
                     })}
-                  </button>
+                  />
                 </div>
 
                 <div className="mt-auto">

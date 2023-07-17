@@ -10,7 +10,7 @@ import { useSignUp } from "../../redux/Login/hooks";
 export const SignUp = () => {
   const intl = useIntl();
 
-  const [, signUp] = useSignUp();
+  const [{ isLoading }, signUp] = useSignUp();
 
   const setPhoneNumber = (value: string) => {
     formik.setFieldValue("phone", value);
@@ -149,6 +149,7 @@ export const SignUp = () => {
             </div>
           </div>
           <Button
+            isLoading={isLoading}
             classes="w-full mt-8"
             variant="primary"
             type="submit"

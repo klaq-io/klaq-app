@@ -37,7 +37,8 @@ export const useAddProductItem = () => {
             status="success"
             titleId={"products.new-product.toast.success.title"}
             messageId={"products.new-product.toast.success.message"}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         dispatch(updateProducts(res.data));
       } catch (error: any) {
@@ -46,7 +47,8 @@ export const useAddProductItem = () => {
             status="danger"
             titleId={"products.new-product.toast.error.add-product.title"}
             messageId={"products.new-product.toast.error.add-product.message"}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         console.error(error.response);
       }
@@ -64,7 +66,8 @@ export const useDeleteProductItem = () => {
           status="success"
           titleId={"products.delete-product.toast.success.title"}
           messageId={"products.delete-product.toast.success.message"}
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
       dispatch(deleteProduct(id));
     } catch (error: any) {
@@ -75,7 +78,8 @@ export const useDeleteProductItem = () => {
           messageId={
             "products.delete-product.toast.error.delete-product.message"
           }
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
       console.error(error.response);
     }
@@ -102,7 +106,8 @@ export const useEditProductItem = () => {
             status="success"
             titleId={"products.edit-product.toast.success.title"}
             messageId={"products.edit-product.toast.success.message"}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
       } catch (error: any) {
         toast.custom(
@@ -110,7 +115,8 @@ export const useEditProductItem = () => {
             status="danger"
             titleId={"products.edit-product.toast.error.edit-product.title"}
             messageId={"products.edit-product.toast.error.edit-product.message"}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         console.error(error.response);
       }

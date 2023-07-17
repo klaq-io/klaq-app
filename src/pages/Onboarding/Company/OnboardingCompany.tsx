@@ -8,6 +8,7 @@ import { Button } from "../../../components/Button/Button";
 import { useCreateCompany } from "../../../redux/Company/hooks";
 import { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { PATHS } from "../../../routes";
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -57,7 +58,7 @@ export const OnboardingCompany = () => {
   });
 
   const handleBackToLastPage = () => {
-    navigate(-1);
+    navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
   };
 
   const handleStep = (n: number) => {
@@ -207,7 +208,9 @@ export const OnboardingCompany = () => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={handleBackToLastPage}
@@ -215,7 +218,9 @@ export const OnboardingCompany = () => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={() => handleStep(STEP.VTA)}
@@ -269,7 +274,9 @@ export const OnboardingCompany = () => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => handleStep(STEP.COMPANY_INFORMATION)}
@@ -277,7 +284,9 @@ export const OnboardingCompany = () => {
                 <Button
                   type="button"
                   variant="primary"
-                  text={"Continuer"}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.next",
+                  })}
                   Icon={ArrowRightIcon}
                   iconPosition="trailing"
                   onClick={() => handleStep(STEP.ADDRESS)}
@@ -437,15 +446,20 @@ export const OnboardingCompany = () => {
                 <Button
                   type="button"
                   variant="secondary"
-                  text={"Précédent"}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.previous",
+                  })}
                   Icon={ArrowLeftIcon}
                   iconPosition="leading"
                   onClick={() => handleStep(STEP.VTA)}
                 />
                 <Button
+                  isLoading={isLoading}
                   type="submit"
                   variant="primary"
-                  text={"Ajouter mon entreprise "}
+                  text={intl.formatMessage({
+                    id: "onboarding.company-form.button.submit",
+                  })}
                 />
               </div>
             </>

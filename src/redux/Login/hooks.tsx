@@ -25,7 +25,8 @@ export const useLogin = () => {
           status="danger"
           titleId={"login.toast.error.title"}
           messageId={"login.toast.error.message"}
-        />
+        />,
+        { duration: 1000, position: "top-right" }
       );
 
       console.error(error);
@@ -74,7 +75,8 @@ export const useSignUp = () => {
             status="success"
             titleId={"sign-up.toast.success.title"}
             messageId={"sign-up.toast.success.message"}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         dispatch(setUser(res.data));
         navigate(`${PATHS.CONFIRM_MAIL}?email=${values.email}`);
@@ -86,7 +88,8 @@ export const useSignUp = () => {
             status="danger"
             titleId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.title`}
             messageId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.message`}
-          />
+          />,
+          { duration: 1000, position: "top-right" }
         );
         return error.response;
       }
