@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents, useUpdateEvent } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";
-import { CustomerType } from "../../redux/Events/slices";
+import { CustomerType } from "../../redux/Customer/slices";
 import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { ProductItem } from "../../redux/Products/slices";

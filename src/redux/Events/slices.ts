@@ -1,6 +1,6 @@
-import { ProductItem } from "../Products/slices";
-import { initialState } from "../states";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialState } from "../states";
+import { Customer } from "../Customer/slices";
 
 export interface Event {
   id: string;
@@ -24,24 +24,6 @@ export interface Event {
   desiredProduct?: string;
   customer: Customer;
   products?: EventProduct[];
-}
-
-export interface Customer {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  type: CustomerType;
-}
-
-export enum CustomerType {
-  PRIVATE = "PRIVATE",
-  COMPANY = "COMPANY",
 }
 
 export interface EventProduct {

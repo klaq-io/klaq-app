@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./CustomerStatus";
 export * from "./Modal";
 export * from "./Navbar";
 export * from "./SidePanel";

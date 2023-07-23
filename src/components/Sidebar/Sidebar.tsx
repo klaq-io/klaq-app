@@ -42,9 +42,9 @@ export const Sidebar = (props: Props) => {
     },
     {
       name: "sidebar.customers",
-      href: "#",
+      href: PATHS.CUSTOMERS,
       icon: UsersIcon,
-      current: false,
+      current: currentPage === PATHS.CUSTOMERS ? true : false,
     },
     {
       name: "sidebar.billing",

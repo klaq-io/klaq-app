@@ -5,6 +5,7 @@ import "./App.css";
 import {
   ConfirmMail,
   ConfirmPhone,
+  Customers,
   Dashboard,
   EditEvent,
   Event,
@@ -79,6 +80,7 @@ function App() {
         <Route path={PATHS.ONBOARDING_OFFICE} element={<OnboardingOffice />} />
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
+        <Route path={PATHS.CUSTOMERS} element={<Customers />} />
         <Route path={PATHS.EVENTS} element={<Events />} />
         <Route path={PATHS.EVENT_EDIT} element={<EditEvent />} />
         <Route path={PATHS.EVENT} element={<Event />} />

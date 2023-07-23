@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { CustomerType } from "../../redux/Events/slices";
+import { CustomerType } from "../../redux/Customer/slices";
 
 export const initialValues = {
   date: "",

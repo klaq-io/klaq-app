@@ -3,9 +3,11 @@ export const initialState: {
   company: any;
   events: any;
   productItems: any;
+  customers: any;
 } = {
   user: {},
   company: {},
   events: [],
   productItems: [],
+  customers: [],
 };

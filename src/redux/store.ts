@@ -3,6 +3,7 @@ import { eventsSlice } from "./Events/slices";
 import { userSlice } from "./Login/slice";
 import { productItemSlice } from "./Products/slices";
 import { companySlice } from "./Company/slices";
+import { customerSlice } from "./Customer/slices";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     events: eventsSlice.reducer,
     productItems: productItemSlice.reducer,
     company: companySlice.reducer,
+    customers: customerSlice.reducer,
   },
 });
 

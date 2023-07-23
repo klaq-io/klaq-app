@@ -655,5 +655,28 @@
         }
       }
     }
+  },
+
+  "customers": {
+    "header": "Clients",
+    "description": "Liste de vos clients",
+    "no-customers": "Aucun client disponible",
+    "get-started": "Cliquer pour commencer à ajouter un client",
+    "my-customers": {
+      "header": "Mes clients ({nb})",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "submit": "Ajouter un client",
+      "name": "Nom",
+      "contact": "Contact",
+      "location": "Localisation",
+      "status": "Status",
+      "value": "Valeur"
+    },
+    "status": {
+      "in-deal": "En deal",
+      "new": "Nouveau",
+      "lost": "Perdu",
+      "recurring": "Récurrent"
+    }
   }
 }
