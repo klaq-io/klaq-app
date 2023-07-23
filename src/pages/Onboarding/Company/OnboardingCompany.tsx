@@ -1,14 +1,20 @@
-import { useFormik } from "formik";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { companyFormSchema, initialCompanyFormValues } from "./form";
-import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
-import { CompanyLegalForm } from "../../../interface/suggestion.interface";
-import { Button } from "../../../components/Button/Button";
-import { useCreateCompany } from "../../../redux/Company/hooks";
-import { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../../components/Button/Button";
+import {
+  CompanyLegalForm,
+  Suggestion,
+} from "../../../interface/suggestion.interface";
+import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
+import {
+  useCreateCompany,
+  useFetchCompanyInformation,
+} from "../../../redux/Company/hooks";
 import { PATHS } from "../../../routes";
+import { companyFormSchema, initialCompanyFormValues } from "./form";
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -28,6 +34,10 @@ export const OnboardingCompany = () => {
   const navigate = useNavigate();
   const [{ isLoading }, createCompany] = useCreateCompany();
   const [step, setStep] = useState(STEP.COMPANY_INFORMATION);
+  const [company, setCompany] = useState<any>({});
+
+  const [{ isLoading: isFetchCompanyLoading }, fetchCompanyInformation] =
+    useFetchCompanyInformation();
 
   const intl = useIntl();
   const formik = useFormik({
@@ -41,7 +51,7 @@ export const OnboardingCompany = () => {
         legalVATNumber:
           params.get("legalVATNumber") === "null" ||
           !!params.get("legalVATNumber")
-            ? ""
+            ? company.legalVATNumber
             : params.get("legalVATNumber") || "",
         registrationDate: params.get("registrationDate")!,
         address: params.get("address")!,
@@ -55,6 +65,7 @@ export const OnboardingCompany = () => {
       const registrationDate = new Date(values.registrationDate);
       createCompany({ ...values, registrationDate });
     },
+    enableReinitialize: true,
   });
 
   const handleBackToLastPage = () => {
@@ -76,8 +87,21 @@ export const OnboardingCompany = () => {
       ? companyType.association
       : companyType.company;
 
+  useEffect(() => {
+    const fetchCompany = async () => {
+      if (type !== companyType.association)
+        setCompany(
+          await fetchCompanyInformation(formik.values.legalRegistrationNumber)
+        );
+    };
+    fetchCompany();
+  }, []);
+
   return (
-    <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80">
+    <OnboardingLayout
+      isLoading={isFetchCompanyLoading}
+      backgroundImg="https://images.unsplash.com/photo-1566314737379-76aaeadb0511?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=709&q=80"
+    >
       <div>
         <h1 className="mt-8 text-lg leading-6 font-semibold text-blue-600">
           Klaq.io
@@ -150,6 +174,11 @@ export const OnboardingCompany = () => {
                     placeholder={intl.formatMessage({
                       id: `onboarding.${type}-form.input.legal-form`,
                     })}
+                    defaultValue={
+                      type === companyType.association
+                        ? CompanyLegalForm.ASSOCIATION
+                        : CompanyLegalForm.SAS
+                    }
                   >
                     {(
                       Object.keys(

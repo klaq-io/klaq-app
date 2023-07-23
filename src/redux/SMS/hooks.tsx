@@ -15,7 +15,7 @@ export const useInitiateSMSVerification = () => {
         <ToastNotification
           status="danger"
           titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-sms.toast.error.${error.response.data.code}}.message`}
+          messageId={`confirm-sms.toast.error.${error.response.data.code}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );
@@ -43,7 +43,7 @@ export const useVerifySMS = () => {
         <ToastNotification
           status="danger"
           titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-sms.toast.error.${error.response.data.code}}.message`}
+          messageId={`confirm-sms.toast.error.${error.response.data.code}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );

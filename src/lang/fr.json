@@ -119,11 +119,11 @@
     "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer.",
     "toast": {
       "error": {
-        "phone_number_already_confirmed": {
+        "phone-number-already-confirmed": {
           "title": "Erreur",
           "message": "Votre numéro de téléphone a déjà été confirmé"
         },
-        "invalid_verification_code": {
+        "invalid-verification-code": {
           "title": "Erreur",
           "message": "Votre code de confirmation est invalide"
         }
@@ -162,7 +162,7 @@
     },
     "search-association": {
       "header": "Recherchez votre association",
-      "input": "Association, SIRET, SIREN, Dirigeant, Mot-clé..."
+      "input": "Nom, RNA, SIRET, SIREN, Dirigeant, Mot-clé..."
     },
     "association-form": {
       "header": {
@@ -408,6 +408,14 @@
           }
         }
       }
+    },
+    "intermittent": {
+      "header": "😢 Malheureusement, Klaq.io n’est actuellement pas disponible pour les artistes intermittents.",
+      "description": "Vous pouvez néanmoins, être tenu(e) au courant de la sortie d’une version compatible avec le statut intermittent en saisissant votre email dans le champ suivant.",
+      "input": {
+        "email": "Saisissez votre adresse e-mail si vous voulez être recontacté"
+      },
+      "submit": "M'avertir par mail"
     }
   },
 
@@ -565,7 +573,7 @@
     "description": "Liste des produits disponibles",
     "my-products": {
       "header": "Mes produits",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "description": "Les produits que vous ajoutez ici seront disponibles pour vos devis et vos factures, vous pouvez les modifier ou les supprimer à tout moment.",
       "title": "Produit",
       "short-description": "Description",
       "price": "Prix (€)",

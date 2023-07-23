@@ -13,6 +13,7 @@ import {
   NewEvent,
   OnboardingCompany,
   OnboardingCompanySearch,
+  OnboardingIntermittent,
   OnboardingLegalFormChoice,
   OnboardingOffice,
   OnboardingPerformer,
@@ -70,6 +71,10 @@ function App() {
         <Route
           path={PATHS.ONBOARDING_PERFORMER}
           element={<OnboardingPerformer />}
+        />
+        <Route
+          path={PATHS.ONBOARDING_INTERMITTENT}
+          element={<OnboardingIntermittent />}
         />
         <Route path={PATHS.ONBOARDING_OFFICE} element={<OnboardingOffice />} />
         <Route path={PATHS.LOGIN} element={<Login />} />

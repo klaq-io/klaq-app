@@ -43,6 +43,48 @@
     }
   },
 
+  "sign-up": {
+    "header": "Let's get to know each other",
+    "label": {
+      "first-name": "First name",
+      "last-name": "Name",
+      "email": "E-mail address",
+      "password": "Password",
+      "phone": "Phone number"
+    },
+    "input": {
+      "first-name": "Enter your first name",
+      "last-name": "Enter your last name",
+      "email": "Enter your email address",
+      "password": "Enter your password",
+      "phone": "Enter your cell phone number"
+    },
+    "error": {
+      "first-name": "Please enter your first name",
+      "last-name": "Please enter your last name",
+      "email": "Please enter your email address",
+      "password": "Please enter your password, which must contain at least 10 characters, 1 number, 1 uppercase letter and 1 special character",
+      "phone": "Please enter your cell phone number"
+    },
+    "submit": "Continue",
+    "toast": {
+      "error": {
+        "auth-user-already-exist": {
+          "title": "Error",
+          "message": "An account already exists with this e-mail address"
+        },
+        "auth-weak-password": {
+          "title": "Error",
+          "message": "Password must contain at least 10 characters, 1 number, 1 uppercase letter and 1 special character"
+        }
+      },
+      "success": {
+        "title": "Success",
+        "message": "Your account has been created successfully"
+      }
+    }
+  },
+
   "forget-password": {
     "header": "Change your password",
     "text": "Forgot your password? Enter the email address you usually use to login to Klaq.",
@@ -85,6 +127,27 @@
     "resend": {
       "text": "Didn't receive the email?",
       "link": "Resend the email"
+    }
+  },
+
+  "confirm-sms": {
+    "header": "Your confirmation code is waiting for you in your SMS inbox",
+    "description": "Please enter the confirmation code we just texted you to <b>{phone}</b> to continue.",
+    "toast": {
+      "error": {
+        "phone-number-already-confirmed": {
+          "title": "Error",
+          "message": "Your number has already been confirmed"
+        },
+        "invalid-verification-code": {
+          "title": "Error",
+          "message": "Invalid confirmation code"
+        }
+      },
+      "success": {
+        "title": "Success",
+        "message": "Your number has been confirmed"
+      }
     }
   },
 
@@ -301,6 +364,291 @@
           "delete": "Delete"
         }
       }
+    }
+  },
+
+  "onboarding": {
+    "legal-form-choice": {
+      "header": "What is the legal form of your company?",
+      "legal-form-type": {
+        "company": {
+          "title": "Company",
+          "description": "SASU, SAS, SARL, SA, SCI, EURL..."
+        },
+        "association": {
+          "title": "Association",
+          "description": "Association 1901 law, Association 1908 law..."
+        },
+        "intermittent": {
+          "title": "Intermittent",
+          "description": "Show intermittent"
+        }
+      }
+    },
+    "search-company": {
+      "header": "Search your company",
+      "divider": "or",
+      "goto-next": "Fill in manually",
+      "input": "Company, SIRET, SIREN, Manager, Keyword...",
+      "no-result": "No results found"
+    },
+    "search-association": {
+      "header": "Search for your association",
+      "input": "Association, SIRET, SIREN, Manager, Keyword..."
+    },
+    "association-form": {
+      "header": {
+        "company": "Your association",
+        "vta": "Your VAT number",
+        "address": "Your billing address"
+      },
+      "label": {
+        "activity-type": "Type of activity (NAF code)",
+        "insee-code": "Code INSEE",
+        "legal-form": "Legal form",
+        "legal-name": "Association name",
+        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-vat-number": "VAT number",
+        "registration-date": "Date d'immatriculation",
+        "address": "Address",
+        "city": "Ville",
+        "zip": "Zip code",
+        "country": "Pays"
+      }
+    },
+    "company-form": {
+      "header": {
+        "company": "Your company",
+        "vta": "Your VAT number",
+        "address": "Your billing address"
+      },
+      "description": {
+        "company": "This information will be used to generate your invoices, quotes and contracts",
+        "vta": "If you have a VAT number, you can enter it here, otherwise go to the next step",
+        "address": "This information will be used to generate your invoices, quotes and contracts"
+      },
+      "label": {
+        "activity-type": "Type of activity (NAF code)",
+        "insee-code": "Code INSEE",
+        "legal-form": "Legal form",
+        "legal-name": "Company name",
+        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-vat-number": "VAT number",
+        "registration-date": "Date d'immatriculation",
+        "address": "Address",
+        "city": "Ville",
+        "zip": "Zip code",
+        "country": "Pays"
+      },
+      "input": {
+        "activity-type": "Enter the type of activity",
+        "insee-code": "Enter INSEE code",
+        "legal-form": "Enter the legal form",
+        "legal-name": "Enter company name",
+        "legal-registration-number": "Enter the registration number",
+        "legal-vat-number": "Enter VAT number if available",
+        "registration-date": "Enter the registration date",
+        "address": "Enter the address",
+        "city": "Enter city",
+        "zip": "Enter zip code",
+        "country": "Enter country"
+      },
+      "error": {
+        "activity-type": "Please enter the type of activity",
+        "insee-code": "Please enter the INSEE code",
+        "legal-form": "Please enter the legal form",
+        "legal-name": "Please enter the company name",
+        "legal-registration-number": "Please enter the registration number",
+        "legal-vat-number": "Please enter the VAT number if available",
+        "registration-date": "Please enter the registration date",
+        "address": "Please enter the address of the registered office",
+        "city": "Please enter the city",
+        "zip": "Please enter the zip code",
+        "country": "Please enter country"
+      },
+      "toast": {
+        "success": {
+          "title": "Success",
+          "message": "Your company has been successfully created"
+        },
+        "error": {
+          "company_already_exist": {
+            "title": "Error",
+            "message": "A company already exists with this information"
+          },
+          "company_does_not_exist": {
+            "title": "Error",
+            "message": "No company has been found with this information"
+          }
+        }
+      },
+      "button": {
+        "next": "Continue",
+        "previous": "Previous",
+        "submit": "Add my company"
+      }
+    },
+
+    "performer": {
+      "header": {
+        "stage-name": "Let's get to know each other, what's your stage name?",
+        "real-name": "Nice to meet you <blue>{stageName}</blue>, what's your real name?",
+        "birthday": "What's your date of birth <blue>{firstName}</blue>?",
+        "public-email": "Just to be sure, can we display this email address <blue>{email}</blue> to your customers?",
+        "public-phone": "And this phone number <blue>{phone}</blue>, can we display it to your customers?",
+        "category": "Which category suits you best?"
+      },
+      "description": {
+        "stage-name": "How do you want your customers to call you?",
+        "real-name": "Don't worry, we collect this information for legal and billing purposes. We will not share your real name with your customers.",
+        "birthday": "We will not share your birthday with your customers.",
+        "public-email": "This email address will be displayed on your invoices, quotes and contracts.",
+        "public-phone": "This phone number will be displayed on your invoices, quotes and contracts.",
+        "category": "This information will enable us to offer you services tailored to your business."
+      },
+      "label": {
+        "stage-name": "Stage name",
+        "real-name": {
+          "first-name": "First Name",
+          "last-name": "Last Name"
+        },
+        "birthday": "Date of birth",
+        "public-email": "E-mail address",
+        "public-phone": "Telephone number",
+        "category": "Category"
+      },
+      "input": {
+        "stage-name": "Enter your stage name",
+        "real-name": {
+          "first-name": "Enter your first name",
+          "last-name": "Enter your name"
+        },
+        "birthday": "Enter your date of birth",
+        "public-email": "Enter your e-mail address",
+        "public-phone": "Enter your phone number",
+        "category": "Enter your category"
+      },
+      "error": {
+        "stage-name": "Please enter your stage name",
+        "real-name": {
+          "first-name": "Please enter your first name",
+          "last-name": "Please enter your last name"
+        },
+        "birthday": "Please enter your date of birth",
+        "public-email": "Please enter your e-mail address",
+        "public-phone": "Please enter your phone number",
+        "category": "Please enter your category"
+      },
+      "select": {
+        "public-email": {
+          "yes": "Of course, you can use this e-mail address",
+          "no": "Hmm, I prefer to use another e-mail address"
+        },
+        "public-phone": {
+          "yes": "Of course, you can use this phone number",
+          "no": "Hmm, I prefer to use another phone number"
+        },
+        "category": {
+          "dj": "🎧 DJ",
+          "singer": "🎤 Singer",
+          "musician": "🎸 Musician",
+          "music_band": "🎹 Music band",
+          "dancer": "💃 Dancer",
+          "magician": "🎩 Magician",
+          "comedian": "🎭 Humorist",
+          "clown": "🤡 Clown",
+          "juggler": "🤹 Juggler",
+          "fire_eater": "🔥 Fire-eater",
+          "acrobat": "🤸 Acrobat",
+          "drag_queen": "👸 Drag Queen Artist",
+          "florist": "🌷 Fleuriste",
+          "cartoonist": "🎨 Caricaturist",
+          "speaker": "🎙️ Animateur",
+          "wood_toy": "🚂 Wooden toys",
+          "balloon_artist": "🎈 Balloon sculptor",
+          "fireworks": "🎆 Fireworks",
+          "car_rental": "🚗 Car rental",
+          "party_rental": "🎉 Equipment rental",
+          "photo_booth": "📸 Photobooth",
+          "photographer": "📷 Photographe",
+          "videographer": "🎥 Videographer",
+          "makeup_artist": "💄 Makeup artist",
+          "hair_stylist": "💇 Hairdresser",
+          "caterer": "🍽️ Traiteur",
+          "bartender": "🍸 Barman",
+          "waiter": "🍽️ Waiter",
+          "event_agency": "📋 Event agency",
+          "other": "Other..."
+        }
+      },
+      "toast": {
+        "error": {
+          "user-update-failed": {
+            "title": "Error",
+            "message": "Your profile could not be updated"
+          }
+        },
+        "success": {
+          "title": "Success",
+          "message": "Your profile has been updated successfully"
+        }
+      },
+      "button": {
+        "next": "Continue",
+        "previous": "Previous",
+        "submit": "Add my information"
+      }
+    },
+    "office": {
+      "header": "Is the <blue>{address}, {zip} {city}</blue> in <blue>{country}</blue> the address of your office? ",
+      "description": "We'll use this information to calculate your travel expenses",
+      "label": {
+        "address": "Your office address",
+        "city": "Ville",
+        "zip": "Zip code",
+        "country": "Pays"
+      },
+      "input": {
+        "address": "Enter your office address",
+        "city": "Enter the city",
+        "zip": "Enter the zip code",
+        "country": "Enter country"
+      },
+      "select": {
+        "yes": "Exactly",
+        "no": "My office is at a different address"
+      },
+      "submit": "Add my office address",
+      "error": {
+        "address": "Please enter your office address",
+        "city": "Please enter the city",
+        "zip": "Please enter the zip code",
+        "country": "Please enter the country"
+      },
+      "toast": {
+        "success": {
+          "title": "Success",
+          "message": "Your company has been successfully modified"
+        },
+        "error": {
+          "failed-to-update-company": {
+            "title": "Error",
+            "message": "Your company could not be modified"
+          },
+          "company_does_not_exist": {
+            "title": "Error",
+            "message": "No company was found with this information"
+          }
+        }
+      }
+    },
+    "intermittent": {
+      "header": "Unfortunately 😢, Klaq.io is not available for intermittent artists",
+      "description": "Nevertheless, you can be informed when a version compatible with the intermittent status is released by entering your email address in the following field.",
+      "input": {
+        "email": "Enter your email address if you wish to be contacted"
+      },
+      "submit": "Contact me again"
     }
   }
 }

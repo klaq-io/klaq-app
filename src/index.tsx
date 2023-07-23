@@ -16,17 +16,15 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <IntlProvider
-      locale={navigator.language}
-      messages={flatten(language === "fr" ? msg_fr : msg_en)}
-      defaultLocale="en"
-    >
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </IntlProvider>
-  </React.StrictMode>
+  <IntlProvider
+    locale={navigator.language}
+    messages={flatten(language === "fr" ? msg_fr : msg_en)}
+    defaultLocale="en"
+  >
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </IntlProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

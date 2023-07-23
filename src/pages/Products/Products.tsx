@@ -82,7 +82,7 @@ export const Products = () => {
                     })}{" "}
                     ({productItems.length})
                   </h1>
-                  <p className="mt-2 text-sm text-gray-700">
+                  <p className="mt-2 text-sm text-gray-500">
                     {intl.formatMessage({
                       id: "products.my-products.description",
                     })}
@@ -183,7 +183,7 @@ export const Products = () => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="currentColor"
-                              className="w-6 h-6"
+                              className="w-4 h-4"
                             />
                           </button>
                         </td>
@@ -197,7 +197,7 @@ export const Products = () => {
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="currentColor"
-                              className="w-6 h-6 text-danger-500"
+                              className="w-4 h-4 text-danger-500"
                             />
                           </button>
                         </td>

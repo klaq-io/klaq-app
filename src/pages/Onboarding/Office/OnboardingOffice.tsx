@@ -39,8 +39,6 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
     fetchCompany();
   }, []);
 
-  console.log(company);
-
   return (
     <OnboardingLayout
       isLoading={isFetchLoading}

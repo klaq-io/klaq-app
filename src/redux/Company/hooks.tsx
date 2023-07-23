@@ -32,6 +32,19 @@ export const useFetchCompany = () => {
   });
 };
 
+export const useFetchCompanyInformation = () => {
+  return useAsyncCallback(async (legalRegistratioNumber) => {
+    try {
+      const response = await webClient.get(
+        `/company/information?legalRegistrationNumber=${legalRegistratioNumber}`
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(error);
+    }
+  });
+};
+
 export const useCreateCompany = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -8,6 +8,7 @@ import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../routes";
 import { Suggestion } from "../../../interface/suggestion.interface";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   classes?: string;
@@ -42,6 +43,10 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
 
   const handleFillCompany = () => {
     navigate(`${PATHS.ONBOARDING_COMPANY}?companyType=${type}`);
+  };
+
+  const handlePrevious = () => {
+    navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
   };
 
   return (
@@ -110,15 +115,28 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
               </span>
             </div>
           </div>
-          <Button
-            type="button"
-            onClick={handleFillCompany}
-            classes="mt-10 w-full"
-            variant="primary"
-            text={intl.formatMessage({
-              id: "onboarding.search-company.goto-next",
-            })}
-          />
+          <div className="mt-6 flex flex-row justify-between space-between">
+            <Button
+              type="button"
+              onClick={handlePrevious}
+              variant="secondary"
+              Icon={ArrowLeftIcon}
+              iconPosition="leading"
+              text={intl.formatMessage({
+                id: "onboarding.company-form.button.previous",
+              })}
+            />
+            <Button
+              type="button"
+              onClick={handleFillCompany}
+              variant="primary"
+              iconPosition="trailing"
+              Icon={ArrowRightIcon}
+              text={intl.formatMessage({
+                id: "onboarding.search-company.goto-next",
+              })}
+            />
+          </div>
         </div>
       </div>
     </OnboardingLayout>

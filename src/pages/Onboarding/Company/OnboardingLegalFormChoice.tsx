@@ -38,7 +38,9 @@ export const OnboardingLegalFormChoice = () => {
       id: 3,
       title: "intermittent.title",
       description: "intermittent.description",
-      onClick: () => {},
+      onClick: () => {
+        navigate(PATHS.ONBOARDING_INTERMITTENT);
+      },
     },
   ];
 

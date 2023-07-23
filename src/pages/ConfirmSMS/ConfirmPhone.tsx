@@ -5,13 +5,17 @@ import { useSelector } from "react-redux";
 import { OnboardingLayout } from "../../layouts/OnboardingLayout/OnboardingLayout";
 import { useFetchUser } from "../../redux/Login/hooks";
 import { getUser } from "../../redux/Login/selectors";
-import { useVerifySMS } from "../../redux/SMS/hooks";
+import {
+  useInitiateSMSVerification,
+  useVerifySMS,
+} from "../../redux/SMS/hooks";
 
 const OTP_LENGTH = 6;
 
 export const ConfirmPhone = () => {
   const intl = useIntl();
   const [, fetchUser] = useFetchUser();
+  const [, initiateSMSVerification] = useInitiateSMSVerification();
   const user = useSelector(getUser);
   const [otp, setOtp] = useState("");
 
@@ -22,6 +26,15 @@ export const ConfirmPhone = () => {
       verifySMS(otp);
     }
   }, [otp]);
+
+  useEffect(() => {
+    const initSms = async () => {
+      if (!user.phone) {
+        // await initiateSMSVerification();
+      }
+    };
+    initSms();
+  }, []);
 
   useEffect(() => {
     fetchUser();
@@ -45,7 +58,7 @@ export const ConfirmPhone = () => {
             },
             {
               b: (chunks: any) => <b>{chunks}</b>,
-              phone: user.phone,
+              phone: `+${user.phone}`,
             }
           )}
         </p>

@@ -20,7 +20,6 @@ export const useVerifyEmail = () => {
           messageId={`confirm-mail.toast.success.message`}
         />
       );
-      initiateSMSVerification();
       navigate(PATHS.CONFIRM_SMS);
     } catch (error: any) {
       console.error(error);

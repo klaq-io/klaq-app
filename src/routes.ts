@@ -17,4 +17,5 @@ export const PATHS = {
   ONBOARDING_COMPANY_SEARCH: "/onboarding/company/search",
   ONBOARDING_PERFORMER: "/onboarding/performer",
   ONBOARDING_OFFICE: "/onboarding/office",
+  ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
 };

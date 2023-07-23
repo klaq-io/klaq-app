@@ -5,7 +5,7 @@ import { classNames } from "../../utils/utils";
 const stats = [
   {
     name: "Total Subscribers",
-    stat: "71,897",
+    stat: "71,900",
     previousStat: "70,946",
     change: "12%",
     changeType: "increase",
