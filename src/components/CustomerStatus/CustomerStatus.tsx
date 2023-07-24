@@ -20,7 +20,7 @@ export const CustomerStatus: FC<Props> = (props: Props) => {
   return (
     <span
       className={classNames(
-        "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset",
+        "inline-flex items-center rounded-md px-2 py-1 text-sm font-medium ring-1 ring-inset",
         statusClasses[status]
       )}
     >

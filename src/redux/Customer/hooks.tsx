@@ -8,7 +8,6 @@ export const useFetchCustomers = () => {
   return useAsyncCallback(async () => {
     try {
       const response = await webClient.get("/customer");
-      console.log(response.data);
       dispatch(setCustomers(response.data));
     } catch (error: any) {
       console.error(error);

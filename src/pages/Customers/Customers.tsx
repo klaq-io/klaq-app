@@ -1,25 +1,96 @@
 import { useIntl } from "react-intl";
 import { PageLayout } from "../../layouts";
 import { useFetchCustomers } from "../../redux/Customer/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getCustomers } from "../../redux/Customer/selectors";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Customer } from "../../redux/Customer/slices";
 import { CustomerStatus } from "../../components";
+import { useFetchEvents } from "../../redux/Events/hooks";
+import { getAllEvents } from "../../redux/Events/selectors";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { getAllProducts } from "../../redux/Products/selectors";
+import { EventStatus } from "../../redux/Events/slices";
 
 export const Customers = () => {
   const intl = useIntl();
+  const [query, setQuery] = useState("");
+
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
 
+  const [{ isLoading: isFetchEventsLoading }, fetchEvents] = useFetchEvents();
+  const events = useSelector(getAllEvents);
+
+  const [{ isLoading: isFetchProductsLoading }, fetchProducts] =
+    useFetchProductItems();
+  const products = useSelector(getAllProducts);
+
+  const filteredCustomers =
+    query === ""
+      ? customers
+      : customers.filter(
+          (customer) =>
+            customer.firstName.toLowerCase().includes(query.toLowerCase()) ||
+            customer.lastName.toLowerCase().includes(query.toLowerCase()) ||
+            customer.email.toLowerCase().includes(query.toLowerCase()) ||
+            customer.phone.includes(query)
+        );
+
+  const getCustomerEvents = (customerId: string) => {
+    const customerEvents = events.filter(
+      (event) => event.customer.id === customerId
+    );
+    return customerEvents;
+  };
+
+  const getCustomerValue = (customerId: string) => {
+    const customerEvents = getCustomerEvents(customerId);
+    const customerProducts = customerEvents.flatMap((event) =>
+      event.products?.map((product) => ({
+        product: products.find(
+          (productItems) => productItems.id === product.productId
+        ),
+        quantity: product.quantity,
+      }))
+    );
+    const customerValue = customerProducts.reduce((acc, curr) => {
+      if (curr?.product?.price && typeof curr.quantity === "number") {
+        return acc + curr.product.price * curr.quantity;
+      } else {
+        return acc;
+      }
+    }, 0);
+    return customerValue;
+  };
+
+  const getCustomerStatus = (customerId: string) => {
+    const customerEvents = getCustomerEvents(customerId);
+    const eventsStatus = customerEvents.flatMap((event) => event.status);
+    console.log(
+      customerId,
+      eventsStatus,
+      eventsStatus.filter((status) => status === EventStatus.WIN)
+    );
+    if (!customerEvents.length) return "new";
+    if (eventsStatus.includes(EventStatus.INBOX)) return "in-deal";
+
+    if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
+      return "recurring";
+    return "lost";
+  };
+
   useEffect(() => {
     fetchCustomers();
+    fetchEvents();
+    fetchProducts();
   }, []);
 
-  console.log(customers);
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout
+      isLoading={isLoading || isFetchEventsLoading || isFetchProductsLoading}
+    >
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -67,7 +138,26 @@ export const Customers = () => {
                   </button>
                 </div>
               </div>
-              <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+              <div className="flex flex-row mt-10">
+                <div className="w-1/4 relative rounded-md shadow-sm">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <MagnifyingGlassIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <input
+                    onChange={(e) => setQuery(e.target.value)}
+                    value={query}
+                    id="search-field"
+                    className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    placeholder="Email, phone, name, location"
+                    type="text"
+                    name="search"
+                  />
+                </div>
+              </div>
+              <div className="-mx-4 mt-4 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead>
                     <tr>
@@ -120,37 +210,46 @@ export const Customers = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {customers.map((customer: Customer) => (
-                      <tr key={customer.id}>
-                        <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-                          <div className="font-medium text-gray-900">
-                            {customer.firstName} {customer.lastName}
-                          </div>
-                        </td>
-                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                          <div className="font-medium text-gray-500">
-                            <a href={`tel:${customer.phone}`}>
-                              {customer.phone}
-                            </a>
-                          </div>
-                          <div className="font-medium text-gray-500">
-                            <a href={`mailto:${customer.email}`}>
-                              {customer.email}
-                            </a>
-                          </div>
-                        </td>
-                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                          <div className="font-medium text-gray-500">
-                            {customer.city}
-                          </div>
-                        </td>
-                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                          <div className="font-medium text-gray-500">
-                            <CustomerStatus status="lost" />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                    {filteredCustomers.map((customer: Customer) => {
+                      return (
+                        <tr key={customer.id}>
+                          <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
+                            <div className="font-medium text-gray-900">
+                              {customer.firstName} {customer.lastName}
+                            </div>
+                          </td>
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                            <div className="font-medium text-gray-500">
+                              <a href={`tel:${customer.phone}`}>
+                                {customer.phone}
+                              </a>
+                            </div>
+                            <div className="font-medium text-gray-500">
+                              <a href={`mailto:${customer.email}`}>
+                                {customer.email}
+                              </a>
+                            </div>
+                          </td>
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                            <div className="font-medium text-gray-500">
+                              {customer.city}
+                            </div>
+                          </td>
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                            <div className="font-medium text-gray-500">
+                              <CustomerStatus
+                                status={getCustomerStatus(customer.id)}
+                              />
+                            </div>
+                          </td>
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                            <div className="font-medium text-gray-500">
+                              {getCustomerValue(customer.id)}€
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

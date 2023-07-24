@@ -20,10 +20,32 @@ export interface Event {
   placeName?: string;
   contactPhone?: string;
   additionalInfo?: string;
-  status: string;
+  status: EventStatus;
   desiredProduct?: string;
   customer: Customer;
   products?: EventProduct[];
+}
+
+export enum EventStatus {
+  INBOX = "INBOX",
+  QUALIFICATION = "QUALIFICATION",
+  QUOTE_SENT = "QUOTE_SENT",
+  QUOTE_OPENED = "QUOTE_OPENED",
+  QUOTE_ACCEPTED = "QUOTE_ACCEPTED",
+  QUOTE_REJECTED = "QUOTE_REJECTED",
+  CONTRACT_SENT = "CONTRACT_SENT",
+  CONTRACT_OPENED = "CONTRACT_OPENED",
+  CONTRACT_ACCEPTED = "CONTRACT_ACCEPTED",
+  CONTRACT_REJECTED = "CONTRACT_REJECTED",
+  DEPOSIT_REQUESTED = "DEPOSIT_REQUESTED",
+  DEPOSIT_LATE = "DEPOSIT_LATE",
+  READY = "READY",
+  DONE = "DONE",
+  INVOICE_SENT = "INVOICE_SENT",
+  INVOICE_OPENED = "INVOICE_OPENED",
+  INVOICE_OVERDUE = "INVOICE_OVERDUE",
+  WIN = "WIN",
+  LOST = "LOST",
 }
 
 export interface EventProduct {
