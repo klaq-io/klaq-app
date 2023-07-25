@@ -670,7 +670,13 @@
       "contact": "Contact",
       "location": "Localisation",
       "status": "Status",
-      "value": "Valeur"
+      "value": "Valeur",
+      "button": {
+        "header": "Options",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "look": "Voir"
+      }
     },
     "new-customer": {
       "header": "Nouveau client",
@@ -723,6 +729,20 @@
       },
       "submit": "Ajouter un client"
     },
+    "edit-customer": {
+      "header": "Éditer le client",
+      "submit": "Modifier le client"
+    },
+    "delete-customer": {
+      "modal": {
+        "title": "Supprimer le client",
+        "message": "Êtes-vous sûr de vouloir supprimer le client {customerName} ?",
+        "button": {
+          "cancel": "Annuler",
+          "delete": "Supprimer"
+        }
+      }
+    },
     "status": {
       "in-deal": "En deal",
       "new": "Nouveau",
@@ -731,6 +751,37 @@
     },
     "input": {
       "search": "Email, Nom, Prénom, Téléphone..."
+    }
+  },
+
+  "toast": {
+    "success": {
+      "create-customer": {
+        "title": "Succès",
+        "message": "Le client a bien été créé"
+      },
+      "update-customer": {
+        "title": "Succès",
+        "message": "Le client a bien été modifié"
+      },
+      "delete-customer": {
+        "title": "Succès",
+        "message": "Le client a bien été supprimé"
+      }
+    },
+    "error": {
+      "customer-create-error": {
+        "title": "Erreur",
+        "message": "Le client n'a pas pu être créé"
+      },
+      "user-not-found": {
+        "title": "Erreur",
+        "message": "Aucun utilisateur n'a été trouvé avec ces informations"
+      },
+      "customer-delete-error": {
+        "title": "Erreur",
+        "message": "Le client n'a pas pu être supprimé"
+      }
     }
   }
 }

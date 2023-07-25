@@ -1,16 +1,23 @@
 import { useIntl } from "react-intl";
 import { PageLayout } from "../../layouts";
-import { useFetchCustomers } from "../../redux/Customer/hooks";
-import { useEffect, useState } from "react";
+import {
+  useDeleteCustomer,
+  useFetchCustomers,
+} from "../../redux/Customer/hooks";
+import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getCustomers } from "../../redux/Customer/selectors";
 import {
+  ChevronDownIcon,
+  EyeIcon,
   MagnifyingGlassIcon,
+  PencilSquareIcon,
   PlusIcon,
+  TrashIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { Customer } from "../../redux/Customer/slices";
-import { CustomerStatus } from "../../components";
+import { CustomerStatus, DangerModal } from "../../components";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents } from "../../redux/Events/selectors";
 import { useFetchProductItems } from "../../redux/Products/hooks";
@@ -18,11 +25,20 @@ import { getAllProducts } from "../../redux/Products/selectors";
 import { EventStatus } from "../../redux/Events/slices";
 import { NewCustomer } from "./NewCustomer";
 import Button from "../../components/Button";
+import { Menu, Transition } from "@headlessui/react";
+import { classNames } from "../../utils/utils";
+import EditCustomer from "./EditCustomer";
 
 export const Customers = () => {
   const intl = useIntl();
+
   const [query, setQuery] = useState("");
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer>();
   const [openNewCustomerPanel, setOpenNewCustomerPanel] = useState(false);
+  const [openEditCustomerPanel, setOpenEditCustomerPanel] = useState(false);
+  const [openDeleteCustomerModal, setOpenDeleteCustomerModal] = useState(false);
+
+  const [, deleteCustomer] = useDeleteCustomer();
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
@@ -39,6 +55,7 @@ export const Customers = () => {
       ? customers
       : customers.filter(
           (customer) =>
+            customer.name?.toLowerCase().includes(query.toLowerCase()) ||
             customer.firstName.toLowerCase().includes(query.toLowerCase()) ||
             customer.lastName.toLowerCase().includes(query.toLowerCase()) ||
             customer.email.toLowerCase().includes(query.toLowerCase()) ||
@@ -81,6 +98,22 @@ export const Customers = () => {
     if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
       return "recurring";
     return "lost";
+  };
+
+  const handleOpenDeleteCustomerModal = (customer: Customer) => {
+    setSelectedCustomer(customer);
+    setOpenDeleteCustomerModal(true);
+  };
+
+  const handleDeleteCustomer = (customer?: Customer) => {
+    if (!customer) return;
+    setOpenDeleteCustomerModal(false);
+    deleteCustomer(customer.id);
+  };
+
+  const handleEditCustomer = (customer: Customer) => {
+    setSelectedCustomer(customer);
+    setOpenEditCustomerPanel(true);
   };
 
   useEffect(() => {
@@ -207,9 +240,10 @@ export const Customers = () => {
                       </th>
                       <th
                         scope="col"
-                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                        className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-sm font-semibold text-gray-900"
                       >
                         <span className="sr-only">Action</span>
+                        Action
                       </th>
                     </tr>
                   </thead>
@@ -251,7 +285,110 @@ export const Customers = () => {
                               {getCustomerValue(customer.id)}€
                             </div>
                           </td>
-                          <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"></td>
+                          <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                            <Menu
+                              as="div"
+                              className="relative inline-block text-left"
+                            >
+                              <div>
+                                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                  {intl.formatMessage({
+                                    id: `customers.my-customers.button.header`,
+                                  })}
+                                  <ChevronDownIcon
+                                    className="-mr-1 h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                </Menu.Button>
+                              </div>
+
+                              <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                              >
+                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                  <div className="py-1">
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <a
+                                          onClick={() =>
+                                            handleEditCustomer(customer)
+                                          }
+                                          className={classNames(
+                                            active
+                                              ? "bg-gray-100 text-gray-900"
+                                              : "text-gray-700",
+                                            "group flex items-center px-4 py-2 text-sm"
+                                          )}
+                                        >
+                                          <PencilSquareIcon
+                                            className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                          />
+                                          {intl.formatMessage({
+                                            id: `customers.my-customers.button.edit`,
+                                          })}
+                                        </a>
+                                      )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <a
+                                          href="#"
+                                          className={classNames(
+                                            active
+                                              ? "bg-gray-100 text-gray-900"
+                                              : "text-gray-700",
+                                            "group flex items-center px-4 py-2 text-sm hover:cursor-pointer"
+                                          )}
+                                        >
+                                          <EyeIcon
+                                            className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                          />
+                                          {intl.formatMessage({
+                                            id: `customers.my-customers.button.look`,
+                                          })}
+                                        </a>
+                                      )}
+                                    </Menu.Item>
+                                  </div>
+                                  <div className="py-1">
+                                    <Menu.Item>
+                                      {({ active }) => (
+                                        <a
+                                          onClick={() =>
+                                            handleOpenDeleteCustomerModal(
+                                              customer
+                                            )
+                                          }
+                                          className={classNames(
+                                            active
+                                              ? "bg-gray-100 text-gray-900"
+                                              : "text-gray-700",
+                                            "group flex items-center px-4 py-2 text-sm hover:cursor-pointer"
+                                          )}
+                                        >
+                                          <TrashIcon
+                                            className="mr-3 h-5 w-5 text-danger-400 group-hover:text-danger-500"
+                                            aria-hidden="true"
+                                          />
+                                          {intl.formatMessage({
+                                            id: `customers.my-customers.button.delete`,
+                                          })}
+                                        </a>
+                                      )}
+                                    </Menu.Item>
+                                  </div>
+                                </Menu.Items>
+                              </Transition>
+                            </Menu>
+                          </td>
                         </tr>
                       );
                     })}
@@ -291,6 +428,31 @@ export const Customers = () => {
       <NewCustomer
         open={openNewCustomerPanel}
         setOpen={setOpenNewCustomerPanel}
+      />
+      <EditCustomer
+        open={openEditCustomerPanel}
+        setOpen={setOpenEditCustomerPanel}
+        customer={selectedCustomer}
+      />
+      <DangerModal
+        open={openDeleteCustomerModal}
+        setOpen={setOpenDeleteCustomerModal}
+        onClick={() => handleDeleteCustomer(selectedCustomer)}
+        title={intl.formatMessage({
+          id: "customers.delete-customer.modal.title",
+        })}
+        message={intl.formatMessage(
+          {
+            id: "customers.delete-customer.modal.message",
+          },
+          { customerName: selectedCustomer?.name }
+        )}
+        button1={intl.formatMessage({
+          id: "customers.delete-customer.modal.button.delete",
+        })}
+        button2={intl.formatMessage({
+          id: "customers.delete-customer.modal.button.cancel",
+        })}
       />
     </PageLayout>
   );

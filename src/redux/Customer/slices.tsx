@@ -33,9 +33,23 @@ export const customerSlice = createSlice({
     setCustomer: (state, action) => {
       state.customers = [...state.customers, action.payload];
     },
+    updateCustomers: (state, action) => {
+      state.customers = state.customers.map((customer: Customer) => {
+        if (customer.id === action.payload.id) {
+          return action.payload;
+        }
+        return customer;
+      });
+    },
+    deleteCustomer: (state, action) => {
+      state.customers = state.customers.filter((customer: Customer) => {
+        return customer.id !== action.payload;
+      });
+    },
   },
 });
 
-export const { setCustomers, setCustomer } = customerSlice.actions;
+export const { setCustomers, setCustomer, updateCustomers, deleteCustomer } =
+  customerSlice.actions;
 
 export default customerSlice.reducer;
