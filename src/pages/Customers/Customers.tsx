@@ -4,7 +4,11 @@ import { useFetchCustomers } from "../../redux/Customer/hooks";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getCustomers } from "../../redux/Customer/selectors";
-import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline";
+import {
+  MagnifyingGlassIcon,
+  PlusIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import { Customer } from "../../redux/Customer/slices";
 import { CustomerStatus } from "../../components";
 import { useFetchEvents } from "../../redux/Events/hooks";
@@ -12,10 +16,13 @@ import { getAllEvents } from "../../redux/Events/selectors";
 import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { EventStatus } from "../../redux/Events/slices";
+import { NewCustomer } from "./NewCustomer";
+import Button from "../../components/Button";
 
 export const Customers = () => {
   const intl = useIntl();
   const [query, setQuery] = useState("");
+  const [openNewCustomerPanel, setOpenNewCustomerPanel] = useState(false);
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
@@ -68,11 +75,6 @@ export const Customers = () => {
   const getCustomerStatus = (customerId: string) => {
     const customerEvents = getCustomerEvents(customerId);
     const eventsStatus = customerEvents.flatMap((event) => event.status);
-    console.log(
-      customerId,
-      eventsStatus,
-      eventsStatus.filter((status) => status === EventStatus.WIN)
-    );
     if (!customerEvents.length) return "new";
     if (eventsStatus.includes(EventStatus.INBOX)) return "in-deal";
 
@@ -128,14 +130,14 @@ export const Customers = () => {
                   </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                  <button
+                  <Button
+                    variant="primary"
                     type="button"
-                    className="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                  >
-                    {intl.formatMessage({
+                    onClick={() => setOpenNewCustomerPanel(true)}
+                    text={intl.formatMessage({
                       id: "customers.my-customers.submit",
                     })}
-                  </button>
+                  />
                 </div>
               </div>
               <div className="flex flex-row mt-10">
@@ -151,7 +153,9 @@ export const Customers = () => {
                     value={query}
                     id="search-field"
                     className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                    placeholder="Email, phone, name, location"
+                    placeholder={intl.formatMessage({
+                      id: "customers.input.search",
+                    })}
                     type="text"
                     name="search"
                   />
@@ -215,7 +219,7 @@ export const Customers = () => {
                         <tr key={customer.id}>
                           <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                             <div className="font-medium text-gray-900">
-                              {customer.firstName} {customer.lastName}
+                              {customer.name}
                             </div>
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
@@ -247,6 +251,7 @@ export const Customers = () => {
                               {getCustomerValue(customer.id)}€
                             </div>
                           </td>
+                          <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"></td>
                         </tr>
                       );
                     })}
@@ -283,6 +288,10 @@ export const Customers = () => {
           )}
         </div>
       </div>
+      <NewCustomer
+        open={openNewCustomerPanel}
+        setOpen={setOpenNewCustomerPanel}
+      />
     </PageLayout>
   );
 };

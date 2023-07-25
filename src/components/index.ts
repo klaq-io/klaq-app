@@ -7,3 +7,4 @@ export * from "./Sidebar";
 export * from "./Spinner";
 export * from "./StatusIcon";
 export * from "./ToastNotification";
+export * from "./SearchCompany";

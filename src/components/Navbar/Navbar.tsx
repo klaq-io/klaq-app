@@ -5,21 +5,21 @@ import {
   MagnifyingGlassIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
 import { useSignout } from "../../redux/Login/hooks";
+import { classNames } from "../../utils/utils";
+import { useFetchCompany } from "../../redux/Company/hooks";
+import { useSelector } from "react-redux";
+import { getCompany } from "../../redux/Company/selectors";
 
 type Props = {
   classes?: string;
 };
 
 const userNavigation = [{ name: "navbar.profile", href: "#" }];
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export const Navbar = (props: Props) => {
   const navigate = useNavigate();
@@ -29,12 +29,19 @@ export const Navbar = (props: Props) => {
     navigate(PATHS.NEW_EVENT);
   };
 
+  const [, fetchCompany] = useFetchCompany();
+  const company = useSelector(getCompany);
+
   const [, logout] = useSignout();
 
   const handleLogout = async () => {
     await logout();
     navigate(PATHS.LOGIN);
   };
+
+  useEffect(() => {
+    fetchCompany();
+  }, []);
 
   return (
     <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
@@ -96,7 +103,7 @@ export const Navbar = (props: Props) => {
                   className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                   aria-hidden="true"
                 >
-                  Company Name
+                  {company.legalName}
                 </span>
                 <ChevronDownIcon
                   className="ml-2 h-5 w-5 text-gray-400"

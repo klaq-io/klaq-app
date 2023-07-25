@@ -672,11 +672,65 @@
       "status": "Status",
       "value": "Valeur"
     },
+    "new-customer": {
+      "header": "Nouveau client",
+      "description": "",
+      "label": {
+        "client-type": "Mon client est",
+        "look-for-company": "Rechercher mon client",
+        "name": "Nom de l'entreprise",
+        "address": "Adresse de l'entreprise",
+        "city": "Ville",
+        "zip": "Code postal",
+        "country": "Pays",
+        "siret": "Numéro de SIRET",
+        "vat-number": "Numéro de TVA (optionnel)",
+        "first-name": "Prénom de votre contact",
+        "last-name": "Nom de votre contact",
+        "email": "Adresse e-mail",
+        "phone": "Numéro de téléphone"
+      },
+      "input": {
+        "client-type": {
+          "company": "une entreprise",
+          "private": "un particulier"
+        },
+        "look-for-company": "Entreprise, SIRET, SIREN, Dirigeant, Mot-clé...",
+        "name": "Saisissez le nom de l'entreprise",
+        "address": "Saisissez l'adresse de l'entreprise",
+        "city": "Saisissez la ville",
+        "zip": "Saisissez le code postal",
+        "country": "Saisissez le pays",
+        "siret": "Saisissez le numéro de SIRET",
+        "vat-number": "Saisissez le numéro de TVA",
+        "first-name": "Saisissez le prénom",
+        "last-name": "Saisissez le nom",
+        "email": "Saisissez l'adresse e-mail",
+        "phone": "Saisissez le numéro de téléphone"
+      },
+      "error": {
+        "name": "Veuillez saisir le nom de l'entreprise",
+        "address": "Veuillez saisir l'adresse de l'entreprise",
+        "city": "Veuillez saisir la ville",
+        "zip": "Veuillez saisir le code postal",
+        "country": "Veuillez saisir le pays",
+        "siret": "Veuillez saisir le numéro de SIRET",
+        "vat-number": "Veuillez saisir le numéro de TVA",
+        "first-name": "Veuillez saisir le prénom",
+        "last-name": "Veuillez saisir le nom",
+        "email": "Veuillez saisir l'adresse e-mail",
+        "phone": "Veuillez saisir le numéro de téléphone"
+      },
+      "submit": "Ajouter un client"
+    },
     "status": {
       "in-deal": "En deal",
       "new": "Nouveau",
       "lost": "Perdu",
       "recurring": "Récurrent"
+    },
+    "input": {
+      "search": "Email, Nom, Prénom, Téléphone..."
     }
   }
 }

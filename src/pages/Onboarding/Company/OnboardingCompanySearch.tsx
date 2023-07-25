@@ -1,14 +1,13 @@
-import { Combobox } from "@headlessui/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { SearchCompany } from "../../../components";
+import Button from "../../../components/Button";
+import { Suggestion } from "../../../interface/suggestion.interface";
 import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
 import { useFetchSuggestions } from "../../../redux/Company/hooks";
-import { classNames } from "../../../utils/utils";
-import { useIntl } from "react-intl";
-import Button from "../../../components/Button";
-import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../routes";
-import { Suggestion } from "../../../interface/suggestion.interface";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   classes?: string;
@@ -27,19 +26,11 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
       ? companyType.association
       : companyType.company;
 
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [, fetchSuggestions] = useFetchSuggestions();
+  const [customerCompany, setCustomerCompany] = useState<
+    Suggestion | undefined
+  >();
+
   const navigate = useNavigate();
-
-  const fetchCompanySuggestions = async (query: string) => {
-    setSuggestions(await fetchSuggestions(query));
-  };
-
-  const handleCompany = (suggestion: Suggestion) => {
-    navigate(
-      `${PATHS.ONBOARDING_COMPANY}?companyType=${type}&activityType=${suggestion.activityType}&inseeLegalFormCode=${suggestion.inseeLegalFormCode}&legalForm=${suggestion.legalForm}&legalName=${suggestion.legalName}&legalRegistrationNumber=${suggestion.legalRegistrationNumber}&legalVATNumber=${suggestion.legalVATNumber}&registrationDate=${suggestion.registrationDate}&address=${suggestion.address}&city=${suggestion.city}&zip=${suggestion.zip}&tradeName=${suggestion.tradeName}&country=${suggestion.country}`
-    );
-  };
 
   const handleFillCompany = () => {
     navigate(`${PATHS.ONBOARDING_COMPANY}?companyType=${type}`);
@@ -64,41 +55,14 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
       </div>
       <div className="mt-10">
         <div>
-          <Combobox as="div">
-            <div className="relative mt-2">
-              <Combobox.Input
-                className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                placeholder={intl.formatMessage({
-                  id: `onboarding.search-${type}.input`,
-                })}
-                onChange={(event) =>
-                  fetchCompanySuggestions(event.target.value)
-                }
-              />
-            </div>
-            {suggestions && suggestions.length > 0 && (
-              <Combobox.Options
-                static
-                className=" z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-              >
-                {suggestions.map((suggestion: Suggestion) => (
-                  <Combobox.Option
-                    key={suggestion.legalRegistrationNumber}
-                    value={suggestion.legalName}
-                    className={({ active }) =>
-                      classNames(
-                        "relative cursor-default select-none py-2 pl-3 pr-9",
-                        active ? "bg-blue-600 text-white" : "text-gray-900"
-                      )
-                    }
-                    onClick={() => handleCompany(suggestion)}
-                  >
-                    {suggestion.legalName} ({suggestion.zip})
-                  </Combobox.Option>
-                ))}
-              </Combobox.Options>
-            )}
-          </Combobox>
+          <SearchCompany
+            setCustomerCompany={setCustomerCompany}
+            customerCompany={customerCompany}
+            onboarding={true}
+            placeholder={intl.formatMessage({
+              id: `onboarding.search-${type}.input`,
+            })}
+          />
 
           <div className="relative mt-10">
             <div

@@ -70,7 +70,7 @@ export const Products = () => {
         </div>
       </div>
 
-      <div className="flex flex-row sm:w-4/5">
+      <div className="flex flex-row">
         <div className="flex-1 mt-10 ">
           {productItems && productItems.length ? (
             <div className="">

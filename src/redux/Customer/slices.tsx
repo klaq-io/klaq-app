@@ -3,15 +3,19 @@ import { initialState } from "../states";
 
 export interface Customer {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zipcode: string;
   type: CustomerType;
+  lastName: string;
+  firstName: string;
+  phone: string;
+  email: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  country?: string;
+  legalVATNumber?: string;
+  legalRegistrationNumber?: string;
+  name?: string;
 }
 
 export enum CustomerType {
@@ -26,9 +30,12 @@ export const customerSlice = createSlice({
     setCustomers: (state, action) => {
       state.customers = action.payload;
     },
+    setCustomer: (state, action) => {
+      state.customers = [...state.customers, action.payload];
+    },
   },
 });
 
-export const { setCustomers } = customerSlice.actions;
+export const { setCustomers, setCustomer } = customerSlice.actions;
 
 export default customerSlice.reducer;
