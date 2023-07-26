@@ -49,7 +49,6 @@ export const NewCustomer: FC<Props> = (props: Props) => {
         values.city = "";
         values.country = "";
       }
-      console.log(values);
       createCustomer(values);
       setOpen(false);
       resetForm();

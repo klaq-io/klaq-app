@@ -28,9 +28,12 @@ import Button from "../../components/Button";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "../../utils/utils";
 import EditCustomer from "./EditCustomer";
+import { useNavigate, generatePath } from "react-router-dom";
+import { PATHS } from "../../routes";
 
 export const Customers = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState<Customer>();
@@ -114,6 +117,11 @@ export const Customers = () => {
   const handleEditCustomer = (customer: Customer) => {
     setSelectedCustomer(customer);
     setOpenEditCustomerPanel(true);
+  };
+
+  const handleCustomerDetails = (id: string) => {
+    const path = generatePath(PATHS.CUSTOMER_DETAILS, { id });
+    navigate(path);
   };
 
   useEffect(() => {
@@ -339,7 +347,9 @@ export const Customers = () => {
                                     <Menu.Item>
                                       {({ active }) => (
                                         <a
-                                          href="#"
+                                          onClick={() =>
+                                            handleCustomerDetails(customer.id)
+                                          }
                                           className={classNames(
                                             active
                                               ? "bg-gray-100 text-gray-900"
@@ -399,6 +409,7 @@ export const Customers = () => {
           ) : (
             <div className="mt-6">
               <button
+                onClick={() => setOpenNewCustomerPanel(true)}
                 type="button"
                 className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >

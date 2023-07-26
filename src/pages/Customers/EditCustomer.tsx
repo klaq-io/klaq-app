@@ -26,7 +26,6 @@ export const EditCustomer: FC<Props> = (props: Props) => {
     onSubmit: (values, { resetForm }) => {
       if (values.type === CustomerType.PRIVATE)
         values.name = `${values.firstName} ${values.lastName}`;
-      console.log(values);
       updateCustomer(values, customer?.id!);
       setOpen(false);
       resetForm();
