@@ -6,12 +6,14 @@ const buttonVariants = {
     "rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-30",
   secondary:
     "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
+  secondaryOutline:
+    "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
 };
 
 type Props = {
   text?: string;
   onClick?: () => void;
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "secondaryOutline";
   type: "button" | "submit" | "reset";
   classes?: string;
   disabled?: boolean;

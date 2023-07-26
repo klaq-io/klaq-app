@@ -577,7 +577,12 @@
       "title": "Produit",
       "short-description": "Description",
       "price": "Prix (€)",
-      "vta-rate": "TVA (%)"
+      "vta-rate": "TVA (%)",
+      "button": {
+        "button": "Options",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      }
     },
     "no-product": "Aucun produit disponible",
     "get-started": "Cliquer pour commencer à ajouter un produit",
@@ -675,7 +680,8 @@
         "header": "Options",
         "edit": "Modifier",
         "delete": "Supprimer",
-        "look": "Voir"
+        "look": "Voir",
+        "sort": "Filtrer"
       }
     },
     "new-customer": {
@@ -741,6 +747,31 @@
           "cancel": "Annuler",
           "delete": "Supprimer"
         }
+      }
+    },
+    "customer-details": {
+      "header": "Détails du client",
+      "description": "Informations sur le client",
+      "siret": "SIRET: {siret}",
+      "vat-number": "Numéro de TVA: {vatNumber}",
+      "no-vat-number": "Numéro de TVA: Non renseigné",
+      "address": "{address}, {zip} {city}, {country}",
+      "no-address": "Aucune adresse n'a été renseigné",
+      "contact": "Contact",
+      "first-interact": "Premier contact le {date}",
+      "last-interact": "Dernier contact le {date}",
+      "deals-amount": "Montant total des deals: {amount}€",
+      "deals-count": "Nombre de deals: {count}",
+      "button": {
+        "button": "Options",
+        "previous": "Précédent",
+        "edit": "Modifier",
+        "copy-phone": "Copier le numéro de téléphone",
+        "send-mail": "Envoyer un e-mail",
+        "delete": "Supprimer",
+        "invoices": "Factures",
+        "quotes": "Devis",
+        "new-event": "Créer un nouvel évènement"
       }
     },
     "status": {

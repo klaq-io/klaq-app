@@ -14,7 +14,7 @@ import {
 import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
-import { DangerModal } from "../../components";
+import { DangerModal, DropdownMenu } from "../../components";
 import { shortenString } from "../../utils/utils";
 
 export const Products = () => {
@@ -48,6 +48,20 @@ export const Products = () => {
     deleteProduct(productId);
     setOpenDeleteModal(false);
   };
+
+  const optionsDropdownMenu = (productId: string) => [
+    {
+      name: "products.my-products.button.edit",
+      onClick: () => handleEditProduct(productId),
+      icon: PencilSquareIcon,
+    },
+    {
+      name: "products.my-products.button.delete",
+      onClick: () => handleModalOpening(productId),
+      icon: TrashIcon,
+      iconColor: "text-danger-500 group-hover:text-danger-500",
+    },
+  ];
 
   useEffect(() => {
     fetchProducts();
@@ -138,15 +152,10 @@ export const Products = () => {
                       </th>
                       <th
                         scope="col"
-                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                        className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-center text-sm font-semibold text-gray-900"
                       >
-                        <span className="sr-only">Edit</span>
-                      </th>
-                      <th
-                        scope="col"
-                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                      >
-                        <span className="sr-only">Delete</span>
+                        <span className="sr-only">Actions</span>
+                        Actions
                       </th>
                     </tr>
                   </thead>
@@ -173,33 +182,13 @@ export const Products = () => {
                             {product.price} €
                           </div>
                         </td>
-                        <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          <button
-                            onClick={() => handleEditProduct(product.id)}
-                            type="button"
-                            className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                          >
-                            <PencilSquareIcon
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-4 h-4"
-                            />
-                          </button>
-                        </td>
-                        <td className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          <button
-                            onClick={() => handleModalOpening(product.id)}
-                            type="button"
-                            className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white"
-                          >
-                            <TrashIcon
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-4 h-4 text-danger-500"
-                            />
-                          </button>
+                        <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
+                          <DropdownMenu
+                            items={optionsDropdownMenu(product.id)}
+                            buttonText={intl.formatMessage({
+                              id: "products.my-products.button.button",
+                            })}
+                          />
                         </td>
                       </tr>
                     ))}

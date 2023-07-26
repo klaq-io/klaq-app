@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "../states";
+import { Event } from "../Events/slices";
 
 export interface Customer {
   id: string;
@@ -16,6 +17,9 @@ export interface Customer {
   legalVATNumber?: string;
   legalRegistrationNumber?: string;
   name?: string;
+  events?: Event[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export enum CustomerType {

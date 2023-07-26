@@ -9,8 +9,5 @@ export const getCustomer = (
   customerId: string
 ): Customer | undefined => {
   const customers: Customer[] = state.customers.customers;
-  return customers.find((customer) => {
-    console.log(customer.id, customerId);
-    return customer.id === customerId;
-  });
+  return customers.find((customer) => customer.id === customerId);
 };
