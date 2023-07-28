@@ -20,7 +20,7 @@ import { getAllProducts } from "../../redux/Products/selectors";
 import { ProductItem } from "../../redux/Products/slices";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
-import { initialValues, validationSchemaEdit } from "./form";
+import { initialValuesEditEvent, validationSchemaEditEvent } from "./form";
 import Button from "../../components/Button";
 
 export const EditEvent = () => {
@@ -41,8 +41,8 @@ export const EditEvent = () => {
   const [openProductSidePanel, setOpenProductSidePanel] = useState(false);
 
   const formik = useFormik({
-    initialValues: event || initialValues,
-    validationSchema: validationSchemaEdit,
+    initialValues: event || initialValuesEditEvent,
+    validationSchema: validationSchemaEditEvent,
     enableReinitialize: true,
     onSubmit: (values) => {
       const date = new Date(values.date);

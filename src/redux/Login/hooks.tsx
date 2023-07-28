@@ -96,3 +96,14 @@ export const useSignUp = () => {
     }
   );
 };
+
+export const useCheckAuth = () => {
+  return useAsyncCallback(async () => {
+    try {
+      await webClient.get("auth");
+      return true;
+    } catch (error: any) {
+      return false;
+    }
+  });
+};

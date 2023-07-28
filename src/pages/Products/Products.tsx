@@ -16,6 +16,7 @@ import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
 import { DangerModal, DropdownMenu } from "../../components";
 import { shortenString } from "../../utils/utils";
+import { ProductItem } from "../../redux/Products/slices";
 
 export const Products = () => {
   const intl = useIntl();
@@ -160,7 +161,7 @@ export const Products = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {productItems.map((product: any) => (
+                    {productItems.map((product: ProductItem) => (
                       <tr key={product.id}>
                         <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                           <div className="font-medium text-gray-900">

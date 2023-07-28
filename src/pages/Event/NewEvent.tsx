@@ -14,7 +14,7 @@ import { getCustomers } from "../../redux/Customer/selectors";
 import { Customer, CustomerType } from "../../redux/Customer/slices";
 import { useAddEvent } from "../../redux/Events/hooks";
 import { classNames } from "../../utils/utils";
-import { initialValues, validationSchema } from "./form";
+import { initialValuesNewEvent, validationSchemaNewEvent } from "./form";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -30,10 +30,12 @@ export const NewEvent = () => {
 
   const formik = useFormik({
     initialValues: {
-      ...initialValues,
-      customer: selectedCustomer ? selectedCustomer : initialValues.customer,
+      ...initialValuesNewEvent,
+      customer: selectedCustomer
+        ? selectedCustomer
+        : initialValuesNewEvent.customer,
     },
-    validationSchema,
+    validationSchema: validationSchemaNewEvent,
     onSubmit: (values) => {
       addEvent(values);
     },

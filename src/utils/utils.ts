@@ -40,5 +40,5 @@ export const getCustomerValue = (
       return acc;
     }
   }, 0);
-  return customerValue;
+  return customerValue.toFixed(2);
 };

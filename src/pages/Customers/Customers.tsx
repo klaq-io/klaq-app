@@ -301,7 +301,7 @@ export const Customers = () => {
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                             <div className="font-medium text-gray-500">
-                              {getCustomerValue(products, customer)}€
+                              {getCustomerValue(products, customer)} €
                             </div>
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">

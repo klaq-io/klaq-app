@@ -18,7 +18,7 @@ import {
 import { PATHS } from "../../routes";
 import { ProductItem } from "../../redux/Products/slices";
 
-export const Event = () => {
+export const EventDetails = () => {
   const { id } = useParams();
   const intl = useIntl();
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ export const Event = () => {
 
   const [, fetchProducts] = useFetchProductItems();
   const productItems = useSelector(getAllProducts);
+
+  console.log(productItems);
 
   const handleEditEvent = () => {
     navigate(`${PATHS.EVENTS}/${id}/edit`);
@@ -379,10 +381,12 @@ export const Event = () => {
                             {product.quantity}
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                            {(productItems?.find(
-                              (productItem: ProductItem) =>
-                                productItem.id === product.productId
-                            )?.price || 0) * product.quantity}
+                            {(
+                              (productItems?.find(
+                                (productItem: ProductItem) =>
+                                  productItem.id === product.productId
+                              )?.price || 0) * product.quantity
+                            ).toFixed(2)}{" "}
                             €
                           </td>
                         </tr>
@@ -406,4 +410,4 @@ export const Event = () => {
   );
 };
 
-export default Event;
+export default EventDetails;
