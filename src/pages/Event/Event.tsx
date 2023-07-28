@@ -51,7 +51,9 @@ export const Event = () => {
                   },
                   {
                     date: new Date(event.date).toLocaleDateString(),
-                    customerName: `${event.customer.firstName} ${event.customer.lastName}`,
+                    customerName: event.customer.name
+                      ? event.customer.name
+                      : `${event.customer.firstName} ${event.customer.lastName}`,
                   }
                 )}
               </h2>

@@ -1,41 +1,61 @@
-import { useFormik } from "formik";
-import { useIntl } from "react-intl";
-import PhoneInput from "react-phone-input-2";
-import { PageLayout } from "../../layouts";
-import { useAddEvent } from "../../redux/Events/hooks";
-import { initialValues, validationSchema } from "./form";
-import { useState } from "react";
-import Button from "../../components/Button";
+import { Combobox } from "@headlessui/react";
 import {
+  CheckIcon,
+  ChevronUpDownIcon,
   MagnifyingGlassIcon,
-  ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { PageLayout } from "../../layouts";
+import { useFetchCustomers } from "../../redux/Customer/hooks";
+import { getCustomers } from "../../redux/Customer/selectors";
+import { Customer, CustomerType } from "../../redux/Customer/slices";
+import { useAddEvent } from "../../redux/Events/hooks";
+import { classNames } from "../../utils/utils";
+import { initialValues, validationSchema } from "./form";
 
 export const NewEvent = () => {
   const intl = useIntl();
   const [, addEvent] = useAddEvent();
 
-  const [openLookForCustomer, setOpenLookForCustomer] = useState(false);
+  const [{ isLoading }, fetchCustomers] = useFetchCustomers();
+  const customers = useSelector(getCustomers);
+
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null
+  );
   const [query, setQuery] = useState("");
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      ...initialValues,
+      customer: selectedCustomer ? selectedCustomer : initialValues.customer,
+    },
     validationSchema,
     onSubmit: (values) => {
       addEvent(values);
     },
+    enableReinitialize: true,
   });
 
   // TODO: call an enum instead
   const eventType = ["wedding", "birthday", "corporate"];
 
-  enum CustomerType {
-    COMPANY = "COMPANY",
-    PRIVATE = "PRIVATE",
-  }
+  const filteredCustomers =
+    query === ""
+      ? customers
+      : customers.filter((customer) => {
+          return customer.name.toLowerCase().includes(query.toLowerCase());
+        });
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
 
   return (
-    <PageLayout>
+    <PageLayout isLoading={isLoading}>
       <form onSubmit={formik.handleSubmit}>
         <div className="md:flex md:items-center md:justify-between">
           <div className="min-w-0 flex-1">
@@ -376,6 +396,88 @@ export const NewEvent = () => {
               </p>
             </div>
             <div className="mt-6">
+              <dl className="grid grid-cols-1 sm:grid-cols-2">
+                <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <Combobox
+                    as="div"
+                    value={selectedCustomer}
+                    onChange={setSelectedCustomer}
+                  >
+                    <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
+                      Rechercher un client
+                    </Combobox.Label>
+                    <div className="w-4/5">
+                      <div className="relative mt-2">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                          <MagnifyingGlassIcon
+                            className="h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <Combobox.Input
+                          className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                          onChange={(event) => setQuery(event.target.value)}
+                          displayValue={(customer: Customer) =>
+                            customer ? customer.name : ""
+                          }
+                        />
+                        <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                          <ChevronUpDownIcon
+                            className="h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </Combobox.Button>
+                      </div>
+                    </div>
+                    {filteredCustomers && (
+                      <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-1/4 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {filteredCustomers.length > 0 &&
+                          filteredCustomers.map((customer) => (
+                            <Combobox.Option
+                              key={customer.id}
+                              value={customer}
+                              className={({ active }) =>
+                                classNames(
+                                  "relative cursor-default select-none py-2 pl-3 pr-9",
+                                  active
+                                    ? "bg-blue-600 text-white"
+                                    : "text-gray-900"
+                                )
+                              }
+                            >
+                              {({ active, selected }) => (
+                                <>
+                                  <span
+                                    className={classNames(
+                                      "block truncate",
+                                      selected && "font-semibold"
+                                    )}
+                                  >
+                                    {customer.name}
+                                  </span>
+
+                                  {selected && (
+                                    <span
+                                      className={classNames(
+                                        "absolute inset-y-0 right-0 flex items-center pr-4",
+                                        active ? "text-white" : "text-blue-600"
+                                      )}
+                                    >
+                                      <CheckIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                      />
+                                    </span>
+                                  )}
+                                </>
+                              )}
+                            </Combobox.Option>
+                          ))}
+                      </Combobox.Options>
+                    )}
+                  </Combobox>
+                </div>
+              </dl>
               <dl className="grid grid-cols-1 sm:grid-cols-2">
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                   <dt className="text-sm font-medium leading-6 text-gray-900">

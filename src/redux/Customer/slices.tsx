@@ -16,7 +16,7 @@ export interface Customer {
   country?: string;
   legalVATNumber?: string;
   legalRegistrationNumber?: string;
-  name?: string;
+  name: string;
   events?: Event[];
   createdAt: Date;
   updatedAt: Date;
