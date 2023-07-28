@@ -526,13 +526,15 @@
         "last-name": "Nom",
         "phone-number": "Numéro de téléphone",
         "email": "Adresse e-mail",
-        "type": "Type de client"
+        "type": "Type de client",
+        "attach-customer": "Attacher un client à cet évènement"
       },
       "input": {
         "first-name": "Saisissez le prénom",
         "last-name": "Saisissez le nom",
         "phone-number": "Saisissez le numéro de téléphone",
-        "email": "Saisissez l'adresse e-mail"
+        "email": "Saisissez l'adresse e-mail",
+        "attach-customer": "Rechercher votre client s'il existe déjà sinon vous pouvez le remplir manuellement dans les champs ci-dessous"
       },
       "type": {
         "private": "Particulier",

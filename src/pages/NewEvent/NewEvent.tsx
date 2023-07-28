@@ -404,7 +404,9 @@ export const NewEvent = () => {
                     onChange={setSelectedCustomer}
                   >
                     <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
-                      Rechercher un client
+                      {intl.formatMessage({
+                        id: "new-event.customer.label.attach-customer",
+                      })}
                     </Combobox.Label>
                     <div className="w-4/5">
                       <div className="relative mt-2">
@@ -429,6 +431,7 @@ export const NewEvent = () => {
                         </Combobox.Button>
                       </div>
                     </div>
+
                     {filteredCustomers && (
                       <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-1/4 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {filteredCustomers.length > 0 &&
@@ -477,7 +480,9 @@ export const NewEvent = () => {
                     )}
                   </Combobox>
                 </div>
+                <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0"></div>
               </dl>
+
               <dl className="grid grid-cols-1 sm:grid-cols-2">
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
                   <dt className="text-sm font-medium leading-6 text-gray-900">
