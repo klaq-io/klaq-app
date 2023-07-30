@@ -828,6 +828,14 @@
       "INVOICE_OVERDUE": "⏰ Facture en retard",
       "WIN": "✅ WIN",
       "LOST": "😞 Perdu"
+    },
+    "tabs": {
+      "all": "Tous",
+      "new": "Nouveau",
+      "upcoming": "À venir",
+      "pending": "En attente",
+      "lost": "Perdu",
+      "past": "Passé"
     }
   },
 

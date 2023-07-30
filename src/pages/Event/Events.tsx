@@ -6,17 +6,17 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 import { format, parse } from "date-fns";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DropdownMenu, EventBadge } from "../../components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
-import { getAllEvents } from "../../redux/Events/selectors";
-import { Event } from "../../redux/Events/slices";
+import { getAllEvents, getEventsByStatus } from "../../redux/Events/selectors";
+import { Event, EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
-import { getDayStr } from "../../utils/utils";
+import { classNames, getDayStr } from "../../utils/utils";
 
 export const Events = () => {
   const intl = useIntl();
@@ -24,6 +24,76 @@ export const Events = () => {
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const events: Event[] = useSelector(getAllEvents);
+  const lostEvents = useSelector((state: any) =>
+    getEventsByStatus(state, EventStatus.LOST)
+  );
+  const newEvents = useSelector((state: any) =>
+    getEventsByStatus(state, EventStatus.INBOX)
+  );
+  const upcomingEvents = useSelector((state: any) =>
+    getEventsByStatus(
+      state,
+      EventStatus.QUOTE_ACCEPTED,
+      EventStatus.CONTRACT_SENT,
+      EventStatus.CONTRACT_OPENED,
+      EventStatus.DEPOSIT_REQUESTED,
+      EventStatus.DEPOSIT_LATE,
+      EventStatus.READY
+    )
+  );
+  const pendingEvents = useSelector((state: any) =>
+    getEventsByStatus(
+      state,
+      EventStatus.INBOX,
+      EventStatus.QUALIFICATION,
+      EventStatus.QUOTE_SENT,
+      EventStatus.QUOTE_OPENED
+    )
+  );
+  const pastEvents = useSelector((state: any) =>
+    getEventsByStatus(
+      state,
+      EventStatus.DONE,
+      EventStatus.INVOICE_SENT,
+      EventStatus.INVOICE_OPENED,
+      EventStatus.INVOICE_OVERDUE,
+      EventStatus.WIN
+    )
+  );
+
+  const [selectedTab, setSelectedTab] = useState(0);
+  const tabs = [
+    {
+      name: "all",
+      current: selectedTab === 0 ? true : false,
+      events: events,
+    },
+    {
+      name: "new",
+      current: selectedTab === 1 ? true : false,
+      events: newEvents,
+    },
+    {
+      name: "upcoming",
+      current: selectedTab === 2 ? true : false,
+      events: upcomingEvents,
+    },
+    {
+      name: "pending",
+      current: selectedTab === 3 ? true : false,
+      events: pendingEvents,
+    },
+    {
+      name: "past",
+      current: selectedTab === 4 ? true : false,
+      events: pastEvents,
+    },
+    {
+      name: "lost",
+      current: selectedTab === 5 ? true : false,
+      events: lostEvents,
+    },
+  ];
 
   const handleEventDetails = (id: string) => {
     navigate(`${PATHS.EVENTS}/${id}`);
@@ -95,10 +165,29 @@ export const Events = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-row mt-10">
+      <div className="mt-10">
+        <nav className="flex space-x-4" aria-label="Tabs">
+          {tabs.map((tab, idx) => (
+            <span
+              className={classNames(
+                tab.current
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-500 hover:text-gray-700",
+                "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer"
+              )}
+              onClick={() => setSelectedTab(idx)}
+            >
+              {intl.formatMessage({
+                id: `events.tabs.${tab.name}`,
+              })}
+            </span>
+          ))}
+        </nav>
+      </div>
+      <div className="flex mt-10">
         <div className="flex-1">
-          {events && events.length > 0 ? (
-            events.map((event) => (
+          {tabs[selectedTab].events && tabs[selectedTab].events.length > 0 ? (
+            tabs[selectedTab].events.map((event) => (
               <div className="border border-gray-200 rounded-md flex flex-fow p-4 mb-2 hover:border-gray-300">
                 <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-4 text-blue-600 w-1/5">
                   <span className="text-md">
@@ -108,7 +197,7 @@ export const Events = () => {
                     {formatDate(event.date)}
                   </span>
                 </div>
-                <div className="ml-4 flex flex-col space-y-2 w-2/5">
+                <div className="ml-4 flex flex-col space-y-4 w-2/5">
                   <div className="flex flex-row">
                     <ClockIcon className="h-5 w-5" />
                     <span className="ml-2 text-sm text-gray-900">

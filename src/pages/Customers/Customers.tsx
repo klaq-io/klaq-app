@@ -1,12 +1,3 @@
-import { useIntl } from "react-intl";
-import { PageLayout } from "../../layouts";
-import {
-  useDeleteCustomer,
-  useFetchCustomers,
-} from "../../redux/Customer/hooks";
-import { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getCustomers } from "../../redux/Customer/selectors";
 import {
   BarsArrowUpIcon,
   ChevronDownIcon,
@@ -15,22 +6,29 @@ import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
-import { Customer } from "../../redux/Customer/slices";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { generatePath, useNavigate } from "react-router-dom";
 import { CustomerStatus, DangerModal, DropdownMenu } from "../../components";
+import Button from "../../components/Button";
+import { PageLayout } from "../../layouts";
+import {
+  useDeleteCustomer,
+  useFetchCustomers,
+} from "../../redux/Customer/hooks";
+import { getCustomers } from "../../redux/Customer/selectors";
+import { Customer } from "../../redux/Customer/slices";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents } from "../../redux/Events/selectors";
+import { EventStatus } from "../../redux/Events/slices";
 import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
-import { EventStatus } from "../../redux/Events/slices";
-import { NewCustomer } from "./NewCustomer";
-import Button from "../../components/Button";
-import { Menu, Transition } from "@headlessui/react";
-import { classNames, getCustomerValue } from "../../utils/utils";
-import EditCustomer from "./EditCustomer";
-import { useNavigate, generatePath } from "react-router-dom";
 import { PATHS } from "../../routes";
+import { getCustomerValue } from "../../utils/utils";
+import EditCustomer from "./EditCustomer";
+import { NewCustomer } from "./NewCustomer";
 
 export const Customers = () => {
   const intl = useIntl();
@@ -67,6 +65,7 @@ export const Customers = () => {
         );
 
   const getCustomerStatus = (customer: Customer) => {
+    // TODO: change it to a better logic
     if (!customer.events || customer.events.length === 0) return "new";
     const eventsStatus = customer.events.flatMap((event) => event.status);
     if (!customer.events.length) return "new";

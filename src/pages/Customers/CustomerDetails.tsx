@@ -36,7 +36,6 @@ const DocumentType = {
 export const CustomerDetails: FC<Props> = (props: Props) => {
   const intl = useIntl();
   const { id } = useParams();
-  const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
 
   const [selectedDocumentType, setSelectedDucomentType] = useState(
@@ -51,14 +50,12 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
   const [{ isLoading, isSuccess }, fetchCustomers] = useFetchCustomers();
   const customer = useSelector((state: any) => getCustomer(state, id!));
 
-  console.log(customer);
-
   const handlePrevious = () => {
     navigate(PATHS.CUSTOMERS);
   };
 
   const handleCreateEvent = () => {
-    navigate(PATHS.NEW_EVENT);
+    navigate(`${PATHS.NEW_EVENT}?customerId=${id}`);
   };
 
   const formatAddress = (

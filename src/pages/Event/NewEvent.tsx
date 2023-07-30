@@ -19,6 +19,8 @@ import { initialValuesNewEvent, validationSchemaNewEvent } from "./form";
 export const NewEvent = () => {
   const intl = useIntl();
   const [, addEvent] = useAddEvent();
+  const params = new URLSearchParams(document.location.search);
+  const customerId = params.get("customerId");
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
@@ -47,6 +49,16 @@ export const NewEvent = () => {
       : customers.filter((customer) => {
           return customer.name.toLowerCase().includes(query.toLowerCase());
         });
+
+  useEffect(() => {
+    if (customerId) {
+      const customer = customers.find((customer) => customer.id === customerId);
+      if (customer) {
+        setSelectedCustomer(customer);
+        formik.setFieldValue("customer", customer);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     fetchCustomers();
