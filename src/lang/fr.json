@@ -515,7 +515,7 @@
         "address": "Veuillez saisir une adresse",
         "city": "Veuillez saisir une ville",
         "state": "Veuillez saisir une région",
-        "zipcode": "Veuillez saisir un code postal"
+        "zipcode": "Veuillez saisir un code postal avec 5 chiffres"
       }
     },
     "customer": {
@@ -784,6 +784,50 @@
     },
     "input": {
       "search": "Email, Nom, Prénom, Téléphone..."
+    }
+  },
+
+  "events": {
+    "header": "Évènements",
+    "description": "Liste de vos évènements",
+    "no-events": "Aucun évènement disponible",
+    "get-started": "Cliquer pour commencer à ajouter un évènement",
+    "day": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
+    "button": {
+      "header": "Modifier",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "look": "Voir"
+    },
+    "type": "{type} <> {customerName}",
+    "status": {
+      "INBOX": "🆕 Nouveau",
+      "QUALIFICATION": "🔎 En cours de qualification",
+      "QUOTE_SENT": "📤 Devis envoyé",
+      "QUOTE_ACCEPTED": "✅ Devis accepté",
+      "QUOTE_REJECTED": "❌ Devis refusé",
+      "QUOTE_OPENED": "👀 Devis ouvert",
+      "CONTRACT_SENT": "🔖 Contrat envoyé",
+      "CONTRACT_ACCEPTED": "✅ Contrat accepté",
+      "CONTRACT_REJECTED": "❌ Contrat refusé",
+      "CONTRACT_OPENED": "👀 Contrat ouvert",
+      "DEPOSIT_REQUESTED": "💵 Acompte demandé",
+      "DEPOSIT_PAID": "⌛ Acompte en retard",
+      "READY": "🔥 Prêt",
+      "DONE": "✨ Finit",
+      "INVOICE_SENT": "💸 Facture envoyée",
+      "INVOICE_OPENED": "👀 Facture ouverte",
+      "INVOICE_OVERDUE": "⏰ Facture en retard",
+      "WIN": "✅ WIN",
+      "LOST": "😞 Perdu"
     }
   },
 

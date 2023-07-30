@@ -51,6 +51,8 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
   const [{ isLoading, isSuccess }, fetchCustomers] = useFetchCustomers();
   const customer = useSelector((state: any) => getCustomer(state, id!));
 
+  console.log(customer);
+
   const handlePrevious = () => {
     navigate(PATHS.CUSTOMERS);
   };

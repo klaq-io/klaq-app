@@ -31,15 +31,11 @@ export const NewEvent = () => {
   const formik = useFormik({
     initialValues: {
       ...initialValuesNewEvent,
-      customer: selectedCustomer
-        ? selectedCustomer
-        : initialValuesNewEvent.customer,
     },
     validationSchema: validationSchemaNewEvent,
     onSubmit: (values) => {
       addEvent(values);
     },
-    enableReinitialize: true,
   });
 
   // TODO: call an enum instead
@@ -220,7 +216,6 @@ export const NewEvent = () => {
                       id="publicEvent"
                       name="publicEvent"
                       className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
-                      defaultValue="yes"
                     >
                       <option value="yes">
                         {intl.formatMessage({
@@ -448,6 +443,9 @@ export const NewEvent = () => {
                                     ? "bg-blue-600 text-white"
                                     : "text-gray-900"
                                 )
+                              }
+                              onClick={() =>
+                                formik.setFieldValue("customer", customer)
                               }
                             >
                               {({ active, selected }) => (

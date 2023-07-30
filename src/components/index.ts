@@ -1,6 +1,7 @@
 export * from "./Button";
 export * from "./CustomerStatus";
 export * from "./DropdownMenu";
+export * from "./EventBadge";
 export * from "./KebabMenu";
 export * from "./Modal";
 export * from "./Navbar";

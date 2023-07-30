@@ -42,3 +42,17 @@ export const getCustomerValue = (
   }, 0);
   return customerValue.toFixed(2);
 };
+
+export const getDayStr = (date: Date) => {
+  const dateTranslation = [
+    "events.day.monday",
+    "events.day.tuesday",
+    "events.day.wednesday",
+    "events.day.thursday",
+    "events.day.friday",
+    "events.day.saturday",
+    "events.day.sunday",
+  ];
+  const day = new Date(date).getDay();
+  return dateTranslation[day];
+};

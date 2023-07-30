@@ -5,7 +5,6 @@ import { Customer } from "../Customer/slices";
 export interface Event {
   id: string;
   date: Date;
-  arrivalTime: string;
   startTime: string;
   endTime: string;
   price: number;

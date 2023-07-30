@@ -60,7 +60,9 @@ export const validationSchemaNewEvent = Yup.object({
   address: Yup.string().required("Required"),
   city: Yup.string().required("Required"),
   state: Yup.string().required("Required"),
-  zipcode: Yup.string().required("Required"),
+  zipcode: Yup.string()
+    .matches(/^\d{5}$/, "Invalid zipcode")
+    .required("Required"),
   customer: Yup.object({}).shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),

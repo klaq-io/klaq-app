@@ -9,11 +9,12 @@ import { Fragment, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
-import { useSignout } from "../../redux/Login/hooks";
+import { useFetchUser, useSignout } from "../../redux/Login/hooks";
 import { classNames } from "../../utils/utils";
 import { useFetchCompany } from "../../redux/Company/hooks";
 import { useSelector } from "react-redux";
 import { getCompany } from "../../redux/Company/selectors";
+import { getUser } from "../../redux/Login/selectors";
 
 type Props = {
   classes?: string;
@@ -32,6 +33,9 @@ export const Navbar = (props: Props) => {
   const [, fetchCompany] = useFetchCompany();
   const company = useSelector(getCompany);
 
+  const [{ isLoading: isFetchingUser }, fetchUser] = useFetchUser();
+  const user = useSelector(getUser);
+
   const [, logout] = useSignout();
 
   const handleLogout = async () => {
@@ -41,6 +45,7 @@ export const Navbar = (props: Props) => {
 
   useEffect(() => {
     fetchCompany();
+    fetchUser();
   }, []);
 
   return (
@@ -93,17 +98,30 @@ export const Navbar = (props: Props) => {
           <Menu as="div" className="relative">
             <Menu.Button className="-m-1.5 flex items-center p-1.5">
               <span className="sr-only">Open user menu</span>
-              <img
-                className="h-8 w-8 rounded-full bg-gray-50"
-                src="https://i.ibb.co/drBHxQw/B87-AE7-AD-84-D0-45-D4-923-F-DE49-DCE41534.jpg"
-                alt=""
-              />
+              <div
+                className={classNames(
+                  "flex items-center justify-center h-8 w-8 rounded-full bg-gray-200",
+                  isFetchingUser ? "animate-pulse" : ""
+                )}
+              >
+                <span className="font-semibold text-gray-600">
+                  {user && user.firstName && user.lastName
+                    ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
+                    : null}
+                </span>
+              </div>
+
               <span className="hidden lg:flex lg:items-center">
                 <span
-                  className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                  className={classNames(
+                    "ml-4 text-sm font-semibold leading-6 text-gray-900",
+                    isFetchingUser ? "animate-pulse" : ""
+                  )}
                   aria-hidden="true"
                 >
-                  {company.legalName}
+                  {user && user.firstName && user.lastName
+                    ? `${user.firstName} ${user.lastName}`
+                    : null}
                 </span>
                 <ChevronDownIcon
                   className="ml-2 h-5 w-5 text-gray-400"
