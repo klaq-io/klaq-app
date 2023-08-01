@@ -26,7 +26,7 @@ export const SignUp = () => {
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1518709911915-712d5fd04677?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80">
       <div>
-        <h1 className="text-lg leading-6 font-semibold text-blue-600">
+        <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -40,7 +40,7 @@ export const SignUp = () => {
           })}{" "}
           <a
             href={PATHS.LOGIN}
-            className="font-semibold text-blue-600 hover:text-blue-500"
+            className="font-semibold text-klaq-600 hover:text-klaq-500"
           >
             {intl.formatMessage({
               id: "forget-password.login.link",
@@ -67,7 +67,7 @@ export const SignUp = () => {
                 name="email"
                 type="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "sign-up.input.email",
                 })}
@@ -98,7 +98,7 @@ export const SignUp = () => {
                 name="password"
                 type="password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "sign-up.input.password",
                 })}
@@ -128,7 +128,7 @@ export const SignUp = () => {
                   required: true,
                   autoFocus: true,
                   className:
-                    "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6",
+                    "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6",
                 }}
                 country={"fr"}
                 value={formik.values.phone}

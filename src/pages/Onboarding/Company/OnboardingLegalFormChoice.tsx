@@ -47,7 +47,7 @@ export const OnboardingLegalFormChoice = () => {
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1627735747011-b8d19caf7645?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=465&q=80">
       <div>
-        <h1 className="text-lg leading-6 font-semibold text-blue-600">
+        <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -58,15 +58,12 @@ export const OnboardingLegalFormChoice = () => {
         <p className="mt-2 text-sm leading-6 text-gray-500"></p>
       </div>
       <div className="mt-10">
-        <ul
-          role="list"
-          className="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm cursor-pointer"
-        >
+        <ul role="list" className="space-y-3">
           {legalForm.map((item) => (
             <li
               onClick={item.onClick}
               key={item.id}
-              className="relative flex items-center space-x-4 py-4 hover:bg-gray-50 "
+              className="overflow-hidden rounded-md bg-white px-6 py-4 shadow flex hover:bg-gray-50 cursor-pointer"
             >
               <div className="min-w-0 flex-auto">
                 <div className="flex items-center gap-x-3">
@@ -84,10 +81,12 @@ export const OnboardingLegalFormChoice = () => {
                   </p>
                 </div>
               </div>
-              <ChevronRightIcon
-                className="h-5 w-5 flex-none text-gray-400"
-                aria-hidden="true"
-              />
+              <div className="flex items-center justify-center">
+                <ChevronRightIcon
+                  className="h-5 w-5 flex-none text-gray-400"
+                  aria-hidden="true"
+                />
+              </div>
             </li>
           ))}
         </ul>

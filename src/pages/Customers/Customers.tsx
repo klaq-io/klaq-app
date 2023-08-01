@@ -11,7 +11,12 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
-import { CustomerStatus, DangerModal, DropdownMenu } from "../../components";
+import {
+  CustomerStatus,
+  DangerModal,
+  DropdownMenu,
+  KebabMenu,
+} from "../../components";
 import Button from "../../components/Button";
 import { PageLayout } from "../../layouts";
 import {
@@ -73,7 +78,8 @@ export const Customers = () => {
 
     if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
       return "recurring";
-    return "lost";
+    if (eventsStatus.includes(EventStatus.LOST)) return "lost";
+    return "none";
   };
 
   const handleOpenDeleteCustomerModal = (customer: Customer) => {
@@ -185,7 +191,7 @@ export const Customers = () => {
                     onChange={(e) => setQuery(e.target.value)}
                     value={query}
                     type="text"
-                    className="hidden w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:block"
+                    className="hidden w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
                     placeholder={intl.formatMessage({
                       id: "customers.input.search",
                     })}
@@ -193,7 +199,7 @@ export const Customers = () => {
                 </div>
                 <button
                   type="button"
-                  className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  className="bg-white relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   <BarsArrowUpIcon
                     className="-ml-0.5 h-5 w-5 text-gray-400"
@@ -209,7 +215,7 @@ export const Customers = () => {
                 </button>
               </div>
 
-              <div className="-mx-4 mt-4 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+              <div className="-mx-4 mt-4 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg bg-white">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead>
                     <tr>
@@ -258,7 +264,6 @@ export const Customers = () => {
                         className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-center text-sm font-semibold text-gray-900"
                       >
                         <span className="sr-only">Action</span>
-                        Action
                       </th>
                     </tr>
                   </thead>
@@ -268,7 +273,7 @@ export const Customers = () => {
                         <tr key={customer.id}>
                           <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
                             <div
-                              className="font-medium text-gray-900 hover:cursor-pointer hover:text-blue-600"
+                              className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600"
                               onClick={() => handleCustomerDetails(customer.id)}
                             >
                               {customer.name}
@@ -304,11 +309,9 @@ export const Customers = () => {
                             </div>
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-                            <DropdownMenu
+                            <KebabMenu
                               items={optionsMenuItems(customer)}
-                              buttonText={intl.formatMessage({
-                                id: `customers.my-customers.button.header`,
-                              })}
+                              buttonSize="md"
                             />
                           </td>
                         </tr>
@@ -323,7 +326,7 @@ export const Customers = () => {
               <button
                 onClick={() => setOpenNewCustomerPanel(true)}
                 type="button"
-                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
               >
                 <PlusIcon
                   className="mx-auto h-12 w-12 text-gray-400"

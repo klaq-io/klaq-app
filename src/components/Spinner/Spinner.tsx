@@ -16,7 +16,7 @@ export const Spinner: React.FC<Props> = (props: Props) => {
       ? "w-20 h-20"
       : "w-40 h-40";
 
-  const colorClasses = color === "blue" ? "fill-blue-600" : "fill-gray-600";
+  const colorClasses = color === "blue" ? "fill-klaq-600" : "fill-gray-600";
 
   return (
     <div role="status">

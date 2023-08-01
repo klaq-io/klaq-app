@@ -157,7 +157,7 @@ export const Navbar = (props: Props) => {
                 <Menu.Item key="logout">
                   <a
                     onClick={handleLogout}
-                    className="block px-3 py-1 text-sm leading-6 text-danger-900 cursor-pointer hover:bg-gray"
+                    className="block px-3 py-1 text-sm leading-6 text-danger-600 cursor-pointer hover:bg-gray"
                   >
                     {intl.formatMessage({ id: "navbar.logout" })}
                   </a>

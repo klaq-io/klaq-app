@@ -25,7 +25,7 @@ export const ConfirmMail = () => {
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
       <div>
-        <h1 className="text-lg leading-6 font-semibold text-blue-600">
+        <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -52,7 +52,7 @@ export const ConfirmMail = () => {
           })}
           <button
             onClick={() => resendVerificationEmail()}
-            className="font-semibold text-blue-600 hover:text-blue-500"
+            className="font-semibold text-klaq-600 hover:text-klaq-500"
           >
             {intl.formatMessage({
               id: "confirm-mail.resend.link",

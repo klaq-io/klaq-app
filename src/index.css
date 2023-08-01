@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @tailwindcss /typography;
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 body {
   margin: 0;
@@ -21,4 +22,8 @@ code {
 .light {
   background-color: var(--clr-bg-light);
   color: var(--clr-text-light);
+}
+
+.font-poppins {
+  font-family: "Poppins", "Inter var";
 }

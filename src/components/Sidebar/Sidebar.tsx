@@ -73,7 +73,7 @@ export const Sidebar = (props: Props) => {
   ];
 
   return (
-    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-600 px-6 pb-4">
+    <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-klaq-600 px-6 pb-4">
       <div className="flex h-16 shrink-0 items-center">
         <h1 className="text-lg leading-6 font-semibold text-white">Klaq.io</h1>
       </div>
@@ -87,8 +87,8 @@ export const Sidebar = (props: Props) => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-blue-700 text-white"
-                        : "text-blue-200 hover:text-white hover:bg-blue-700",
+                        ? "bg-klaq-700 text-white"
+                        : "text-klaq-200 hover:text-white hover:bg-klaq-700",
                       "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                     )}
                   >
@@ -96,7 +96,7 @@ export const Sidebar = (props: Props) => {
                       className={classNames(
                         item.current
                           ? "text-white"
-                          : "text-blue-200 group-hover:text-white",
+                          : "text-klaq-200 group-hover:text-white",
                         "h-6 w-6 shrink-0"
                       )}
                       aria-hidden="true"
@@ -112,10 +112,10 @@ export const Sidebar = (props: Props) => {
           <li className="mt-auto">
             <a
               href="#"
-              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-blue-200 hover:bg-blue-700 hover:text-white"
+              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
             >
               <QuestionMarkCircleIcon
-                className="h-6 w-6 shrink-0 text-blue-200 group-hover:text-white"
+                className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
                 aria-hidden="true"
               />
               {intl.formatMessage({
@@ -124,10 +124,10 @@ export const Sidebar = (props: Props) => {
             </a>
             <a
               href="#"
-              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-blue-200 hover:bg-blue-700 hover:text-white"
+              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
             >
               <Cog6ToothIcon
-                className="h-6 w-6 shrink-0 text-blue-200 group-hover:text-white"
+                className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
                 aria-hidden="true"
               />
               {intl.formatMessage({

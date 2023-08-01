@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+        sans: ["Poppins", "Inter var", ...defaultTheme.fontFamily.sans],
+        poppins: ["Poppins"],
       },
     },
     colors: {
@@ -29,6 +30,19 @@ module.exports = {
       warning: colors.orange,
       danger: colors.red,
       pink: colors.pink,
+      klaq: {
+        50: "#f5f8f7",
+        100: "#dee9e7",
+        200: "#bcd3ce",
+        300: "#93b5af",
+        400: "#709892",
+        500: "#527a75",
+        600: "#40615d",
+        700: "#364f4c",
+        800: "#2e4140",
+        900: "#293837",
+        950: "#141f1f",
+      },
     },
   },
   important: true,

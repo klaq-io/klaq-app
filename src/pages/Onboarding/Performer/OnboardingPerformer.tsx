@@ -111,7 +111,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1520092792133-42473bd8aeab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
       <div>
-        <h1 className="text-lg leading-6 font-semibold text-blue-600">
+        <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -121,7 +121,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
             },
             {
               blue: (chunks: any) => (
-                <span className="text-blue-600">{chunks}</span>
+                <span className="text-klaq-600">{chunks}</span>
               ),
               stageName: formik.values.stageName,
               firstName: formik.values.firstName,
@@ -149,7 +149,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     name="stageName"
                     type="text"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `onboarding.performer.input.stage-name`,
                     })}
@@ -197,7 +197,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     name="firstName"
                     type="text"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `onboarding.performer.input.real-name.first-name`,
                     })}
@@ -228,7 +228,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     name="lastName"
                     type="text"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `onboarding.performer.input.real-name.last-name`,
                     })}
@@ -279,7 +279,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     type="date"
                     required
                     max={subYears(new Date(), 18).toISOString().split("T")[0]}
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `onboarding.performer.input.birthday`,
                     })}
@@ -328,7 +328,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     value={formik.values.selectPublicMail}
                     name="selectPublicMail"
                     id="selectPublicMail"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                   >
                     <option key={selectOptions.YES} value={selectOptions.YES}>
                       {intl.formatMessage({
@@ -352,7 +352,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                         name="publicEmail"
                         type="email"
                         required
-                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: `onboarding.performer.input.public-email`,
                         })}
@@ -406,7 +406,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     value={formik.values.selectPublicPhone}
                     name="selectPublicPhone"
                     id="selectPublicPhone"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                   >
                     <option key={selectOptions.YES} value={selectOptions.YES}>
                       {intl.formatMessage({
@@ -430,7 +430,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                         name="publicPhone"
                         type="text"
                         required
-                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: `onboarding.performer.input.public-phone`,
                         })}
@@ -485,7 +485,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   >
                     <div className="relative mt-2">
                       <Combobox.Input
-                        className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         onChange={(event) => setQuery(event.target.value)}
                         displayValue={(key: any) =>
                           key !== null
@@ -510,7 +510,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                               classNames(
                                 "relative cursor-default select-none py-2 pl-3 pr-9",
                                 active
-                                  ? "bg-blue-600 text-white"
+                                  ? "bg-klaq-600 text-white"
                                   : "text-gray-900"
                               )
                             }
@@ -532,7 +532,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                                   <span
                                     className={classNames(
                                       "absolute inset-y-0 right-0 flex items-center pr-4",
-                                      active ? "text-white" : "text-blue-600"
+                                      active ? "text-white" : "text-klaq-600"
                                     )}
                                   >
                                     <CheckIcon
@@ -558,7 +558,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                           name="category"
                           type="text"
                           required
-                          className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                           placeholder={intl.formatMessage({
                             id: `onboarding.performer.input.category`,
                           })}

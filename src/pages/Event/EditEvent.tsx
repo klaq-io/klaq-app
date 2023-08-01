@@ -132,7 +132,7 @@ export const EditEvent = () => {
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-semibold leading-7 text-blue-600">
+                <h3 className="text-base font-semibold leading-7 text-klaq-600">
                   {intl.formatMessage({
                     id: "new-event.date.header",
                   })}
@@ -158,7 +158,7 @@ export const EditEvent = () => {
                         type="date"
                         name="date"
                         id="date"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.date && formik.touched.date ? (
                         <p
@@ -185,7 +185,7 @@ export const EditEvent = () => {
                         type="number"
                         name="numberOfGuests"
                         id="numberOfGuest"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                     </dd>
                   </div>
@@ -202,7 +202,7 @@ export const EditEvent = () => {
                         type="time"
                         name="startTime"
                         id="startTime"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.startTime && formik.touched.startTime ? (
                         <p
@@ -229,7 +229,7 @@ export const EditEvent = () => {
                         type="time"
                         name="endTime"
                         id="endTime"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.endTime && formik.touched.endTime ? (
                         <p
@@ -255,7 +255,7 @@ export const EditEvent = () => {
                         value={formik.values.eventType}
                         id="eventType"
                         name="eventType"
-                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       >
                         {eventType.map((type) => (
                           <option key={type} value={type}>
@@ -279,7 +279,7 @@ export const EditEvent = () => {
                         value={formik.values.publicEvent}
                         id="publicEvent"
                         name="publicEvent"
-                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       >
                         <option value="yes">
                           {intl.formatMessage({
@@ -303,7 +303,7 @@ export const EditEvent = () => {
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-semibold leading-7 text-blue-600">
+                <h3 className="text-base font-semibold leading-7 text-klaq-600">
                   {intl.formatMessage({
                     id: "new-event.location.header",
                   })}
@@ -329,7 +329,7 @@ export const EditEvent = () => {
                         type="text"
                         name="address"
                         id="address"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.location.input.address",
                         })}
@@ -359,7 +359,7 @@ export const EditEvent = () => {
                         type="text"
                         name="city"
                         id="city"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.location.input.city",
                         })}
@@ -389,7 +389,7 @@ export const EditEvent = () => {
                         type="text"
                         name="state"
                         id="state"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.location.input.state",
                         })}
@@ -419,7 +419,7 @@ export const EditEvent = () => {
                         type="text"
                         name="zipcode"
                         id="zipcode"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.location.input.zipcode",
                         })}
@@ -445,7 +445,7 @@ export const EditEvent = () => {
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-semibold leading-7 text-blue-600">
+                <h3 className="text-base font-semibold leading-7 text-klaq-600">
                   {intl.formatMessage({
                     id: "new-event.customer.header",
                   })}
@@ -471,7 +471,7 @@ export const EditEvent = () => {
                         type="text"
                         name="customer.firstName"
                         id="firstName"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.customer.input.first-name",
                         })}
@@ -504,7 +504,7 @@ export const EditEvent = () => {
                         type="text"
                         name="customer.lastName"
                         id="lastName"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.customer.input.last-name",
                         })}
@@ -537,7 +537,7 @@ export const EditEvent = () => {
                         type="text"
                         name="customer.phone"
                         id="phoneNumber"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder="+33 6 12 34 56 78"
                       />
                       {formik.errors.customer &&
@@ -568,7 +568,7 @@ export const EditEvent = () => {
                         type="text"
                         name="customer.email"
                         id="email"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                         placeholder={intl.formatMessage({
                           id: "new-event.customer.input.email",
                         })}
@@ -596,7 +596,7 @@ export const EditEvent = () => {
           <div className="sm:w-2/3">
             <div className="mt-10">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-semibold leading-7 text-blue-600">
+                <h3 className="text-base font-semibold leading-7 text-klaq-600">
                   {intl.formatMessage({
                     id: "edit-event.my-products.header",
                   })}
@@ -605,7 +605,7 @@ export const EditEvent = () => {
               {event.products &&
               formik.values.products &&
               formik.values.products.length > 0 ? (
-                <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+                <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg bg-white">
                   <table className="min-w-full">
                     <colgroup>
                       <col className="w-full sm:w-1/2" />
@@ -680,7 +680,7 @@ export const EditEvent = () => {
                               }
                               min="1"
                               type="number"
-                              className="w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                              className="w-3/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                             />
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
@@ -742,7 +742,7 @@ export const EditEvent = () => {
                   <button
                     onClick={handleOpenAddProductToEvent}
                     type="button"
-                    className="inline-flex items-center gap-x-2 rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                    className="inline-flex items-center gap-x-2 rounded-md bg-klaq-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
                   >
                     <PaperClipIcon
                       className="-ml-0.5 h-5 w-5"
@@ -815,7 +815,7 @@ export const EditEvent = () => {
                               className={({ active }) =>
                                 classNames(
                                   "cursor-default select-none rounded-md px-4 py-2",
-                                  active && "bg-blue-600 text-white"
+                                  active && "bg-klaq-600 text-white"
                                 )
                               }
                             >

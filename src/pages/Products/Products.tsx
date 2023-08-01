@@ -14,7 +14,7 @@ import {
 import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
-import { DangerModal, DropdownMenu } from "../../components";
+import { DangerModal, DropdownMenu, KebabMenu } from "../../components";
 import { shortenString } from "../../utils/utils";
 import { ProductItem } from "../../redux/Products/slices";
 
@@ -107,7 +107,7 @@ export const Products = () => {
                   <button
                     onClick={handleOpenSidePanel}
                     type="button"
-                    className="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                    className="block rounded-md bg-klaq-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
                   >
                     {intl.formatMessage({
                       id: "products.new-product.submit",
@@ -115,7 +115,7 @@ export const Products = () => {
                   </button>
                 </div>
               </div>
-              <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg">
+              <div className="-mx-4 mt-10 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg bg-white">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead>
                     <tr>
@@ -156,7 +156,6 @@ export const Products = () => {
                         className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-center text-sm font-semibold text-gray-900"
                       >
                         <span className="sr-only">Actions</span>
-                        Actions
                       </th>
                     </tr>
                   </thead>
@@ -184,11 +183,9 @@ export const Products = () => {
                           </div>
                         </td>
                         <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
-                          <DropdownMenu
+                          <KebabMenu
                             items={optionsDropdownMenu(product.id)}
-                            buttonText={intl.formatMessage({
-                              id: "products.my-products.button.button",
-                            })}
+                            buttonSize="md"
                           />
                         </td>
                       </tr>
@@ -202,7 +199,7 @@ export const Products = () => {
               <button
                 onClick={handleOpenSidePanel}
                 type="button"
-                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
               >
                 <PlusIcon
                   className="mx-auto h-12 w-12 text-gray-400"

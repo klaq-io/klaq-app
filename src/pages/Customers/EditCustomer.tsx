@@ -81,7 +81,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="name"
                     name="name"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.name`,
                     })}
@@ -112,7 +112,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="address"
                     name="address"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.address`,
                     })}
@@ -143,7 +143,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="city"
                     name="city"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.city`,
                     })}
@@ -174,7 +174,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="zipcode"
                     name="zipcode"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.zip`,
                     })}
@@ -205,7 +205,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="country"
                     name="country"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.country`,
                     })}
@@ -236,7 +236,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="legalRegistrationNumber"
                     name="legalRegistrationNumber"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.siret`,
                     })}
@@ -268,7 +268,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     id="legalVATNumber"
                     name="legalVATNumber"
                     type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                     placeholder={intl.formatMessage({
                       id: `customers.new-customer.input.vat-number`,
                     })}
@@ -321,7 +321,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 id="firstname"
                 name="firstName"
                 type="text"
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: `customers.new-customer.input.first-name`,
                 })}
@@ -352,7 +352,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 id="lastName"
                 name="lastName"
                 type="text"
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: `customers.new-customer.input.last-name`,
                 })}
@@ -383,7 +383,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 id="email"
                 name="email"
                 type="email"
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: `customers.new-customer.input.email`,
                 })}
@@ -414,7 +414,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 id="phone"
                 name="phone"
                 type="text"
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: `customers.new-customer.input.phone`,
                 })}

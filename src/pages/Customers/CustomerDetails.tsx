@@ -117,7 +117,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
         </div>
       </div>
       <div className="mt-10 flex flex-col space-y-2">
-        <div className="flex flex-row border border-gray-200 rounded-md bg-white px-4 py-5 sm:px-6">
+        <div className="flex flex-row overflow-hidden rounded-md bg-white px-6 py-4 shadow flex">
           <div className="flex flex-col space-y-4">
             <span className="border border-gray-200 rounded-md px-3.5 py-2.5 font-semibold text-gray-600 bg-gray-200">
               {customer?.name?.at(0)}

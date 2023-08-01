@@ -62,7 +62,7 @@ export const NewProducts = (props: Props) => {
                 type="text"
                 name="title"
                 id="title"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "products.new-product.input.name",
                 })}
@@ -92,7 +92,7 @@ export const NewProducts = (props: Props) => {
                 type="text"
                 name="description"
                 id="description"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "products.new-product.input.short-description",
                 })}
@@ -119,7 +119,7 @@ export const NewProducts = (props: Props) => {
             </label>
             <div className="mt-2">
               {/** TODO: change by a download input component */}
-              <button className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              <button className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -176,7 +176,7 @@ export const NewProducts = (props: Props) => {
                   onClick={() => handleVTAChange(rate)}
                   className={classNames(
                     rate === currentVTARate
-                      ? "bg-blue-600 text-white hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                      ? "bg-klaq-600 text-white hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
                       : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50",
                     "rounded-md px-3.5 py-2.5 text-sm font-semibold shadom-sm"
                   )}
@@ -213,7 +213,7 @@ export const NewProducts = (props: Props) => {
                 type="number"
                 name="price"
                 id="price"
-                className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "products.new-product.input.default-price",
                 })}
@@ -251,7 +251,7 @@ export const NewProducts = (props: Props) => {
         </div>
         <button
           type="submit"
-          className="absolute mt-8 rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          className="absolute mt-8 rounded-md bg-klaq-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
         >
           {intl.formatMessage({
             id: "products.new-product.submit",

@@ -16,7 +16,7 @@ export const ForgetPassword = () => {
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <h1 className="text-lg leading-6 font-semibold text-blue-600">
+            <h1 className="text-lg leading-6 font-semibold text-klaq-600">
               Klaq.io
             </h1>
             <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -50,7 +50,7 @@ export const ForgetPassword = () => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
                         id: "forget-password.input.email",
                       })}
@@ -86,7 +86,7 @@ export const ForgetPassword = () => {
                     })}{" "}
                     <a
                       onClick={handleLogin}
-                      className="font-semibold text-blue-600 hover:text-blue-500 cursor-pointer"
+                      className="font-semibold text-klaq-600 hover:text-klaq-500 cursor-pointer"
                     >
                       {intl.formatMessage({
                         id: "forget-password.login.link",

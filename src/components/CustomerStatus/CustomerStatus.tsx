@@ -4,7 +4,7 @@ import { classNames } from "../../utils/utils";
 
 type Props = {
   classes?: any;
-  status: "in-deal" | "new" | "recurring" | "lost";
+  status: "in-deal" | "new" | "recurring" | "lost" | "none";
 };
 
 export const CustomerStatus: FC<Props> = (props: Props) => {
@@ -17,7 +17,7 @@ export const CustomerStatus: FC<Props> = (props: Props) => {
     recurring: "text-indigo-700 ring-indigo-600/20 bg-indigo-50",
     lost: "text-gray-700 ring-gray-600/20 bg-gray-50",
   };
-  return (
+  return status !== "none" ? (
     <span
       className={classNames(
         "inline-flex items-center rounded-md px-2 py-1 text-sm font-medium ring-1 ring-inset",
@@ -28,7 +28,7 @@ export const CustomerStatus: FC<Props> = (props: Props) => {
         id: `customers.status.${status}`,
       })}
     </span>
-  );
+  ) : null;
 };
 
 export default CustomerStatus;

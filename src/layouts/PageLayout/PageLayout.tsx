@@ -20,7 +20,7 @@ export const PageLayout = (props: Props) => {
         <Navbar />
         <main className="py-10">
           {isLoading ? (
-            <div className="flex h-screen">
+            <div className="flex min-h-screen">
               <div className="m-auto">
                 <Spinner size="medium" color="blue" />
               </div>

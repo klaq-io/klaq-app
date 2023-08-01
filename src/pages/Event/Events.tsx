@@ -1,4 +1,5 @@
 import {
+  ChevronRightIcon,
   ClockIcon,
   EyeIcon,
   MapPinIcon,
@@ -64,34 +65,34 @@ export const Events = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const tabs = [
     {
-      name: "all",
-      current: selectedTab === 0 ? true : false,
-      events: events,
-    },
-    {
       name: "new",
-      current: selectedTab === 1 ? true : false,
+      current: selectedTab === 0 ? true : false,
       events: newEvents,
     },
     {
       name: "upcoming",
-      current: selectedTab === 2 ? true : false,
+      current: selectedTab === 1 ? true : false,
       events: upcomingEvents,
     },
     {
       name: "pending",
-      current: selectedTab === 3 ? true : false,
+      current: selectedTab === 2 ? true : false,
       events: pendingEvents,
     },
     {
       name: "past",
-      current: selectedTab === 4 ? true : false,
+      current: selectedTab === 3 ? true : false,
       events: pastEvents,
     },
     {
       name: "lost",
-      current: selectedTab === 5 ? true : false,
+      current: selectedTab === 4 ? true : false,
       events: lostEvents,
+    },
+    {
+      name: "all",
+      current: selectedTab === 5 ? true : false,
+      events: events,
     },
   ];
 
@@ -171,7 +172,7 @@ export const Events = () => {
             <span
               className={classNames(
                 tab.current
-                  ? "bg-blue-100 text-blue-700"
+                  ? "bg-klaq-100 text-klaq-700"
                   : "text-gray-500 hover:text-gray-700",
                 "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer"
               )}
@@ -187,76 +188,78 @@ export const Events = () => {
       <div className="flex mt-10">
         <div className="flex-1">
           {tabs[selectedTab].events && tabs[selectedTab].events.length > 0 ? (
-            tabs[selectedTab].events.map((event) => (
-              <div className="border border-gray-200 rounded-md flex flex-fow p-4 mb-2 hover:border-gray-300">
-                <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-4 text-blue-600 w-1/5">
-                  <span className="text-md">
-                    {intl.formatMessage({ id: getDayStr(event.date) })}
-                  </span>
-                  <span className="text-2xl font-bold">
-                    {formatDate(event.date)}
-                  </span>
-                </div>
-                <div className="ml-4 flex flex-col space-y-4 w-2/5">
-                  <div className="flex flex-row">
-                    <ClockIcon className="h-5 w-5" />
-                    <span className="ml-2 text-sm text-gray-900">
-                      {formatTime(event.startTime)} -{" "}
-                      {formatTime(event.endTime)}
+            <ul role="list" className="space-y-3">
+              {tabs[selectedTab].events.map((event) => (
+                <li
+                  key={event.id}
+                  className="overflow-hidden rounded-md bg-white px-6 py-4 shadow flex"
+                >
+                  <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-4 text-klaq-600 w-1/5">
+                    <span className="text-md">
+                      {intl.formatMessage({ id: getDayStr(event.date) })}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {formatDate(event.date)}
                     </span>
                   </div>
-                  <div className="flex flex-row">
-                    <MapPinIcon className="h-5 w-5" />
-                    <span className="ml-2 text-sm text-gray-900 hover:text-blue-600">
-                      <a
-                        target="_blank"
-                        href={formatGoogleMapUrl(
-                          event.address,
-                          event.zipcode,
-                          event.city,
-                          "France"
-                        )}
+                  <div className="ml-4 flex flex-col space-y-4 w-2/5">
+                    <div className="flex flex-row space-x-2 text-left">
+                      <span className="text-md  text-gray-900">
+                        {intl.formatMessage({
+                          id: `new-event.date.input.event-type.${event.eventType}`,
+                        })}
+                      </span>
+                      <span className="text-md text-gray-900">{" <> "}</span>
+                      <span
+                        className="text-md text-gray-900 hover:text-klaq-600 hover:cursor-pointer font-bold"
+                        onClick={() => handleGoToCustomer(event.customer.id)}
                       >
-                        {`${event.zipcode}, ${event.city}`}
-                      </a>
-                    </span>
+                        {event.customer.name}
+                      </span>
+                    </div>
+                    <div className="flex flex-row space-x-3">
+                      <div className="flex flex-row">
+                        <ClockIcon className="h-5 w-5" />
+                        <span className="ml-2 text-sm text-gray-900">
+                          {formatTime(event.startTime)} -{" "}
+                          {formatTime(event.endTime)}
+                        </span>
+                      </div>
+                      <div className="flex flex-row">
+                        <MapPinIcon className="h-5 w-5" />
+                        <span className="ml-2 text-sm text-gray-900 hover:text-klaq-600">
+                          <a
+                            target="_blank"
+                            href={formatGoogleMapUrl(
+                              event.address,
+                              event.zipcode,
+                              event.city,
+                              "France"
+                            )}
+                          >
+                            {`${event.zipcode}, ${event.city}`}
+                          </a>
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col space-y-2 w-2/5">
-                  <div className="flex flex-row space-x-2 text-left">
-                    <span className="text-md  text-gray-900">
-                      {intl.formatMessage({
-                        id: `new-event.date.input.event-type.${event.eventType}`,
-                      })}
-                    </span>
-                    <span className="text-md text-gray-900">{" <> "}</span>
-                    <span
-                      className="text-md text-gray-900 hover:text-blue-600 hover:cursor-pointer font-bold"
-                      onClick={() => handleGoToCustomer(event.customer.id)}
-                    >
-                      {event.customer.name}
-                    </span>
+                  <div className="flex flex-col space-y-2 w-1/5 items-center justify-center">
+                    <div className="flex items-center justify-center">
+                      <EventBadge status={event.status} />
+                    </div>
                   </div>
-                  <div>
-                    <EventBadge status={event.status} />
+                  <div className="flex flex-col space-y-4 ml-auto justify-center items-center w-1/5">
+                    <ChevronRightIcon className="h-5 w-5 text-gray-400" />
                   </div>
-                </div>
-                <div className="flex flex-col space-y-4 ml-auto justify-center items-center w-1/5">
-                  <DropdownMenu
-                    items={menuItems(event.id)}
-                    buttonText={intl.formatMessage({
-                      id: "events.button.header",
-                    })}
-                  />
-                </div>
-              </div>
-            ))
+                </li>
+              ))}
+            </ul>
           ) : (
             <div className="mt-6">
               <button
                 onClick={handleNewEvent}
                 type="button"
-                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
               >
                 <PlusIcon
                   className="mx-auto h-12 w-12 text-gray-400"

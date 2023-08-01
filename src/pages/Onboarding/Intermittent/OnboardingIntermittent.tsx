@@ -33,7 +33,7 @@ export const OnboardingIntermittent = (props: Props) => {
       backgroundImg="https://images.unsplash.com/photo-1636654129379-e7ae6f30bfd0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=464&q=80"
     >
       <div>
-        <h1 className="mt-8 text-lg leading-6 font-semibold text-blue-600">
+        <h1 className="mt-8 text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -56,7 +56,7 @@ export const OnboardingIntermittent = (props: Props) => {
                 name="email"
                 type="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                 placeholder={intl.formatMessage({
                   id: "onboarding.intermittent.input.email",
                 })}

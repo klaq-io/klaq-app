@@ -27,7 +27,7 @@ export const KebabMenu: FC<Props> = (props: Props) => {
   return (
     <Menu as="div" className="relative ml-3 inline-block text-left">
       <div>
-        <Menu.Button className="-my-2 flex items-center rounded-full bg-white p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <Menu.Button className="-my-2 flex items-center rounded-full bg-white p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-klaq-500">
           <span className="sr-only">Open options</span>
           <EllipsisVerticalIcon
             className={
