@@ -2,7 +2,7 @@ import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useFormik } from "formik";
 import { FC } from "react";
 import { useIntl } from "react-intl";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 import SidePanel from "../../components/SidePanel";
 import { useUpdateCustomer } from "../../redux/Customer/hooks";
 import { Customer, CustomerType } from "../../redux/Customer/slices";
@@ -429,13 +429,11 @@ export const EditCustomer: FC<Props> = (props: Props) => {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button
-              type="submit"
-              text={intl.formatMessage({
+            <Button type="submit" variant="contained" color="primary">
+              {intl.formatMessage({
                 id: `customers.edit-customer.submit`,
               })}
-              variant="primary"
-            />
+            </Button>
           </div>
         </div>
       </form>

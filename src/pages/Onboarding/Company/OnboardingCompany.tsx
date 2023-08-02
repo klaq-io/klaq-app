@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../../components/Button/Button";
+import { Button } from "../../../components";
 import {
   CompanyLegalForm,
   Suggestion,
@@ -231,29 +231,41 @@ export const OnboardingCompany = () => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={handleBackToLastPage}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.company-form.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={handleBackToLastPage}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.company-form.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={() => handleStep(STEP.VTA)}
                   disabled={
                     !formik.values.legalName ||
                     !formik.values.legalForm ||
                     !formik.values.legalRegistrationNumber
                   }
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.company-form.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -297,29 +309,36 @@ export const OnboardingCompany = () => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => handleStep(STEP.COMPANY_INFORMATION)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.company-form.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => handleStep(STEP.COMPANY_INFORMATION)}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => handleStep(STEP.ADDRESS)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.company-form.button.next",
                   })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
-                  onClick={() => handleStep(STEP.ADDRESS)}
-                  disabled={
-                    !formik.values.legalName ||
-                    !formik.values.legalForm ||
-                    !formik.values.legalRegistrationNumber
-                  }
-                />
+                </Button>
               </div>
             </>
           )}
@@ -469,22 +488,31 @@ export const OnboardingCompany = () => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => handleStep(STEP.VTA)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.company-form.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => handleStep(STEP.VTA)}
-                />
+                </Button>
                 <Button
                   isLoading={isLoading}
                   type="submit"
-                  variant="primary"
-                  text={intl.formatMessage({
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleStep(STEP.ADDRESS)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.company-form.button.submit",
                   })}
-                />
+                </Button>
               </div>
             </>
           )}

@@ -17,7 +17,7 @@ import {
   DropdownMenu,
   KebabMenu,
 } from "../../components";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 import { PageLayout } from "../../layouts";
 import {
   useDeleteCustomer,
@@ -170,13 +170,15 @@ export const Customers = () => {
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                   <Button
-                    variant="primary"
+                    variant="contained"
+                    color="primary"
                     type="button"
                     onClick={() => setOpenNewCustomerPanel(true)}
-                    text={intl.formatMessage({
+                  >
+                    {intl.formatMessage({
                       id: "customers.my-customers.submit",
                     })}
-                  />
+                  </Button>
                 </div>
               </div>
               <div className="mt-10 ml-auto w-2/4 flex rounded-md shadow-sm">

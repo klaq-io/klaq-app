@@ -194,7 +194,7 @@ export const Events = () => {
                   key={event.id}
                   className="overflow-hidden rounded-md bg-white px-6 py-4 shadow flex"
                 >
-                  <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-4 text-klaq-600 w-1/5">
+                  <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-3 text-klaq-600 w-1/5">
                     <span className="text-md">
                       {intl.formatMessage({ id: getDayStr(event.date) })}
                     </span>
@@ -220,7 +220,7 @@ export const Events = () => {
                     <div className="flex flex-row space-x-3">
                       <div className="flex flex-row">
                         <ClockIcon className="h-5 w-5" />
-                        <span className="ml-2 text-sm text-gray-900">
+                        <span className="ml-2 text-sm text-gray-900 border-r pr-3">
                           {formatTime(event.startTime)} -{" "}
                           {formatTime(event.endTime)}
                         </span>
@@ -249,7 +249,12 @@ export const Events = () => {
                     </div>
                   </div>
                   <div className="flex flex-col space-y-4 ml-auto justify-center items-center w-1/5">
-                    <ChevronRightIcon className="h-5 w-5 text-gray-400" />
+                    <button
+                      className="-my-2 flex items-center rounded-full bg-white p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-klaq-500"
+                      onClick={() => handleEventDetails(event.id)}
+                    >
+                      <ChevronRightIcon className="h-5 w-5 text-gray-400" />
+                    </button>
                   </div>
                 </li>
               ))}

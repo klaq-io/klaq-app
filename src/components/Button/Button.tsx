@@ -1,76 +1,70 @@
+import { FC, ReactNode } from "react";
 import { classNames } from "../../utils/utils";
 import { Spinner } from "../Spinner";
 
-const buttonVariants = {
-  primary:
-    "rounded-md bg-klaq-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600 disabled:cursor-not-allowed disabled:opacity-30",
-  secondary:
-    "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
-  secondaryOutline:
-    "rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-600 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white",
-};
-
-type Props = {
-  text?: string;
-  onClick?: () => void;
-  variant: "primary" | "secondary" | "secondaryOutline";
-  type: "button" | "submit" | "reset";
-  classes?: string;
+type ButtonProps = {
+  children: ReactNode;
   disabled?: boolean;
   isLoading?: boolean;
-} & {
-  iconPosition?: "trailing" | "leading";
-  Icon?: React.ForwardRefExoticComponent<
-    Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
-      title?: string | undefined;
-      titleId?: string | undefined;
-    } & React.RefAttributes<SVGSVGElement>
-  >;
+  color: "primary" | "secondary";
+  variant: "contained" | "outlined" | "text";
+  onClick?: () => void;
+  href?: string;
+  type: "button" | "submit" | "reset";
+  leadingIcon?: ReactNode;
+  trailingIcon?: ReactNode;
 };
 
-export const Button = (props: Props) => {
+export const Button: FC<ButtonProps> = (props: ButtonProps) => {
   const {
-    text,
-    onClick,
-    variant,
-    Icon,
-    type,
-    classes,
-    iconPosition,
+    leadingIcon,
+    trailingIcon,
+    children,
     disabled,
     isLoading,
+    onClick,
+    type,
+    color,
+    variant,
   } = props;
+
+  const colors = {
+    primary: "text-white",
+    secondary: "text-gray-900",
+  };
+
+  const variants = {
+    contained:
+      color === "primary"
+        ? "bg-klaq-600 hover:bg-klaq-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
+        : "bg-white hover:bg-gray-50 shadow-sm ring-gray-300 ring-1 ring-inset bg-white hover:bg-gray-50",
+    outlined: `${
+      color === "secondary" ? "ring-gray-600" : "ring-gray-300"
+    } ring-1 ring-inset bg-white hover:bg-gray-50 `,
+    text: "hover:text-gray-600",
+  };
   return (
     <button
       onClick={onClick}
       type={type}
-      className={classNames(
-        classNames(
-          Icon ? "inline-flex items-center gap-x-2 " : null,
-          buttonVariants[variant]
-        ),
-        classes
-      )}
       disabled={disabled || isLoading}
+      className={classNames(
+        "inline-flex items-center gap-x-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-30",
+        colors[color],
+        variants[variant]
+      )}
     >
       {isLoading ? (
-        <>
-          <Spinner
-            size="small"
-            color={variant === "primary" ? "gray" : "blue"}
-          />
-        </>
+        <Spinner size="small" color={color} />
       ) : (
         <>
-          {Icon && iconPosition === "leading" ? (
-            <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-          ) : null}
-          {text}
-          {Icon && iconPosition === "trailing" ? (
-            <Icon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-          ) : null}
+          {leadingIcon}
+          {children}
+          {trailingIcon}
         </>
       )}
     </button>
   );
 };
+
+export default Button;

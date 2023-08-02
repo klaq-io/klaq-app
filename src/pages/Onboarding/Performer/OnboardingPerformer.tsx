@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { type } from "@testing-library/user-event/dist/type";
 import { initialValues, validationSchema } from "./form";
-import Button from "../../../components/Button";
+import { Button } from "../../../components";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -166,15 +166,21 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row-reverse justify-between space-between">
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={() => setStep(STEP.REAL_NAME)}
                   disabled={!formik.values.stageName}
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -245,25 +251,37 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.STAGE_NAME)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => setStep(STEP.STAGE_NAME)}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={() => setStep(STEP.BIRTHDAY)}
                   disabled={!formik.values.firstName || !formik.values.lastName}
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -296,25 +314,37 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.REAL_NAME)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => setStep(STEP.REAL_NAME)}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={() => setStep(STEP.PUBLIC_EMAIL)}
                   disabled={!formik.values.birthDate}
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -371,28 +401,40 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.BIRTHDAY)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => setStep(STEP.BIRTHDAY)}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={handlePublicEmail}
                   disabled={
                     !formik.values.publicEmail &&
                     formik.values.selectPublicMail == selectOptions.NO
                   }
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -449,28 +491,40 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.PUBLIC_EMAIL)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => setStep(STEP.PUBLIC_EMAIL)}
-                />
+                </Button>
                 <Button
                   type="button"
-                  variant="primary"
-                  text={intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                  Icon={ArrowRightIcon}
-                  iconPosition="trailing"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
                   onClick={handlePublicPhone}
                   disabled={
                     !formik.values.publicPhone &&
                     formik.values.selectPublicPhone == selectOptions.NO
                   }
-                />
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
               </div>
             </>
           )}
@@ -571,23 +625,32 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
-                  variant="secondary"
-                  text={intl.formatMessage({
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.PUBLIC_PHONE)}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
                   })}
-                  Icon={ArrowLeftIcon}
-                  iconPosition="leading"
-                  onClick={() => setStep(STEP.PUBLIC_PHONE)}
-                />
+                </Button>
                 <Button
-                  isLoading={isLoading}
                   type="submit"
-                  variant="primary"
-                  text={intl.formatMessage({
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePublicPhone}
+                  disabled={!selectCategory || isLoading}
+                  isLoading={isLoading}
+                >
+                  {intl.formatMessage({
                     id: "onboarding.performer.button.submit",
                   })}
-                  disabled={!selectCategory}
-                />
+                </Button>
               </div>
             </>
           )}

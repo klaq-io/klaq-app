@@ -14,8 +14,7 @@ import { FC, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { KebabMenu } from "../../components";
-import Button from "../../components/Button";
+import { KebabMenu, Button } from "../../components";
 import { PageLayout } from "../../layouts";
 import { useFetchCustomers } from "../../redux/Customer/hooks";
 import { getCustomer } from "../../redux/Customer/selectors";
@@ -51,7 +50,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
   const customer = useSelector((state: any) => getCustomer(state, id!));
 
   const handlePrevious = () => {
-    navigate(PATHS.CUSTOMERS);
+    navigate(-1);
   };
 
   const handleCreateEvent = () => {
@@ -105,15 +104,18 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <Button
-            variant="secondary"
-            onClick={handlePrevious}
             type="button"
-            text={intl.formatMessage({
+            variant="text"
+            color="secondary"
+            leadingIcon={
+              <ArrowLeftIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+            }
+            onClick={handlePrevious}
+          >
+            {intl.formatMessage({
               id: "customers.customer-details.button.previous",
             })}
-            Icon={ArrowLeftIcon}
-            iconPosition="leading"
-          />
+          </Button>
         </div>
       </div>
       <div className="mt-10 flex flex-col space-y-2">
@@ -224,43 +226,57 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
             <Button
               variant={
                 DocumentType.INVOICE === selectedDocumentType
-                  ? "secondaryOutline"
-                  : "secondary"
+                  ? "outlined"
+                  : "contained"
               }
+              color="secondary"
               type="button"
-              text={intl.formatMessage({
+              onClick={() => setSelectedDucomentType(DocumentType.INVOICE)}
+              leadingIcon={
+                <ClipboardDocumentCheckIcon
+                  className="-ml-0.5 h-5 w-5"
+                  aria-hidden="true"
+                />
+              }
+            >
+              {intl.formatMessage({
                 id: "customers.customer-details.button.invoices",
               })}
-              onClick={() => setSelectedDucomentType(DocumentType.INVOICE)}
-              Icon={ClipboardDocumentCheckIcon}
-              iconPosition="leading"
-            />
+            </Button>
           </div>
           <div className="ml-2">
             <Button
               variant={
                 DocumentType.QUOTE === selectedDocumentType
-                  ? "secondaryOutline"
-                  : "secondary"
+                  ? "outlined"
+                  : "contained"
               }
+              color="secondary"
               type="button"
-              text={intl.formatMessage({
+              onClick={() => setSelectedDucomentType(DocumentType.QUOTE)}
+              leadingIcon={
+                <PaperAirplaneIcon
+                  className="-ml-0.5 h-5 w-5"
+                  aria-hidden="true"
+                />
+              }
+            >
+              {intl.formatMessage({
                 id: "customers.customer-details.button.quotes",
               })}
-              onClick={() => setSelectedDucomentType(DocumentType.QUOTE)}
-              Icon={PaperAirplaneIcon}
-              iconPosition="leading"
-            />
+            </Button>
           </div>
           <div className="ml-auto">
             <Button
               onClick={handleCreateEvent}
-              variant="primary"
+              variant="contained"
+              color="primary"
               type="button"
-              text={intl.formatMessage({
+            >
+              {intl.formatMessage({
                 id: "customers.customer-details.button.new-event",
               })}
-            />
+            </Button>
           </div>
         </div>
       </div>

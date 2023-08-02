@@ -24,7 +24,7 @@ function classNames(...classes: any) {
 export const Sidebar = (props: Props) => {
   const intl = useIntl();
 
-  const currentPage = window.location.pathname;
+  const currentPage = `/${window.location.pathname.split("/")[1]}`;
 
   const navigation = [
     {

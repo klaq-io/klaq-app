@@ -1,13 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  PencilSquareIcon,
-  EyeIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { FC, Fragment } from "react";
-import { classNames } from "../../utils/utils";
 import { useIntl } from "react-intl";
+import { classNames } from "../../utils/utils";
 
 interface Item {
   name: string;

@@ -14,7 +14,7 @@ export const OnboardingLayout = (props: Props) => {
         {isLoading ? (
           <div className="flex h-screen">
             <div className="m-auto">
-              <Spinner size="medium" color="blue" />
+              <Spinner size="medium" color="primary" />
             </div>
           </div>
         ) : (

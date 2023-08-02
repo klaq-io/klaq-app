@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { Button } from "../../../components/Button/Button";
+import { Button } from "../../../components";
 import { useEffect } from "react";
 import { useFetchUser } from "../../../redux/Login/hooks";
 import { useSelector } from "react-redux";
@@ -67,22 +67,27 @@ export const OnboardingIntermittent = (props: Props) => {
           <div className="flex flex-row space-between justify-between">
             <Button
               type="button"
-              variant="secondary"
-              Icon={ArrowLeftIcon}
-              iconPosition="leading"
+              color="secondary"
+              variant="text"
+              leadingIcon={
+                <ArrowLeftIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+              }
               onClick={handlePrevious}
-              text={intl.formatMessage({
+            >
+              {intl.formatMessage({
                 id: "onboarding.company-form.button.previous",
               })}
-            />
+            </Button>
             <Button
               type="submit"
-              variant="primary"
+              color="primary"
+              variant="contained"
               // TODO: link with mailchimp
-              text={intl.formatMessage({
+            >
+              {intl.formatMessage({
                 id: "onboarding.intermittent.submit",
               })}
-            />
+            </Button>
           </div>
         </form>
       </div>

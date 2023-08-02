@@ -10,7 +10,7 @@ import {
 import { getProductById } from "../../redux/Products/selectors";
 import { classNames } from "../../utils/utils";
 import { initialValues, validationSchemaEdit } from "./form";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 
 type Props = {
   openSidePanel: boolean;
@@ -251,13 +251,11 @@ export const EditProduct = (props: Props) => {
           </div>
         </div>
         <div className="my-6">
-          <Button
-            variant="primary"
-            type="submit"
-            text={intl.formatMessage({
+          <Button color="primary" variant="contained" type="submit">
+            {intl.formatMessage({
               id: "products.edit-product.submit",
             })}
-          />
+          </Button>
         </div>
       </form>
     </SidePanel>

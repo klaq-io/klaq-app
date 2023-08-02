@@ -5,8 +5,7 @@ import { LoginLayout } from "../../layouts";
 import { useLogin } from "../../redux/Login/hooks";
 import { PATHS } from "../../routes";
 import { initialValues, validationSchema } from "./form";
-import { Spinner } from "../../components";
-import { Button } from "../../components/Button/Button";
+import { Button } from "../../components";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -142,12 +141,14 @@ export const Login = () => {
                 <div>
                   <Button
                     type="submit"
-                    variant="primary"
-                    text={intl.formatMessage({
+                    color="primary"
+                    variant="contained"
+                    isLoading={isLoading}
+                  >
+                    {intl.formatMessage({
                       id: "login.submit",
                     })}
-                    isLoading={isLoading}
-                  />
+                  </Button>
                 </div>
               </form>
             </div>

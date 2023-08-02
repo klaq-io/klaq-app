@@ -9,7 +9,7 @@ import {
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getCompany } from "../../../redux/Company/selectors";
-import Button from "../../../components/Button";
+import { Button } from "../../../components";
 
 type Props = {};
 
@@ -228,10 +228,8 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
               <Button
                 isLoading={isLoading}
                 type="submit"
-                variant="primary"
-                text={intl.formatMessage({
-                  id: "onboarding.office.submit",
-                })}
+                color="primary"
+                variant="contained"
                 disabled={
                   formik.values.select == SelectOptions.NO &&
                   (!formik.values.officeAddress ||
@@ -239,7 +237,11 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                     !formik.values.officeZip ||
                     !formik.values.officeCountry)
                 }
-              />
+              >
+                {intl.formatMessage({
+                  id: "onboarding.office.submit",
+                })}
+              </Button>
             </div>
           </div>
         </form>

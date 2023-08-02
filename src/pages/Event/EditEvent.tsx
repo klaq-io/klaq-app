@@ -21,7 +21,7 @@ import { ProductItem } from "../../redux/Products/slices";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
 import { initialValuesEditEvent, validationSchemaEditEvent } from "./form";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 
 export const EditEvent = () => {
   const { id } = useParams();
@@ -118,13 +118,16 @@ export const EditEvent = () => {
                 <Button
                   type="submit"
                   isLoading={updateEventLoading}
-                  variant="primary"
-                  text={intl.formatMessage({
+                  color="primary"
+                  variant="contained"
+                  leadingIcon={
+                    <CheckIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                  }
+                >
+                  {intl.formatMessage({
                     id: "edit-event.submit",
                   })}
-                  Icon={CheckIcon}
-                  iconPosition="leading"
-                />
+                </Button>
               </div>
             </div>
           </div>

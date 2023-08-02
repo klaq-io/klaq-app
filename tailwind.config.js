@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Poppins", "Inter var", ...defaultTheme.fontFamily.sans],
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
         poppins: ["Poppins"],
       },
     },
@@ -30,6 +30,8 @@ module.exports = {
       warning: colors.orange,
       danger: colors.red,
       pink: colors.pink,
+      green: colors.green,
+      red: colors.red,
       klaq: {
         50: "#f5f8f7",
         100: "#dee9e7",

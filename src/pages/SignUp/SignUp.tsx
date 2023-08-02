@@ -4,7 +4,7 @@ import { PATHS } from "../../routes";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./form";
 import PhoneInput from "react-phone-input-2";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 import { useSignUp } from "../../redux/Login/hooks";
 
 export const SignUp = () => {
@@ -148,15 +148,17 @@ export const SignUp = () => {
               ) : null}
             </div>
           </div>
+          <div className="w-full mt-8"></div>
           <Button
             isLoading={isLoading}
-            classes="w-full mt-8"
-            variant="primary"
+            color="primary"
+            variant="contained"
             type="submit"
-            text={intl.formatMessage({
+          >
+            {intl.formatMessage({
               id: "sign-up.submit",
             })}
-          />
+          </Button>
         </form>
       </div>
     </OnboardingLayout>

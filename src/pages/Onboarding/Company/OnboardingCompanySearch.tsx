@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { SearchCompany } from "../../../components";
-import Button from "../../../components/Button";
+import { Button } from "../../../components";
 import { Suggestion } from "../../../interface/suggestion.interface";
 import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
 import { useFetchSuggestions } from "../../../redux/Company/hooks";
@@ -82,24 +82,27 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
           <div className="mt-6 flex flex-row justify-between space-between">
             <Button
               type="button"
+              variant="text"
+              color="secondary"
+              leadingIcon={
+                <ArrowLeftIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+              }
               onClick={handlePrevious}
-              variant="secondary"
-              Icon={ArrowLeftIcon}
-              iconPosition="leading"
-              text={intl.formatMessage({
+            >
+              {intl.formatMessage({
                 id: "onboarding.company-form.button.previous",
               })}
-            />
+            </Button>
             <Button
               type="button"
               onClick={handleFillCompany}
-              variant="primary"
-              iconPosition="trailing"
-              Icon={ArrowRightIcon}
-              text={intl.formatMessage({
+              variant="contained"
+              color="primary"
+            >
+              {intl.formatMessage({
                 id: "onboarding.search-company.goto-next",
               })}
-            />
+            </Button>
           </div>
         </div>
       </div>

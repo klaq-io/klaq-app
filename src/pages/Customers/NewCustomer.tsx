@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import SidePanel from "../../components/SidePanel";
 import { initialValues, validationSchema } from "./form";
 import { useIntl } from "react-intl";
-import Button from "../../components/Button";
+import { Button } from "../../components";
 import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
 import { CustomerType } from "../../redux/Customer/slices";
 import { SearchCompany } from "../../components";
@@ -80,33 +80,42 @@ export const NewCustomer: FC<Props> = (props: Props) => {
             </label>
             <div className="mt-2 flex flex-row space-x-4">
               <Button
-                variant={
+                variant="contained"
+                color={
                   formik.values.type === CustomerType.COMPANY
                     ? "primary"
                     : "secondary"
                 }
                 onClick={() => handleSetCompany(CustomerType.COMPANY)}
                 type="button"
-                iconPosition="leading"
-                Icon={BuildingLibraryIcon}
-                text={intl.formatMessage({
+                leadingIcon={
+                  <BuildingLibraryIcon
+                    className="-ml-0.5 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                }
+              >
+                {intl.formatMessage({
                   id: "customers.new-customer.input.client-type.company",
                 })}
-              />
+              </Button>
               <Button
-                variant={
+                variant="contained"
+                color={
                   formik.values.type === CustomerType.PRIVATE
                     ? "primary"
                     : "secondary"
                 }
                 onClick={() => handleSetCompany(CustomerType.PRIVATE)}
                 type="button"
-                iconPosition="leading"
-                Icon={UserIcon}
-                text={intl.formatMessage({
+                leadingIcon={
+                  <UserIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                }
+              >
+                {intl.formatMessage({
                   id: "customers.new-customer.input.client-type.private",
                 })}
-              />
+              </Button>
             </div>
           </div>
           {formik.values.type === CustomerType.COMPANY ? (
@@ -514,11 +523,9 @@ export const NewCustomer: FC<Props> = (props: Props) => {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button
-              type="submit"
-              text={intl.formatMessage({ id: `customers.new-customer.submit` })}
-              variant="primary"
-            />
+            <Button type="submit" color="primary" variant="contained">
+              {intl.formatMessage({ id: `customers.new-customer.submit` })}
+            </Button>
           </div>
         </div>
       </form>
