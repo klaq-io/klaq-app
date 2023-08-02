@@ -41,7 +41,6 @@ export const NewCustomer: FC<Props> = (props: Props) => {
     validationSchema,
     onSubmit: (values, { resetForm }) => {
       if (formik.values.type === CustomerType.PRIVATE) {
-        values.name = `${values.firstName} ${values.lastName}`;
         values.legalRegistrationNumber = "";
         values.legalVATNumber = "";
         values.address = "";

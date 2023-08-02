@@ -28,20 +28,15 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
     variant,
   } = props;
 
-  const colors = {
-    primary: "text-white",
-    secondary: "text-gray-900",
-  };
-
   const variants = {
     contained:
       color === "primary"
-        ? "bg-klaq-600 hover:bg-klaq-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
-        : "bg-white hover:bg-gray-50 shadow-sm ring-gray-300 ring-1 ring-inset bg-white hover:bg-gray-50",
+        ? "text-white bg-klaq-600 hover:bg-klaq-500 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
+        : "text-gray-900 bg-white hover:bg-gray-50 shadow-sm ring-gray-300 ring-1 ring-inset bg-white hover:bg-gray-50",
     outlined: `${
       color === "secondary" ? "ring-gray-600" : "ring-gray-300"
-    } ring-1 ring-inset bg-white hover:bg-gray-50 `,
-    text: "hover:text-gray-600",
+    } ring-1 ring-inset bg-white hover:bg-gray-50 text-gray-900`,
+    text: "text-gray-900 hover:text-gray-600",
   };
   return (
     <button
@@ -50,7 +45,6 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
       disabled={disabled || isLoading}
       className={classNames(
         "inline-flex items-center gap-x-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-30",
-        colors[color],
         variants[variant]
       )}
     >
