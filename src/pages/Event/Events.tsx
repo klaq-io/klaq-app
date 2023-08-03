@@ -56,7 +56,7 @@ export const Events = () => {
   );
   const [selectedTab, setSelectedTab] = useState(parseInt(tabParam!) || 0);
   const [selectedFilter, setSelectedFilter] = useState<string>(
-    filterParam || FILTER_OPTIONS.THIS_MONTH
+    filterParam || FILTER_OPTIONS.THIS_WEEK
   );
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
@@ -228,7 +228,7 @@ export const Events = () => {
   }, [selectedTab, selectedFilter, startDateParam, endDateParam]);
 
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout isLoading={isLoading && isFetchingProducts}>
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
