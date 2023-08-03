@@ -115,7 +115,7 @@ export const useUpdateEvent = () => {
           />,
           { duration: 1000, position: "top-right" }
         );
-        navigate(`${PATHS.EVENTS}/${id}`);
+        navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
         toast.custom(
           <ToastNotification

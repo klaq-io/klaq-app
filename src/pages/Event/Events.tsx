@@ -198,17 +198,6 @@ export const Events = () => {
     return format(t, "HH:mm");
   };
 
-  const formatGoogleMapUrl = (
-    address: string,
-    zipcode: string,
-    city: string,
-    country: string
-  ) => {
-    return encodeURI(
-      `https://maps.google.com/?q=${address} ${city} ${zipcode} ${country}}`
-    );
-  };
-
   const handleGoToCustomer = (id: string) => {
     navigate(`${PATHS.CUSTOMERS}/${id}`);
   };

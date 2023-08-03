@@ -9,6 +9,7 @@ import { useFetchProductItems } from "../../redux/Products/hooks";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { shortenString } from "../../utils/utils";
 import {
+  ArrowLeftIcon,
   CheckIcon,
   LinkIcon,
   PencilIcon,
@@ -17,11 +18,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { PATHS } from "../../routes";
 import { ProductItem } from "../../redux/Products/slices";
+import { Button } from "../../components";
 
 export const EventDetails = () => {
   const { id } = useParams();
   const intl = useIntl();
   const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
@@ -31,6 +34,14 @@ export const EventDetails = () => {
 
   const handleEditEvent = () => {
     navigate(`${PATHS.EVENTS}/${id}/edit`);
+  };
+
+  const handlePreviousPage = () => {
+    if (params.get("from") === "edit") {
+      navigate(PATHS.EVENTS);
+    } else {
+      navigate(-1);
+    }
   };
 
   useEffect(() => {
@@ -44,19 +55,17 @@ export const EventDetails = () => {
         <>
           <div className="md:flex md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
-              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                {intl.formatMessage(
-                  {
-                    id: "edit-event.header",
-                  },
-                  {
-                    date: new Date(event.date).toLocaleDateString(),
-                    customerName: event.customer.name
-                      ? event.customer.name
-                      : `${event.customer.firstName} ${event.customer.lastName}`,
-                  }
-                )}
-              </h2>
+              <Button
+                onClick={handlePreviousPage}
+                variant="text"
+                color="primary"
+                type="button"
+                leadingIcon={<ArrowLeftIcon className="-ml-0.5 h-5 w-5" />}
+              >
+                {intl.formatMessage({
+                  id: "edit-event.button.previous",
+                })}
+              </Button>
             </div>
             <div>
               <div className="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
@@ -87,6 +96,21 @@ export const EventDetails = () => {
                 </button>
               </div>
             </div>
+          </div>
+          <div>
+            <h2 className="mt-10 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+              {intl.formatMessage(
+                {
+                  id: "edit-event.header",
+                },
+                {
+                  date: new Date(event.date).toLocaleDateString(),
+                  customerName: event.customer.name
+                    ? event.customer.name
+                    : `${event.customer.firstName} ${event.customer.lastName}`,
+                }
+              )}
+            </h2>
           </div>
           <div className="flex flex-row">
             <div className="flex-1 mt-10">
@@ -337,7 +361,7 @@ export const EventDetails = () => {
                         </th>
                         <th
                           scope="col"
-                          className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                          className="hidden px-3 py-3.5 text-center  text-sm font-semibold text-gray-900 lg:table-cell"
                         >
                           {intl.formatMessage({
                             id: "edit-event.my-products.quantity",
@@ -375,7 +399,7 @@ export const EventDetails = () => {
                               )}
                             </div>
                           </td>
-                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <td className="px-3 py-3.5 text-sm text-center text-gray-500 lg:table-cell">
                             {product.quantity}
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">

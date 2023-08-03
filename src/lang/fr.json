@@ -441,6 +441,12 @@
 
   "edit-event": {
     "header": "Évènement du {date} pour {customerName} ",
+    "button": {
+      "previous": "Précédent",
+      "edit": "Modifier",
+      "look": "Voir",
+      "generate": "Générer un devis"
+    },
     "my-products": {
       "header": "Mes produits",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
