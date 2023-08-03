@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
   ConfirmMail,
@@ -86,7 +86,6 @@ function App() {
             path={PATHS.ONBOARDING_OFFICE}
             element={<OnboardingOffice />}
           />
-
           <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
           <Route path={PATHS.CUSTOMERS} element={<Customers />} />
           <Route path={PATHS.CUSTOMER_DETAILS} element={<CustomerDetails />} />
@@ -96,6 +95,7 @@ function App() {
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
+          <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>
       <Toaster />

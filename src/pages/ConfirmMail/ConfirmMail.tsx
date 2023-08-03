@@ -13,8 +13,8 @@ export const ConfirmMail = () => {
 
   const intl = useIntl();
 
-  const [, verifyEmail] = useVerifyEmail();
-  const [{ isLoading }, resendVerificationEmail] = useResendVerificationEmail();
+  const [{ isLoading }, verifyEmail] = useVerifyEmail();
+  const [, resendVerificationEmail] = useResendVerificationEmail();
 
   useEffect(() => {
     if (token) {
@@ -23,7 +23,10 @@ export const ConfirmMail = () => {
   }, []);
 
   return (
-    <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
+    <OnboardingLayout
+      isLoading={isLoading}
+      backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+    >
       <div>
         <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io

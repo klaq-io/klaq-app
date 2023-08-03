@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { classNames } from "../../utils/utils";
 import { Spinner } from "../Spinner";
+import { ReactJSXElementAttributesProperty } from "@emotion/react/types/jsx-namespace";
 
 type ButtonProps = {
   children: ReactNode;

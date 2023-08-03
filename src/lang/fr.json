@@ -801,6 +801,20 @@
       "saturday": "Samedi",
       "sunday": "Dimanche"
     },
+    "month": {
+      "january": "Janvier",
+      "february": "Février",
+      "march": "Mars",
+      "april": "Avril",
+      "may": "Mai",
+      "june": "Juin",
+      "july": "Juillet",
+      "august": "Août",
+      "september": "Septembre",
+      "october": "Octobre",
+      "november": "Novembre",
+      "december": "Décembre"
+    },
     "button": {
       "header": "Modifier",
       "edit": "Modifier",
@@ -836,6 +850,20 @@
       "pending": "En attente",
       "lost": "Perdu",
       "past": "Passé"
+    },
+    "no-events-in-tab": {
+      "new": "Aucun nouvel évènement",
+      "upcoming": "Aucun évènement à venir",
+      "pending": "Aucun évènement en attente",
+      "past": "Aucun évènement passé",
+      "lost": "Aucun évènement perdu",
+      "all": "Aucun évènement"
+    },
+    "filter": {
+      "this_week": "Cette semaine",
+      "this_month": "Ce mois-ci",
+      "this_year": "Cette année",
+      "custom": "Custom"
     }
   },
 
