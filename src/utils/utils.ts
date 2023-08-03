@@ -45,6 +45,25 @@ export const getCustomerValue = (
   return customerValue.toFixed(2);
 };
 
+export const getPipeValue = (products: ProductItem[], events: Event[]) => {
+  const pipeProducts = events.flatMap((event) =>
+    event.products?.map((product: EventProduct) => ({
+      product: products.find(
+        (productItems) => productItems.id === product.productId
+      ),
+      quantity: product.quantity,
+    }))
+  );
+  const pipeValue = pipeProducts.reduce((acc, curr) => {
+    if (curr?.product?.price && typeof curr.quantity === "number") {
+      return acc + curr.product.price * curr.quantity;
+    } else {
+      return acc;
+    }
+  }, 0);
+  return pipeValue.toFixed(2);
+};
+
 export const getEventsForPeriod = (
   events: Event[],
   startDate: Date,
@@ -86,7 +105,6 @@ export const getMonthStr = (date: Date) => {
     "events.month.december",
   ];
   const month = new Date(date).getMonth();
-  console.log(month);
   return dateTranslation[month];
 };
 

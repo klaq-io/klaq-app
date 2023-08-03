@@ -864,7 +864,8 @@
       "this_month": "Ce mois-ci",
       "this_year": "Cette année",
       "custom": "Custom"
-    }
+    },
+    "pipe-value": "{pipeValue}€"
   },
 
   "toast": {

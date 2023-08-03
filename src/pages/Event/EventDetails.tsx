@@ -29,8 +29,6 @@ export const EventDetails = () => {
   const [, fetchProducts] = useFetchProductItems();
   const productItems = useSelector(getAllProducts);
 
-  console.log(productItems);
-
   const handleEditEvent = () => {
     navigate(`${PATHS.EVENTS}/${id}/edit`);
   };

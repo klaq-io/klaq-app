@@ -33,8 +33,6 @@ export const EditCustomer: FC<Props> = (props: Props) => {
     enableReinitialize: true,
   });
 
-  console.log(formik.errors);
-
   return (
     <SidePanel
       open={open}

@@ -23,10 +23,13 @@ import {
   getDayStr,
   getEventsForPeriod,
   getMonthStr,
+  getPipeValue,
   getThisMonthDates,
   getThisWeekDates,
   getThisYearDates,
 } from "../../utils/utils";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { getAllProducts } from "../../redux/Products/selectors";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -58,6 +61,11 @@ export const Events = () => {
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const events: Event[] = useSelector(getAllEvents);
+
+  const [{ isLoading: isFetchingProducts }, fetchProducts] =
+    useFetchProductItems();
+  const products = useSelector(getAllProducts);
+
   const lostEvents = useSelector((state: any) =>
     getEventsByStatus(state, EventStatus.LOST)
   );
@@ -207,6 +215,7 @@ export const Events = () => {
 
   useEffect(() => {
     fetchEvents();
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -287,6 +296,21 @@ export const Events = () => {
                       })}
                     </option>
                   </select>
+                </div>
+                <div className="flex items-center justify-center ml-4">
+                  <p className="max-w-2xl text-sm leading-6 text-gray-500">
+                    {intl.formatMessage(
+                      {
+                        id: "events.pipe-value",
+                      },
+                      {
+                        pipeValue: getPipeValue(
+                          products,
+                          tabs[selectedTab].events
+                        ),
+                      }
+                    )}
+                  </p>
                 </div>
                 <div className="flex ml-auto space-x-3">
                   <div className="flex">
