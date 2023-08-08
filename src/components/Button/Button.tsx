@@ -14,6 +14,7 @@ type ButtonProps = {
   type: "button" | "submit" | "reset";
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 };
 
 export const Button: FC<ButtonProps> = (props: ButtonProps) => {
@@ -27,7 +28,16 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
     type,
     color,
     variant,
+    size = "xl",
   } = props;
+
+  const sizes = {
+    xs: "px-2 py-1 text-xs",
+    sm: "px-2 py-1 text-sm",
+    md: "px-2.5 py-1.5 text-sm",
+    lg: "px-3 py-2 text-sm",
+    xl: "px-3.5 py-2.5 text-sm",
+  };
 
   const variants = {
     contained:
@@ -45,8 +55,9 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
       type={type}
       disabled={disabled || isLoading}
       className={classNames(
-        "inline-flex items-center gap-x-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-30",
-        variants[variant]
+        "inline-flex items-center gap-x-2 rounded-md font-semibold disabled:cursor-not-allowed disabled:opacity-30",
+        variants[variant],
+        sizes[size]
       )}
     >
       {isLoading ? (

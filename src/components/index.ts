@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./CommentaryFeed";
 export * from "./CustomerStatus";
 export * from "./DropdownMenu";
 export * from "./EventBadge";

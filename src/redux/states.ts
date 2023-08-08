@@ -4,10 +4,12 @@ export const initialState: {
   events: any;
   productItems: any;
   customers: any;
+  commentaries: any;
 } = {
   user: {},
   company: {},
   events: [],
   productItems: [],
   customers: [],
+  commentaries: [],
 };

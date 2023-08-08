@@ -457,6 +457,43 @@
       "add-new-product": "Ajouter un nouveau produit",
       "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche"
     },
+    "commentaries": {
+      "header": "Commentaires & Mise à jour",
+      "description": "Ajouter des commentaires à votre évènement, ils seront invisibles pour vos clients.",
+      "commented": "a commenté",
+      "add-commentary": "Ajouter un commentaire",
+      "submit": "Commenter",
+      "publicated-time": {
+        "just-now": "À l'instant",
+        "minutes-ago": "{time} minutes",
+        "hours-ago": "{time} heures",
+        "days-ago": "{time} jours",
+        "weeks-ago": "{time} semaines",
+        "months-ago": "{time} mois",
+        "years-ago": "{time} ans"
+      },
+      "status": {
+        "INBOX": "Nouveau",
+        "QUALIFICATION": "En cours de qualification",
+        "QUOTE_SENT": "Devis envoyé",
+        "QUOTE_ACCEPTED": "Devis accepté",
+        "QUOTE_REJECTED": "Devis refusé",
+        "QUOTE_OPENED": "Devis ouvert",
+        "CONTRACT_SENT": "Contrat envoyé",
+        "CONTRACT_ACCEPTED": "Contrat accepté",
+        "CONTRACT_REJECTED": "Contrat refusé",
+        "CONTRACT_OPENED": "Contrat ouvert",
+        "DEPOSIT_REQUESTED": "Acompte demandé",
+        "DEPOSIT_PAID": "Acompte en retard",
+        "READY": "Prêt",
+        "DONE": "Finit",
+        "INVOICE_SENT": "Facture envoyée",
+        "INVOICE_OPENED": "Facture ouverte",
+        "INVOICE_OVERDUE": "Facture en retard",
+        "WIN": "WIN",
+        "LOST": "Perdu"
+      }
+    },
     "toast": {
       "success": {
         "title": "Votre évènement a bien été modifié",
