@@ -18,7 +18,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { PATHS } from "../../routes";
 import { ProductItem } from "../../redux/Products/slices";
-import { Button } from "../../components";
+import { Button, CommentaryFeed } from "../../components";
 
 export const EventDetails = () => {
   const { id } = useParams();
@@ -123,7 +123,7 @@ export const EventDetails = () => {
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.date",
@@ -133,7 +133,7 @@ export const EventDetails = () => {
                       {new Date(event.date).toLocaleDateString()}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.number-of-guest",
@@ -143,7 +143,7 @@ export const EventDetails = () => {
                       {event.numberOfGuests}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.start-time",
@@ -153,7 +153,7 @@ export const EventDetails = () => {
                       {event.startTime}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.end-time",
@@ -163,7 +163,7 @@ export const EventDetails = () => {
                       {event.endTime}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.event-type",
@@ -175,7 +175,7 @@ export const EventDetails = () => {
                       })}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.date.label.public-event",
@@ -203,7 +203,7 @@ export const EventDetails = () => {
               </div>
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.location.label.address",
@@ -213,7 +213,7 @@ export const EventDetails = () => {
                       {event.address}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.location.label.city",
@@ -223,7 +223,7 @@ export const EventDetails = () => {
                       {event.city}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.location.label.state",
@@ -233,7 +233,7 @@ export const EventDetails = () => {
                       {event.state}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.location.label.zipcode",
@@ -268,7 +268,7 @@ export const EventDetails = () => {
 
               <div className="mt-6">
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.customer.label.type",
@@ -280,13 +280,13 @@ export const EventDetails = () => {
                       })}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900"></dt>
                     <dd className="mt-1 text-sm leading-6 text-gray-700 sm:mt-2"></dd>
                   </div>
                 </dl>
                 <dl className="grid grid-cols-1 sm:grid-cols-2">
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.customer.label.first-name",
@@ -296,7 +296,7 @@ export const EventDetails = () => {
                       {event.customer.firstName}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.customer.label.last-name",
@@ -306,7 +306,7 @@ export const EventDetails = () => {
                       {event.customer.lastName}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.customer.label.phone-number",
@@ -316,7 +316,7 @@ export const EventDetails = () => {
                       {event.customer.phone}
                     </dd>
                   </div>
-                  <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
+                  <div className="border-t border-gray-200 px-4 py-6 sm:col-span-1 sm:px-0">
                     <dt className="text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
                         id: "new-event.customer.label.email",
@@ -425,6 +425,23 @@ export const EventDetails = () => {
               )}
             </div>
             <div className="flex-1"></div>
+          </div>
+          <div className="mt-10">
+            <div className="w-1/2">
+              <div className="px-4 sm:px-0 mb-6">
+                <h3 className="text-base font-semibold leading-7 text-klaq-600">
+                  {intl.formatMessage({
+                    id: "edit-event.commentaries.header",
+                  })}
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                  {intl.formatMessage({
+                    id: "edit-event.commentaries.description",
+                  })}
+                </p>
+              </div>
+              <CommentaryFeed isCommentingAllowed={false} />
+            </div>
           </div>
         </>
       ) : null}

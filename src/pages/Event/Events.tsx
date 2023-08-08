@@ -12,11 +12,13 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { EventBadge } from "../../components";
+import { DropdownMenu, EventBadge, EventBadgeButton } from "../../components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents, getEventsByStatus } from "../../redux/Events/selectors";
 import { Event, EventStatus } from "../../redux/Events/slices";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { getAllProducts } from "../../redux/Products/selectors";
 import { PATHS } from "../../routes";
 import {
   classNames,
@@ -28,8 +30,6 @@ import {
   getThisWeekDates,
   getThisYearDates,
 } from "../../utils/utils";
-import { useFetchProductItems } from "../../redux/Products/hooks";
-import { getAllProducts } from "../../redux/Products/selectors";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -189,6 +189,10 @@ export const Events = () => {
     navigate(`${PATHS.EVENTS}/${id}`);
   };
 
+  const handleEditEvent = (id: string) => {
+    navigate(`${PATHS.EVENTS}/${id}/edit`);
+  };
+
   const handleNewEvent = () => {
     navigate(PATHS.NEW_EVENT);
   };
@@ -201,6 +205,20 @@ export const Events = () => {
   const handleGoToCustomer = (id: string) => {
     navigate(`${PATHS.CUSTOMERS}/${id}`);
   };
+
+  const menuItems = (eventId: string) => [
+    {
+      name: "events.button.edit",
+      onClick: () => handleEditEvent(eventId),
+      icon: PencilSquareIcon,
+    },
+
+    {
+      name: "events.button.look",
+      onClick: () => handleEventDetails(eventId),
+      icon: EyeIcon,
+    },
+  ];
 
   useEffect(() => {
     fetchEvents();
@@ -348,7 +366,7 @@ export const Events = () => {
                       <>
                         <li
                           key={event.id}
-                          className="overflow-hidden rounded-md bg-white px-6 py-4 shadow flex"
+                          className="rounded-md bg-white px-6 py-4 shadow flex"
                         >
                           <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-3 text-klaq-600 w-1/5">
                             <span className="text-md">
@@ -411,16 +429,18 @@ export const Events = () => {
                           </div>
                           <div className="flex flex-col space-y-2 w-1/5 items-center justify-center">
                             <div className="flex items-center justify-center">
-                              <EventBadge status={event.status} />
+                              {/* <EventBadge status={event.status} /> */}
+                              <EventBadgeButton
+                                status={event.status}
+                                eventId={event.id}
+                              />
                             </div>
                           </div>
                           <div className="flex flex-col space-y-4 ml-auto justify-center items-center w-1/5">
-                            <button
-                              className="-my-2 flex items-center rounded-full bg-white p-2 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-klaq-500"
-                              onClick={() => handleEventDetails(event.id)}
-                            >
-                              <ChevronRightIcon className="h-5 w-5 text-gray-400" />
-                            </button>
+                            <DropdownMenu
+                              items={menuItems(event.id)}
+                              buttonText={"Options"}
+                            />
                           </div>
                         </li>
                       </>

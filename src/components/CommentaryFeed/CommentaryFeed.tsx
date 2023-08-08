@@ -121,60 +121,60 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
 
   const statusIcon: { [key in EventStatus]: ReactNode | string } = {
     [EventStatus.INBOX]: (
-      <InboxIcon className="h-6 w-6 text-white bg-blue-400 rounded-full" />
+      <InboxIcon className="h-4 w-4 text-white bg-blue-400 rounded-full" />
     ),
     [EventStatus.QUALIFICATION]: (
-      <InboxArrowDownIcon className="h-6 w-6 text-white bg-indigo-400 rounded-full" />
+      <InboxArrowDownIcon className="h-4 w-4 text-white bg-indigo-400 rounded-full" />
     ),
     [EventStatus.QUOTE_SENT]: (
-      <PaperAirplaneIcon className="h-6 w-6 text-white bg-pink-400 rounded-full" />
+      <PaperAirplaneIcon className="h-4 w-4  text-white bg-pink-400 rounded-full" />
     ),
     [EventStatus.QUOTE_OPENED]: (
-      <EyeIcon className="h-6 w-6 text-white bg-pink-400 rounded-full" />
+      <EyeIcon className="h-4 w-4 text-white bg-pink-400 rounded-full" />
     ),
     [EventStatus.QUOTE_ACCEPTED]: (
-      <CheckIcon className="h-6 w-6 text-white bg-success-400 rounded-full" />
+      <CheckIcon className="h-4 w-4  text-white bg-success-400 rounded-full" />
     ),
     [EventStatus.QUOTE_REJECTED]: (
-      <XMarkIcon className="h-6 w-6 text-white bg-danger-400 rounded-full" />
+      <XMarkIcon className="h-4 w-4  text-white bg-danger-400 rounded-full" />
     ),
     [EventStatus.CONTRACT_SENT]:
       "text-pink-500 bg-pink-500/10 ring-pink-500/30",
     [EventStatus.CONTRACT_OPENED]: (
-      <EyeIcon className="h-6 w-6 text-white bg-pink-500 rounded-full" />
+      <EyeIcon className="h-4 w-4  text-white bg-pink-500 rounded-full" />
     ),
     [EventStatus.CONTRACT_ACCEPTED]: (
-      <CheckIcon className="h-6 w-6 text-white bg-success-400 rounded-full" />
+      <CheckIcon className="h-4 w-4  text-white bg-success-400 rounded-full" />
     ),
     [EventStatus.CONTRACT_REJECTED]: (
-      <XMarkIcon className="h-6 w-6 text-white bg-danger-400 rounded-full" />
+      <XMarkIcon className="h-4 w-4  text-white bg-danger-400 rounded-full" />
     ),
     [EventStatus.DEPOSIT_REQUESTED]: (
-      <BanknotesIcon className="h-6 w-6 text-white bg-pink-400 rounded-full" />
+      <BanknotesIcon className="h-4 w-4  text-white bg-pink-400 rounded-full" />
     ),
     [EventStatus.DEPOSIT_LATE]: (
-      <ClockIcon className="h-6 w-6 text-white bg-danger-400 rounded-full" />
+      <ClockIcon className="h-4 w-4  text-white bg-danger-400 rounded-full" />
     ),
     [EventStatus.READY]: (
-      <CheckIcon className="h-6 w-6 text-white bg-warning-100 rounded-full" />
+      <CheckIcon className="h-4 w-4  text-white bg-warning-100 rounded-full" />
     ),
     [EventStatus.DONE]: (
-      <CheckIcon className="h-6 w-6 text-white bg-success-400 rounded-full" />
+      <CheckIcon className="h-4 w-4 text-white bg-success-400 rounded-full" />
     ),
     [EventStatus.INVOICE_SENT]: (
-      <PaperAirplaneIcon className="h-6 w-6 text-white bg-pink-600 rounded-full" />
+      <PaperAirplaneIcon className="h-4 w-4 text-white bg-pink-600 rounded-full" />
     ),
     [EventStatus.INVOICE_OPENED]: (
-      <EyeIcon className="h-6 w-6 text-white bg-pink-600 rounded-full" />
+      <EyeIcon className="h-4 w-4 text-white bg-pink-600 rounded-full" />
     ),
     [EventStatus.INVOICE_OVERDUE]: (
-      <BellAlertIcon className="h-6 w-6 text-white bg-warning-400 rounded-full" />
+      <BellAlertIcon className="h-4 w-4 text-white bg-warning-400 rounded-full" />
     ),
     [EventStatus.WIN]: (
-      <TrophyIcon className="h-6 w-6 text-white bg-success-400 rounded-full" />
+      <TrophyIcon className="h-4 w-4 text-white bg-success-400 rounded-full" />
     ),
     [EventStatus.LOST]: (
-      <XMarkIcon className="h-6 w-6 text-white bg-gray-400 rounded-full" />
+      <XMarkIcon className="h-4 w-4 text-white bg-gray-400 rounded-full" />
     ),
   };
 
