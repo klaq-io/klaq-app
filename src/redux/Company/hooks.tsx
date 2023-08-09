@@ -69,8 +69,8 @@ export const useCreateCompany = () => {
         dispatch(setCompany(response.data));
         toast.custom(
           <ToastNotification
-            titleId={`onboarding.company-form.toast.success.title`}
-            messageId={`onboarding.company-form.toast.success.message`}
+            titleId={`toast.success.create-company.title`}
+            messageId={`toast.success.create-company.message`}
             status="success"
           />,
           { duration: 1000, position: "top-right" }
@@ -78,15 +78,19 @@ export const useCreateCompany = () => {
         navigate(PATHS.ONBOARDING_PERFORMER);
         return response.data;
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
-            titleId={`onboarding.company-form.toast.error.${error.response.data.code}.title`}
-            messageId={`onboarding.company-form.toast.error.${error.response.data.code}.message`}
             status="danger"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
         console.error(error);
+        return error.response;
       }
     }
   );
@@ -120,23 +124,26 @@ export const useUpdateCompany = () => {
         dispatch(setCompany(res.data));
         toast.custom(
           <ToastNotification
-            titleId={`onboarding.office.toast.success.title`}
-            messageId={`onboarding.office.toast.success.message`}
+            titleId={`toast.success.update-office.title`}
+            messageId={`toast.success.update-office.message`}
             status="success"
           />,
           { duration: 1000, position: "top-right" }
         );
         navigate(PATHS.DASHBOARD);
       } catch (error: any) {
-        console.error(error);
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
-            titleId={`onboarding.office.toast.error.${error.response.code.toLowerCase()}.title`}
-            messageId={`onboarding.office.toast.${error.response.code.toLowerCase()}.message`}
             status="danger"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
+        console.error(error);
         return error.response;
       }
     }

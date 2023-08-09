@@ -34,12 +34,6 @@
     "signup": {
       "text": "Pas encore de compte ? ",
       "link": "Démarrer un essai gratuit de 31 jours"
-    },
-    "toast": {
-      "error": {
-        "title": "Erreur",
-        "message": "Veuillez vérifier vos identifiants"
-      }
     }
   },
 
@@ -66,48 +60,12 @@
       "password": "Veuillez saisir votre mot de passe, celui doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial",
       "phone": "Veuillez saisir votre numéro de téléphone portable"
     },
-    "submit": "Continuer",
-    "toast": {
-      "error": {
-        "auth-user-already-exist": {
-          "title": "Erreur",
-          "message": "Un compte existe déjà avec cette adresse e-mail"
-        },
-        "auth-weak-password": {
-          "title": "Erreur",
-          "message": "Le mot de passe doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial"
-        }
-      },
-      "success": {
-        "title": "Succès",
-        "message": "Votre compte a bien été créé"
-      }
-    }
+    "submit": "Continuer"
   },
 
   "confirm-mail": {
     "header": "Votre e-mail de confirmation vous attend dans votre boîte",
     "description": "Veuillez cliquer sur le lien de confirmation dans l'e-mail que nous venons de vous envoyer à l'adresse <b>{email}</b> pour continuer.",
-    "toast": {
-      "error": {
-        "email-already-confirmed": {
-          "title": "Erreur",
-          "message": "Votre email a déjà été confirmé"
-        },
-        "token-expired": {
-          "title": "Erreur",
-          "message": "Votre email a expiré, veuillez en demander un nouveau"
-        },
-        "invalid-token": {
-          "title": "Erreur",
-          "message": "Votre email est invalide, veuillez en demander un nouveau"
-        }
-      },
-      "success": {
-        "title": "Succès",
-        "message": "Votre email a bien été confirmé"
-      }
-    },
     "resend": {
       "text": "Votre email est peut-être dans vos spams. Toujours rien ?",
       "link": "Cliquer ici pour renvoyer l'e-mail"
@@ -116,23 +74,7 @@
 
   "confirm-sms": {
     "header": "Votre code de confirmation vous attend sur votre téléphone",
-    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer.",
-    "toast": {
-      "error": {
-        "phone-number-already-confirmed": {
-          "title": "Erreur",
-          "message": "Votre numéro de téléphone a déjà été confirmé"
-        },
-        "invalid-verification-code": {
-          "title": "Erreur",
-          "message": "Votre code de confirmation est invalide"
-        }
-      },
-      "success": {
-        "title": "Succès",
-        "message": "Votre numéro de téléphone a bien été confirmé"
-      }
-    }
+    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer."
   },
 
   "onboarding": {
@@ -234,22 +176,6 @@
         "zip": "Veuillez saisir le code postal",
         "country": "Veuillez saisir le pays"
       },
-      "toast": {
-        "success": {
-          "title": "Succès",
-          "message": "Votre entreprise a bien été créée"
-        },
-        "error": {
-          "company_already_exist": {
-            "title": "Erreur",
-            "message": "Une entreprise existe déjà avec ces informations"
-          },
-          "company_does_not_exist": {
-            "title": "Erreur",
-            "message": "Aucune entreprise n'a été trouvée avec ces informations"
-          }
-        }
-      },
       "button": {
         "next": "Continuer",
         "previous": "Précédent",
@@ -348,18 +274,6 @@
           "other": "Autre..."
         }
       },
-      "toast": {
-        "error": {
-          "user-update-failed": {
-            "title": "Erreur",
-            "message": "Votre profil n'a pas pu être mis à jour"
-          }
-        },
-        "success": {
-          "title": "Succès",
-          "message": "Votre profil a bien été mis à jour"
-        }
-      },
       "button": {
         "next": "Continuer",
         "previous": "Précédent",
@@ -391,22 +305,6 @@
         "city": "Veuillez saisir la ville",
         "zip": "Veuillez saisir le code postal",
         "country": "Veuillez saisir le pays"
-      },
-      "toast": {
-        "success": {
-          "title": "Succès",
-          "message": "Votre entreprise a bien été modifié"
-        },
-        "error": {
-          "failed-to-update-company": {
-            "title": "Erreur",
-            "message": "Votre entreprise n'a pas pu être modifié"
-          },
-          "company_does_not_exist": {
-            "title": "Erreur",
-            "message": "Aucune entreprise n'a été trouvée avec ces informations"
-          }
-        }
       }
     },
     "intermittent": {
@@ -473,8 +371,8 @@
         "years-ago": "{time} ans"
       },
       "status": {
-        "INBOX": "Nouveau",
-        "QUALIFICATION": "En cours de qualification",
+        "INBOX": "Nouvel évènement créé",
+        "QUALIFICATION": "Évènement en cours de qualification",
         "QUOTE_SENT": "Devis envoyé",
         "QUOTE_ACCEPTED": "Devis accepté",
         "QUOTE_REJECTED": "Devis refusé",
@@ -492,16 +390,6 @@
         "INVOICE_OVERDUE": "Facture en retard",
         "WIN": "WIN",
         "LOST": "Perdu"
-      }
-    },
-    "toast": {
-      "success": {
-        "title": "Votre évènement a bien été modifié",
-        "message": "L'évènement a été modifié avec succès"
-      },
-      "error": {
-        "title": "Erreur lors de la modification de l'évènement",
-        "message": "L'évènement n'a pas pu être modifié"
       }
     },
     "submit": "Sauvegarder"
@@ -590,26 +478,7 @@
         "email": "Veuillez saisir une adresse e-mail"
       }
     },
-    "submit": "Créer un nouvel évènement",
-    "toast": {
-      "error": {
-        "same-time": {
-          "title": "Erreur dans les horaires",
-          "message": "L'heure de fin doit être supérieure à l'heure de début"
-        },
-        "no-customer": {
-          "title": "Erreur dans les informations du client",
-          "message": "Veuillez sélectionner un client"
-        },
-        "default": {
-          "title": "Erreur lors de la création de l'évènement"
-        }
-      },
-      "success": {
-        "title": "Succès",
-        "message": "L'évènement a bien été créé"
-      }
-    }
+    "submit": "Créer un nouvel évènement"
   },
 
   "products": {
@@ -657,45 +526,13 @@
         "default-vta-rate": "Veuillez saisir un taux de TVA",
         "default-price": "Veuillez saisir un prix par défaut supérieur à 0€"
       },
-      "submit": "Ajouter un produit",
-      "toast": {
-        "error": {
-          "add-product": {
-            "title": "Erreur lors de l'ajout du produit",
-            "message": "Le produit n'a pas pu être ajouté"
-          }
-        },
-        "success": {
-          "title": "Succès",
-          "message": "Le produit a bien été ajouté"
-        }
-      }
+      "submit": "Ajouter un produit"
     },
     "edit-product": {
       "header": "Modifier le produit",
-      "submit": "Modifier le produit",
-      "toast": {
-        "error": {
-          "title": "Erreur lors de la modification du produit",
-          "message": "Le produit n'a pas pu être modifié"
-        },
-        "success": {
-          "title": "Succès",
-          "message": "Le produit a bien été modifié"
-        }
-      }
+      "submit": "Modifier le produit"
     },
     "delete-product": {
-      "toast": {
-        "error": {
-          "title": "Erreur lors de la suppression du produit",
-          "message": "Le produit n'a pas pu être supprimé"
-        },
-        "success": {
-          "title": "Succès",
-          "message": "Le produit a bien été supprimé"
-        }
-      },
       "modal": {
         "title": "Supprimer le produit",
         "message": "Êtes-vous sûr de vouloir supprimer le produit {productTitle} ?",
@@ -924,6 +761,50 @@
       "delete-customer": {
         "title": "Succès",
         "message": "Le client a bien été supprimé"
+      },
+      "delete-product": {
+        "title": "Succès",
+        "message": "Le produit a bien été supprimé"
+      },
+      "register": {
+        "title": "Succès",
+        "message": "Votre compte a bien été créé"
+      },
+      "edit-product": {
+        "title": "Succès",
+        "message": "Le produit a bien été modifié"
+      },
+      "edit-event": {
+        "title": "Succès",
+        "message": "L'évènement a bien été modifié"
+      },
+      "delete-event": {
+        "title": "Succès",
+        "message": "L'évènement a bien été supprimé"
+      },
+      "add-event": {
+        "title": "Succès",
+        "message": "L'évènement a bien été créé"
+      },
+      "add-product": {
+        "title": "Succès",
+        "message": "Le produit a bien été ajouté"
+      },
+      "confirmed-email": {
+        "title": "Succès",
+        "message": "Votre email a bien été confirmé"
+      },
+      "create-company": {
+        "title": "Succès",
+        "message": "Votre entreprise a bien été créé"
+      },
+      "update-office": {
+        "title": "Succès",
+        "message": "Votre entreprise a bien été modifié"
+      },
+      "confirmed-sms": {
+        "title": "Succès",
+        "message": "Votre numéro de téléphone a bien été confirmé"
       }
     },
     "error": {
@@ -933,11 +814,127 @@
       },
       "user-not-found": {
         "title": "Erreur",
-        "message": "Aucun utilisateur n'a été trouvé avec ces informations"
+        "message": "Veuillez vérifier vos identifiants"
       },
       "customer-delete-error": {
         "title": "Erreur",
         "message": "Le client n'a pas pu être supprimé"
+      },
+      "auth-user-already-exist": {
+        "title": "Erreur",
+        "message": "Un compte existe déjà avec cette adresse e-mail"
+      },
+      "auth-weak-password": {
+        "title": "Erreur",
+        "message": "Le mot de passe doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial"
+      },
+      "auth-invalid-password": {
+        "title": "Erreur",
+        "message": "Veuillez vérifier vos identifiants"
+      },
+      "email-already-confirmed": {
+        "title": "Erreur",
+        "message": "Votre email a déjà été confirmé"
+      },
+      "token-expired": {
+        "title": "Erreur",
+        "message": "Votre email a expiré, veuillez en demander un nouveau"
+      },
+      "invalid-token": {
+        "title": "Erreur",
+        "message": "Votre email est invalide, veuillez en demander un nouveau"
+      },
+      "product-creation-failed": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être créé"
+      },
+      "item-not-found": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être trouvé"
+      },
+      "product-update-failed": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être modifié"
+      },
+      "product-deletion-failed": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être supprimé"
+      },
+      "event-not-found": {
+        "title": "Erreur",
+        "message": "L'évènement n'a pas pu être trouvé"
+      },
+      "event-not-belong-to-user": {
+        "title": "Erreur",
+        "message": "L'évènement n'appartient pas à cet utilisateur"
+      },
+      "event-creation-failed": {
+        "title": "Erreur",
+        "message": "L'évènement n'a pas pu être créé"
+      },
+      "event-update-failed": {
+        "title": "Erreur",
+        "message": "L'évènement n'a pas pu être modifié"
+      },
+      "event-product-add-failed": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être ajouté à l'évènement"
+      },
+      "event-product-not-found": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être trouvé"
+      },
+      "event-product-not-belong-to-user": {
+        "title": "Erreur",
+        "message": "Le produit n'appartient pas à cet utilisateur"
+      },
+      "event-product-delete-failed": {
+        "title": "Erreur",
+        "message": "Le produit n'a pas pu être supprimé de l'évènement"
+      },
+      "event-status-change-failed": {
+        "title": "Erreur",
+        "message": "Le status de l'évènement n'a pas pu être modifié"
+      },
+      "company-already-exist": {
+        "title": "Erreur",
+        "message": "Une entreprise existe déjà avec ces informations"
+      },
+      "company-does-not-exist": {
+        "title": "Erreur",
+        "message": "Aucune entreprise n'a été trouvée avec ces informations"
+      },
+      "failed-to-update-company": {
+        "title": "Erreur",
+        "message": "Votre entreprise n'a pas pu être modifié"
+      },
+      "company-was-not-find": {
+        "title": "Erreur",
+        "message": "Votre entreprise n'a pas pu être trouvée"
+      },
+      "failed-to-create-company": {
+        "title": "Erreur",
+        "message": "Votre entreprise n'a pas pu être créé"
+      },
+      "user-update-failed": {
+        "title": "Erreur",
+        "message": "Votre profil n'a pas pu être mis à jour"
+      },
+      "phone-number-already-confirmed": {
+        "title": "Erreur",
+        "message": "Votre numéro de téléphone a déjà été confirmé"
+      },
+      "invalid-verification-code": {
+        "title": "Erreur",
+        "message": "Votre code de confirmation est invalide"
+      },
+      "event-start-time-after-end-time": {
+        "title": "Erreur",
+        "message": "L'heure de début de l'évènement doit être avant l'heure de fin"
+      },
+      "default": {
+        "title": "Erreur",
+        "message": "Une erreur inconnue est survenue"
       }
     }
   }

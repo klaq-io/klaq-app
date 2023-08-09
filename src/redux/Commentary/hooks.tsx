@@ -2,6 +2,8 @@ import { useAsyncCallback } from "@react-hooks-library/core";
 import { useDispatch } from "react-redux";
 import webClient from "../../utils/webclient";
 import { CommentaryType, setCommentaries, setCommentary } from "./slices";
+import toast from "react-hot-toast";
+import { ToastNotification } from "../../components";
 
 export const useFetchCommentaries = () => {
   const dispatch = useDispatch();
@@ -28,7 +30,19 @@ export const useAddCommentary = () => {
         dispatch(setCommentary(res.data));
         return res.data;
       } catch (error: any) {
-        console.log(error);
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
+          />,
+          { duration: 1000, position: "top-right" }
+        );
+        console.error(error);
+        return error.response;
       }
     }
   );

@@ -10,15 +10,19 @@ export const useInitiateSMSVerification = () => {
     try {
       await webClient.post("sms/initiate-verification");
     } catch (error: any) {
-      console.error(error);
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-sms.toast.error.${error.response.data.code}.message`}
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
     }
   });
 };
@@ -31,22 +35,26 @@ export const useVerifySMS = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={"confirm-sms.toast.success.title"}
-          messageId={"confirm-sms.toast.success.message"}
+          titleId={"toast.success.confirmed-sms.title"}
+          messageId={"toast.success.confirmed-sms.message"}
         />,
         { duration: 1000, position: "top-right" }
       );
       navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
     } catch (error: any) {
-      console.error(error);
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`confirm-sms.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-sms.toast.error.${error.response.data.code}.message`}
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
     }
   });
 };

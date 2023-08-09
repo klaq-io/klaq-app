@@ -20,15 +20,17 @@ export const useLogin = () => {
       dispatch(setUser(res.data));
       navigate(PATHS.DASHBOARD);
     } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={"login.toast.error.title"}
-          messageId={"login.toast.error.message"}
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );
-
       console.error(error);
       return error.response;
     }
@@ -73,8 +75,8 @@ export const useSignUp = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"sign-up.toast.success.title"}
-            messageId={"sign-up.toast.success.message"}
+            titleId={"toast.success.register.title"}
+            messageId={"toast.success.register.message"}
           />,
           { duration: 1000, position: "top-right" }
         );
@@ -82,15 +84,18 @@ export const useSignUp = () => {
         navigate(`${PATHS.CONFIRM_MAIL}?email=${values.email}`);
         return res.data;
       } catch (error: any) {
-        console.error(error);
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.title`}
-            messageId={`sign-up.toast.error.${error.response.data.code.toLowerCase()}.message`}
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
+        console.error(error);
         return error.response;
       }
     }

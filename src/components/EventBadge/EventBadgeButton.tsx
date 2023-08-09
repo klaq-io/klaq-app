@@ -1,6 +1,6 @@
 import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { classNames } from "../../utils/utils";
 import { EventStatus } from "../../redux/Events/slices";
 import EventBadge from "./EventBadge";
@@ -25,8 +25,12 @@ export const EventBadgeButton: FC<Props> = (props: Props) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button>
+        <Menu.Button className="inline-flex w-full justify-center items-center gap-x-1.5 bg-white px-3 py-2 text-sm font-semibold text-gray-900">
           <EventBadge status={status} />
+          <ChevronUpDownIcon
+            className="h-5 w-5 text-gray-400"
+            aria-hidden="true"
+          />
         </Menu.Button>
       </div>
 

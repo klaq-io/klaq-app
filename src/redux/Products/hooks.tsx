@@ -35,22 +35,26 @@ export const useAddProductItem = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"products.new-product.toast.success.title"}
-            messageId={"products.new-product.toast.success.message"}
+            titleId={"toast.success.add-product.title"}
+            messageId={"toast.success.add-product.message"}
           />,
           { duration: 1000, position: "top-right" }
         );
         dispatch(updateProducts(res.data));
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : null;
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={"products.new-product.toast.error.add-product.title"}
-            messageId={"products.new-product.toast.error.add-product.message"}
+            titleId={`toast.error.${code ? code : "default"}.title`}
+            messageId={`toast.error.${code ? code : "default"}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
-        console.error(error.response);
+        console.error(error);
+        return error.response;
       }
     }
   );
@@ -64,24 +68,26 @@ export const useDeleteProductItem = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={"products.delete-product.toast.success.title"}
-          messageId={"products.delete-product.toast.success.message"}
+          titleId={"toast.success.delete-product.title"}
+          messageId={"toast.success.delete-product.message"}
         />,
         { duration: 1000, position: "top-right" }
       );
       dispatch(deleteProduct(id));
     } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : null;
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={"products.delete-product.toast.error.delete-product.title"}
-          messageId={
-            "products.delete-product.toast.error.delete-product.message"
-          }
+          titleId={`toast.error.${code ? code : "default"}.title`}
+          messageId={`toast.error.${code ? code : "default"}.message`}
         />,
         { duration: 1000, position: "top-right" }
       );
-      console.error(error.response);
+      console.error(error);
+      return error.response;
     }
   });
 };
@@ -104,21 +110,25 @@ export const useEditProductItem = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"products.edit-product.toast.success.title"}
-            messageId={"products.edit-product.toast.success.message"}
+            titleId={"toast.success.edit-product.title"}
+            messageId={"toast.success.edit-product.message"}
           />,
           { duration: 1000, position: "top-right" }
         );
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : null;
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={"products.edit-product.toast.error.edit-product.title"}
-            messageId={"products.edit-product.toast.error.edit-product.message"}
+            titleId={`toast.error.${code ? code : "default"}.title`}
+            messageId={`toast.error.${code ? code : "default"}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
-        console.error(error.response);
+        console.error(error);
+        return error.response;
       }
     }
   );

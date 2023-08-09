@@ -16,20 +16,25 @@ export const useVerifyEmail = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={`confirm-mail.toast.success.title`}
-          messageId={`confirm-mail.toast.success.message`}
+          titleId={`toast.success.confirmed-email.title`}
+          messageId={`toast.success.confirmed-email.message`}
         />
       );
       navigate(PATHS.CONFIRM_SMS);
     } catch (error: any) {
-      console.error(error);
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`confirm-mail.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-mail.toast.error.${error.response.data.code}.message`}
-        />
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1000, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
     }
   });
 };
@@ -39,14 +44,19 @@ export const useResendVerificationEmail = () => {
     try {
       await webClient.post("email-confirmation/resend-confirmation-link");
     } catch (error: any) {
-      console.error(error);
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`confirm-mail.toast.error.${error.response.data.code}.title`}
-          messageId={`confirm-mail.toast.error.${error.response.data.code}.message`}
-        />
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1000, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
     }
   });
 };

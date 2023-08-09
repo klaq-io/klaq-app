@@ -113,19 +113,19 @@ export const useUpdateCustomer = () => {
         );
         dispatch(updateCustomers(response.data));
       } catch (error: any) {
-        console.error(error);
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`toast.success.${error.response.data.code.toLowerCase()}.title`}
-            messageId={`toast.success.${error.response.data.code.toLowerCase()}.message`}
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
-          {
-            duration: 1000,
-            position: "top-right",
-          }
+          { duration: 1000, position: "top-right" }
         );
-        return error.data;
+        console.error(error);
+        return error.response;
       }
     }
   );
@@ -150,19 +150,19 @@ export const useDeleteCustomer = () => {
       );
       dispatch(deleteCustomer(id));
     } catch (error: any) {
-      console.error(error);
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`toast.success.${error.response.data.code.toLowerCase()}.title`}
-          messageId={`toast.success.${error.response.data.code.toLowerCase()}.message`}
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
         />,
-        {
-          duration: 1000,
-          position: "top-right",
-        }
+        { duration: 1000, position: "top-right" }
       );
-      return error.data;
+      console.error(error);
+      return error.response;
     }
   });
 };

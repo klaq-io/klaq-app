@@ -26,8 +26,8 @@ export const useUpdateUser = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={`onboarding.performer.toast.success.title`}
-            messageId={`onboarding.performer.toast.success.message`}
+            titleId={`toast.success.update-office.title`}
+            messageId={`toast.success.update-office.message`}
           />,
           {
             duration: 1000,
@@ -36,16 +36,16 @@ export const useUpdateUser = () => {
         );
         navigate(PATHS.ONBOARDING_OFFICE);
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`onboarding.performer.toast.error.${error.response.data.code.toLowerCase()}.title`}
-            messageId={`onboarding.performer.toast.error.${error.response.data.code.toLowerCase()}.message`}
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
-          {
-            duration: 1000,
-            position: "top-right",
-          }
+          { duration: 1000, position: "top-right" }
         );
         console.error(error);
         return error.response;

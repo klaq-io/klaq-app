@@ -1,12 +1,11 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ToastNotification } from "../../components";
+import { PATHS } from "../../routes";
 import webClient from "../../utils/webclient";
 import { setEvent, setEvents } from "./slices";
-import toast from "react-hot-toast";
-import { ToastNotification } from "../../components";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
-import { isBefore } from "date-fns";
 
 export const useFetchEvents = () => {
   const dispatch = useDispatch();
@@ -42,33 +41,26 @@ export const useAddEvent = () => {
         phone: string;
       };
     }) => {
-      if (!(values.startTime <= values.endTime)) {
-        toast.custom(
-          <ToastNotification
-            status="danger"
-            titleId="new-event.toast.error.same-time.title"
-            messageId="new-event.toast.error.same-time.message"
-          />,
-          { duration: 1000, position: "top-right" }
-        );
-        return;
-      }
       try {
         const res = await webClient.post("/events", values);
         toast.custom(
           <ToastNotification
             status="success"
-            titleId="new-event.toast.success.title"
-            messageId="new-event.toast.success.message"
+            titleId="toast.success.add-event.title"
+            messageId="toast.success.add-event.message"
           />,
           { duration: 1000, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${res.data.id}`);
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId="new-event.toast.error.default.title"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
@@ -110,18 +102,21 @@ export const useUpdateEvent = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId="edit-event.toast.success.title"
-            messageId="edit-event.toast.success.message"
+            titleId="toast.success.edit-event.title"
+            messageId="toast.success.edit-event.message"
           />,
           { duration: 1000, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId="edit-event.toast.error.title"
-            messageId="edit-event.toast.error.message"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
           { duration: 1000, position: "top-right" }
         );
@@ -141,6 +136,17 @@ export const useUpdateEventStatus = () => {
       const res = await webClient.put(`/events/${id}/status`, { status });
       dispatch(setEvent(res.data));
     } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1000, position: "top-right" }
+      );
       console.error(error);
       return error.response;
     }
