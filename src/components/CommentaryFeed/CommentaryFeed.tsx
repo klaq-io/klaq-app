@@ -182,79 +182,32 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
     if (id) fetchCommentaries(id);
   }, []);
 
-  return isFetchingCommentaries
-    ? null
-    : commentaries && (
-        <>
-          <ul role="list" className="space-y-6">
-            {commentaries.map((commentary, idx) => (
-              <li key={commentary.id} className="relative flex gap-x-4">
-                <div
-                  className={classNames(
-                    idx === commentaries.length - 1 ? "h-6" : "-bottom-6",
-                    "absolute left-0 top-0 flex w-6 justify-center"
-                  )}
-                >
-                  <div className="w-px bg-gray-200" />
-                </div>
-                {commentary.type === CommentaryType.COMMENTED ? (
-                  <>
-                    <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
-                      <ChatBubbleBottomCenterTextIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
-                    </span>
-                    <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
-                      <div className="flex justify-between gap-x-4">
-                        <div className="py-0.5 text-xs leading-5 text-gray-500">
-                          <span className="font-medium text-gray-900">{`${commentary.user.firstName} ${commentary.user.lastName}`}</span>{" "}
-                          {intl.formatMessage({
-                            id: "edit-event.commentaries.commented",
-                          })}
-                        </div>
-                        <time
-                          dateTime={format(
-                            new Date(commentary.createdAt),
-                            "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-                          )}
-                          className="flex-none py-0.5 text-xs leading-5 text-gray-500"
-                        >
-                          {intl.formatMessage(
-                            {
-                              id: `edit-event.commentaries.publicated-time.${
-                                publicatedTime(new Date(commentary.createdAt))
-                                  .message
-                              }`,
-                            },
-                            {
-                              time: publicatedTime(
-                                new Date(commentary.createdAt)
-                              ).time,
-                            }
-                          )}
-                        </time>
-                      </div>
-                      <p className="text-sm leading-6 text-gray-500">
-                        {commentary.text}
-                      </p>
+  return isFetchingCommentaries ? null : commentaries && commentaries.length ? (
+    <>
+      <ul role="list" className="space-y-6">
+        {commentaries.map((commentary, idx) => (
+          <li key={commentary.id} className="relative flex gap-x-4">
+            <div
+              className={classNames(
+                idx === commentaries.length - 1 ? "h-6" : "-bottom-6",
+                "absolute left-0 top-0 flex w-6 justify-center"
+              )}
+            >
+              <div className="w-px bg-gray-200" />
+            </div>
+            {commentary.type === CommentaryType.COMMENTED ? (
+              <>
+                <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
+                  <ChatBubbleBottomCenterTextIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
+                </span>
+                <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
+                  <div className="flex justify-between gap-x-4">
+                    <div className="py-0.5 text-xs leading-5 text-gray-500">
+                      <span className="font-medium text-gray-900">{`${commentary.user.firstName} ${commentary.user.lastName}`}</span>{" "}
+                      {intl.formatMessage({
+                        id: "edit-event.commentaries.commented",
+                      })}
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="relative flex h-6 w-6 flex-none items-center justify-center ">
-                      {commentary.type ===
-                        CommentaryType.EVENT_STATUS_UPDATED &&
-                      commentary.text in EventStatus ? (
-                        statusIcon[commentary.text as EventStatus]
-                      ) : (
-                        <div className="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-                      )}
-                    </div>
-                    <p className="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                      <span className="font-medium text-gray-900">
-                        {intl.formatMessage({
-                          id: `edit-event.commentaries.status.${commentary.text}`,
-                        })}
-                      </span>
-                    </p>
                     <time
                       dateTime={format(
                         new Date(commentary.createdAt),
@@ -275,55 +228,102 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                         }
                       )}
                     </time>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-          {isCommentingAllowed && (
-            <div className="mt-6 flex gap-x-3">
-              <form
-                onSubmit={formik.handleSubmit}
-                onReset={formik.handleReset}
-                className="relative flex-auto"
-              >
-                <div className="bg-white overflow-hidden rounded-lg pb-12 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-klaq-600">
-                  <label htmlFor="comment" className="sr-only">
-                    Add your comment
-                  </label>
-                  <textarea
-                    value={formik.values.text}
-                    onChange={formik.handleChange}
-                    rows={2}
-                    name="text"
-                    id="text"
-                    className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder={intl.formatMessage({
-                      id: "edit-event.commentaries.add-commentary",
-                    })}
-                  />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
-                  <div className="ml-auto ">
-                    <Button
-                      type="button"
-                      color="secondary"
-                      variant="outlined"
-                      size="md"
-                      onClick={() => formik.submitForm()}
-                      isLoading={isLoading}
-                    >
-                      {intl.formatMessage({
-                        id: "edit-event.commentaries.submit",
-                      })}
-                    </Button>
                   </div>
+                  <p className="text-sm leading-6 text-gray-500">
+                    {commentary.text}
+                  </p>
                 </div>
-              </form>
+              </>
+            ) : (
+              <>
+                <div className="relative flex h-6 w-6 flex-none items-center justify-center ">
+                  {commentary.type === CommentaryType.EVENT_STATUS_UPDATED &&
+                  commentary.text in EventStatus ? (
+                    statusIcon[commentary.text as EventStatus]
+                  ) : (
+                    <div className="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
+                  )}
+                </div>
+                <p className="flex-auto py-0.5 text-xs leading-5 text-gray-500">
+                  <span className="font-medium text-gray-900">
+                    {intl.formatMessage({
+                      id: `edit-event.commentaries.status.${commentary.text}`,
+                    })}
+                  </span>
+                </p>
+                <time
+                  dateTime={format(
+                    new Date(commentary.createdAt),
+                    "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+                  )}
+                  className="flex-none py-0.5 text-xs leading-5 text-gray-500"
+                >
+                  {intl.formatMessage(
+                    {
+                      id: `edit-event.commentaries.publicated-time.${
+                        publicatedTime(new Date(commentary.createdAt)).message
+                      }`,
+                    },
+                    {
+                      time: publicatedTime(new Date(commentary.createdAt)).time,
+                    }
+                  )}
+                </time>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+      {isCommentingAllowed && (
+        <div className="mt-6 flex gap-x-3">
+          <form
+            onSubmit={formik.handleSubmit}
+            onReset={formik.handleReset}
+            className="relative flex-auto"
+          >
+            <div className="bg-white overflow-hidden rounded-lg pb-12 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-klaq-600">
+              <label htmlFor="comment" className="sr-only">
+                Add your comment
+              </label>
+              <textarea
+                value={formik.values.text}
+                onChange={formik.handleChange}
+                rows={2}
+                name="text"
+                id="text"
+                className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                placeholder={intl.formatMessage({
+                  id: "edit-event.commentaries.add-commentary",
+                })}
+              />
             </div>
-          )}
-        </>
-      );
+            <div className="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+              <div className="ml-auto ">
+                <Button
+                  type="button"
+                  color="secondary"
+                  variant="outlined"
+                  size="md"
+                  onClick={() => formik.submitForm()}
+                  isLoading={isLoading}
+                >
+                  {intl.formatMessage({
+                    id: "edit-event.commentaries.submit",
+                  })}
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
+  ) : (
+    <p className="text-gray-500 text-sm font-medium text-left">
+      {intl.formatMessage({
+        id: "edit-event.commentaries.no-commentaries",
+      })}
+    </p>
+  );
 };
 
 export default CommentaryFeed;

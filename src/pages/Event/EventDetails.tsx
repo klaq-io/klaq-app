@@ -419,7 +419,9 @@ export const EventDetails = () => {
               ) : (
                 <div>
                   <p className="mt-6 max-w-2xl text-sm leading-6 text-gray-500">
-                    Vous n'avez pas spécifié de produits pour cet évènement.
+                    {intl.formatMessage({
+                      id: "edit-event.my-products.no-product-specify",
+                    })}
                   </p>
                 </div>
               )}
@@ -434,11 +436,6 @@ export const EventDetails = () => {
                     id: "edit-event.commentaries.header",
                   })}
                 </h3>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-                  {intl.formatMessage({
-                    id: "edit-event.commentaries.description",
-                  })}
-                </p>
               </div>
               <CommentaryFeed isCommentingAllowed={false} />
             </div>

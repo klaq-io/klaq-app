@@ -20,6 +20,7 @@ import {
   OnboardingOffice,
   OnboardingPerformer,
   Products,
+  ResetPassword,
   SignUp,
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
@@ -60,6 +61,8 @@ function App() {
         <Route path={PATHS.CONFIRM_MAIL} element={<ConfirmMail />} />
         <Route path={PATHS.CONFIRM_SMS} element={<ConfirmPhone />} />
         <Route path={PATHS.LOGIN} element={<Login />} />
+        <Route path={PATHS.RESET_PASSWORD} element={<ResetPassword />} />
+        <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route element={<PrivateRoutes />}>
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route
@@ -86,7 +89,7 @@ function App() {
             path={PATHS.ONBOARDING_OFFICE}
             element={<OnboardingOffice />}
           />
-          <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
+
           <Route path={PATHS.CUSTOMERS} element={<Customers />} />
           <Route path={PATHS.CUSTOMER_DETAILS} element={<CustomerDetails />} />
           <Route path={PATHS.EVENTS} element={<Events />} />

@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useCheckAuth } from "../redux/Login/hooks";
 import { PATHS } from "../routes";
@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      setIsAuthenticated(await checkAuth());
+      setIsAuthenticated((await checkAuth()) !== undefined);
     };
     checkAuthentication();
   }, []);

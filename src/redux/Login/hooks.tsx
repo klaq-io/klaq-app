@@ -29,7 +29,7 @@ export const useLogin = () => {
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;
@@ -78,7 +78,7 @@ export const useSignUp = () => {
             titleId={"toast.success.register.title"}
             messageId={"toast.success.register.message"}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         dispatch(setUser(res.data));
         navigate(`${PATHS.CONFIRM_MAIL}?email=${values.email}`);
@@ -93,7 +93,77 @@ export const useSignUp = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
+        );
+        console.error(error);
+        return error.response;
+      }
+    }
+  );
+};
+
+export const useRequestResetPassword = () => {
+  const navigate = useNavigate();
+
+  return useAsyncCallback(async (values: { email: string }) => {
+    try {
+      const res = await webClient.post("auth/request-reset-password", values);
+      toast.custom(
+        <ToastNotification
+          status="success"
+          titleId={"toast.success.request-reset-password.title"}
+          messageId={"toast.success.request-reset-password.message"}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      navigate(PATHS.LOGIN);
+      return res.data;
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useResetPassword = () => {
+  const navigate = useNavigate();
+
+  return useAsyncCallback(
+    async (values: { password: string; token: string }) => {
+      try {
+        const res = await webClient.post("auth/reset-password", values);
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId={"toast.success.reset-password.title"}
+            messageId={"toast.success.reset-password.message"}
+          />,
+          { duration: 1500, position: "top-right" }
+        );
+        navigate(PATHS.LOGIN);
+        return res.data;
+      } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
+          />,
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -105,10 +175,10 @@ export const useSignUp = () => {
 export const useCheckAuth = () => {
   return useAsyncCallback(async () => {
     try {
-      await webClient.get("auth");
-      return true;
+      const res = await webClient.get("auth");
+      return res.data;
     } catch (error: any) {
-      return false;
+      return undefined;
     }
   });
 };

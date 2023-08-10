@@ -49,7 +49,7 @@ export const useAddEvent = () => {
             titleId="toast.success.add-event.title"
             messageId="toast.success.add-event.message"
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${res.data.id}`);
       } catch (error: any) {
@@ -62,7 +62,7 @@ export const useAddEvent = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -105,7 +105,7 @@ export const useUpdateEvent = () => {
             titleId="toast.success.edit-event.title"
             messageId="toast.success.edit-event.message"
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
@@ -118,7 +118,7 @@ export const useUpdateEvent = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -145,7 +145,7 @@ export const useUpdateEventStatus = () => {
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;

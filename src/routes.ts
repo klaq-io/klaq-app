@@ -20,4 +20,5 @@ export const PATHS = {
   ONBOARDING_PERFORMER: "/onboarding/performer",
   ONBOARDING_OFFICE: "/onboarding/office",
   ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
+  RESET_PASSWORD: "/reset-password",
 };

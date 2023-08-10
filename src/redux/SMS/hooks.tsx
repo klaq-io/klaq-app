@@ -19,7 +19,7 @@ export const useInitiateSMSVerification = () => {
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;
@@ -38,7 +38,7 @@ export const useVerifySMS = () => {
           titleId={"toast.success.confirmed-sms.title"}
           messageId={"toast.success.confirmed-sms.message"}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
     } catch (error: any) {
@@ -51,7 +51,7 @@ export const useVerifySMS = () => {
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;

@@ -73,7 +73,7 @@ export const useCreateCompany = () => {
             messageId={`toast.success.create-company.message`}
             status="success"
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         navigate(PATHS.ONBOARDING_PERFORMER);
         return response.data;
@@ -87,7 +87,7 @@ export const useCreateCompany = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -128,7 +128,7 @@ export const useUpdateCompany = () => {
             messageId={`toast.success.update-office.message`}
             status="success"
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         navigate(PATHS.DASHBOARD);
       } catch (error: any) {
@@ -141,7 +141,7 @@ export const useUpdateCompany = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;

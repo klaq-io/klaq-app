@@ -7,4 +7,5 @@ export * from "./ForgetPassword";
 export * from "./Login";
 export * from "./Onboarding";
 export * from "./Products";
+export * from "./ResetPassword";
 export * from "./SignUp";

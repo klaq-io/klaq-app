@@ -38,7 +38,7 @@ export const useAddProductItem = () => {
             titleId={"toast.success.add-product.title"}
             messageId={"toast.success.add-product.message"}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         dispatch(updateProducts(res.data));
       } catch (error: any) {
@@ -51,7 +51,7 @@ export const useAddProductItem = () => {
             titleId={`toast.error.${code ? code : "default"}.title`}
             messageId={`toast.error.${code ? code : "default"}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -71,7 +71,7 @@ export const useDeleteProductItem = () => {
           titleId={"toast.success.delete-product.title"}
           messageId={"toast.success.delete-product.message"}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       dispatch(deleteProduct(id));
     } catch (error: any) {
@@ -84,7 +84,7 @@ export const useDeleteProductItem = () => {
           titleId={`toast.error.${code ? code : "default"}.title`}
           messageId={`toast.error.${code ? code : "default"}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;
@@ -113,7 +113,7 @@ export const useEditProductItem = () => {
             titleId={"toast.success.edit-product.title"}
             messageId={"toast.success.edit-product.message"}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
       } catch (error: any) {
         const code = error.response.data.code
@@ -125,7 +125,7 @@ export const useEditProductItem = () => {
             titleId={`toast.error.${code ? code : "default"}.title`}
             messageId={`toast.error.${code ? code : "default"}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;

@@ -330,7 +330,29 @@
     "input": {
       "email": "Saisissez votre adresse e-mail"
     },
-    "submit": "Modifier votre mot de passe",
+    "submit": "M'envoyer un lien de réinitialisation",
+    "login": {
+      "text": "Vous avez déjà un compte ?",
+      "link": "Se connecter"
+    }
+  },
+
+  "reset-password": {
+    "header": "Modifier votre mot de passe",
+    "text": "Saisissez votre nouveau mot de passe.",
+    "label": {
+      "password": "Mot de passe",
+      "password-confirmation": "Confirmation du mot de passe"
+    },
+    "input": {
+      "password": "Saisissez votre nouveau mot de passe",
+      "password-confirmation": "Confirmez votre nouveau mot de passe"
+    },
+    "error": {
+      "password": "Veuillez saisir votre mot de passe, celui doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial",
+      "password-confirmation": "Veuillez saisir le même mot de passe"
+    },
+    "submit": "Modifier mon mot de passe",
     "login": {
       "text": "Vous avez déjà un compte ?",
       "link": "Se connecter"
@@ -351,6 +373,7 @@
       "title": "Produit",
       "price": "Prix H.T(€)",
       "quantity": "Quantité",
+      "no-product-specify": "Vous n'avez pas spécifié de produits pour cet évènement",
       "attach-product": "Attacher un produit à cet évènement",
       "add-new-product": "Ajouter un nouveau produit",
       "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche"
@@ -358,6 +381,7 @@
     "commentaries": {
       "header": "Commentaires & Mise à jour",
       "description": "Ajouter des commentaires à votre évènement, ils seront invisibles pour vos clients.",
+      "no-commentaries": "Aucun commentaire n'a été ajouté à cet évènement",
       "commented": "a commenté",
       "add-commentary": "Ajouter un commentaire",
       "submit": "Commenter",
@@ -805,6 +829,14 @@
       "confirmed-sms": {
         "title": "Succès",
         "message": "Votre numéro de téléphone a bien été confirmé"
+      },
+      "reset-password": {
+        "title": "Succès",
+        "message": "Votre mot de passe a bien été modifié"
+      },
+      "request-reset-password": {
+        "title": "Succès",
+        "message": "Un email vous a été envoyé pour réinitialiser votre mot de passe"
       }
     },
     "error": {
@@ -820,9 +852,13 @@
         "title": "Erreur",
         "message": "Le client n'a pas pu être supprimé"
       },
-      "auth-user-already-exist": {
+      "auth-user-mail-already-exist": {
         "title": "Erreur",
         "message": "Un compte existe déjà avec cette adresse e-mail"
+      },
+      "auth-user-phone-already-exist": {
+        "title": "Erreur",
+        "message": "Un compte existe déjà avec ce numéro de téléphone"
       },
       "auth-weak-password": {
         "title": "Erreur",
@@ -831,6 +867,14 @@
       "auth-invalid-password": {
         "title": "Erreur",
         "message": "Veuillez vérifier vos identifiants"
+      },
+      "auth-failed-to-update-password": {
+        "title": "Erreur",
+        "message": "Le mot de passe n'a pas pu être modifié"
+      },
+      "auth-old-and-new-password-are-the-same": {
+        "title": "Erreur",
+        "message": "Le nouveau mot de passe doit être différent de l'ancien"
       },
       "email-already-confirmed": {
         "title": "Erreur",
@@ -931,6 +975,10 @@
       "event-start-time-after-end-time": {
         "title": "Erreur",
         "message": "L'heure de début de l'évènement doit être avant l'heure de fin"
+      },
+      "user-update-onboarding-status-failed": {
+        "title": "Erreur",
+        "message": "Votre profil n'a pas pu être mis à jour"
       },
       "default": {
         "title": "Erreur",

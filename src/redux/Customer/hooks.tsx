@@ -52,7 +52,7 @@ export const useCreateCustomer = () => {
             messageId={"toast.success.create-customer.message"}
           />,
           {
-            duration: 1000,
+            duration: 1500,
             position: "top-right",
           }
         );
@@ -66,7 +66,7 @@ export const useCreateCustomer = () => {
             messageId={`toast.success.${error.response.data.code.toLowerCase()}.message`}
           />,
           {
-            duration: 1000,
+            duration: 1500,
             position: "top-right",
           }
         );
@@ -107,7 +107,7 @@ export const useUpdateCustomer = () => {
             messageId={"toast.success.update-customer.message"}
           />,
           {
-            duration: 1000,
+            duration: 1500,
             position: "top-right",
           }
         );
@@ -122,7 +122,7 @@ export const useUpdateCustomer = () => {
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1000, position: "top-right" }
+          { duration: 1500, position: "top-right" }
         );
         console.error(error);
         return error.response;
@@ -144,7 +144,7 @@ export const useDeleteCustomer = () => {
           messageId={"toast.success.delete-customer.message"}
         />,
         {
-          duration: 1000,
+          duration: 1500,
           position: "top-right",
         }
       );
@@ -159,7 +159,7 @@ export const useDeleteCustomer = () => {
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1000, position: "top-right" }
+        { duration: 1500, position: "top-right" }
       );
       console.error(error);
       return error.response;
