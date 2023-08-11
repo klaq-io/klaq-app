@@ -66,12 +66,14 @@ export const getPipeValue = (products: ProductItem[], events: Event[]) => {
 
 export const getEventsForPeriod = (
   events: Event[],
-  startDate: Date,
-  endDate: Date
+  startDate: Date | string,
+  endDate: Date | string
 ) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
   return events.filter((event) => {
     const eventDate = new Date(event.date);
-    return eventDate >= startDate && eventDate <= endDate;
+    return eventDate >= start && eventDate <= end;
   });
 };
 

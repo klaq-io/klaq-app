@@ -47,7 +47,10 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
     outlined: `${
       color === "secondary" ? "ring-gray-600" : "ring-gray-300"
     } ring-1 ring-inset bg-white hover:bg-gray-50 text-gray-900`,
-    text: "text-gray-900 hover:text-gray-600",
+    text:
+      color === "secondary"
+        ? "text-gray-900 hover:text-gray-600"
+        : "text-klaq-600 hover:text-klaq-500",
   };
   return (
     <button

@@ -109,23 +109,6 @@ export const Login = () => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
-                    />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-3 block text-sm leading-6 text-gray-700"
-                    >
-                      {intl.formatMessage({
-                        id: "login.remember-me",
-                      })}
-                    </label>
-                  </div>
-
                   <div className="text-sm leading-6">
                     <a
                       onClick={handleForgetPassword}
@@ -136,19 +119,18 @@ export const Login = () => {
                       })}
                     </a>
                   </div>
-                </div>
-
-                <div>
-                  <Button
-                    type="submit"
-                    color="primary"
-                    variant="contained"
-                    isLoading={isLoading}
-                  >
-                    {intl.formatMessage({
-                      id: "login.submit",
-                    })}
-                  </Button>
+                  <div>
+                    <Button
+                      type="submit"
+                      color="primary"
+                      variant="contained"
+                      isLoading={isLoading}
+                    >
+                      {intl.formatMessage({
+                        id: "login.submit",
+                      })}
+                    </Button>
+                  </div>
                 </div>
               </form>
             </div>

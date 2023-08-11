@@ -1,85 +1,205 @@
-import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  BanknotesIcon,
+  BellAlertIcon,
+  BellSlashIcon,
+  CurrencyEuroIcon,
+  InboxArrowDownIcon,
+  InboxIcon,
+} from "@heroicons/react/24/outline";
+import { useEffect } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button, EventList, Skeleton } from "../../components";
 import { PageLayout } from "../../layouts";
-import { classNames } from "../../utils/utils";
-
-const stats = [
-  {
-    name: "Total Subscribers",
-    stat: "71,900",
-    previousStat: "70,946",
-    change: "12%",
-    changeType: "increase",
-  },
-  {
-    name: "Avg. Open Rate",
-    stat: "58.16%",
-    previousStat: "56.14%",
-    change: "2.02%",
-    changeType: "increase",
-  },
-  {
-    name: "Avg. Click Rate",
-    stat: "24.57%",
-    previousStat: "28.62%",
-    change: "4.05%",
-    changeType: "decrease",
-  },
-];
+import { useFetchEvents } from "../../redux/Events/hooks";
+import { getEventsByStatus } from "../../redux/Events/selectors";
+import { EventStatus } from "../../redux/Events/slices";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { getAllProducts } from "../../redux/Products/selectors";
+import { PATHS } from "../../routes";
+import {
+  getEventsForPeriod,
+  getPipeValue,
+  getThisMonthDates,
+  getThisYearDates,
+} from "../../utils/utils";
 
 export const Dashboard = () => {
+  const intl = useIntl();
+  const navigate = useNavigate();
+
+  const [startOfYear, endOfYear] = getThisYearDates();
+  const [startOfMonth, endOfMonth] = getThisMonthDates();
+
+  const [{ isLoading: isFetchEventLoading }, fetchEvents] = useFetchEvents();
+  const inboxEvents = useSelector((state: any) =>
+    getEventsByStatus(state, EventStatus.INBOX)
+  );
+  const overdueEvents = useSelector((state: any) =>
+    getEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
+  );
+
+  const billedEvents = useSelector((state: any) =>
+    getEventsByStatus(state, EventStatus.WIN)
+  );
+  const billedAndQuotedEvents = useSelector((state: any) =>
+    getEventsByStatus(
+      state,
+      EventStatus.WIN,
+      EventStatus.INVOICE_SENT,
+      EventStatus.INVOICE_OPENED,
+      EventStatus.CONTRACT_ACCEPTED,
+      EventStatus.CONTRACT_OPENED,
+      EventStatus.CONTRACT_SENT,
+      EventStatus.CONTRACT_REJECTED,
+      EventStatus.QUOTE_ACCEPTED,
+      EventStatus.QUOTE_OPENED,
+      EventStatus.QUOTE_SENT
+    )
+  );
+
+  const upcomingEvents = useSelector((state: any) =>
+    getEventsByStatus(
+      state,
+      EventStatus.QUOTE_ACCEPTED,
+      EventStatus.CONTRACT_SENT,
+      EventStatus.CONTRACT_OPENED,
+      EventStatus.DEPOSIT_REQUESTED,
+      EventStatus.DEPOSIT_LATE,
+      EventStatus.READY
+    )
+  );
+  const thisMonthUpcomingEvents = getEventsForPeriod(
+    upcomingEvents,
+    startOfMonth,
+    endOfMonth
+  );
+
+  const [{ isLoading: isFetchProductLoading }, fetchProducts] =
+    useFetchProductItems();
+  const products = useSelector(getAllProducts);
+
+  const totalBilled = getPipeValue(
+    products,
+    getEventsForPeriod(billedEvents, startOfYear, endOfYear)
+  );
+  const estimatedRevenue = getPipeValue(
+    products,
+    getEventsForPeriod(billedAndQuotedEvents, startOfYear, endOfYear)
+  );
+
+  const stats = [
+    {
+      id: 1,
+      name: "inbox",
+      stat: inboxEvents.length,
+      icon: inboxEvents.length ? InboxArrowDownIcon : InboxIcon,
+      onClick: () =>
+        navigate(
+          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}`
+        ),
+    },
+    {
+      id: 2,
+      name: "total-billed",
+      stat: `${totalBilled} €`,
+      icon: BanknotesIcon,
+    },
+    {
+      id: 3,
+      name: "estimated-revenue",
+      stat: `${estimatedRevenue} €`,
+      icon: CurrencyEuroIcon,
+    },
+    {
+      id: 4,
+      name: "overdue",
+      stat: overdueEvents.length,
+      icon: overdueEvents.length ? BellAlertIcon : BellSlashIcon,
+      onClick: () =>
+        navigate(
+          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=3&startDate=${startOfYear}&endDate=${endOfYear}`
+        ),
+    },
+  ];
+
+  useEffect(() => {
+    fetchEvents();
+    fetchProducts();
+  }, []);
+
   return (
     <PageLayout>
       <div>
-        <h3 className="text-base font-semibold leading-6 text-gray-900">
-          Last 30 days
-        </h3>
-        <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x md:divide-y-0">
+        <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
           {stats.map((item) => (
-            <div key={item.name} className="px-4 py-5 sm:p-6">
-              <dt className="text-base font-normal text-gray-900">
-                {item.name}
-              </dt>
-              <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
-                <div className="flex items-baseline text-2xl font-semibold text-klaq-600">
-                  {item.stat}
-                  <span className="ml-2 text-sm font-medium text-gray-500">
-                    from {item.previousStat}
-                  </span>
+            <div
+              key={item.id}
+              className="relative rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+            >
+              <dt>
+                <div className="absolute rounded-md bg-klaq-500 p-3">
+                  <item.icon
+                    className="h-6 w-6 text-white"
+                    aria-hidden="true"
+                  />
                 </div>
+                <p className="ml-16 truncate text-sm font-medium text-gray-500">
+                  {intl.formatMessage({ id: `dashboard.stats.${item.name}` })}
+                </p>
+              </dt>
+              <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
+                {isFetchProductLoading || isFetchEventLoading ? (
+                  <Skeleton
+                    variant="rounded"
+                    width={40}
+                    height={6}
+                    className="mt-2"
+                  />
+                ) : (
+                  <p className="text-2xl font-semibold text-gray-900">
+                    {item.stat}
+                  </p>
+                )}
 
-                <div
-                  className={classNames(
-                    item.changeType === "increase"
-                      ? "bg-success-100 text-success-800"
-                      : "bg-danger-100 text-danger-800",
-                    "inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0"
-                  )}
-                >
-                  {item.changeType === "increase" ? (
-                    <ArrowUpIcon
-                      className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-success-500"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <ArrowDownIcon
-                      className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-danger-500"
-                      aria-hidden="true"
-                    />
-                  )}
-
-                  <span className="sr-only">
-                    {" "}
-                    {item.changeType === "increase"
-                      ? "Increased"
-                      : "Decreased"}{" "}
-                    by{" "}
-                  </span>
-                  {item.change}
+                <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+                  <Button
+                    size="md"
+                    variant="text"
+                    color="primary"
+                    trailingIcon={
+                      <ArrowRightIcon
+                        className="h-5 w-5 text-klaq-500 group-hover:text-klaq-400"
+                        aria-hidden="true"
+                      />
+                    }
+                    onClick={item.onClick}
+                    type="button"
+                    disabled={item.onClick === undefined}
+                  >
+                    {intl.formatMessage({
+                      id: `dashboard.button.stats`,
+                    })}
+                  </Button>
                 </div>
               </dd>
             </div>
           ))}
         </dl>
+        <div className="mt-10">
+          <h3 className="text-base font-semibold leading-6 text-gray-900">
+            Évènement à venir ce mois-ci
+          </h3>
+          <div className="mt-6">
+            {isFetchEventLoading ? (
+              <Skeleton variant="rounded" width={"full"} height={20} />
+            ) : (
+              <EventList events={thisMonthUpcomingEvents} />
+            )}
+          </div>
+        </div>
       </div>
     </PageLayout>
   );

@@ -751,6 +751,7 @@
       "all": "Tous",
       "new": "Nouveau",
       "upcoming": "À venir",
+      "overdue": "En retard",
       "pending": "En attente",
       "lost": "Perdu",
       "past": "Passé"
@@ -759,6 +760,7 @@
       "new": "Aucun nouvel évènement",
       "upcoming": "Aucun évènement à venir",
       "pending": "Aucun évènement en attente",
+      "overdue": "Aucun évènement en retard de paiement",
       "past": "Aucun évènement passé",
       "lost": "Aucun évènement perdu",
       "all": "Aucun évènement"
@@ -770,6 +772,18 @@
       "custom": "Custom"
     },
     "pipe-value": "{pipeValue}€"
+  },
+
+  "dashboard": {
+    "stats": {
+      "inbox": "Nouveau deal",
+      "total-billed": "Total facturé",
+      "estimated-revenue": "Revenu estimé",
+      "overdue": "En retard"
+    },
+    "button": {
+      "stats": "Voir"
+    }
   },
 
   "toast": {

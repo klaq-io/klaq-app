@@ -58,7 +58,7 @@ export const EventDetails = () => {
               <Button
                 onClick={handlePreviousPage}
                 variant="text"
-                color="primary"
+                color="secondary"
                 type="button"
                 leadingIcon={<ArrowLeftIcon className="-ml-0.5 h-5 w-5" />}
               >

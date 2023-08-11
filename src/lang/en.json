@@ -2,49 +2,34 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "calendar": "Calendar",
-    "events": "Events",
-    "customers": "Customers",
+    "events": "My events",
+    "customers": "Clients",
     "billing": "Billing",
     "products": "Products",
     "marketing": "Marketing",
-    "analytics": "Analyses",
-    "help": "Help",
+    "analytics": "Analyzes",
+    "help": "Aid",
     "settings": "Settings"
   },
-
   "navbar": {
     "profile": "Profile",
     "logout": "Logout",
-    "searchbar": "Search..."
+    "searchbar": "To research..."
   },
-
   "login": {
-    "header": "Sign in to your account",
-    "label": {
-      "email": "Email address",
-      "password": "Password"
-    },
+    "header": "Login to your account",
+    "label": { "email": "E-mail address", "password": "Password" },
     "input": {
       "email": "Enter your email address",
-      "password": "Enter your password"
+      "password": "enter your password"
     },
-    "submit": "Login",
+    "submit": "To log in",
     "remember-me": "Remember me",
-    "forget-password": "Forgot your password?",
-    "signup": {
-      "text": "No account yet? ",
-      "link": "Start a 31 days free trial"
-    },
-    "toast": {
-      "error": {
-        "title": "Error",
-        "message": "Invalid email or password"
-      }
-    }
+    "forget-password": "Forgot your password ?",
+    "signup": { "text": "No account yet?", "link": "Start a 31 day free trial" }
   },
-
   "sign-up": {
-    "header": "Let's get to know each other",
+    "header": "Let's get acquainted first",
     "label": {
       "first-name": "First name",
       "last-name": "Name",
@@ -54,322 +39,35 @@
     },
     "input": {
       "first-name": "Enter your first name",
-      "last-name": "Enter your last name",
+      "last-name": "Enter your name",
       "email": "Enter your email address",
-      "password": "Enter your password",
-      "phone": "Enter your cell phone number"
+      "password": "enter your password",
+      "phone": "Enter your mobile number"
     },
     "error": {
       "first-name": "Please enter your first name",
-      "last-name": "Please enter your last name",
+      "last-name": "Please enter your name",
       "email": "Please enter your email address",
-      "password": "Please enter your password, which must contain at least 10 characters, 1 number, 1 uppercase letter and 1 special character",
-      "phone": "Please enter your cell phone number"
+      "password": "Please enter your password, it must contain at least 10 characters, 1 number, 1 capital letter and 1 special character",
+      "phone": "Please enter your mobile number"
     },
-    "submit": "Continue",
-    "toast": {
-      "error": {
-        "auth-user-already-exist": {
-          "title": "Error",
-          "message": "An account already exists with this e-mail address"
-        },
-        "auth-weak-password": {
-          "title": "Error",
-          "message": "Password must contain at least 10 characters, 1 number, 1 uppercase letter and 1 special character"
-        }
-      },
-      "success": {
-        "title": "Success",
-        "message": "Your account has been created successfully"
-      }
-    }
+    "submit": "Continue"
   },
-
-  "forget-password": {
-    "header": "Change your password",
-    "text": "Forgot your password? Enter the email address you usually use to login to Klaq.",
-    "label": {
-      "email": "Email address"
-    },
-    "input": {
-      "email": "Enter your email address"
-    },
-    "submit": "Change your password",
-    "login": {
-      "text": "Already have an account?",
-      "link": "Sign in"
-    }
-  },
-
   "confirm-mail": {
-    "header": "Your confirmation e-mail is waiting for you in your mailbox",
-    "description": "Please click on the confirmation link in the e-mail we just sent to <b>{email}</b> to continue.",
-    "toast": {
-      "error": {
-        "email-already-confirmed": {
-          "title": "Error",
-          "message": "Your email has already been confirmed"
-        },
-        "token-expired": {
-          "title": "Error",
-          "message": "Your email confirmation link has expired, please request a new one"
-        },
-        "invalid-token": {
-          "title": "Error",
-          "message": "Invalid email confirmation link"
-        }
-      },
-      "success": {
-        "title": "Success",
-        "message": "Your email has been confirmed"
-      }
-    },
+    "header": "Your confirmation email is waiting for you in your inbox.",
+    "description": "Please click the confirmation link in the email we just sent to <b>{email}</b> to continue.",
     "resend": {
-      "text": "Didn't receive the email?",
-      "link": "Resend the email"
+      "text": "Your email may be in your spam. Always nothing ?",
+      "link": "Click here to resend email"
     }
   },
-
   "confirm-sms": {
-    "header": "Your confirmation code is waiting for you in your SMS inbox",
-    "description": "Please enter the confirmation code we just texted you to <b>{phone}</b> to continue.",
-    "toast": {
-      "error": {
-        "phone-number-already-confirmed": {
-          "title": "Error",
-          "message": "Your number has already been confirmed"
-        },
-        "invalid-verification-code": {
-          "title": "Error",
-          "message": "Invalid confirmation code"
-        }
-      },
-      "success": {
-        "title": "Success",
-        "message": "Your number has been confirmed"
-      }
-    }
+    "header": "Your confirmation code is waiting for you on your phone",
+    "description": "Please enter the confirmation code we just texted you to <b>{phone}</b> to continue."
   },
-
-  "edit-event": {
-    "my-products": {
-      "header": "My products",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
-      "title": "Product",
-      "price": "Price No Taxes(€)",
-      "quantity": "Quantity",
-      "attach-product": "Attach a product to this event",
-      "add-new-product": "Add a new product",
-      "no-products-found": "No product found using that search term."
-    },
-    "toast": {
-      "success": {
-        "title": "Your event was successfully modified",
-        "message": "The event has been modified"
-      },
-      "error": {
-        "title": "Error while editing the event",
-        "message": "The event hasn't been modified"
-      }
-    }
-  },
-
-  "new-event": {
-    "title": "New Event",
-    "date": {
-      "header": "Date & Time",
-      "description": "Time and date of event, type of event, number of guests",
-      "label": {
-        "date": "When",
-        "start-time": "Start time",
-        "end-time": "End time",
-        "event-type": "Type of events",
-        "number-of-guest": "Number of guests",
-        "public-event": "Public event"
-      },
-      "input": {
-        "event-type": {
-          "wedding": "Wedding",
-          "birthday": "Anniversary",
-          "corporate": "corporate event"
-        },
-        "public-event": {
-          "yes": "Oui",
-          "no": "Non"
-        }
-      },
-      "error": {
-        "date": "Date is required",
-        "start-time": "Start time is required",
-        "end-time": "End time is required",
-        "event-type": "Event type is required",
-        "public-event": "Public event is required"
-      }
-    },
-    "location": {
-      "header": "Location",
-      "description": "Event address",
-      "label": {
-        "address": "Address",
-        "city": "Ville",
-        "state": "Region",
-        "zipcode": "Postcode"
-      },
-      "input": {
-        "address": "Enter address",
-        "city": "Enter city",
-        "state": "Enter region",
-        "zipcode": "Enter zip code"
-      },
-      "error": {
-        "address": "Address is required",
-        "city": "City is required",
-        "state": "State is required",
-        "zipcode": "Zip code is required"
-      }
-    },
-    "customer": {
-      "header": "Customer",
-      "description": "Customer information",
-      "label": {
-        "first-name": "First name",
-        "last-name": "Last name",
-        "phone-number": "Telephone number",
-        "email": "E-mail address",
-        "type": "Type of customer"
-      },
-      "input": {
-        "first-name": "Enter first name",
-        "last-name": "Enter last name",
-        "phone-number": "Enter phone number",
-        "email": "Enter email address"
-      },
-      "error": {
-        "first-name": "First name is required",
-        "last-name": "Last name is required",
-        "phone-number": "Phone number is required",
-        "email": "Email address is required"
-      },
-      "type": {
-        "private": "Private",
-        "company": "Company"
-      }
-    },
-    "submit": "Create a new event",
-    "toast": {
-      "error": {
-        "same-time": {
-          "title": "Error in date and time",
-          "message": "End time must be greater than start time"
-        },
-        "no-customer": {
-          "title": "No customer found",
-          "message": "Please select a customer"
-        },
-        "default": {
-          "title": "Error while creating the event"
-        }
-      },
-      "success": {
-        "title": "Success",
-        "message": "The event has been created"
-      }
-    }
-  },
-
-  "products": {
-    "title": "Products",
-    "header": "List of products",
-    "description": "List of available products",
-    "my-products": {
-      "header": "My products",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
-      "title": "Product",
-      "short-description": "Description",
-      "price": "Price (€)",
-      "vta-rate": "VAT (%)"
-    },
-    "no-product": "No product available",
-    "get-started": "Click to start adding a product",
-    "add-product": "Add a product",
-    "new-product": {
-      "header": "New product",
-      "description": "",
-      "label": {
-        "name": "Product name",
-        "short-description": "Short description",
-        "attach-file": "Add an explanatory leaflet",
-        "default-vta-rate": "VAT rate",
-        "default-price": "Default price (excluding tax)",
-        "default-price-with-vta": "Default price (all taxes included): {price}€"
-      },
-      "input": {
-        "name": "Enter product name",
-        "short-description": "Enter the short description",
-        "attach-file": "Attach a brochure",
-        "default-vta-rate": "Enter VAT rate",
-        "default-price": "Enter default price"
-      },
-      "error": {
-        "name": "Please enter a product name",
-        "short-description": "Please enter a short description",
-        "attach-file": "Please attach an explanatory leaflet",
-        "default-vta-rate": "Please enter a VAT rate",
-        "default-price": "Please enter a default price greater than 0€"
-      },
-      "submit": "Add a product",
-      "toast": {
-        "error": {
-          "add-product": {
-            "title": "Error adding product",
-            "message": "Product could not be added"
-          }
-        },
-        "success": {
-          "title": "Success",
-          "message": "Product was successfully added"
-        }
-      }
-    },
-    "edit-product": {
-      "header": "Edit product",
-      "submit": "Edit product",
-      "toast": {
-        "error": {
-          "title": "Error while editing product",
-          "message": "Product could not be modified"
-        },
-        "success": {
-          "title": "Success",
-          "message": "Product was successfully modified"
-        }
-      }
-    },
-    "delete-product": {
-      "toast": {
-        "error": {
-          "title": "Error deleting product",
-          "message": "Product could not be deleted"
-        },
-        "success": {
-          "title": "Success",
-          "message": "The product was successfully deleted"
-        }
-      },
-      "modal": {
-        "title": "Delete product",
-        "message": "Are you sure you want to delete the product {productTitle}?",
-        "button": {
-          "cancel": "Cancel",
-          "delete": "Delete"
-        }
-      }
-    }
-  },
-
   "onboarding": {
     "legal-form-choice": {
-      "header": "What is the legal form of your company?",
+      "header": "What is the legal form of your business?",
       "legal-form-type": {
         "company": {
           "title": "Company",
@@ -377,24 +75,24 @@
         },
         "association": {
           "title": "Association",
-          "description": "Association 1901 law, Association 1908 law..."
+          "description": "Association law 1901, Association law 1908..."
         },
         "intermittent": {
           "title": "Intermittent",
-          "description": "Show intermittent"
+          "description": "Intermittent of the show..."
         }
       }
     },
     "search-company": {
-      "header": "Search your company",
-      "divider": "or",
-      "goto-next": "Fill in manually",
+      "header": "Find your business",
+      "divider": "Or",
+      "goto-next": "Fill manually",
       "input": "Company, SIRET, SIREN, Manager, Keyword...",
-      "no-result": "No results found"
+      "no-result": "No result found"
     },
     "search-association": {
-      "header": "Search for your association",
-      "input": "Association, SIRET, SIREN, Manager, Keyword..."
+      "header": "Find your association",
+      "input": "Name, RNA, SIRET, SIREN, Manager, Keyword..."
     },
     "association-form": {
       "header": {
@@ -404,21 +102,21 @@
       },
       "label": {
         "activity-type": "Type of activity (NAF code)",
-        "insee-code": "Code INSEE",
-        "legal-form": "Legal form",
+        "insee-code": "INSEE code",
+        "legal-form": "Legal status",
         "legal-name": "Association name",
-        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-registration-number": "Registration number",
         "legal-vat-number": "VAT number",
-        "registration-date": "Date d'immatriculation",
+        "registration-date": "Date of registration",
         "address": "Address",
-        "city": "Ville",
-        "zip": "Zip code",
-        "country": "Pays"
+        "city": "City",
+        "zip": "Postal code",
+        "country": "Country"
       }
     },
     "company-form": {
       "header": {
-        "company": "Your company",
+        "company": "Your business",
         "vta": "Your VAT number",
         "address": "Your billing address"
       },
@@ -429,92 +127,72 @@
       },
       "label": {
         "activity-type": "Type of activity (NAF code)",
-        "insee-code": "Code INSEE",
-        "legal-form": "Legal form",
-        "legal-name": "Company name",
-        "legal-registration-number": "Numéro d'immatriculation",
+        "insee-code": "INSEE code",
+        "legal-form": "Legal status",
+        "legal-name": "Company Name",
+        "legal-registration-number": "Registration number",
         "legal-vat-number": "VAT number",
-        "registration-date": "Date d'immatriculation",
+        "registration-date": "Date of registration",
         "address": "Address",
-        "city": "Ville",
-        "zip": "Zip code",
-        "country": "Pays"
+        "city": "City",
+        "zip": "Postal code",
+        "country": "Country"
       },
       "input": {
         "activity-type": "Enter the type of activity",
-        "insee-code": "Enter INSEE code",
+        "insee-code": "Enter the INSEE code",
         "legal-form": "Enter the legal form",
-        "legal-name": "Enter company name",
+        "legal-name": "Enter the company name",
         "legal-registration-number": "Enter the registration number",
-        "legal-vat-number": "Enter VAT number if available",
+        "legal-vat-number": "Enter the VAT number if you have one",
         "registration-date": "Enter the registration date",
         "address": "Enter the address",
-        "city": "Enter city",
-        "zip": "Enter zip code",
+        "city": "Enter the city",
+        "zip": "Enter postcode",
         "country": "Enter country"
       },
       "error": {
         "activity-type": "Please enter the type of activity",
         "insee-code": "Please enter the INSEE code",
         "legal-form": "Please enter the legal form",
-        "legal-name": "Please enter the company name",
+        "legal-name": "Please enter company name",
         "legal-registration-number": "Please enter the registration number",
-        "legal-vat-number": "Please enter the VAT number if available",
+        "legal-vat-number": "Please enter the VAT number if you have one",
         "registration-date": "Please enter the registration date",
-        "address": "Please enter the address of the registered office",
+        "address": "Please enter the address of the head office",
         "city": "Please enter the city",
-        "zip": "Please enter the zip code",
-        "country": "Please enter country"
-      },
-      "toast": {
-        "success": {
-          "title": "Success",
-          "message": "Your company has been successfully created"
-        },
-        "error": {
-          "company_already_exist": {
-            "title": "Error",
-            "message": "A company already exists with this information"
-          },
-          "company_does_not_exist": {
-            "title": "Error",
-            "message": "No company has been found with this information"
-          }
-        }
+        "zip": "Please enter postcode",
+        "country": "Please enter the country"
       },
       "button": {
         "next": "Continue",
         "previous": "Previous",
-        "submit": "Add my company"
+        "submit": "Add my business"
       }
     },
-
     "performer": {
       "header": {
         "stage-name": "Let's get to know each other, what's your stage name?",
-        "real-name": "Nice to meet you <blue>{stageName}</blue>, what's your real name?",
-        "birthday": "What's your date of birth <blue>{firstName}</blue>?",
-        "public-email": "Just to be sure, can we display this email address <blue>{email}</blue> to your customers?",
-        "public-phone": "And this phone number <blue>{phone}</blue>, can we display it to your customers?",
+        "real-name": "Nice to meet you <blue>{stageName}</blue>, what is your real name?",
+        "birthday": "What is your date of birth <blue>{firstName}</blue>?",
+        "public-email": "Just to be sure, can we display this <blue>{email}</blue> email address to your customers?",
+        "public-phone": "And this phone number <blue>{phone}</blue>, can we show it to your customers?",
         "category": "Which category suits you best?"
       },
       "description": {
         "stage-name": "How do you want your customers to call you?",
-        "real-name": "Don't worry, we collect this information for legal and billing purposes. We will not share your real name with your customers.",
-        "birthday": "We will not share your birthday with your customers.",
+        "real-name": "No worries, we collect his information for legal and billing reasons. We will not share your real name with your customers.",
+        "birthday": "We will not share your date of birth with your customers.",
         "public-email": "This email address will be displayed on your invoices, quotes and contracts.",
         "public-phone": "This phone number will be displayed on your invoices, quotes and contracts.",
-        "category": "This information will enable us to offer you services tailored to your business."
+        "category": "This information will allow us to offer you services adapted to your activity."
       },
       "label": {
         "stage-name": "Stage name",
-        "real-name": {
-          "first-name": "First Name",
-          "last-name": "Last Name"
-        },
+        "real-name": { "first-name": "First name", "last-name": "Name" },
         "birthday": "Date of birth",
         "public-email": "E-mail address",
-        "public-phone": "Telephone number",
+        "public-phone": "Phone number",
         "category": "Category"
       },
       "input": {
@@ -524,7 +202,7 @@
           "last-name": "Enter your name"
         },
         "birthday": "Enter your date of birth",
-        "public-email": "Enter your e-mail address",
+        "public-email": "Enter your email address",
         "public-phone": "Enter your phone number",
         "category": "Enter your category"
       },
@@ -532,17 +210,17 @@
         "stage-name": "Please enter your stage name",
         "real-name": {
           "first-name": "Please enter your first name",
-          "last-name": "Please enter your last name"
+          "last-name": "Please enter your name"
         },
-        "birthday": "Please enter your date of birth",
-        "public-email": "Please enter your e-mail address",
+        "birthday": "Please enter your birth date",
+        "public-email": "Please enter your email address",
         "public-phone": "Please enter your phone number",
         "category": "Please enter your category"
       },
       "select": {
         "public-email": {
           "yes": "Of course, you can use this e-mail address",
-          "no": "Hmm, I prefer to use another e-mail address"
+          "no": "Hmm, I prefer to use another email address"
         },
         "public-phone": {
           "yes": "Of course, you can use this phone number",
@@ -552,45 +230,33 @@
           "dj": "🎧 DJ",
           "singer": "🎤 Singer",
           "musician": "🎸 Musician",
-          "music_band": "🎹 Music band",
+          "music_band": "🎹 Music group",
           "dancer": "💃 Dancer",
           "magician": "🎩 Magician",
-          "comedian": "🎭 Humorist",
+          "comedian": "🎭 Comedian",
           "clown": "🤡 Clown",
           "juggler": "🤹 Juggler",
-          "fire_eater": "🔥 Fire-eater",
+          "fire_eater": "🔥 Fire eater",
           "acrobat": "🤸 Acrobat",
-          "drag_queen": "👸 Drag Queen Artist",
-          "florist": "🌷 Fleuriste",
-          "cartoonist": "🎨 Caricaturist",
-          "speaker": "🎙️ Animateur",
-          "wood_toy": "🚂 Wooden toys",
+          "drag_queen": "👸Drag Queen Artist",
+          "florist": "🌷 Florist",
+          "cartoonist": "🎨 Cartoonist",
+          "speaker": "🎙️ Animator",
+          "wood_toy": "🚂 Wooden Toys",
           "balloon_artist": "🎈 Balloon sculptor",
           "fireworks": "🎆 Fireworks",
-          "car_rental": "🚗 Car rental",
+          "car_rental": "🚗 Car Rental",
           "party_rental": "🎉 Equipment rental",
           "photo_booth": "📸 Photobooth",
-          "photographer": "📷 Photographe",
+          "photographer": "📷 Photographer",
           "videographer": "🎥 Videographer",
           "makeup_artist": "💄 Makeup artist",
           "hair_stylist": "💇 Hairdresser",
-          "caterer": "🍽️ Traiteur",
-          "bartender": "🍸 Barman",
-          "waiter": "🍽️ Waiter",
+          "caterer": "🍽️ Catering",
+          "bartender": "🍸 Bartender",
+          "waiter": "🍽️ Server",
           "event_agency": "📋 Event agency",
           "other": "Other..."
-        }
-      },
-      "toast": {
-        "error": {
-          "user-update-failed": {
-            "title": "Error",
-            "message": "Your profile could not be updated"
-          }
-        },
-        "success": {
-          "title": "Success",
-          "message": "Your profile has been updated successfully"
         }
       },
       "button": {
@@ -600,55 +266,658 @@
       }
     },
     "office": {
-      "header": "Is the <blue>{address}, {zip} {city}</blue> in <blue>{country}</blue> the address of your office? ",
-      "description": "We'll use this information to calculate your travel expenses",
+      "header": "Is the <blue>{address}, {zip} {city}</blue> in <blue>{country}</blue> your office address?",
+      "description": "We will use this information to calculate your travel costs",
       "label": {
         "address": "Your office address",
-        "city": "Ville",
-        "zip": "Zip code",
-        "country": "Pays"
+        "city": "City",
+        "zip": "Postal code",
+        "country": "Country"
       },
       "input": {
         "address": "Enter your office address",
         "city": "Enter the city",
-        "zip": "Enter the zip code",
+        "zip": "Enter postcode",
         "country": "Enter country"
       },
-      "select": {
-        "yes": "Exactly",
-        "no": "My office is at a different address"
-      },
+      "select": { "yes": "Exactly", "no": "My office is at another address" },
       "submit": "Add my office address",
       "error": {
         "address": "Please enter your office address",
         "city": "Please enter the city",
-        "zip": "Please enter the zip code",
+        "zip": "Please enter postcode",
         "country": "Please enter the country"
-      },
-      "toast": {
-        "success": {
-          "title": "Success",
-          "message": "Your company has been successfully modified"
-        },
-        "error": {
-          "failed-to-update-company": {
-            "title": "Error",
-            "message": "Your company could not be modified"
-          },
-          "company_does_not_exist": {
-            "title": "Error",
-            "message": "No company was found with this information"
-          }
-        }
       }
     },
     "intermittent": {
-      "header": "Unfortunately 😢, Klaq.io is not available for intermittent artists",
-      "description": "Nevertheless, you can be informed when a version compatible with the intermittent status is released by entering your email address in the following field.",
+      "header": "😢 Unfortunately, Klaq.io is not currently available for intermittent artists.",
+      "description": "However, you can be kept informed of the release of a version compatible with intermittent status by entering your email in the following field.",
       "input": {
-        "email": "Enter your email address if you wish to be contacted"
+        "email": "Enter your email address if you want to be contacted"
       },
-      "submit": "Contact me again"
+      "submit": "Notify me by email"
+    }
+  },
+  "search-company": { "header": "--" },
+  "forget-password": {
+    "header": "Change your password",
+    "text": "Forgot your password ? Enter the email address you usually use to log in to Klaq.",
+    "label": { "email": "E-mail address" },
+    "input": { "email": "Enter your email address" },
+    "submit": "Send me reset link",
+    "login": { "text": "Already have an account ?", "link": "To log in" }
+  },
+  "reset-password": {
+    "header": "Change your password",
+    "text": "Enter your new password.",
+    "label": {
+      "password": "Password",
+      "password-confirmation": "Password Confirmation"
+    },
+    "input": {
+      "password": "Enter your new password",
+      "password-confirmation": "Confirm your new password"
+    },
+    "error": {
+      "password": "Please enter your password, it must contain at least 10 characters, 1 number, 1 capital letter and 1 special character",
+      "password-confirmation": "Please enter the same password"
+    },
+    "submit": "Change my password",
+    "login": { "text": "Already have an account ?", "link": "To log in" }
+  },
+  "edit-event": {
+    "header": "Event of {date} for {customerName}",
+    "button": {
+      "previous": "Previous",
+      "edit": "Edit",
+      "look": "See",
+      "generate": "Generate a quote"
+    },
+    "my-products": {
+      "header": "My products",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "Product",
+      "price": "Price excl. VAT (€)",
+      "quantity": "Quantity",
+      "no-product-specify": "You have not specified any products for this event",
+      "attach-product": "Attach a product to this event",
+      "add-new-product": "Add a new product",
+      "no-products-found": "No products were found using these search terms"
+    },
+    "commentaries": {
+      "header": "Comments & Update",
+      "description": "Add comments to your event, they will be invisible to your customers.",
+      "no-commentaries": "No comments have been added to this event.",
+      "commented": "commented",
+      "add-commentary": "add a comment",
+      "submit": "Comment",
+      "publicated-time": {
+        "just-now": "Just now",
+        "minutes-ago": "{time} minutes",
+        "hours-ago": "{time} hours",
+        "days-ago": "{time} days",
+        "weeks-ago": "{time} weeks",
+        "months-ago": "{time} month",
+        "years-ago": "{time} years old"
+      },
+      "status": {
+        "INBOX": "New event created",
+        "QUALIFICATION": "Event in the process of qualifying",
+        "QUOTE_SENT": "Quote sent",
+        "QUOTE_ACCEPTED": "Quote accepted",
+        "QUOTE_REJECTED": "Quote refused",
+        "QUOTE_OPENED": "Open quote",
+        "CONTRACT_SENT": "Contract sent",
+        "CONTRACT_ACCEPTED": "Contract accepted",
+        "CONTRACT_REJECTED": "Contract refused",
+        "CONTRACT_OPENED": "Open contract",
+        "DEPOSIT_REQUESTED": "Deposit requested",
+        "DEPOSIT_LATE": "Late payment",
+        "READY": "Ready",
+        "DONE": "ends",
+        "INVOICE_SENT": "Invoice sent",
+        "INVOICE_OPENED": "Open invoice",
+        "INVOICE_OVERDUE": "Overdue invoice",
+        "WIN": "WIN",
+        "LOST": "Lost"
+      }
+    },
+    "submit": "To safeguard"
+  },
+  "new-event": {
+    "title": "New event",
+    "date": {
+      "header": "Date hour",
+      "description": "Time and date of the event, type of event, number of guests",
+      "label": {
+        "date": "When",
+        "start-time": "Start time",
+        "end-time": "End time",
+        "event-type": "Type of events",
+        "number-of-guest": "Number of guests",
+        "public-event": "public event"
+      },
+      "input": {
+        "event-type": {
+          "wedding": "Marriage",
+          "birthday": "Anniversary",
+          "corporate": "corporate event"
+        },
+        "public-event": { "yes": "Yes", "no": "No" }
+      },
+      "error": {
+        "date": "Please select a date",
+        "start-time": "Please select a start time",
+        "end-time": "Please select an end time",
+        "event-type": "Please select an event type",
+        "public-event": "Please select whether the event is public or not"
+      }
+    },
+    "location": {
+      "header": "Location",
+      "description": "Event address",
+      "label": {
+        "address": "Address",
+        "city": "City",
+        "state": "Region",
+        "zipcode": "Postal code"
+      },
+      "input": {
+        "address": "Enter the address",
+        "city": "Enter the city",
+        "state": "Enter the region",
+        "zipcode": "Enter postcode"
+      },
+      "error": {
+        "address": "Please enter an address",
+        "city": "Please enter a city",
+        "state": "Please enter a region",
+        "zipcode": "Please enter a postcode with 5 digits"
+      }
+    },
+    "customer": {
+      "header": "Customer",
+      "description": "Customer Information",
+      "label": {
+        "first-name": "First name",
+        "last-name": "Name",
+        "phone-number": "Phone number",
+        "email": "E-mail address",
+        "type": "Customer type",
+        "attach-customer": "Attach a customer to this event"
+      },
+      "input": {
+        "first-name": "Enter the first name",
+        "last-name": "Enter the name",
+        "phone-number": "Enter the phone number",
+        "email": "Enter email address",
+        "attach-customer": "Search for your customer if it already exists otherwise you can fill it manually in the fields below"
+      },
+      "type": { "private": "Particular", "company": "Business" },
+      "error": {
+        "first-name": "Please enter a first name",
+        "last-name": "Please enter a name",
+        "phone-number": "Please enter a phone number",
+        "email": "Please enter an email address"
+      }
+    },
+    "submit": "Create a new event"
+  },
+  "products": {
+    "title": "Products",
+    "header": "Products List",
+    "description": "List of available products",
+    "my-products": {
+      "header": "My products",
+      "description": "The products you add here will be available for your quotes and invoices, you can modify or delete them at any time.",
+      "title": "Product",
+      "short-description": "Description",
+      "price": "Price (€)",
+      "vta-rate": "VAT (%)",
+      "button": { "button": "Options", "edit": "Edit", "delete": "DELETE" }
+    },
+    "no-product": "No product available",
+    "get-started": "Click to start adding a product",
+    "add-product": "Add a product",
+    "new-product": {
+      "header": "New product",
+      "description": "--",
+      "label": {
+        "name": "Product Name",
+        "short-description": "short description",
+        "attach-file": "Add an explanatory brochure",
+        "default-vta-rate": "VAT rate",
+        "default-price": "Default price (excluding taxes)",
+        "default-price-with-vta": "Default price (all taxes included): {price}€"
+      },
+      "input": {
+        "name": "Enter the product name",
+        "short-description": "Enter the short description",
+        "attach-file": "Attach an explanatory brochure",
+        "default-vta-rate": "Enter the VAT rate",
+        "default-price": "Enter the default price"
+      },
+      "error": {
+        "name": "Please enter a product name",
+        "short-description": "Please enter a short description",
+        "attach-file": "Please attach an explanatory brochure",
+        "default-vta-rate": "Please enter a VAT rate",
+        "default-price": "Please enter a default price greater than 0€"
+      },
+      "submit": "Add a product"
+    },
+    "edit-product": { "header": "Edit product", "submit": "Edit product" },
+    "delete-product": {
+      "modal": {
+        "title": "Delete product",
+        "message": "Are you sure you want to delete product {productTitle}?",
+        "button": { "cancel": "Cancel", "delete": "DELETE" }
+      }
+    }
+  },
+  "customers": {
+    "header": "Clients",
+    "description": "List of your customers",
+    "no-customers": "No customers available",
+    "get-started": "Click to start adding a customer",
+    "my-customers": {
+      "header": "My customers ({nb})",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "submit": "Add a customer",
+      "name": "Name",
+      "contact": "Contact",
+      "location": "Location",
+      "status": "Status",
+      "value": "Value",
+      "button": {
+        "header": "Options",
+        "edit": "Edit",
+        "delete": "DELETE",
+        "look": "See",
+        "sort": "Filter"
+      }
+    },
+    "new-customer": {
+      "header": "new customer",
+      "description": "--",
+      "label": {
+        "client-type": "my client is",
+        "look-for-company": "Find my client",
+        "name": "Company Name",
+        "address": "Company address",
+        "city": "City",
+        "zip": "Postal code",
+        "country": "Country",
+        "siret": "Number Siret",
+        "vat-number": "VAT number (optional)",
+        "first-name": "First name of your contact",
+        "last-name": "Name of your contact",
+        "email": "E-mail address",
+        "phone": "Phone number"
+      },
+      "input": {
+        "client-type": { "company": "a company", "private": "a particular" },
+        "look-for-company": "Company, SIRET, SIREN, Manager, Keyword...",
+        "name": "Enter the company name",
+        "address": "Enter the business address",
+        "city": "Enter the city",
+        "zip": "Enter postcode",
+        "country": "Enter country",
+        "siret": "Enter the SIRET number",
+        "vat-number": "Enter the VAT number",
+        "first-name": "Enter the first name",
+        "last-name": "Enter the name",
+        "email": "Enter email address",
+        "phone": "Enter the phone number"
+      },
+      "error": {
+        "name": "Please enter company name",
+        "address": "Please enter the business address",
+        "city": "Please enter the city",
+        "zip": "Please enter postcode",
+        "country": "Please enter the country",
+        "siret": "Please enter the SIRET number",
+        "vat-number": "Please enter the VAT number",
+        "first-name": "Please enter the first name",
+        "last-name": "Please enter name",
+        "email": "Please enter email address",
+        "phone": "Please enter the phone number"
+      },
+      "submit": "Add a customer"
+    },
+    "edit-customer": { "header": "Edit customer", "submit": "Edit customer" },
+    "delete-customer": {
+      "modal": {
+        "title": "Delete customer",
+        "message": "Are you sure you want to delete client {customerName}?",
+        "button": { "cancel": "Cancel", "delete": "DELETE" }
+      }
+    },
+    "customer-details": {
+      "header": "Customer details",
+      "description": "Customer Information",
+      "siret": "SIRET: {siret}",
+      "vat-number": "VAT number: {vatNumber}",
+      "no-vat-number": "VAT number: Not provided",
+      "address": "{address}, {zip} {city}, {country}",
+      "no-address": "No address has been provided",
+      "contact": "Contact",
+      "first-interact": "First contact on {date}",
+      "last-interact": "Last contact on {date}",
+      "deals-amount": "Total deal amount: {amount}€",
+      "deals-count": "Number of deals: {count}",
+      "button": {
+        "button": "Options",
+        "previous": "Previous",
+        "edit": "Edit",
+        "copy-phone": "Copy phone number",
+        "send-mail": "Send an email",
+        "delete": "DELETE",
+        "invoices": "Invoices",
+        "quotes": "Estimate",
+        "new-event": "Create a new event"
+      }
+    },
+    "status": {
+      "in-deal": "In deal",
+      "new": "New",
+      "lost": "Lost",
+      "recurring": "Recurrent"
+    },
+    "input": { "search": "Email, Last name, First name, Telephone..." }
+  },
+  "events": {
+    "header": "Events",
+    "description": "List of your events",
+    "no-events": "No events available",
+    "get-started": "Click to start adding an event",
+    "day": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "THURSDAY",
+      "friday": "Friday",
+      "saturday": "SATURDAY",
+      "sunday": "Sunday"
+    },
+    "month": {
+      "january": "January",
+      "february": "FEBRUARY",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "button": {
+      "header": "Edit",
+      "edit": "Edit",
+      "delete": "DELETE",
+      "look": "See"
+    },
+    "type": "{type} <> {customerName}",
+    "status": {
+      "INBOX": "🆕 New",
+      "QUALIFICATION": "🔎 In the process of qualifying",
+      "QUOTE_SENT": "📤 Quote sent",
+      "QUOTE_ACCEPTED": "✅ Quote accepted",
+      "QUOTE_REJECTED": "❌ Quote refused",
+      "QUOTE_OPENED": "👀 Open Quote",
+      "CONTRACT_SENT": "🔖 Contract sent",
+      "CONTRACT_ACCEPTED": "✅ Contract accepted",
+      "CONTRACT_REJECTED": "❌ Contract refused",
+      "CONTRACT_OPENED": "👀 Open Contract",
+      "DEPOSIT_REQUESTED": "💵 Deposit requested",
+      "DEPOSIT_LATE": "⌛ Late deposit",
+      "READY": "🔥 Ready",
+      "DONE": "✨ Finish",
+      "INVOICE_SENT": "💸 Invoice sent",
+      "INVOICE_OPENED": "👀 Open invoice",
+      "INVOICE_OVERDUE": "⏰ Overdue invoice",
+      "WIN": "✅ WIN",
+      "LOST": "😞 Lost"
+    },
+    "tabs": {
+      "all": "All",
+      "new": "New",
+      "upcoming": "Coming",
+      "pending": "On hold",
+      "lost": "Lost",
+      "past": "Pass"
+    },
+    "no-events-in-tab": {
+      "new": "No new event",
+      "upcoming": "No upcoming events",
+      "pending": "No pending events",
+      "past": "No past event",
+      "lost": "No lost event",
+      "all": "No event"
+    },
+    "filter": {
+      "this_week": "This week",
+      "this_month": "This month",
+      "this_year": "This year",
+      "custom": "Custom"
+    },
+    "pipe-value": "{pipeValue}€"
+  },
+  "toast": {
+    "success": {
+      "create-customer": {
+        "title": "Success",
+        "message": "The customer has been successfully created"
+      },
+      "update-customer": {
+        "title": "Success",
+        "message": "The client has been successfully modified"
+      },
+      "delete-customer": {
+        "title": "Success",
+        "message": "The customer has been successfully deleted"
+      },
+      "delete-product": {
+        "title": "Success",
+        "message": "The product has been deleted"
+      },
+      "register": {
+        "title": "Success",
+        "message": "Your account has been created"
+      },
+      "edit-product": {
+        "title": "Success",
+        "message": "The product has been modified"
+      },
+      "edit-event": {
+        "title": "Success",
+        "message": "The event has been modified"
+      },
+      "delete-event": {
+        "title": "Success",
+        "message": "The event has been successfully deleted"
+      },
+      "add-event": {
+        "title": "Success",
+        "message": "The event has been successfully created"
+      },
+      "add-product": {
+        "title": "Success",
+        "message": "The product has been added"
+      },
+      "confirmed-email": {
+        "title": "Success",
+        "message": "Your email has been confirmed"
+      },
+      "create-company": {
+        "title": "Success",
+        "message": "Your company has been successfully created"
+      },
+      "update-office": {
+        "title": "Success",
+        "message": "Your company has been modified"
+      },
+      "confirmed-sms": {
+        "title": "Success",
+        "message": "Your phone number has been confirmed"
+      },
+      "reset-password": {
+        "title": "Success",
+        "message": "Your password has been changed"
+      },
+      "request-reset-password": {
+        "title": "Success",
+        "message": "An email has been sent to you to reset your password"
+      }
+    },
+    "error": {
+      "customer-create-error": {
+        "title": "Error",
+        "message": "The client could not be created"
+      },
+      "user-not-found": {
+        "title": "Error",
+        "message": "Please check your credentials"
+      },
+      "customer-delete-error": {
+        "title": "Error",
+        "message": "The client could not be deleted"
+      },
+      "auth-user-mail-already-exist": {
+        "title": "Error",
+        "message": "An account already exists with this email address"
+      },
+      "auth-user-phone-already-exist": {
+        "title": "Error",
+        "message": "An account already exists with this phone number"
+      },
+      "auth-weak-password": {
+        "title": "Error",
+        "message": "The password must contain at least 10 characters, 1 number, 1 capital letter and 1 special character"
+      },
+      "auth-invalid-password": {
+        "title": "Error",
+        "message": "Please check your credentials"
+      },
+      "auth-failed-to-update-password": {
+        "title": "Error",
+        "message": "The password could not be changed"
+      },
+      "auth-old-and-new-password-are-the-same": {
+        "title": "Error",
+        "message": "The new password must be different from the old one"
+      },
+      "email-already-confirmed": {
+        "title": "Error",
+        "message": "Your email has already been confirmed"
+      },
+      "token-expired": {
+        "title": "Error",
+        "message": "Your email has expired, please request a new one"
+      },
+      "invalid-token": {
+        "title": "Error",
+        "message": "Your email is invalid, please request a new one"
+      },
+      "product-creation-failed": {
+        "title": "Error",
+        "message": "The product could not be created"
+      },
+      "item-not-found": {
+        "title": "Error",
+        "message": "The product could not be found"
+      },
+      "product-update-failed": {
+        "title": "Error",
+        "message": "The product could not be modified"
+      },
+      "product-deletion-failed": {
+        "title": "Error",
+        "message": "The product could not be deleted"
+      },
+      "event-not-found": {
+        "title": "Error",
+        "message": "The event could not be found"
+      },
+      "event-not-belong-to-user": {
+        "title": "Error",
+        "message": "The event does not belong to this user"
+      },
+      "event-creation-failed": {
+        "title": "Error",
+        "message": "The event could not be created"
+      },
+      "event-update-failed": {
+        "title": "Error",
+        "message": "The event could not be modified"
+      },
+      "event-product-add-failed": {
+        "title": "Error",
+        "message": "The product could not be added to the event"
+      },
+      "event-product-not-found": {
+        "title": "Error",
+        "message": "The product could not be found"
+      },
+      "event-product-not-belong-to-user": {
+        "title": "Error",
+        "message": "The product does not belong to this user"
+      },
+      "event-product-delete-failed": {
+        "title": "Error",
+        "message": "The product could not be removed from the event"
+      },
+      "event-status-change-failed": {
+        "title": "Error",
+        "message": "The status of the event could not be changed"
+      },
+      "company-already-exist": {
+        "title": "Error",
+        "message": "A company already exists with this information"
+      },
+      "company-does-not-exist": {
+        "title": "Error",
+        "message": "No companies were found with this information"
+      },
+      "failed-to-update-company": {
+        "title": "Error",
+        "message": "Your company could not be modified"
+      },
+      "company-was-not-find": {
+        "title": "Error",
+        "message": "Your company could not be found"
+      },
+      "failed-to-create-company": {
+        "title": "Error",
+        "message": "Your company could not be created"
+      },
+      "user-update-failed": {
+        "title": "Error",
+        "message": "Your profile could not be updated"
+      },
+      "phone-number-already-confirmed": {
+        "title": "Error",
+        "message": "Your phone number has already been confirmed"
+      },
+      "invalid-verification-code": {
+        "title": "Error",
+        "message": "Your confirmation code is invalid"
+      },
+      "event-start-time-after-end-time": {
+        "title": "Error",
+        "message": "The start time of the event must be before the end time"
+      },
+      "user-update-onboarding-status-failed": {
+        "title": "Error",
+        "message": "Your profile could not be updated"
+      },
+      "default": {
+        "title": "Error",
+        "message": "An unknown error has occurred"
+      }
     }
   }
 }
