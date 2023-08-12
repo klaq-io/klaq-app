@@ -2,6 +2,7 @@ export const PATHS = {
   DASHBOARD: "/dashboard",
   CUSTOMER_DETAILS: "/customers/:id",
   CUSTOMERS: "/customers",
+  CALENDAR: "/calendar",
   NEW_EVENT: "/new",
   EVENTS: "/events",
   EVENT: "/events/:id",

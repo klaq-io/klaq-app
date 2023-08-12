@@ -31,20 +31,25 @@ export const Sidebar = (props: Props) => {
       name: "sidebar.dashboard",
       href: PATHS.DASHBOARD,
       icon: HomeIcon,
-      current: currentPage === PATHS.DASHBOARD ? true : false,
+      current: currentPage === PATHS.DASHBOARD,
     },
-    { name: "sidebar.calendar", href: "#", icon: CalendarIcon, current: false },
+    {
+      name: "sidebar.calendar",
+      href: PATHS.CALENDAR,
+      icon: CalendarIcon,
+      current: currentPage === PATHS.CALENDAR,
+    },
     {
       name: "sidebar.events",
       href: PATHS.EVENTS,
       icon: FolderIcon,
-      current: currentPage === PATHS.EVENTS ? true : false,
+      current: currentPage === PATHS.EVENTS,
     },
     {
       name: "sidebar.customers",
       href: PATHS.CUSTOMERS,
       icon: UsersIcon,
-      current: currentPage === PATHS.CUSTOMERS ? true : false,
+      current: currentPage === PATHS.CUSTOMERS,
     },
     {
       name: "sidebar.billing",
@@ -56,7 +61,7 @@ export const Sidebar = (props: Props) => {
       name: "sidebar.products",
       href: PATHS.PRODUCTS,
       icon: ShoppingBagIcon,
-      current: currentPage === PATHS.PRODUCTS ? true : false,
+      current: currentPage === PATHS.PRODUCTS,
     },
     {
       name: "sidebar.marketing",

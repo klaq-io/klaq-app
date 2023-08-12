@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  Calendar,
   Company,
   ConfirmMail,
   ConfirmPhone,
@@ -91,7 +92,7 @@ function App() {
             path={PATHS.ONBOARDING_OFFICE}
             element={<OnboardingOffice />}
           />
-
+          <Route path={PATHS.CALENDAR} element={<Calendar />} />
           <Route path={PATHS.CUSTOMERS} element={<Customers />} />
           <Route path={PATHS.CUSTOMER_DETAILS} element={<CustomerDetails />} />
           <Route path={PATHS.EVENTS} element={<Events />} />

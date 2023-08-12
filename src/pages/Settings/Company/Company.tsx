@@ -493,6 +493,11 @@ export const Company: FC = () => {
                         },
                         {
                           fee: "0",
+                          b: (chunk: any) => (
+                            <span className="text-klaq-600 font-semibold">
+                              {chunk.join()}
+                            </span>
+                          ),
                           a: (chunk: any) => (
                             <Button
                               variant="link"
