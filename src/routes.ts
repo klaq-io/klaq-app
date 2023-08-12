@@ -9,6 +9,7 @@ export const PATHS = {
   PRODUCTS: "/products",
   LOGIN: "/login",
   PROFILE: "/settings/profile",
+  COMPANY: "/settings/company",
   SETTINGS: "/settings",
   FORGET_PASSWORD: "/forget-password",
   SIGN_UP: "/sign-up/",

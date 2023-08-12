@@ -8,7 +8,7 @@ type ButtonProps = {
   disabled?: boolean;
   isLoading?: boolean;
   color: "primary" | "secondary";
-  variant: "contained" | "outlined" | "text";
+  variant: "contained" | "outlined" | "text" | "link";
   onClick?: () => void;
   href?: string;
   type: "button" | "submit" | "reset";
@@ -51,6 +51,7 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
       color === "secondary"
         ? "text-gray-900 hover:text-gray-600"
         : "text-klaq-600 hover:text-klaq-500",
+    link: "text-klaq-600 hover:text-klaq-500",
   };
   return (
     <button
@@ -60,7 +61,7 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
       className={classNames(
         "inline-flex items-center gap-x-2 rounded-md font-semibold disabled:cursor-not-allowed disabled:opacity-30",
         variants[variant],
-        sizes[size]
+        variant !== "link" && sizes[size]
       )}
     >
       {isLoading ? (

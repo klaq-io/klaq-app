@@ -10,10 +10,13 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getCompany } from "../../../redux/Company/selectors";
 import { Button } from "../../../components";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../../routes";
 
 type Props = {};
 
 export const OnboardingOffice: React.FC<Props> = (props: Props) => {
+  const navigate = useNavigate();
   const intl = useIntl();
 
   const [{ isLoading: isFetchLoading }, fetchCompany] = useFetchCompany();
@@ -32,6 +35,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
         values.officeCountry = company?.country;
       }
       updateCompany(values);
+      navigate(PATHS.DASHBOARD);
     },
   });
 

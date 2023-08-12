@@ -13,15 +13,17 @@ import { EventBadgeButton } from "../EventBadge";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
 import { DropdownMenu } from "../DropdownMenu";
+import { Skeleton } from "../Skeleton";
 
 type Props = {
   events: Event[];
+  isLoading?: boolean;
 };
 
 export const EventList: FC<Props> = (props: Props) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const { events } = props;
+  const { events, isLoading = false } = props;
 
   const formatTime = (time: string) => {
     const t = parse(time, "HH:mm:ss", new Date());
@@ -54,7 +56,9 @@ export const EventList: FC<Props> = (props: Props) => {
     },
   ];
 
-  return (
+  return isLoading ? (
+    <EventListSkeletonCard />
+  ) : (
     <ul role="list" className="space-y-3">
       {events.map((event) => (
         <>
@@ -132,5 +136,26 @@ export const EventList: FC<Props> = (props: Props) => {
         </>
       ))}
     </ul>
+  );
+};
+
+const EventListSkeletonCard = () => {
+  return (
+    <div className="flex flex-col space-y-3">
+      {Array.from({ length: 3 }, (_, index) => (
+        <div
+          key={index}
+          className="rounded-md bg-white px-6 py-4 shadow flex animate-pulse"
+        >
+          <div className="flex flex-col items-center justify-center border-gray-200 border-r pr-3 text-klaq-600 w-1/5">
+            <Skeleton variant="rounded" width={24} height={16} />
+          </div>
+          <div className="ml-4 flex flex-col space-y-4 w-2/5">
+            <Skeleton variant="rounded" width={"full"} height={8} />
+            <Skeleton variant="rounded" width={"40"} height={8} />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };

@@ -130,7 +130,6 @@ export const useUpdateCompany = () => {
           />,
           { duration: 1500, position: "top-right" }
         );
-        navigate(PATHS.DASHBOARD);
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()

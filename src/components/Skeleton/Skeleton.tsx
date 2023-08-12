@@ -11,7 +11,7 @@ type Props = {
 export const Skeleton: FC<Props> = (props: Props) => {
   const { variant, width, height, className } = props;
   return (
-    <div className="flex flex-row items-center justify-center h-full space-x-5 animate-pulse">
+    <div className="flex flex-row items-center h-full space-x-5 animate-pulse">
       {variant === "circle" && (
         <div
           className={classNames(

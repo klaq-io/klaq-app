@@ -250,7 +250,7 @@ export const Events = () => {
   }, [selectedTab, selectedFilter, startDateParam, endDateParam]);
 
   return (
-    <PageLayout isLoading={isLoading && isFetchingProducts}>
+    <PageLayout>
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -375,7 +375,10 @@ export const Events = () => {
               </div>
               {tabs[selectedTab].events &&
               tabs[selectedTab].events.length > 0 ? (
-                <EventList events={tabs[selectedTab].events} />
+                <EventList
+                  events={tabs[selectedTab].events}
+                  isLoading={isLoading && isFetchingProducts}
+                />
               ) : (
                 <div className="px-6 py-14 text-center text-sm sm:px-14">
                   <FolderIcon

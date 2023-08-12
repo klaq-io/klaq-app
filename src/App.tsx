@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  Company,
   ConfirmMail,
   ConfirmPhone,
   CustomerDetails,
@@ -100,6 +101,7 @@ function App() {
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
+          <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>

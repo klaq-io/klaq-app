@@ -16,6 +16,10 @@ export interface Company {
   zip: string;
   country: string;
   tradeName?: string;
+  officeAddress: string;
+  officeCity: string;
+  officeZip: string;
+  officeCountry: string;
 }
 
 export const companySlice = createSlice({

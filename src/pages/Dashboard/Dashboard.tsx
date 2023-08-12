@@ -214,11 +214,10 @@ export const Dashboard = () => {
           </div>
 
           <div className="mt-6">
-            {isFetchEventLoading ? (
-              <Skeleton variant="rounded" width={"full"} height={20} />
-            ) : (
-              <EventList events={thisMonthUpcomingEvents} />
-            )}
+            <EventList
+              events={thisMonthUpcomingEvents}
+              isLoading={isFetchEventLoading}
+            />
           </div>
         </div>
       </div>

@@ -14,6 +14,10 @@
 
   "navbar": {
     "profile": "Profil",
+    "company": "Entreprise",
+    "integrations": "Intégrations",
+    "billing": "Facturation",
+    "subscriptions": "Mon abonnement",
     "logout": "Déconnexion",
     "searchbar": "Rechercher..."
   },
@@ -122,7 +126,7 @@
         "registration-date": "Date d'immatriculation",
         "address": "Adresse",
         "city": "Ville",
-        "zip": "Code postal",
+        "zip": "ZIP / Code Postal",
         "country": "Pays"
       }
     },
@@ -147,7 +151,7 @@
         "registration-date": "Date d'immatriculation",
         "address": "Adresse",
         "city": "Ville",
-        "zip": "Code postal",
+        "zip": "ZIP / Code Postal",
         "country": "Pays"
       },
       "input": {
@@ -282,11 +286,11 @@
     },
     "office": {
       "header": "Est ce que le <blue>{address}, {zip} {city}</blue> en <blue>{country}</blue> est l’adresse de votre bureau ? ",
-      "description": "Nous utiliserons cette information pour calculer vos frais de déplacement",
+      "description": "Nous utiliserons cette information pour calculer vos frais de déplacement.",
       "label": {
         "address": "Adresse de votre bureau",
         "city": "Ville",
-        "zip": "Code postal",
+        "zip": "ZIP / Code Postal",
         "country": "Pays"
       },
       "input": {
@@ -599,7 +603,7 @@
         "name": "Nom de l'entreprise",
         "address": "Adresse de l'entreprise",
         "city": "Ville",
-        "zip": "Code postal",
+        "zip": "ZIP / Code Postal",
         "country": "Pays",
         "siret": "Numéro de SIRET",
         "vat-number": "Numéro de TVA (optionnel)",
@@ -826,6 +830,72 @@
         "email": "Veuillez saisir votre adresse e-mail",
         "phone": "Veuillez saisir votre numéro de téléphone portable",
         "birthday": "Veuillez saisir votre date de naissance"
+      }
+    },
+    "company": {
+      "header": "Informations légales",
+      "description": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats.",
+      "label": {
+        "activity-type": "Type d'activité (Code NAF)",
+        "insee-code": "Code INSEE",
+        "legal-form": "Forme juridique",
+        "legal-name": "Nom de l'entreprise",
+        "legal-registration-number": "Numéro d'immatriculation",
+        "legal-vat-number": "Numéro de TVA",
+        "registration-date": "Date d'immatriculation",
+        "address": "Adresse",
+        "city": "Ville",
+        "zip": "ZIP / Code Postal",
+        "country": "Pays"
+      },
+      "input": {
+        "activity-type": "Saisissez le type d'activité",
+        "insee-code": "Saisissez le code INSEE",
+        "legal-form": "Saisissez la forme juridique",
+        "legal-name": "Saisissez le nom de l'entreprise",
+        "legal-registration-number": "Saisissez le numéro d'immatriculation",
+        "legal-vat-number": "Saisissez le numéro de TVA si vous en disposez",
+        "registration-date": "Saisissez la date d'immatriculation",
+        "address": "Saisissez l'adresse",
+        "city": "Saisissez la ville",
+        "zip": "Saisissez le code postal",
+        "country": "Saisissez le pays"
+      },
+      "error": {
+        "activity-type": "Veuillez saisir le type d'activité",
+        "insee-code": "Veuillez saisir le code INSEE",
+        "legal-form": "Veuillez saisir la forme juridique",
+        "legal-name": "Veuillez saisir le nom de l'entreprise",
+        "legal-registration-number": "Veuillez saisir le numéro d'immatriculation",
+        "legal-vat-number": "Veuillez saisir le numéro de TVA si vous en disposez",
+        "registration-date": "Veuillez saisir la date d'immatriculation",
+        "address": "Veuillez saisir l'adresse du siège social",
+        "city": "Veuillez saisir la ville",
+        "zip": "Veuillez saisir le code postal",
+        "country": "Veuillez saisir le pays"
+      }
+    },
+    "office": {
+      "header": "Mon bureau",
+      "description": "Ces informations seront utilisées pour calculer vos frais de déplacement.",
+      "moving-fees": "Les frais de déplacement seront calculer en fonction de la distance entre votre bureau et le lieu de la prestation. Vous avez actuellement fixé le tarif de déplacement à {fee}€. Vous pouvez modifier ces informations à tout moment dans <a>les paramètres.</a>",
+      "label": {
+        "address": "Adresse de votre bureau",
+        "city": "Ville",
+        "zip": "ZIP / Code Postal",
+        "country": "Pays"
+      },
+      "input": {
+        "address": "Saisissez l'adresse de votre bureau",
+        "city": "Saisissez la ville",
+        "zip": "Saisissez le code postal",
+        "country": "Saisissez le pays"
+      },
+      "error": {
+        "address": "Veuillez saisir l'adresse du bureau",
+        "city": "Veuillez saisir la ville",
+        "zip": "Veuillez saisir le code postal",
+        "country": "Veuillez saisir le pays"
       }
     }
   },

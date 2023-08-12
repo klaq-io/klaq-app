@@ -1,198 +1,202 @@
 {
   "sidebar": {
-    "dashboard": "Dashboard",
-    "calendar": "Calendar",
-    "events": "My events",
-    "customers": "Clients",
-    "billing": "Billing",
-    "products": "Products",
-    "marketing": "Marketing",
-    "analytics": "Analyzes",
-    "help": "Aid",
-    "settings": "Settings"
+    "dashboard": "dashboard",
+    "calendar": "calendar",
+    "events": "my events",
+    "customers": "customers",
+    "billing": "billing",
+    "products": "products",
+    "marketing": "marketing",
+    "analytics": "analysis",
+    "help": "aid",
+    "settings": "parameters"
   },
   "navbar": {
-    "profile": "Profile",
-    "logout": "Logout",
-    "searchbar": "To research..."
+    "profile": "profile",
+    "company": "company",
+    "integrations": "integrations",
+    "billing": "billing",
+    "subscriptions": "my subscription",
+    "logout": "disconnection",
+    "searchbar": "search."
   },
   "login": {
-    "header": "Login to your account",
-    "label": { "email": "E-mail address", "password": "Password" },
+    "header": "connection to your account",
+    "label": { "email": "e-mail address", "password": "password" },
     "input": {
       "email": "Enter your email address",
-      "password": "enter your password"
+      "password": "Enter your password"
     },
-    "submit": "To log in",
+    "submit": "connect",
     "remember-me": "Remember me",
-    "forget-password": "Forgot your password ?",
-    "signup": { "text": "No account yet?", "link": "Start a 31 day free trial" }
+    "forget-password": "Forgot password?",
+    "signup": { "text": "Not yet?", "link": "start a free 31-day trial" }
   },
   "sign-up": {
-    "header": "Let's get acquainted first",
+    "header": "Let's first know",
     "label": {
-      "first-name": "First name",
-      "last-name": "Name",
-      "email": "E-mail address",
-      "password": "Password",
-      "phone": "Phone number"
+      "first-name": "First",
+      "last-name": "name",
+      "email": "e-mail address",
+      "password": "password",
+      "phone": "telephone number"
     },
     "input": {
       "first-name": "Enter your first name",
       "last-name": "Enter your name",
       "email": "Enter your email address",
-      "password": "enter your password",
-      "phone": "Enter your mobile number"
+      "password": "Enter your password",
+      "phone": "Enter your cell phone number"
     },
     "error": {
-      "first-name": "Please enter your first name",
-      "last-name": "Please enter your name",
-      "email": "Please enter your email address",
-      "password": "Please enter your password, it must contain at least 10 characters, 1 number, 1 capital letter and 1 special character",
-      "phone": "Please enter your mobile number"
+      "first-name": "please enter your first name",
+      "last-name": "please enter your name",
+      "email": "please enter your e-mail address",
+      "password": "enter your password, the password must contain at least 10 characters, 1 digit, 1 capital letter and 1 special characters",
+      "phone": "please enter your mobile phone number"
     },
     "submit": "Continue"
   },
   "confirm-mail": {
-    "header": "Your confirmation email is waiting for you in your inbox.",
-    "description": "Please click the confirmation link in the email we just sent to <b>{email}</b> to continue.",
+    "header": "your confirmation email awaits you in your box",
+    "description": "Please click on the confirmation link in the email that we have just sent you to the <b laid=0}</b raised address to continue.",
     "resend": {
-      "text": "Your email may be in your spam. Always nothing ?",
-      "link": "Click here to resend email"
+      "text": "Your email may be in your spams. Still nothing?",
+      "link": "click here to return the email"
     }
   },
   "confirm-sms": {
-    "header": "Your confirmation code is waiting for you on your phone",
-    "description": "Please enter the confirmation code we just texted you to <b>{phone}</b> to continue."
+    "header": "your confirmation code awaits you on your phone",
+    "description": "Please enter the confirmation code that we have just sent you by sms to the number >b raised{phone}</b raised to continue."
   },
   "onboarding": {
     "legal-form-choice": {
       "header": "What is the legal form of your business?",
       "legal-form-type": {
         "company": {
-          "title": "Company",
-          "description": "SASU, SAS, SARL, SA, SCI, EURL..."
+          "title": "society",
+          "description": "sasu, sas, sarl, sa, sci, eurl."
         },
         "association": {
-          "title": "Association",
-          "description": "Association law 1901, Association law 1908..."
+          "title": "association",
+          "description": "association law 1901, association law 1908..."
         },
         "intermittent": {
-          "title": "Intermittent",
-          "description": "Intermittent of the show..."
+          "title": "intermittent",
+          "description": "intermittent of the show."
         }
       }
     },
     "search-company": {
-      "header": "Find your business",
-      "divider": "Or",
-      "goto-next": "Fill manually",
-      "input": "Company, SIRET, SIREN, Manager, Keyword...",
-      "no-result": "No result found"
+      "header": "search your company",
+      "divider": "or",
+      "goto-next": "manually fill",
+      "input": "company, siret, siren, leader, keyword...",
+      "no-result": "no results found"
     },
     "search-association": {
-      "header": "Find your association",
-      "input": "Name, RNA, SIRET, SIREN, Manager, Keyword..."
+      "header": "search your association",
+      "input": "name, rna, siret, siren, leader, keyword..."
     },
     "association-form": {
       "header": {
-        "company": "Your association",
-        "vta": "Your VAT number",
-        "address": "Your billing address"
+        "company": "your association",
+        "vta": "your tva number",
+        "address": "your billing address"
       },
       "label": {
-        "activity-type": "Type of activity (NAF code)",
-        "insee-code": "INSEE code",
-        "legal-form": "Legal status",
-        "legal-name": "Association name",
+        "activity-type": "type of activity (code naf)",
+        "insee-code": "code insee",
+        "legal-form": "legal form",
+        "legal-name": "name of the association",
         "legal-registration-number": "Registration number",
-        "legal-vat-number": "VAT number",
-        "registration-date": "Date of registration",
-        "address": "Address",
-        "city": "City",
-        "zip": "Postal code",
-        "country": "Country"
+        "legal-vat-number": "tva number",
+        "registration-date": "date of registration",
+        "address": "address",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries"
       }
     },
     "company-form": {
       "header": {
-        "company": "Your business",
-        "vta": "Your VAT number",
-        "address": "Your billing address"
+        "company": "your company",
+        "vta": "your tva number",
+        "address": "your billing address"
       },
       "description": {
-        "company": "This information will be used to generate your invoices, quotes and contracts",
-        "vta": "If you have a VAT number, you can enter it here, otherwise go to the next step",
-        "address": "This information will be used to generate your invoices, quotes and contracts"
+        "company": "this information will be used to generate your invoices, quotes and contracts",
+        "vta": "if you have a tva number, you can enter it here, otherwise go to the next step",
+        "address": "this information will be used to generate your invoices, quotes and contracts"
       },
       "label": {
-        "activity-type": "Type of activity (NAF code)",
-        "insee-code": "INSEE code",
-        "legal-form": "Legal status",
-        "legal-name": "Company Name",
+        "activity-type": "type of activity (code naf)",
+        "insee-code": "code insee",
+        "legal-form": "legal form",
+        "legal-name": "company name",
         "legal-registration-number": "Registration number",
-        "legal-vat-number": "VAT number",
-        "registration-date": "Date of registration",
-        "address": "Address",
-        "city": "City",
-        "zip": "Postal code",
-        "country": "Country"
+        "legal-vat-number": "tva number",
+        "registration-date": "date of registration",
+        "address": "address",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries"
       },
       "input": {
-        "activity-type": "Enter the type of activity",
-        "insee-code": "Enter the INSEE code",
+        "activity-type": "type of activity",
+        "insee-code": "Enter the code insee",
         "legal-form": "Enter the legal form",
         "legal-name": "Enter the company name",
         "legal-registration-number": "Enter the registration number",
-        "legal-vat-number": "Enter the VAT number if you have one",
+        "legal-vat-number": "Enter the tva number if you have it",
         "registration-date": "Enter the registration date",
         "address": "Enter the address",
         "city": "Enter the city",
-        "zip": "Enter postcode",
-        "country": "Enter country"
+        "zip": "Enter the postal code",
+        "country": "Enter the country"
       },
       "error": {
-        "activity-type": "Please enter the type of activity",
-        "insee-code": "Please enter the INSEE code",
-        "legal-form": "Please enter the legal form",
-        "legal-name": "Please enter company name",
-        "legal-registration-number": "Please enter the registration number",
-        "legal-vat-number": "Please enter the VAT number if you have one",
-        "registration-date": "Please enter the registration date",
-        "address": "Please enter the address of the head office",
-        "city": "Please enter the city",
-        "zip": "Please enter postcode",
-        "country": "Please enter the country"
+        "activity-type": "please enter the type of activity",
+        "insee-code": "please enter the insee code",
+        "legal-form": "please refer to the legal form",
+        "legal-name": "please enter the company name",
+        "legal-registration-number": "please enter the registration number",
+        "legal-vat-number": "please enter the tva number if you have",
+        "registration-date": "please enter the registration date",
+        "address": "please enter the address of the head office",
+        "city": "please enter the city",
+        "zip": "please enter the postal code",
+        "country": "please enter the country"
       },
       "button": {
         "next": "Continue",
         "previous": "Previous",
-        "submit": "Add my business"
+        "submit": "add my business"
       }
     },
     "performer": {
       "header": {
-        "stage-name": "Let's get to know each other, what's your stage name?",
-        "real-name": "Nice to meet you <blue>{stageName}</blue>, what is your real name?",
-        "birthday": "What is your date of birth <blue>{firstName}</blue>?",
-        "public-email": "Just to be sure, can we display this <blue>{email}</blue> email address to your customers?",
-        "public-phone": "And this phone number <blue>{phone}</blue>, can we show it to your customers?",
-        "category": "Which category suits you best?"
+        "stage-name": "Let's get to know each other, what's your name?",
+        "real-name": "Nice to meet you <blue waking{stageName}</blue ya, what's your real name?",
+        "birthday": "What is your date of birth <blue{firstName}</blue?",
+        "public-email": "just to be sure, can we display this email address <blue raised{email}</blue raised to your customers?",
+        "public-phone": "and this phone number <blue{phone}}/blue raised, can it be displayed to your customers?",
+        "category": "Which category is the best for you?"
       },
       "description": {
         "stage-name": "How do you want your customers to call you?",
-        "real-name": "No worries, we collect his information for legal and billing reasons. We will not share your real name with your customers.",
-        "birthday": "We will not share your date of birth with your customers.",
-        "public-email": "This email address will be displayed on your invoices, quotes and contracts.",
-        "public-phone": "This phone number will be displayed on your invoices, quotes and contracts.",
-        "category": "This information will allow us to offer you services adapted to your activity."
+        "real-name": "no concern, we collect information for legal and billing reasons. We will not share your real name with your customers.",
+        "birthday": "we will not share your date of birth with your customers.",
+        "public-email": "this email address will be displayed on your invoices, quotes and contracts.",
+        "public-phone": "this phone number will be displayed on your invoices, quotes and contracts.",
+        "category": "This information will allow us to offer you services tailored to your activity."
       },
       "label": {
-        "stage-name": "Stage name",
-        "real-name": { "first-name": "First name", "last-name": "Name" },
-        "birthday": "Date of birth",
-        "public-email": "E-mail address",
-        "public-phone": "Phone number",
+        "stage-name": "stage name",
+        "real-name": { "first-name": "First", "last-name": "name" },
+        "birthday": "date of birth",
+        "public-email": "e-mail address",
+        "public-phone": "telephone number",
         "category": "Category"
       },
       "input": {
@@ -201,97 +205,100 @@
           "first-name": "Enter your first name",
           "last-name": "Enter your name"
         },
-        "birthday": "Enter your date of birth",
+        "birthday": "Enter your birth date",
         "public-email": "Enter your email address",
         "public-phone": "Enter your phone number",
         "category": "Enter your category"
       },
       "error": {
-        "stage-name": "Please enter your stage name",
+        "stage-name": "please enter your stage name",
         "real-name": {
-          "first-name": "Please enter your first name",
-          "last-name": "Please enter your name"
+          "first-name": "please enter your first name",
+          "last-name": "please enter your name"
         },
-        "birthday": "Please enter your birth date",
-        "public-email": "Please enter your email address",
-        "public-phone": "Please enter your phone number",
-        "category": "Please enter your category"
+        "birthday": "please enter your birth date",
+        "public-email": "please enter your e-mail address",
+        "public-phone": "please enter your telephone number",
+        "category": "please enter your category"
       },
       "select": {
         "public-email": {
-          "yes": "Of course, you can use this e-mail address",
-          "no": "Hmm, I prefer to use another email address"
+          "yes": "Of course, you can use this email address",
+          "no": "hmm, I prefer to use another e-mail address"
         },
         "public-phone": {
           "yes": "Of course, you can use this phone number",
-          "no": "Hmm, I prefer to use another phone number"
+          "no": "hmm, I'd rather use another phone number."
         },
         "category": {
-          "dj": "🎧 DJ",
-          "singer": "🎤 Singer",
-          "musician": "🎸 Musician",
-          "music_band": "🎹 Music group",
-          "dancer": "💃 Dancer",
+          "dj": "🎧 dj",
+          "singer": "🎤 singer",
+          "musician": "🎸 musician",
+          "music_band": "🎹 music group",
+          "dancer": "💃 dancer",
           "magician": "🎩 Magician",
-          "comedian": "🎭 Comedian",
-          "clown": "🤡 Clown",
-          "juggler": "🤹 Juggler",
-          "fire_eater": "🔥 Fire eater",
-          "acrobat": "🤸 Acrobat",
-          "drag_queen": "👸Drag Queen Artist",
-          "florist": "🌷 Florist",
-          "cartoonist": "🎨 Cartoonist",
-          "speaker": "🎙️ Animator",
-          "wood_toy": "🚂 Wooden Toys",
+          "comedian": "🎭 humorist",
+          "clown": "🤡 clown",
+          "juggler": "🤹 juggler",
+          "fire_eater": "fire-spitting",
+          "acrobat": "🤸 acrobat",
+          "drag_queen": "👸 drag queen artist",
+          "florist": "🌷 florist",
+          "cartoonist": "♣ caricaturiste",
+          "speaker": "🎙 to be animator",
+          "wood_toy": "🚂 wooden toys",
           "balloon_artist": "🎈 Balloon sculptor",
-          "fireworks": "🎆 Fireworks",
-          "car_rental": "🚗 Car Rental",
-          "party_rental": "🎉 Equipment rental",
-          "photo_booth": "📸 Photobooth",
-          "photographer": "📷 Photographer",
-          "videographer": "🎥 Videographer",
-          "makeup_artist": "💄 Makeup artist",
+          "fireworks": "🎆 fireworks",
+          "car_rental": "🚗 car rental",
+          "party_rental": "Equipment rental",
+          "photo_booth": "📸 photobooth",
+          "photographer": "📷",
+          "videographer": "🎥 empdéaste",
+          "makeup_artist": "💄 make-up",
           "hair_stylist": "💇 Hairdresser",
-          "caterer": "🍽️ Catering",
-          "bartender": "🍸 Bartender",
-          "waiter": "🍽️ Server",
-          "event_agency": "📋 Event agency",
-          "other": "Other..."
+          "caterer": "🍽 - catererer",
+          "bartender": "🍸 barman",
+          "waiter": "🍽 ️ in server",
+          "event_agency": "📋 event agency",
+          "other": "Other."
         }
       },
       "button": {
         "next": "Continue",
         "previous": "Previous",
-        "submit": "Add my information"
+        "submit": "add my information"
       }
     },
     "office": {
-      "header": "Is the <blue>{address}, {zip} {city}</blue> in <blue>{country}</blue> your office address?",
-      "description": "We will use this information to calculate your travel costs",
+      "header": "Is the <blue raised{address}, {zip} {city}</blue raised in <blue raised{country}</blue raised is your office address?",
+      "description": "we will use this information to calculate your travel expenses.",
       "label": {
-        "address": "Your office address",
-        "city": "City",
-        "zip": "Postal code",
-        "country": "Country"
+        "address": "address of your office",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries"
       },
       "input": {
         "address": "Enter your office address",
         "city": "Enter the city",
-        "zip": "Enter postcode",
-        "country": "Enter country"
+        "zip": "Enter the postal code",
+        "country": "Enter the country"
       },
-      "select": { "yes": "Exactly", "no": "My office is at another address" },
-      "submit": "Add my office address",
+      "select": {
+        "yes": "exactly exactly",
+        "no": "my office is located at another address"
+      },
+      "submit": "add my office address",
       "error": {
-        "address": "Please enter your office address",
-        "city": "Please enter the city",
-        "zip": "Please enter postcode",
-        "country": "Please enter the country"
+        "address": "please enter your office address",
+        "city": "please enter the city",
+        "zip": "please enter the postal code",
+        "country": "please enter the country"
       }
     },
     "intermittent": {
-      "header": "😢 Unfortunately, Klaq.io is not currently available for intermittent artists.",
-      "description": "However, you can be kept informed of the release of a version compatible with intermittent status by entering your email in the following field.",
+      "header": "😢 Unfortunately, Klaq.io is currently not available for intermittent artists.",
+      "description": "However, you can be kept aware of the release of a version compatible with intermittent status by entering your email in the following field.",
       "input": {
         "email": "Enter your email address if you want to be contacted"
       },
@@ -300,241 +307,244 @@
   },
   "search-company": { "header": "--" },
   "forget-password": {
-    "header": "Change your password",
-    "text": "Forgot your password ? Enter the email address you usually use to log in to Klaq.",
-    "label": { "email": "E-mail address" },
+    "header": "change your password",
+    "text": "Did you forget your password? Enter the email address you usually use to connect to klaq.",
+    "label": { "email": "e-mail address" },
     "input": { "email": "Enter your email address" },
-    "submit": "Send me reset link",
-    "login": { "text": "Already have an account ?", "link": "To log in" }
+    "submit": "send me a reset link",
+    "login": { "text": "Do you already have an account?", "link": "connect" }
   },
   "reset-password": {
-    "header": "Change your password",
+    "header": "change your password",
     "text": "Enter your new password.",
     "label": {
-      "password": "Password",
-      "password-confirmation": "Password Confirmation"
+      "password": "password",
+      "password-confirmation": "password confirmation"
     },
     "input": {
       "password": "Enter your new password",
-      "password-confirmation": "Confirm your new password"
+      "password-confirmation": "confirm your new password"
     },
     "error": {
-      "password": "Please enter your password, it must contain at least 10 characters, 1 number, 1 capital letter and 1 special character",
-      "password-confirmation": "Please enter the same password"
+      "password": "enter your password, the password must contain at least 10 characters, 1 digit, 1 capital letter and 1 special characters",
+      "password-confirmation": "please enter the same password"
     },
-    "submit": "Change my password",
-    "login": { "text": "Already have an account ?", "link": "To log in" }
+    "submit": "modify my password",
+    "login": { "text": "Do you already have an account?", "link": "connect" }
   },
   "edit-event": {
-    "header": "Event of {date} for {customerName}",
+    "header": "{date} event for {customerName}",
     "button": {
       "previous": "Previous",
-      "edit": "Edit",
-      "look": "See",
-      "generate": "Generate a quote"
+      "edit": "amend",
+      "look": "see",
+      "generate": "generate a quote"
     },
     "my-products": {
-      "header": "My products",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
-      "title": "Product",
-      "price": "Price excl. VAT (€)",
-      "quantity": "Quantity",
-      "no-product-specify": "You have not specified any products for this event",
-      "attach-product": "Attach a product to this event",
-      "add-new-product": "Add a new product",
-      "no-products-found": "No products were found using these search terms"
+      "header": "my products",
+      "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit. integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "title": "product",
+      "price": "Price H.T(€)",
+      "quantity": "quantity",
+      "no-product-specify": "you have not specified products for this event",
+      "attach-product": "attach a product to this event",
+      "add-new-product": "add a new product",
+      "no-products-found": "no product was found using these search terms"
     },
     "commentaries": {
-      "header": "Comments & Update",
+      "header": "comments &amp; updates",
       "description": "Add comments to your event, they will be invisible to your customers.",
-      "no-commentaries": "No comments have been added to this event.",
+      "no-commentaries": "no comment has been added to this event",
       "commented": "commented",
       "add-commentary": "add a comment",
-      "submit": "Comment",
+      "submit": "comment",
       "publicated-time": {
-        "just-now": "Just now",
-        "minutes-ago": "{time} minutes",
-        "hours-ago": "{time} hours",
-        "days-ago": "{time} days",
-        "weeks-ago": "{time} weeks",
-        "months-ago": "{time} month",
-        "years-ago": "{time} years old"
+        "just-now": "Right now",
+        "minutes-ago": "[Sighs]",
+        "hours-ago": "[Gasps]",
+        "days-ago": "♪",
+        "weeks-ago": "♪ ♪",
+        "months-ago": "♪",
+        "years-ago": "♪"
       },
       "status": {
-        "INBOX": "New event created",
-        "QUALIFICATION": "Event in the process of qualifying",
-        "QUOTE_SENT": "Quote sent",
-        "QUOTE_ACCEPTED": "Quote accepted",
-        "QUOTE_REJECTED": "Quote refused",
-        "QUOTE_OPENED": "Open quote",
-        "CONTRACT_SENT": "Contract sent",
-        "CONTRACT_ACCEPTED": "Contract accepted",
-        "CONTRACT_REJECTED": "Contract refused",
-        "CONTRACT_OPENED": "Open contract",
-        "DEPOSIT_REQUESTED": "Deposit requested",
-        "DEPOSIT_LATE": "Late payment",
-        "READY": "Ready",
-        "DONE": "ends",
-        "INVOICE_SENT": "Invoice sent",
-        "INVOICE_OPENED": "Open invoice",
-        "INVOICE_OVERDUE": "Overdue invoice",
-        "WIN": "WIN",
-        "LOST": "Lost"
+        "INBOX": "new event created",
+        "QUALIFICATION": "event under qualification",
+        "QUOTE_SENT": "quote sent",
+        "QUOTE_ACCEPTED": "accepted",
+        "QUOTE_REJECTED": "refused",
+        "QUOTE_OPENED": "open quote",
+        "CONTRACT_SENT": "contract sent",
+        "CONTRACT_ACCEPTED": "contract accepted",
+        "CONTRACT_REJECTED": "contract refused",
+        "CONTRACT_OPENED": "open contract",
+        "DEPOSIT_REQUESTED": "deposit requested",
+        "DEPOSIT_LATE": "late deposit",
+        "READY": "ready",
+        "DONE": "ends up",
+        "INVOICE_SENT": "invoice sent",
+        "INVOICE_OPENED": "invoice open",
+        "INVOICE_OVERDUE": "late invoice",
+        "WIN": "win",
+        "LOST": "lost"
       }
     },
-    "submit": "To safeguard"
+    "submit": "save"
   },
   "new-event": {
-    "title": "New event",
+    "title": "new event",
     "date": {
-      "header": "Date hour",
-      "description": "Time and date of the event, type of event, number of guests",
+      "header": "time",
+      "description": "time and date of the event, type of event, number of guests",
       "label": {
         "date": "When",
-        "start-time": "Start time",
-        "end-time": "End time",
-        "event-type": "Type of events",
-        "number-of-guest": "Number of guests",
+        "start-time": "start time",
+        "end-time": "End hour",
+        "event-type": "type of events",
+        "number-of-guest": "number of guests",
         "public-event": "public event"
       },
       "input": {
         "event-type": {
-          "wedding": "Marriage",
-          "birthday": "Anniversary",
-          "corporate": "corporate event"
+          "wedding": "marriage",
+          "birthday": "anniversary",
+          "corporate": "business event"
         },
-        "public-event": { "yes": "Yes", "no": "No" }
+        "public-event": { "yes": "Yes", "no": "No." }
       },
       "error": {
-        "date": "Please select a date",
-        "start-time": "Please select a start time",
-        "end-time": "Please select an end time",
-        "event-type": "Please select an event type",
-        "public-event": "Please select whether the event is public or not"
+        "date": "please select a date",
+        "start-time": "select an hour of start",
+        "end-time": "select an hour of end",
+        "event-type": "Please select a type of event",
+        "public-event": "please select whether the event is public or not"
       }
     },
     "location": {
-      "header": "Location",
-      "description": "Event address",
+      "header": "location",
+      "description": "address of the event",
       "label": {
-        "address": "Address",
-        "city": "City",
-        "state": "Region",
-        "zipcode": "Postal code"
+        "address": "address",
+        "city": "city",
+        "state": "region",
+        "zipcode": "postal code"
       },
       "input": {
         "address": "Enter the address",
         "city": "Enter the city",
         "state": "Enter the region",
-        "zipcode": "Enter postcode"
+        "zipcode": "Enter the postal code"
       },
       "error": {
-        "address": "Please enter an address",
-        "city": "Please enter a city",
-        "state": "Please enter a region",
-        "zipcode": "Please enter a postcode with 5 digits"
+        "address": "please enter an address",
+        "city": "please enter a city",
+        "state": "please enter a region",
+        "zipcode": "please enter a postal code with 5 digits"
       }
     },
     "customer": {
-      "header": "Customer",
-      "description": "Customer Information",
+      "header": "customer",
+      "description": "customer information",
       "label": {
-        "first-name": "First name",
-        "last-name": "Name",
-        "phone-number": "Phone number",
-        "email": "E-mail address",
-        "type": "Customer type",
-        "attach-customer": "Attach a customer to this event"
+        "first-name": "First",
+        "last-name": "name",
+        "phone-number": "telephone number",
+        "email": "e-mail address",
+        "type": "type of client",
+        "attach-customer": "attaching a customer to this event"
       },
       "input": {
         "first-name": "Enter the first name",
         "last-name": "Enter the name",
         "phone-number": "Enter the phone number",
-        "email": "Enter email address",
-        "attach-customer": "Search for your customer if it already exists otherwise you can fill it manually in the fields below"
+        "email": "Enter the email address",
+        "attach-customer": "search your client if there is already otherwise you can manually fill it in the fields below"
       },
-      "type": { "private": "Particular", "company": "Business" },
+      "type": { "private": "particular", "company": "company" },
       "error": {
-        "first-name": "Please enter a first name",
-        "last-name": "Please enter a name",
-        "phone-number": "Please enter a phone number",
-        "email": "Please enter an email address"
+        "first-name": "please enter a first name",
+        "last-name": "please enter a name",
+        "phone-number": "please enter a telephone number",
+        "email": "please enter an e-mail address"
       }
     },
-    "submit": "Create a new event"
+    "submit": "create a new event"
   },
   "products": {
-    "title": "Products",
-    "header": "Products List",
-    "description": "List of available products",
+    "title": "products",
+    "header": "product list",
+    "description": "list of available products",
     "my-products": {
-      "header": "My products",
-      "description": "The products you add here will be available for your quotes and invoices, you can modify or delete them at any time.",
-      "title": "Product",
-      "short-description": "Description",
-      "price": "Price (€)",
-      "vta-rate": "VAT (%)",
-      "button": { "button": "Options", "edit": "Edit", "delete": "DELETE" }
+      "header": "my products",
+      "description": "the products you add here will be available for your quotes and invoices, you can modify or delete them at any time.",
+      "title": "product",
+      "short-description": "description",
+      "price": "price (€)",
+      "vta-rate": "tva (%)",
+      "button": { "button": "options", "edit": "amend", "delete": "delete" }
     },
-    "no-product": "No product available",
-    "get-started": "Click to start adding a product",
-    "add-product": "Add a product",
+    "no-product": "no products available",
+    "get-started": "click to start adding a product",
+    "add-product": "add a product",
     "new-product": {
-      "header": "New product",
+      "header": "new product",
       "description": "--",
       "label": {
-        "name": "Product Name",
+        "name": "product name",
         "short-description": "short description",
-        "attach-file": "Add an explanatory brochure",
-        "default-vta-rate": "VAT rate",
-        "default-price": "Default price (excluding taxes)",
-        "default-price-with-vta": "Default price (all taxes included): {price}€"
+        "attach-file": "add an explanatory plate",
+        "default-vta-rate": "tva rate",
+        "default-price": "default price (excluding taxes)",
+        "default-price-with-vta": "default price (all taxes included:) {price}€"
       },
       "input": {
         "name": "Enter the product name",
         "short-description": "Enter the short description",
-        "attach-file": "Attach an explanatory brochure",
-        "default-vta-rate": "Enter the VAT rate",
+        "attach-file": "attach an explanatory plate",
+        "default-vta-rate": "Enter the tva rate",
         "default-price": "Enter the default price"
       },
       "error": {
-        "name": "Please enter a product name",
-        "short-description": "Please enter a short description",
-        "attach-file": "Please attach an explanatory brochure",
-        "default-vta-rate": "Please enter a VAT rate",
-        "default-price": "Please enter a default price greater than 0€"
+        "name": "please enter a product name",
+        "short-description": "please enter a short description",
+        "attach-file": "please attach an explanatory plate",
+        "default-vta-rate": "please enter a tva rate",
+        "default-price": "please enter a default price above 0€"
       },
-      "submit": "Add a product"
+      "submit": "add a product"
     },
-    "edit-product": { "header": "Edit product", "submit": "Edit product" },
+    "edit-product": {
+      "header": "change the product",
+      "submit": "change the product"
+    },
     "delete-product": {
       "modal": {
-        "title": "Delete product",
-        "message": "Are you sure you want to delete product {productTitle}?",
-        "button": { "cancel": "Cancel", "delete": "DELETE" }
+        "title": "delete product",
+        "message": "Are you sure you want to delete {productTitle}?",
+        "button": { "cancel": "cancel", "delete": "delete" }
       }
     }
   },
   "customers": {
-    "header": "Clients",
-    "description": "List of your customers",
-    "no-customers": "No customers available",
-    "get-started": "Click to start adding a customer",
+    "header": "customers",
+    "description": "list of your customers",
+    "no-customers": "no customer available",
+    "get-started": "click to start adding a customer",
     "my-customers": {
-      "header": "My customers ({nb})",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
-      "submit": "Add a customer",
-      "name": "Name",
-      "contact": "Contact",
-      "location": "Location",
-      "status": "Status",
-      "value": "Value",
+      "header": "my clients",
+      "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit. integer sit amet elit laoreet, maximus neque in, hendrerit lectus.",
+      "submit": "add a customer",
+      "name": "name",
+      "contact": "contact",
+      "location": "location",
+      "status": "status",
+      "value": "value",
       "button": {
-        "header": "Options",
-        "edit": "Edit",
-        "delete": "DELETE",
-        "look": "See",
-        "sort": "Filter"
+        "header": "options",
+        "edit": "amend",
+        "delete": "delete",
+        "look": "see",
+        "sort": "filter"
       }
     },
     "new-customer": {
@@ -542,107 +552,110 @@
       "description": "--",
       "label": {
         "client-type": "my client is",
-        "look-for-company": "Find my client",
-        "name": "Company Name",
-        "address": "Company address",
-        "city": "City",
-        "zip": "Postal code",
-        "country": "Country",
-        "siret": "Number Siret",
-        "vat-number": "VAT number (optional)",
-        "first-name": "First name of your contact",
-        "last-name": "Name of your contact",
-        "email": "E-mail address",
-        "phone": "Phone number"
+        "look-for-company": "search my client",
+        "name": "company name",
+        "address": "company address",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries",
+        "siret": "siret number",
+        "vat-number": "tva number (optional)",
+        "first-name": "Name of your contact",
+        "last-name": "name of your contact",
+        "email": "e-mail address",
+        "phone": "telephone number"
       },
       "input": {
         "client-type": { "company": "a company", "private": "a particular" },
-        "look-for-company": "Company, SIRET, SIREN, Manager, Keyword...",
+        "look-for-company": "company, siret, siren, leader, keyword...",
         "name": "Enter the company name",
-        "address": "Enter the business address",
+        "address": "Enter the address of the company",
         "city": "Enter the city",
-        "zip": "Enter postcode",
-        "country": "Enter country",
-        "siret": "Enter the SIRET number",
-        "vat-number": "Enter the VAT number",
+        "zip": "Enter the postal code",
+        "country": "Enter the country",
+        "siret": "Enter the siret number",
+        "vat-number": "Enter the tva number",
         "first-name": "Enter the first name",
         "last-name": "Enter the name",
-        "email": "Enter email address",
+        "email": "Enter the email address",
         "phone": "Enter the phone number"
       },
       "error": {
-        "name": "Please enter company name",
-        "address": "Please enter the business address",
-        "city": "Please enter the city",
-        "zip": "Please enter postcode",
-        "country": "Please enter the country",
-        "siret": "Please enter the SIRET number",
-        "vat-number": "Please enter the VAT number",
-        "first-name": "Please enter the first name",
-        "last-name": "Please enter name",
-        "email": "Please enter email address",
-        "phone": "Please enter the phone number"
+        "name": "please enter the company name",
+        "address": "please enter the address of the company",
+        "city": "please enter the city",
+        "zip": "please enter the postal code",
+        "country": "please enter the country",
+        "siret": "please enter the siret number",
+        "vat-number": "please enter the tva number",
+        "first-name": "please enter the first name",
+        "last-name": "please enter the name",
+        "email": "please enter the e-mail address",
+        "phone": "please enter the telephone number"
       },
-      "submit": "Add a customer"
+      "submit": "add a customer"
     },
-    "edit-customer": { "header": "Edit customer", "submit": "Edit customer" },
+    "edit-customer": {
+      "header": "editing the customer",
+      "submit": "change the client"
+    },
     "delete-customer": {
       "modal": {
-        "title": "Delete customer",
-        "message": "Are you sure you want to delete client {customerName}?",
-        "button": { "cancel": "Cancel", "delete": "DELETE" }
+        "title": "delete the client",
+        "message": "Are you sure you want to delete the {customerName} client?",
+        "button": { "cancel": "cancel", "delete": "delete" }
       }
     },
     "customer-details": {
-      "header": "Customer details",
-      "description": "Customer Information",
-      "siret": "SIRET: {siret}",
-      "vat-number": "VAT number: {vatNumber}",
-      "no-vat-number": "VAT number: Not provided",
-      "address": "{address}, {zip} {city}, {country}",
-      "no-address": "No address has been provided",
-      "contact": "Contact",
-      "first-interact": "First contact on {date}",
+      "header": "client details",
+      "description": "customer information",
+      "siret": "siret:",
+      "vat-number": "tva number: {vatNumber}",
+      "no-vat-number": "tva number: not specified",
+      "address": "{city}, {country}",
+      "no-address": "no address has been identified",
+      "contact": "contact",
+      "first-interact": "first contact the {date}",
       "last-interact": "Last contact on {date}",
-      "deals-amount": "Total deal amount: {amount}€",
+      "deals-amount": "total amount of deals: {amount}€",
       "deals-count": "Number of deals: {count}",
       "button": {
-        "button": "Options",
+        "button": "options",
         "previous": "Previous",
-        "edit": "Edit",
-        "copy-phone": "Copy phone number",
-        "send-mail": "Send an email",
-        "delete": "DELETE",
-        "invoices": "Invoices",
-        "quotes": "Estimate",
-        "new-event": "Create a new event"
+        "edit": "amend",
+        "copy-phone": "copy the telephone number",
+        "send-mail": "send an e-mail",
+        "delete": "delete",
+        "invoices": "invoices",
+        "quotes": "estimate",
+        "new-event": "create a new event"
       }
     },
     "status": {
-      "in-deal": "In deal",
-      "new": "New",
-      "lost": "Lost",
-      "recurring": "Recurrent"
+      "in-deal": "in deal",
+      "new": "new",
+      "lost": "lost",
+      "recurring": "recurrent"
     },
-    "input": { "search": "Email, Last name, First name, Telephone..." }
+    "input": { "search": "email, name, first name, phone." }
   },
   "events": {
-    "header": "Events",
-    "description": "List of your events",
-    "no-events": "No events available",
-    "get-started": "Click to start adding an event",
+    "header": "events",
+    "description": "list of your events",
+    "no-events": "no event available",
+    "get-started": "click to start adding an event",
     "day": {
       "monday": "Monday",
       "tuesday": "Tuesday",
       "wednesday": "Wednesday",
-      "thursday": "THURSDAY",
+      "thursday": "Thursday",
       "friday": "Friday",
-      "saturday": "SATURDAY",
+      "saturday": "Saturday",
       "sunday": "Sunday"
     },
     "month": {
       "january": "January",
-      "february": "FEBRUARY",
+      "february": "February",
       "march": "March",
       "april": "April",
       "may": "May",
@@ -655,269 +668,400 @@
       "december": "December"
     },
     "button": {
-      "header": "Edit",
-      "edit": "Edit",
-      "delete": "DELETE",
-      "look": "See"
+      "header": "amend",
+      "edit": "amend",
+      "delete": "delete",
+      "look": "see"
     },
-    "type": "{type} <> {customerName}",
+    "type": "♪♪♪♪♪♪",
     "status": {
-      "INBOX": "🆕 New",
-      "QUALIFICATION": "🔎 In the process of qualifying",
-      "QUOTE_SENT": "📤 Quote sent",
-      "QUOTE_ACCEPTED": "✅ Quote accepted",
-      "QUOTE_REJECTED": "❌ Quote refused",
-      "QUOTE_OPENED": "👀 Open Quote",
-      "CONTRACT_SENT": "🔖 Contract sent",
-      "CONTRACT_ACCEPTED": "✅ Contract accepted",
-      "CONTRACT_REJECTED": "❌ Contract refused",
-      "CONTRACT_OPENED": "👀 Open Contract",
-      "DEPOSIT_REQUESTED": "💵 Deposit requested",
-      "DEPOSIT_LATE": "⌛ Late deposit",
-      "READY": "🔥 Ready",
-      "DONE": "✨ Finish",
-      "INVOICE_SENT": "💸 Invoice sent",
-      "INVOICE_OPENED": "👀 Open invoice",
-      "INVOICE_OVERDUE": "⏰ Overdue invoice",
-      "WIN": "✅ WIN",
-      "LOST": "😞 Lost"
+      "INBOX": "✱ new",
+      "QUALIFICATION": "✓ under qualification",
+      "QUOTE_SENT": "📤 quote sent",
+      "QUOTE_ACCEPTED": "imitated quote accepted",
+      "QUOTE_REJECTED": "❌ Order",
+      "QUOTE_OPENED": "👀 open quote",
+      "CONTRACT_SENT": "🔖 contract sent",
+      "CONTRACT_ACCEPTED": "ignited contract accepted",
+      "CONTRACT_REJECTED": "❌ Order",
+      "CONTRACT_OPENED": "👀 Open contract",
+      "DEPOSIT_REQUESTED": "💵 deposit requested",
+      "DEPOSIT_LATE": "⌛ late deposit",
+      "READY": "♪ Ready ♪",
+      "DONE": "✨ ends",
+      "INVOICE_SENT": "💸 invoice sent",
+      "INVOICE_OPENED": "👀 open invoice",
+      "INVOICE_OVERDUE": "⏰ late invoice",
+      "WIN": "ignit",
+      "LOST": "😞 lost"
     },
     "tabs": {
-      "all": "All",
-      "new": "New",
-      "upcoming": "Coming",
-      "pending": "On hold",
-      "lost": "Lost",
-      "past": "Pass"
+      "all": "all",
+      "new": "new",
+      "upcoming": "for the future",
+      "overdue": "late",
+      "pending": "Pending",
+      "lost": "lost",
+      "past": "past"
     },
     "no-events-in-tab": {
-      "new": "No new event",
-      "upcoming": "No upcoming events",
-      "pending": "No pending events",
-      "past": "No past event",
-      "lost": "No lost event",
-      "all": "No event"
+      "new": "no new event",
+      "upcoming": "no events to come",
+      "pending": "no events pending",
+      "overdue": "no events late in payment",
+      "past": "no event",
+      "lost": "no event lost",
+      "all": "no event"
     },
     "filter": {
-      "this_week": "This week",
-      "this_month": "This month",
-      "this_year": "This year",
-      "custom": "Custom"
+      "this_week": "this week",
+      "this_month": "this month",
+      "this_year": "this year",
+      "custom": "custom"
     },
-    "pipe-value": "{pipeValue}€"
+    "pipe-value": "♪"
+  },
+  "settings": {
+    "button": { "submit": "save", "cancel": "cancel" },
+    "profile": {
+      "header": "profile",
+      "description": "this information will be posted publicly, be aware of what you share.",
+      "input": {
+        "stage-name": "Enter your stage name",
+        "website": "[Sighs]",
+        "public-email": "Enter your email address",
+        "public-phone": "Enter your phone number",
+        "category": "Enter your category"
+      },
+      "label": {
+        "stage-name": "stage name",
+        "website": "website",
+        "public-email": "e-mail address public",
+        "public-phone": "Public telephone number",
+        "category": "Category"
+      },
+      "error": {
+        "stage-name": "please enter your stage name",
+        "website": "please enter your website",
+        "public-email": "please enter your e-mail address",
+        "public-phone": "please enter your public telephone number"
+      }
+    },
+    "personal": {
+      "header": "personal information",
+      "description": "this information will not be shared.",
+      "input": {
+        "first-name": "Enter the first name",
+        "last-name": "Enter the name",
+        "email": "Enter the email address",
+        "phone": "Enter the phone number",
+        "birthday": "Enter your birth date"
+      },
+      "label": {
+        "first-name": "First",
+        "last-name": "name",
+        "email": "e-mail address",
+        "phone": "telephone number",
+        "birthday": "date of birth"
+      },
+      "error": {
+        "first-name": "please enter your first name",
+        "last-name": "please enter your name",
+        "email": "please enter your e-mail address",
+        "phone": "please enter your mobile phone number",
+        "birthday": "please enter your birth date"
+      }
+    },
+    "company": {
+      "header": "legal information",
+      "description": "This information will be used to generate your invoices, quotes and contracts.",
+      "label": {
+        "activity-type": "type of activity (code naf)",
+        "insee-code": "code insee",
+        "legal-form": "legal form",
+        "legal-name": "company name",
+        "legal-registration-number": "Registration number",
+        "legal-vat-number": "tva number",
+        "registration-date": "date of registration",
+        "address": "address",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries"
+      },
+      "input": {
+        "activity-type": "type of activity",
+        "insee-code": "Enter the code insee",
+        "legal-form": "Enter the legal form",
+        "legal-name": "Enter the company name",
+        "legal-registration-number": "Enter the registration number",
+        "legal-vat-number": "Enter the tva number if you have it",
+        "registration-date": "Enter the registration date",
+        "address": "Enter the address",
+        "city": "Enter the city",
+        "zip": "Enter the postal code",
+        "country": "Enter the country"
+      },
+      "error": {
+        "activity-type": "please enter the type of activity",
+        "insee-code": "please enter the insee code",
+        "legal-form": "please refer to the legal form",
+        "legal-name": "please enter the company name",
+        "legal-registration-number": "please enter the registration number",
+        "legal-vat-number": "please enter the tva number if you have",
+        "registration-date": "please enter the registration date",
+        "address": "please enter the address of the head office",
+        "city": "please enter the city",
+        "zip": "please enter the postal code",
+        "country": "please enter the country"
+      }
+    },
+    "office": {
+      "header": "my office",
+      "description": "this information will be used to calculate your travel expenses.",
+      "moving-fees": "Travel costs will be calculated based on the distance between your office and the location of the service. you currently set the travel rate to {fee}€. you can edit this information at any time in <a standard settings.</a Similar settings",
+      "label": {
+        "address": "address of your office",
+        "city": "city",
+        "zip": "zip / postal code",
+        "country": "countries"
+      },
+      "input": {
+        "address": "Enter your office address",
+        "city": "Enter the city",
+        "zip": "Enter the postal code",
+        "country": "Enter the country"
+      },
+      "error": {
+        "address": "please enter the address of the office",
+        "city": "please enter the city",
+        "zip": "please enter the postal code",
+        "country": "please enter the country"
+      }
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "inbox": "new deal",
+      "total-billed": "total bill",
+      "estimated-revenue": "Estimated income",
+      "overdue": "late"
+    },
+    "upcoming-events": "upcoming event this month",
+    "button": { "stats": "see", "new-event": "create a new event" }
   },
   "toast": {
     "success": {
       "create-customer": {
-        "title": "Success",
-        "message": "The customer has been successfully created"
+        "title": "success",
+        "message": "the customer has been created"
       },
       "update-customer": {
-        "title": "Success",
-        "message": "The client has been successfully modified"
+        "title": "success",
+        "message": "the customer has been modified"
       },
       "delete-customer": {
-        "title": "Success",
-        "message": "The customer has been successfully deleted"
+        "title": "success",
+        "message": "the customer has been removed"
       },
       "delete-product": {
-        "title": "Success",
-        "message": "The product has been deleted"
+        "title": "success",
+        "message": "the product has been deleted"
       },
       "register": {
-        "title": "Success",
-        "message": "Your account has been created"
+        "title": "success",
+        "message": "your account has been created"
       },
       "edit-product": {
-        "title": "Success",
-        "message": "The product has been modified"
+        "title": "success",
+        "message": "the product has been modified"
       },
       "edit-event": {
-        "title": "Success",
-        "message": "The event has been modified"
+        "title": "success",
+        "message": "the event has been modified"
       },
       "delete-event": {
-        "title": "Success",
-        "message": "The event has been successfully deleted"
+        "title": "success",
+        "message": "the event has been deleted"
       },
       "add-event": {
-        "title": "Success",
-        "message": "The event has been successfully created"
+        "title": "success",
+        "message": "the event has been created"
       },
       "add-product": {
-        "title": "Success",
-        "message": "The product has been added"
+        "title": "success",
+        "message": "the product has been added"
       },
       "confirmed-email": {
-        "title": "Success",
-        "message": "Your email has been confirmed"
+        "title": "success",
+        "message": "your email has been confirmed"
       },
       "create-company": {
-        "title": "Success",
-        "message": "Your company has been successfully created"
+        "title": "success",
+        "message": "your company has been created"
       },
       "update-office": {
-        "title": "Success",
-        "message": "Your company has been modified"
+        "title": "success",
+        "message": "your company has been modified"
       },
       "confirmed-sms": {
-        "title": "Success",
+        "title": "success",
         "message": "Your phone number has been confirmed"
       },
       "reset-password": {
-        "title": "Success",
-        "message": "Your password has been changed"
+        "title": "success",
+        "message": "your password has been changed"
       },
       "request-reset-password": {
-        "title": "Success",
-        "message": "An email has been sent to you to reset your password"
+        "title": "success",
+        "message": "an email has been sent to reset your password"
+      },
+      "update-user": {
+        "title": "success",
+        "message": "your profile has been modified"
       }
     },
     "error": {
       "customer-create-error": {
-        "title": "Error",
-        "message": "The client could not be created"
+        "title": "mistake",
+        "message": "the customer could not be created"
       },
       "user-not-found": {
-        "title": "Error",
-        "message": "Please check your credentials"
+        "title": "mistake",
+        "message": "please check your identifiers"
       },
       "customer-delete-error": {
-        "title": "Error",
-        "message": "The client could not be deleted"
+        "title": "mistake",
+        "message": "the customer could not be deleted"
       },
       "auth-user-mail-already-exist": {
-        "title": "Error",
-        "message": "An account already exists with this email address"
+        "title": "mistake",
+        "message": "an account already exists with this email address"
       },
       "auth-user-phone-already-exist": {
-        "title": "Error",
-        "message": "An account already exists with this phone number"
+        "title": "mistake",
+        "message": "an account already exists with this phone number"
       },
       "auth-weak-password": {
-        "title": "Error",
-        "message": "The password must contain at least 10 characters, 1 number, 1 capital letter and 1 special character"
+        "title": "mistake",
+        "message": "the password must contain at least 10 characters, 1 digit, 1 capital letter and 1 special characters"
       },
       "auth-invalid-password": {
-        "title": "Error",
-        "message": "Please check your credentials"
+        "title": "mistake",
+        "message": "please check your identifiers"
       },
       "auth-failed-to-update-password": {
-        "title": "Error",
-        "message": "The password could not be changed"
+        "title": "mistake",
+        "message": "the password could not be changed"
       },
       "auth-old-and-new-password-are-the-same": {
-        "title": "Error",
-        "message": "The new password must be different from the old one"
+        "title": "mistake",
+        "message": "the new password must be different from the old"
       },
       "email-already-confirmed": {
-        "title": "Error",
-        "message": "Your email has already been confirmed"
+        "title": "mistake",
+        "message": "your email has already been confirmed"
       },
       "token-expired": {
-        "title": "Error",
-        "message": "Your email has expired, please request a new one"
+        "title": "mistake",
+        "message": "your email has expired, please request a new one"
       },
       "invalid-token": {
-        "title": "Error",
-        "message": "Your email is invalid, please request a new one"
+        "title": "mistake",
+        "message": "your email is invalid, please request a new one"
       },
       "product-creation-failed": {
-        "title": "Error",
-        "message": "The product could not be created"
+        "title": "mistake",
+        "message": "the product could not be created"
       },
       "item-not-found": {
-        "title": "Error",
-        "message": "The product could not be found"
+        "title": "mistake",
+        "message": "the product could not be found"
       },
       "product-update-failed": {
-        "title": "Error",
-        "message": "The product could not be modified"
+        "title": "mistake",
+        "message": "the product could not be modified"
       },
       "product-deletion-failed": {
-        "title": "Error",
-        "message": "The product could not be deleted"
+        "title": "mistake",
+        "message": "the product could not be deleted"
       },
       "event-not-found": {
-        "title": "Error",
-        "message": "The event could not be found"
+        "title": "mistake",
+        "message": "the event could not be found"
       },
       "event-not-belong-to-user": {
-        "title": "Error",
-        "message": "The event does not belong to this user"
+        "title": "mistake",
+        "message": "the event does not belong to this user"
       },
       "event-creation-failed": {
-        "title": "Error",
-        "message": "The event could not be created"
+        "title": "mistake",
+        "message": "the event could not be created"
       },
       "event-update-failed": {
-        "title": "Error",
-        "message": "The event could not be modified"
+        "title": "mistake",
+        "message": "the event could not be changed"
       },
       "event-product-add-failed": {
-        "title": "Error",
-        "message": "The product could not be added to the event"
+        "title": "mistake",
+        "message": "the product could not be added to the event"
       },
       "event-product-not-found": {
-        "title": "Error",
-        "message": "The product could not be found"
+        "title": "mistake",
+        "message": "the product could not be found"
       },
       "event-product-not-belong-to-user": {
-        "title": "Error",
-        "message": "The product does not belong to this user"
+        "title": "mistake",
+        "message": "the product does not belong to this user"
       },
       "event-product-delete-failed": {
-        "title": "Error",
-        "message": "The product could not be removed from the event"
+        "title": "mistake",
+        "message": "the product could not be deleted from the event"
       },
       "event-status-change-failed": {
-        "title": "Error",
-        "message": "The status of the event could not be changed"
+        "title": "mistake",
+        "message": "the status of the event could not be changed"
       },
       "company-already-exist": {
-        "title": "Error",
-        "message": "A company already exists with this information"
+        "title": "mistake",
+        "message": "a company already exists with this information"
       },
       "company-does-not-exist": {
-        "title": "Error",
-        "message": "No companies were found with this information"
+        "title": "mistake",
+        "message": "no company has been found with this information"
       },
       "failed-to-update-company": {
-        "title": "Error",
-        "message": "Your company could not be modified"
+        "title": "mistake",
+        "message": "your business could not be changed"
       },
       "company-was-not-find": {
-        "title": "Error",
-        "message": "Your company could not be found"
+        "title": "mistake",
+        "message": "your company couldn't be found"
       },
       "failed-to-create-company": {
-        "title": "Error",
-        "message": "Your company could not be created"
+        "title": "mistake",
+        "message": "your business could not be created"
       },
       "user-update-failed": {
-        "title": "Error",
-        "message": "Your profile could not be updated"
+        "title": "mistake",
+        "message": "your profile could not be updated"
       },
       "phone-number-already-confirmed": {
-        "title": "Error",
-        "message": "Your phone number has already been confirmed"
+        "title": "mistake",
+        "message": "your phone number has already been confirmed"
       },
       "invalid-verification-code": {
-        "title": "Error",
-        "message": "Your confirmation code is invalid"
+        "title": "mistake",
+        "message": "your confirmation code is invalid"
       },
       "event-start-time-after-end-time": {
-        "title": "Error",
-        "message": "The start time of the event must be before the end time"
+        "title": "mistake",
+        "message": "the start time of the event must be before the end time"
       },
       "user-update-onboarding-status-failed": {
-        "title": "Error",
-        "message": "Your profile could not be updated"
+        "title": "mistake",
+        "message": "your profile could not be updated"
       },
-      "default": {
-        "title": "Error",
-        "message": "An unknown error has occurred"
-      }
+      "default": { "title": "mistake", "message": "an unknown error occurred" }
     }
   }
 }
