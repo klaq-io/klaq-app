@@ -8,7 +8,6 @@ import { ToastNotification } from "../../components";
 import toast from "react-hot-toast";
 
 export const useUpdateUser = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return useAsyncCallback(
@@ -19,6 +18,7 @@ export const useUpdateUser = () => {
       publicPhone: string;
       publicEmail: string;
       category?: string;
+      website?: string;
     }) => {
       try {
         const res = await webClient.put("user", values);
@@ -26,15 +26,14 @@ export const useUpdateUser = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={`toast.success.update-office.title`}
-            messageId={`toast.success.update-office.message`}
+            titleId={`toast.success.update-user.title`}
+            messageId={`toast.success.update-user.message`}
           />,
           {
             duration: 1500,
             position: "top-right",
           }
         );
-        navigate(PATHS.ONBOARDING_OFFICE);
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()

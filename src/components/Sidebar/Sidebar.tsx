@@ -123,7 +123,7 @@ export const Sidebar = (props: Props) => {
               })}
             </a>
             <a
-              href="#"
+              href={PATHS.SETTINGS}
               className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
             >
               <Cog6ToothIcon

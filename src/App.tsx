@@ -20,6 +20,7 @@ import {
   OnboardingOffice,
   OnboardingPerformer,
   Products,
+  Profile,
   ResetPassword,
   SignUp,
 } from "./pages";
@@ -98,6 +99,7 @@ function App() {
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
+          <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>

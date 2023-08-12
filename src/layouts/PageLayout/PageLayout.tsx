@@ -12,11 +12,11 @@ export const PageLayout = (props: Props) => {
 
   return (
     <div>
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-72 lg:flex-col">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-64 lg:flex-col">
         <Sidebar />
       </div>
 
-      <div className="lg:pl-72">
+      <div className="lg:pl-64">
         <Navbar />
         <main className="py-10">
           {isLoading ? (

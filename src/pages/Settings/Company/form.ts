@@ -1,0 +1,15 @@
+export const initialValues = {
+  officeAddress: "",
+  officeCity: "",
+  officeCountry: "",
+  officeZip: "",
+  legalForm: "",
+  legalName: "",
+  legalAddress: "",
+  legalCity: "",
+  legalCountry: "",
+  legalZip: "",
+  legalRegistrationNumber: "",
+  legalVATNumber: "",
+  registrationNumber: "",
+};

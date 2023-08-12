@@ -774,6 +774,62 @@
     "pipe-value": "{pipeValue}€"
   },
 
+  "settings": {
+    "button": {
+      "submit": "Sauvegarder",
+      "cancel": "Annuler"
+    },
+    "profile": {
+      "header": "Profil",
+      "description": "Ces informations seront affichées publiquement, faites attention à ce que vous partagez.",
+      "input": {
+        "stage-name": "Saisissez votre nom de scène",
+        "website": "www.example.com",
+        "public-email": "Saisissez votre adresse e-mail",
+        "public-phone": "Saisissez votre numéro de téléphone",
+        "category": "Saisissez votre catégorie"
+      },
+      "label": {
+        "stage-name": "Nom de scène",
+        "website": "Site internet",
+        "public-email": "Adresse email public",
+        "public-phone": "Numéro de téléphone public",
+        "category": "Catégorie"
+      },
+      "error": {
+        "stage-name": "Veuillez saisir votre nom de scène",
+        "website": "Veuillez saisir votre site internet",
+        "public-email": "Veuillez saisir votre adresse e-mail public",
+        "public-phone": "Veuillez saisir votre numéro de téléphone public"
+      }
+    },
+    "personal": {
+      "header": "Informations personnels",
+      "description": "Ces informations ne seront pas partagées.",
+      "input": {
+        "first-name": "Saisissez le prénom",
+        "last-name": "Saisissez le nom",
+        "email": "Saisissez l'adresse e-mail",
+        "phone": "Saisissez le numéro de téléphone",
+        "birthday": "Saisissez votre date de naissance"
+      },
+      "label": {
+        "first-name": "Prénom",
+        "last-name": "Nom",
+        "email": "Adresse e-mail",
+        "phone": "Numéro de téléphone",
+        "birthday": "Date de naissance"
+      },
+      "error": {
+        "first-name": "Veuillez saisir votre prénom",
+        "last-name": "Veuillez saisir votre nom",
+        "email": "Veuillez saisir votre adresse e-mail",
+        "phone": "Veuillez saisir votre numéro de téléphone portable",
+        "birthday": "Veuillez saisir votre date de naissance"
+      }
+    }
+  },
+
   "dashboard": {
     "stats": {
       "inbox": "Nouveau deal",
@@ -781,8 +837,10 @@
       "estimated-revenue": "Revenu estimé",
       "overdue": "En retard"
     },
+    "upcoming-events": "Évènement à venir ce mois-ci",
     "button": {
-      "stats": "Voir"
+      "stats": "Voir",
+      "new-event": "Créer un nouvel évènement"
     }
   },
 
@@ -851,6 +909,10 @@
       "request-reset-password": {
         "title": "Succès",
         "message": "Un email vous a été envoyé pour réinitialiser votre mot de passe"
+      },
+      "update-user": {
+        "title": "Succès",
+        "message": "Votre profil a bien été modifié"
       }
     },
     "error": {

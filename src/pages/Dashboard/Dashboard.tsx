@@ -6,6 +6,7 @@ import {
   CurrencyEuroIcon,
   InboxArrowDownIcon,
   InboxIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
@@ -125,6 +126,10 @@ export const Dashboard = () => {
     },
   ];
 
+  const handleNewEvent = () => {
+    navigate(PATHS.NEW_EVENT);
+  };
+
   useEffect(() => {
     fetchEvents();
     fetchProducts();
@@ -189,9 +194,25 @@ export const Dashboard = () => {
           ))}
         </dl>
         <div className="mt-10">
-          <h3 className="text-base font-semibold leading-6 text-gray-900">
-            Évènement à venir ce mois-ci
-          </h3>
+          <div className="flex flex-row items-center justify-between">
+            <h3 className="text-base font-semibold leading-6 text-gray-900">
+              {intl.formatMessage({
+                id: `dashboard.upcoming-events`,
+              })}
+            </h3>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              leadingIcon={<PlusIcon className="h-5 w-5" aria-hidden="true" />}
+              onClick={handleNewEvent}
+            >
+              {intl.formatMessage({
+                id: `dashboard.button.new-event`,
+              })}
+            </Button>
+          </div>
+
           <div className="mt-6">
             {isFetchEventLoading ? (
               <Skeleton variant="rounded" width={"full"} height={20} />

@@ -20,7 +20,7 @@ type Props = {
   classes?: string;
 };
 
-const userNavigation = [{ name: "navbar.profile", href: "#" }];
+const userNavigation = [{ name: "navbar.profile", href: PATHS.PROFILE }];
 
 export const Navbar = (props: Props) => {
   const navigate = useNavigate();

@@ -19,6 +19,8 @@ import { PerformingCategory } from "../../../interface/user.interface";
 import { Combobox } from "@headlessui/react";
 import { classNames } from "../../../utils/utils";
 import { useUpdateUser } from "../../../redux/User/hooks";
+import { PATHS } from "../../../routes";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   classes?: string;
@@ -40,6 +42,7 @@ export enum selectOptions {
 
 export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const [step, setStep] = useState(STEP.STAGE_NAME);
   const [query, setQuery] = useState("");
   const [selectCategory, setSelectCategory] = useState(undefined);
@@ -60,6 +63,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
             ? values.category
             : selectCategory,
       });
+      navigate(PATHS.ONBOARDING_OFFICE);
     },
     enableReinitialize: true,
   });
