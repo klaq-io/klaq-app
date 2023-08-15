@@ -1,8 +1,15 @@
 import { FC, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { PageLayout } from "../../../layouts";
-import { UserCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { useFetchUser } from "../../../redux/Login/hooks";
+import {
+  UserCircleIcon,
+  PhotoIcon,
+  LinkIcon,
+} from "@heroicons/react/24/outline";
+import {
+  useFetchUser,
+  useGoogleGenerateOAuthUrl,
+} from "../../../redux/Login/hooks";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../redux/Login/selectors";
 import { useFormik } from "formik";
@@ -10,16 +17,21 @@ import { initialValues, validationSchema } from "./form";
 import { format, subYears } from "date-fns";
 import { Button } from "../../../components";
 import { useUpdateUser } from "../../../redux/User/hooks";
+import { ReactComponent as GoogleIcon } from "../../../assets/icon-google.svg";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 export const Profile: FC<Props> = (props: Props) => {
+  const navigate = useNavigate();
   const intl = useIntl();
 
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
 
   const [{ isLoading }, updateUser] = useUpdateUser();
+
+  const [, getGoogleOAuthUrl] = useGoogleGenerateOAuthUrl();
 
   const formik = useFormik({
     initialValues: {
@@ -60,6 +72,11 @@ export const Profile: FC<Props> = (props: Props) => {
       publicEmail: user.publicEmail,
       publicPhone: user.publicPhone,
     });
+  };
+
+  const handleGoToGoogleOAuth = async () => {
+    const url = await getGoogleOAuthUrl();
+    window.location.href = url;
   };
 
   return (
@@ -424,6 +441,115 @@ export const Profile: FC<Props> = (props: Props) => {
                   id: "settings.button.submit",
                 })}
               </Button>
+            </div>
+          </form>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              {intl.formatMessage({
+                id: "settings.social.header",
+              })}
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              {intl.formatMessage({
+                id: "settings.social.description",
+              })}
+            </p>
+          </div>
+
+          <form
+            onSubmit={formik.handleSubmit}
+            className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
+          >
+            <div className="px-4 py-6 sm:p-8">
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-full">
+                  <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                    {user.isGoogleOAuthActivated
+                      ? intl.formatMessage({
+                          id: "settings.social.social-login.header",
+                        })
+                      : intl.formatMessage({
+                          id: "settings.social.no-social-login.header",
+                        })}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-600">
+                    {intl.formatMessage({
+                      id: "settings.social.no-social-login.description",
+                    })}
+                  </p>
+                </div>
+                <div className="sm:col-span-full">
+                  {user.isGoogleOAuthActivated ? (
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="secondary"
+                      leadingIcon={<GoogleIcon className="h-5 w-5" />}
+                      size="lg"
+                    >
+                      <LinkIcon className="h-5 w-5 text-success-600" />
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="secondary"
+                      leadingIcon={<GoogleIcon className="h-5 w-5" />}
+                      size="lg"
+                      onClick={handleGoToGoogleOAuth}
+                    >
+                      {intl.formatMessage({
+                        id: "settings.social.no-social-login.button",
+                      })}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              {intl.formatMessage({
+                id: "settings.delete.header",
+              })}
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              {intl.formatMessage({
+                id: "settings.delete.description",
+              })}
+            </p>
+          </div>
+
+          <form
+            onSubmit={formik.handleSubmit}
+            className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
+          >
+            <div className="px-4 py-6 sm:p-8">
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-full">
+                  <p className="text-sm leading-6 text-gray-600">
+                    {intl.formatMessage({
+                      id: "settings.delete.disclaimer",
+                    })}
+                  </p>
+                </div>
+                <div className="sm:col-span-full">
+                  <button
+                    type="button"
+                    className="rounded-md bg-danger-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger-600"
+                  >
+                    {intl.formatMessage({
+                      id: "settings.delete.button",
+                    })}
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>

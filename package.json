@@ -8,6 +8,7 @@
     "@heroicons/react": "^2.0.18",
     "@mantine/hooks": "^6.0.17",
     "@react-hooks-library/core": "^0.5.1",
+    "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "tailwindcss/typography",

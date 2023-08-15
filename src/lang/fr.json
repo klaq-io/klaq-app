@@ -832,6 +832,25 @@
         "birthday": "Veuillez saisir votre date de naissance"
       }
     },
+    "social": {
+      "header": "Authentification social",
+      "description": "Connectez-vous avec vos réseaux sociaux préférés.",
+      "no-social-login": {
+        "header": "Aucun réseau social connecté.",
+        "description": "Vous pouvez lier votre compte Google afin de pouvoir synchroniser vos évènements.",
+        "button": "Connectez-vous avec Google"
+      },
+      "social-login": {
+        "header": "Connexion sociale activée avec un ou plusieurs fournisseurs.",
+        "description": "Vous pouvez lier votre compte Google afin de pouvoir synchroniser vos évènements."
+      }
+    },
+    "delete": {
+      "description": "Supprimer mon compte de façon permanente",
+      "disclaimer": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
+      "header": "Supprimer mon compte",
+      "button": "Supprimer mon compte"
+    },
     "company": {
       "header": "Informations légales",
       "description": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats.",
@@ -917,7 +936,16 @@
   "calendar": {
     "header": "",
     "description": "",
-    "x-more-events": "+ {number} de plus"
+    "x-more-events": "+ {number} de plus",
+    "select-view": {
+      "day": "Vue du jour",
+      "month": "Vue du mois",
+      "week": "Vue de la semaine",
+      "year": "Vue de l'année"
+    },
+    "button": {
+      "add-event": "Ajouter un évènement"
+    }
   },
 
   "toast": {

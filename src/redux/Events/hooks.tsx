@@ -39,6 +39,7 @@ export const useAddEvent = () => {
         lastName: string;
         email: string;
         phone: string;
+        name: string;
       };
     }) => {
       try {

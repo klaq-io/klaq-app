@@ -182,3 +182,14 @@ export const useCheckAuth = () => {
     }
   });
 };
+
+export const useGoogleGenerateOAuthUrl = () => {
+  return useAsyncCallback(async () => {
+    try {
+      const res = await webClient.get("google/oauth/url");
+      return res.data;
+    } catch (error: any) {
+      return undefined;
+    }
+  });
+};

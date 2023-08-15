@@ -24,6 +24,7 @@ import {
   Products,
   Profile,
   ResetPassword,
+  Settings,
   SignUp,
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
@@ -103,6 +104,7 @@ function App() {
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
+          <Route path={PATHS.SETTINGS} element={<Settings />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>

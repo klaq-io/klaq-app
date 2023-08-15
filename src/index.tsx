@@ -9,6 +9,7 @@ import * as msg_es from "./lang/es.json";
 import * as msg_fr from "./lang/fr.json";
 import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const language = navigator.language.split(/[-_]/)[0];
 
@@ -17,17 +18,19 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <IntlProvider
-    locale={navigator.language}
-    messages={flatten(
-      language === "fr" ? msg_fr : language === "es" ? msg_es : msg_en
-    )}
-    defaultLocale="fr"
-  >
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </IntlProvider>
+  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}>
+    <IntlProvider
+      locale={navigator.language}
+      messages={flatten(
+        language === "fr" ? msg_fr : language === "es" ? msg_es : msg_en
+      )}
+      defaultLocale="fr"
+    >
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </IntlProvider>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

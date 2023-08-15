@@ -36,6 +36,9 @@ export const NewEvent = () => {
     },
     validationSchema: validationSchemaNewEvent,
     onSubmit: (values) => {
+      if (values.customer.name !== "") {
+        values.customer.name = `${values.customer.firstName} ${values.customer.lastName}`;
+      }
       addEvent(values);
     },
   });

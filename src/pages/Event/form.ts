@@ -47,6 +47,7 @@ export const initialValuesNewEvent = {
     email: "",
     phone: "",
     type: "PRIVATE",
+    name: "",
   },
 };
 

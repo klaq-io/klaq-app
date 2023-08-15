@@ -13,6 +13,7 @@ export interface User {
   birthDate: Date | string;
   isMailVerified: boolean;
   isPhoneNumberConfirmed: boolean;
+  isGoogleOAuthActivated: boolean;
   publicPhone: string;
   publicEmail: string;
   category: string;
