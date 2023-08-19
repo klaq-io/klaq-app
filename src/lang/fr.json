@@ -945,6 +945,10 @@
     },
     "button": {
       "add-event": "Ajouter un évènement"
+    },
+    "no-events": {
+      "header": "Aucun évènement planifié",
+      "description": "Vous n'avez aucun évènement planifié le {date}."
     }
   },
 

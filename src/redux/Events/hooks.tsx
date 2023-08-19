@@ -6,6 +6,7 @@ import { ToastNotification } from "../../components";
 import { PATHS } from "../../routes";
 import webClient from "../../utils/webclient";
 import { setEvent, setEvents } from "./slices";
+import { format, formatISO } from "date-fns";
 
 export const useFetchEvents = () => {
   const dispatch = useDispatch();
@@ -110,6 +111,7 @@ export const useUpdateEvent = () => {
         );
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
+        console.log(error);
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
           : "default";

@@ -541,6 +541,7 @@ export const Profile: FC<Props> = (props: Props) => {
                 </div>
                 <div className="sm:col-span-full">
                   <button
+                    disabled
                     type="button"
                     className="rounded-md bg-danger-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger-600"
                   >

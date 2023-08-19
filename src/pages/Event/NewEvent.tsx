@@ -15,6 +15,7 @@ import { Customer, CustomerType } from "../../redux/Customer/slices";
 import { useAddEvent } from "../../redux/Events/hooks";
 import { classNames } from "../../utils/utils";
 import { initialValuesNewEvent, validationSchemaNewEvent } from "./form";
+import { Map } from "../../components";
 
 export const NewEvent = () => {
   const intl = useIntl();
@@ -36,7 +37,7 @@ export const NewEvent = () => {
     },
     validationSchema: validationSchemaNewEvent,
     onSubmit: (values) => {
-      if (values.customer.name !== "") {
+      if (values.customer.name === "") {
         values.customer.name = `${values.customer.firstName} ${values.customer.lastName}`;
       }
       addEvent(values);
@@ -70,6 +71,12 @@ export const NewEvent = () => {
   return (
     <PageLayout isLoading={isLoading}>
       <form onSubmit={formik.handleSubmit}>
+        {/* <SearchBox
+          onChange={(value) => console.log(value)}
+          onRetrieve={(value) => console.log(value)}
+          accessToken="pk.eyJ1Ijoia2xhcSIsImEiOiJjbGxlZTZlY2UwNTgzM2VwZjlja3l1dXZ2In0.3srguGfdt3R1Xa0NB8UmDw"
+        /> */}
+
         <div className="md:flex md:items-center md:justify-between">
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -265,6 +272,7 @@ export const NewEvent = () => {
                 })}
               </p>
             </div>
+
             <div className="mt-6">
               <dl className="grid grid-cols-1 sm:grid-cols-2">
                 <div className="border-t border-gray-100 px-4 py-6 sm:col-span-1 sm:px-0">
@@ -390,7 +398,11 @@ export const NewEvent = () => {
               </dl>
             </div>
           </div>
-          <div className="flex-1">map</div>
+          <div className="flex-1">
+            <div className="p-8 w-full h-full">
+              <Map zoom={13} longitude={1.0895724} latitude={49.4490246} />
+            </div>
+          </div>
         </div>
         {/** Customer */}
         <div className="flex flex-row">

@@ -9,7 +9,7 @@ export const getEventById = (state: RootState, id: string): Event | undefined =>
 export const getEventsByStatus = (
   state: RootState,
   ...status: EventStatus[]
-): Event[] | [] => {
+): Event[] => {
   const events = state.events.events.filter((event: Event) =>
     status.includes(event.status)
   );

@@ -93,7 +93,7 @@ export const MonthView = () => {
     <>
       <header className="flex items-center justify-between px-6 py-4 lg:flex-none">
         <h1 className="text-base font-semibold leading-6 text-gray-900">
-          <time dateTime="2022-01">
+          <time>
             {intl.formatMessage({ id: getMonthStr(firstDayCurrentMonth) })}
             {format(firstDayCurrentMonth, " yyyy")}
           </time>

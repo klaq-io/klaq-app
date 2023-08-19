@@ -5,6 +5,8 @@ export * from "./DropdownMenu";
 export * from "./EventBadge";
 export * from "./EventsList";
 export * from "./KebabMenu";
+export * from "./Map";
+export * from "./MiniCalendar";
 export * from "./Modal";
 export * from "./Navbar";
 export * from "./SearchCompany";

@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, EventList, Skeleton } from "../../components";
+import { Button, EventList, MiniCalendar, Skeleton } from "../../components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getEventsByStatus } from "../../redux/Events/selectors";
@@ -193,8 +193,8 @@ export const Dashboard = () => {
             </div>
           ))}
         </dl>
-        <div className="mt-10">
-          <div className="flex flex-row items-center justify-between">
+        <div className="mt-6">
+          {/* <div className="flex flex-row items-center justify-between">
             <h3 className="text-base font-semibold leading-6 text-gray-900">
               {intl.formatMessage({
                 id: `dashboard.upcoming-events`,
@@ -211,13 +211,15 @@ export const Dashboard = () => {
                 id: `dashboard.button.new-event`,
               })}
             </Button>
-          </div>
+          </div> */}
 
           <div className="mt-6">
-            <EventList
-              events={thisMonthUpcomingEvents}
-              isLoading={isFetchEventLoading}
-            />
+            <div className="flex flex-row">
+              <div className="w-2/3">
+                <MiniCalendar />
+              </div>
+              <div className="w-1/3"></div>
+            </div>
           </div>
         </div>
       </div>
