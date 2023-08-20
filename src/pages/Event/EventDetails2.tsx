@@ -5,6 +5,7 @@ import {
   CalendarDaysIcon,
   ClockIcon,
   CreditCardIcon,
+  InformationCircleIcon,
   LinkIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -29,6 +30,7 @@ import { EventProduct } from "../../redux/Events/slices";
 import { ProductItem } from "../../redux/Products/slices";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { format, parse } from "date-fns";
+import { Alert } from "../../components/Alert/Alert";
 
 const EventDetails = () => {
   const intl = useIntl();
@@ -373,8 +375,8 @@ const EventDetails = () => {
                       </div>
                     </div>
                     <div className="sm:col-span-full">
-                      <p className="text-sm leading-6 text-gray-600">
-                        {intl.formatMessage(
+                      <Alert
+                        text={intl.formatMessage(
                           {
                             id: "event-details.location.distance-and-duration",
                           },
@@ -385,13 +387,14 @@ const EventDetails = () => {
                               distance &&
                               Math.round(0.5 * (distance.value / 1000)),
                             b: (chunk: any) => (
-                              <span className="text-klaq-600 font-semibold">
+                              <span className="text-blue-700 font-semibold">
                                 {chunk.join()}
                               </span>
                             ),
                           }
                         )}
-                      </p>
+                        status="info"
+                      />
                     </div>
                   </div>
                 </div>

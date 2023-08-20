@@ -13,6 +13,7 @@ import { getCompany } from "../../../redux/Company/selectors";
 import { CompanyLegalForm } from "../../../interface/suggestion.interface";
 import { PATHS } from "../../../routes";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "../../../components/Alert/Alert";
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -485,33 +486,31 @@ export const Company: FC = () => {
                   </div>
                 </div>
                 <div className="sm:col-span-full">
-                  <div className="mt-2">
-                    <p className="text-sm leading-6 text-gray-600">
-                      {intl.formatMessage(
-                        {
-                          id: "settings.office.moving-fees",
-                        },
-                        {
-                          fee: "0",
-                          b: (chunk: any) => (
-                            <span className="text-klaq-600 font-semibold">
-                              {chunk.join()}
-                            </span>
-                          ),
-                          a: (chunk: any) => (
-                            <Button
-                              variant="link"
-                              color={"primary"}
-                              type={"button"}
-                              onClick={handleGoToSettings}
-                            >
-                              {chunk}
-                            </Button>
-                          ),
-                        }
-                      )}
-                    </p>
-                  </div>
+                  <Alert
+                    status="info"
+                    text={intl.formatMessage(
+                      {
+                        id: "settings.office.moving-fees",
+                      },
+                      {
+                        fee: "0.5",
+                        b: (chunk: any) => (
+                          <span className="text-blue-600 font-semibold">
+                            {chunk.join()}
+                          </span>
+                        ),
+                        a: (chunk: any) => (
+                          <button
+                            className="text-blue-600 font-semibold"
+                            type={"button"}
+                            onClick={handleGoToSettings}
+                          >
+                            {chunk}
+                          </button>
+                        ),
+                      }
+                    )}
+                  />
                 </div>
               </div>
             </div>

@@ -945,7 +945,7 @@
     "office": {
       "header": "Mon bureau",
       "description": "Ces informations seront utilisées pour calculer vos frais de déplacement.",
-      "moving-fees": "Les frais de déplacement seront calculé en fonction de la distance entre votre bureau et le lieu de la prestation. Vous avez actuellement fixé le tarif de déplacement à <b>{fee}€</b>. Vous pouvez modifier ces informations à tout moment dans <a>les paramètres.</a>",
+      "moving-fees": "Les frais de déplacement seront calculés en fonction de la distance entre votre bureau et le lieu de la prestation. Vous avez actuellement fixé le tarif de déplacement à <b>{fee} €</b>. Vous pouvez modifier ces informations à tout moment dans <a>les paramètres.</a>",
       "label": {
         "address": "Adresse de votre bureau",
         "city": "Ville",

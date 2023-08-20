@@ -105,8 +105,11 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
             role="list"
             className="mt-2 divide-y divide-gray-100 rounded-md border border-gray-200 w-full"
           >
-            {fileList.map((file) => (
-              <li className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+            {fileList.map((file, idx) => (
+              <li
+                key={`${file.name}-${idx}`}
+                className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6"
+              >
                 <div className="flex w-0 flex-1 items-center">
                   <PaperClipIcon
                     className="h-5 w-5 flex-shrink-0 text-gray-400"
