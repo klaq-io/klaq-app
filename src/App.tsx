@@ -12,6 +12,7 @@ import {
   Dashboard,
   EditEvent,
   EventDetails,
+  EventDetails2,
   Events,
   Login,
   NewEvent,
@@ -105,6 +106,7 @@ function App() {
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
+          <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>

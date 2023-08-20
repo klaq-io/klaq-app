@@ -16,6 +16,7 @@ export interface Event {
   city: string;
   state: string;
   zipcode: string;
+  country: string;
   placeName?: string;
   contactPhone?: string;
   additionalInfo?: string;
@@ -23,6 +24,12 @@ export interface Event {
   desiredProduct?: string;
   customer: Customer;
   products?: EventProduct[];
+  coordinates: Coordinates;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
 }
 
 export enum EventStatus {

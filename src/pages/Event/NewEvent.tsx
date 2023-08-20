@@ -40,6 +40,8 @@ export const NewEvent = () => {
       if (values.customer.name === "") {
         values.customer.name = `${values.customer.firstName} ${values.customer.lastName}`;
       }
+      values.coordinates.longitude = 1.0895724;
+      values.coordinates.latitude = 49.4490246;
       addEvent(values);
     },
   });

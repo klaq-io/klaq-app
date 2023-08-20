@@ -42,6 +42,10 @@ export const useAddEvent = () => {
         phone: string;
         name: string;
       };
+      coordinates: {
+        longitude: number;
+        latitude: number;
+      };
     }) => {
       try {
         const res = await webClient.post("/events", values);

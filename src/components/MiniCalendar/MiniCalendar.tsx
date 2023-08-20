@@ -115,6 +115,8 @@ export const MiniCalendar = () => {
     fetchEvents();
   }, []);
 
+  console.log(intl.locale);
+
   return (
     <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2 p-6">
       <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
@@ -213,7 +215,7 @@ export const MiniCalendar = () => {
             })}{" "}
             {format(selectedDay, " yyyy")}
           </h2>
-          <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+          <ol className="border-t border-gray-200 mt-4 space-y-1 text-sm leading-6 text-gray-500">
             {eventsByDay &&
             eventsByDay[format(selectedDay, "yyyy-MM-dd")] &&
             eventsByDay[format(selectedDay, "yyyy-MM-dd")].length > 0 ? (
@@ -238,7 +240,7 @@ export const MiniCalendar = () => {
                 </li>
               ))
             ) : (
-              <div className="border-t border-gray-100 px-6 py-6 text-center text-sm sm:px-6">
+              <div className="px-6 py-14 text-center text-sm sm:px-6">
                 <CalendarDaysIcon
                   className="mx-auto h-6 w-6 text-gray-400"
                   aria-hidden="true"
@@ -255,7 +257,7 @@ export const MiniCalendar = () => {
                     },
                     {
                       date: format(selectedDay, "d MMMM yyyy", {
-                        locale: fr,
+                        locale: intl.locale == "fr-FR" ? fr : enUS,
                       }),
                     }
                   )}

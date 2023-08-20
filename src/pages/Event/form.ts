@@ -49,6 +49,10 @@ export const initialValuesNewEvent = {
     type: "PRIVATE",
     name: "",
   },
+  coordinates: {
+    longitude: 0,
+    latitude: 0,
+  },
 };
 
 export const validationSchemaNewEvent = Yup.object({

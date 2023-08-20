@@ -778,6 +778,27 @@
     "pipe-value": "{pipeValue}€"
   },
 
+  "event-details": {
+    "location": {
+      "label": {
+        "address": "Adresse de l'évènement",
+        "city": "Ville",
+        "zip": "ZIP / Code Postal",
+        "country": "Pays"
+      },
+      "distance-and-duration": "Cette évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais kilométriques estimés sont de <b>{travelFees}€</b>."
+    },
+    "date": {
+      "label": {
+        "start-date": "Date de début",
+        "end-date": "Date de fin",
+        "guests": "Nombre d'invités",
+        "start-time": "Heure de début",
+        "end-time": "Heure de fin"
+      }
+    }
+  },
+
   "settings": {
     "button": {
       "submit": "Sauvegarder",
