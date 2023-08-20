@@ -1,11 +1,16 @@
 import {
   ArrowLeftIcon,
+  ArrowRightIcon,
   BoltIcon,
+  CalendarDaysIcon,
   ClockIcon,
+  CreditCardIcon,
+  LinkIcon,
+  UserCircleIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
-import { Button } from "../../components";
+import { Button, EventBadge, Skeleton } from "../../components";
 import { PageLayout } from "../../layouts";
 import { Map } from "../../components";
 import { getEventById } from "../../redux/Events/selectors";
@@ -18,26 +23,60 @@ import {
   Distance,
   Duration,
 } from "../../interface/distance-and-duration.interface";
+import { PATHS } from "../../routes";
+import { useFetchProductItems } from "../../redux/Products/hooks";
+import { EventProduct } from "../../redux/Events/slices";
+import { ProductItem } from "../../redux/Products/slices";
+import { getAllProducts } from "../../redux/Products/selectors";
+import { format, parse } from "date-fns";
 
 const EventDetails = () => {
   const intl = useIntl();
   const { id } = useParams();
-  const params = new URLSearchParams(window.location.search);
 
-  const [{ isLoading }, fetchEvents] = useFetchEvents();
   const [distance, setDistance] = useState<Distance | null>(null);
   const [duration, setDuration] = useState<Duration | null>(null);
+
+  const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
+
+  const [{ isLoading: isFetchingProductLoading }, fetchProducts] =
+    useFetchProductItems();
+  const products = useSelector(getAllProducts);
 
   const [, getDistanceAndDuration] = useGetDistanceAndDuration();
 
+  const getEventProductsValue = (eventProducts: EventProduct[] | undefined) => {
+    if (!eventProducts) return 0;
+    if (!products || !products.length) return 0;
+    const totalEventProducts = eventProducts.map((product: EventProduct) => ({
+      product: products.find(
+        (productItems: ProductItem) => productItems.id === product.productId
+      ),
+      quantity: product.quantity,
+    }));
+    const total = totalEventProducts.reduce((acc, curr) => {
+      if (curr?.product?.price && typeof curr.quantity === "number") {
+        return acc + curr.product.price * curr.quantity;
+      } else {
+        return acc;
+      }
+    }, 0);
+    return total.toFixed(2);
+  };
+
+  const formatTime = (time: string) => {
+    const t = parse(time, "HH:mm:ss", new Date());
+    return format(t, "HH:mm");
+  };
+
   useEffect(() => {
-    if (event) {
+    if (event && event.coordinates) {
       getDistanceAndDuration(
         { longitude: 0.57768, latitude: 49.34846 },
         {
-          latitude: event?.coordinates.latitude!,
-          longitude: event?.coordinates.longitude!,
+          latitude: event.coordinates.latitude,
+          longitude: event.coordinates.longitude,
         }
       ).then((res) => {
         setDistance(res.distance);
@@ -48,6 +87,7 @@ const EventDetails = () => {
 
   useEffect(() => {
     fetchEvents();
+    fetchProducts();
   }, []);
   return (
     <PageLayout>
@@ -84,128 +124,289 @@ const EventDetails = () => {
           </div>
         </div>
       </div>
+
       {event && (
-        <div className="mt-6 space-y-10 divide-y divide-gray-900/10">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
-            <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
-              <div className="px-4 py-6 sm:p-8">
-                {intl.formatMessage(
-                  {
-                    id: "edit-event.header",
-                  },
-                  {
-                    date: new Date(event.date).toLocaleDateString(),
-                    customerName: event.customer.name
-                      ? event.customer.name
-                      : `${event.customer.firstName} ${event.customer.lastName}`,
-                  }
-                )}
-                {/* <div className="mt-10 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-2 sm:col-start-1">
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    {intl.formatMessage({
-                      id: "event-details.date.label.guests",
-                    })}
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      type="number"
-                      value={event.numberOfGuests}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                    />
+        <div className="mt-6">
+          <div className="space-y-10 divide-y divide-gray-900/10">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+              <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                <div className="p-8">
+                  <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="sm:col-span-full">
+                      <h3 className="text-base font-semibold leading-7 text-klaq-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.header",
+                        })}
+                      </h3>
+                    </div>
+                    <div className="sm:col-span-2 sm:col-start-1">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.type",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {intl.formatMessage({
+                            id: `new-event.date.input.event-type.${event.eventType}`,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.number-of-guests",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {event.numberOfGuests}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.public-event",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {intl.formatMessage({
+                            id: `new-event.date.input.public-event.${event.publicEvent}`,
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2 sm:col-start-1">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.start-date",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {/* // TODO: update with the start date */}
+                          {format(new Date(event.date), "dd/MM/yyyy")}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.end-date",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {/* // TODO: update with the end date */}
+                          {format(new Date(event.date), "dd/MM/yyyy")}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2 sm:col-start-1">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.start-time",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {formatTime(event.startTime)}
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      className="sm:col-span-2
+                    "
+                    >
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.informations.label.end-time",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">
+                          {formatTime(event.endTime)}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div> */}
-                <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                  <div className="sm:col-span-full"></div>
-                  <div className="col-span-full">
-                    <label className="block text-sm font-medium leading-6 text-gray-600">
-                      {intl.formatMessage({
-                        id: "event-details.location.label.address",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <p className="py-1.5 text-gray-900">{event.address}</p>
-                    </div>
+              </div>
+              {/* Summary */}
+              <div className="flex flex-col justify-between bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
+                <div className="lg:col-start-3 lg:row-end-1">
+                  <h2 className="sr-only">Summary</h2>
+                  <div className="">
+                    <dl className="flex flex-wrap">
+                      <div className="flex-auto pl-6 pt-6">
+                        <dt className="text-sm font-semibold leading-6 text-gray-900">
+                          {intl.formatMessage({
+                            id: "event-details.summary.total",
+                          })}
+                        </dt>
+                        <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">
+                          {isFetchingProductLoading ? (
+                            <Skeleton variant="rounded" width={40} height={6} />
+                          ) : (
+                            <>{getEventProductsValue(event.products)} €</>
+                          )}
+                        </dd>
+                      </div>
+                      <div className="flex-none self-end px-6 pt-4">
+                        <dt className="sr-only">Status</dt>
+                        <dd>
+                          <EventBadge status={event.status} />
+                        </dd>
+                      </div>
+                      <div className="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
+                        <dt className="flex-none">
+                          <span className="sr-only">Client</span>
+                          <UserCircleIcon
+                            className="h-6 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </dt>
+                        <dd className="text-sm font-medium leading-6 text-gray-900">
+                          <a href={`${PATHS.CUSTOMERS}/${event.customer.id}`}>
+                            {event.customer.name}
+                          </a>
+                        </dd>
+                      </div>
+                      <div className="mt-4 flex w-full flex-none gap-x-4 px-6">
+                        <dt className="flex-none">
+                          <span className="sr-only">Due date</span>
+                          <CalendarDaysIcon
+                            className="h-6 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </dt>
+                        <dd className="text-sm leading-6 text-gray-500">
+                          {format(new Date(event.date), "dd/MM/yyyy")}
+                        </dd>
+                      </div>
+                      <div className="mt-4 flex w-full flex-none gap-x-4 px-6">
+                        <dt className="flex-none">
+                          <span className="sr-only">Status</span>
+                          <CreditCardIcon
+                            className="h-6 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </dt>
+                        <dd className="text-sm leading-6 text-gray-500">
+                          {intl.formatMessage({
+                            id: "event-details.summary.no-payments-receive",
+                          })}
+                        </dd>
+                      </div>
+                    </dl>
                   </div>
-                  <div className="sm:col-span-2 sm:col-start-1">
-                    <label
-                      htmlFor="zip"
-                      className="block text-sm font-medium leading-6 text-gray-600"
+                </div>
+                <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
+                  <div className="flex flex-col justify-center items-center">
+                    <Button
+                      variant="text"
+                      color="secondary"
+                      type="button"
+                      leadingIcon={<LinkIcon className="h-5 w-5" />}
+                      trailingIcon={<ArrowRightIcon className="h-5 w-5" />}
                     >
                       {intl.formatMessage({
-                        id: "event-details.location.label.zip",
+                        id: "event-details.button.attach-files",
                       })}
-                    </label>
-                    <div className="mt-2">
-                      <p className="py-1.5 text-gray-900">{event.zipcode}</p>
-                    </div>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium leading-6 text-gray-600"
-                    >
-                      {intl.formatMessage({
-                        id: "event-details.location.label.city",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <p className="py-1.5 text-gray-900">{event.city}</p>
-                    </div>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="country"
-                      className="block text-sm font-medium leading-6 text-gray-600"
-                    >
-                      {intl.formatMessage({
-                        id: "event-details.location.label.country",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <p className="py-1.5 text-gray-900">{event.country}</p>
-                    </div>
-                  </div>
-                  <div className="sm:col-span-full">
-                    <p className="text-sm leading-6 text-gray-600">
-                      {intl.formatMessage(
-                        {
-                          id: "event-details.location.distance-and-duration",
-                        },
-                        {
-                          distance: distance && distance.text,
-                          duration: duration && duration.text,
-                          travelFees:
-                            distance &&
-                            Math.round(0.5 * (distance.value / 1000)),
-                          b: (chunk: any) => (
-                            <span className="text-klaq-600 font-semibold">
-                              {chunk.join()}
-                            </span>
-                          ),
-                        }
-                      )}
-                    </p>
+                    </Button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
-              {event && event.coordinates && (
-                <>
-                  <Map
-                    zoom={10}
-                    longitude={event.coordinates.longitude}
-                    latitude={event.coordinates.latitude}
-                  />
-                </>
-              )}
-            </div>
-          </div>
-          <div className="pt-10 grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
-            <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
-              <div className="px-4 py-6 sm:p-8"> Paris</div>
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3 pt-10">
+              <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                <div className="p-8">
+                  <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="sm:col-span-full">
+                      <h3 className="text-base font-semibold leading-7 text-klaq-600">
+                        {intl.formatMessage({
+                          id: "event-details.location.header",
+                        })}
+                      </h3>
+                    </div>
+                    <div className="col-span-full">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.location.label.address",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">{event.address}</p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2 sm:col-start-1">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.location.label.zip",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">{event.zipcode}</p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.location.label.city",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">{event.city}</p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium leading-6 text-gray-600">
+                        {intl.formatMessage({
+                          id: "event-details.location.label.country",
+                        })}
+                      </label>
+                      <div className="mt-2">
+                        <p className="py-1.5 text-gray-900">{event.country}</p>
+                      </div>
+                    </div>
+                    <div className="sm:col-span-full">
+                      <p className="text-sm leading-6 text-gray-600">
+                        {intl.formatMessage(
+                          {
+                            id: "event-details.location.distance-and-duration",
+                          },
+                          {
+                            distance: (distance && distance.text) || 0,
+                            duration: (duration && duration.text) || 0,
+                            travelFees:
+                              distance &&
+                              Math.round(0.5 * (distance.value / 1000)),
+                            b: (chunk: any) => (
+                              <span className="text-klaq-600 font-semibold">
+                                {chunk.join()}
+                              </span>
+                            ),
+                          }
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
+                {event && event.coordinates && (
+                  <>
+                    <Map
+                      zoom={12}
+                      longitude={event.coordinates.longitude}
+                      latitude={event.coordinates.latitude}
+                    />
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

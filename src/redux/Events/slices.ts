@@ -24,7 +24,7 @@ export interface Event {
   desiredProduct?: string;
   customer: Customer;
   products?: EventProduct[];
-  coordinates: Coordinates;
+  coordinates?: Coordinates;
 }
 
 export interface Coordinates {

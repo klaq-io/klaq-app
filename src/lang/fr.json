@@ -780,6 +780,7 @@
 
   "event-details": {
     "location": {
+      "header": "Localisation",
       "label": {
         "address": "Adresse de l'évènement",
         "city": "Ville",
@@ -788,14 +789,30 @@
       },
       "distance-and-duration": "Cette évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais kilométriques estimés sont de <b>{travelFees}€</b>."
     },
-    "date": {
+    "informations": {
+      "header": "À propos",
       "label": {
         "start-date": "Date de début",
         "end-date": "Date de fin",
         "guests": "Nombre d'invités",
         "start-time": "Heure de début",
-        "end-time": "Heure de fin"
+        "end-time": "Heure de fin",
+        "number-of-guests": "Nombre d'invités",
+        "type": "Type d'évènement",
+        "public-event": "Évènement public"
       }
+    },
+    "summary": {
+      "total": "Total",
+      "paid": "Payé",
+      "due": "Dû",
+      "deposit": "Acompte",
+      "deposit-due": "Acompte dû",
+      "no-payments-receive": "Aucun paiement reçu",
+      "invoice-not-sent": "Facture non envoyée"
+    },
+    "button": {
+      "attach-files": "Voir les documents attachés"
     }
   },
 
