@@ -816,6 +816,16 @@
     }
   },
 
+  "documents": {
+    "header": {
+      "input": "Ajouter un document",
+      "drag-and-drop": "ou glisser et déposer un document"
+    },
+    "description": "PNG, JPG, GIF, PDF, DOC... jusqu'à 10MB",
+    "label": "Fichier{s} prêt à être téléchargé",
+    "button": { "remove": "Supprimer" }
+  },
+
   "settings": {
     "button": {
       "submit": "Sauvegarder",

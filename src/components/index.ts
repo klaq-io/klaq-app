@@ -16,3 +16,4 @@ export * from "./Skeleton";
 export * from "./Spinner";
 export * from "./StatusIcon";
 export * from "./ToastNotification";
+export * from "./UploadDocument";
