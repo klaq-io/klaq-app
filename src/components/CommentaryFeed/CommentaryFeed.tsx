@@ -237,12 +237,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
             ) : (
               <>
                 <div className="relative flex h-6 w-6 flex-none items-center justify-center ">
-                  {commentary.type === CommentaryType.EVENT_STATUS_UPDATED &&
-                  commentary.text in EventStatus ? (
-                    statusIcon[commentary.text as EventStatus]
-                  ) : (
-                    <div className="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-                  )}
+                  <div className="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
                 </div>
                 <p className="flex-auto py-0.5 text-xs leading-5 text-gray-500">
                   <span className="font-medium text-gray-900">

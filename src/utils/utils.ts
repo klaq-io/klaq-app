@@ -137,6 +137,65 @@ export const getThisYearDates = () => {
   return [startOfYear, endOfYear];
 };
 
+export const getCorrespondingProduct = (
+  eventProduct: EventProduct,
+  products: ProductItem[]
+) => {
+  return products.find((product) => product.id === eventProduct.productId);
+};
+
+export const getEventSubtotal = (
+  eventProducts: EventProduct[] | undefined,
+  products: ProductItem[]
+) => {
+  if (!eventProducts) return 0;
+  if (!products || !products.length) return 0;
+  const totalEventProducts = eventProducts.map((product: EventProduct) => ({
+    product: products.find(
+      (productItems: ProductItem) => productItems.id === product.productId
+    ),
+    quantity: product.quantity,
+  }));
+  const total = totalEventProducts.reduce((acc, curr) => {
+    if (curr?.product?.price && typeof curr.quantity === "number") {
+      return acc + curr.product.price * curr.quantity;
+    } else {
+      return acc;
+    }
+  }, 0);
+  return total.toFixed(2);
+};
+
+export const getEventTax = (
+  eventProducts: EventProduct[] | undefined,
+  products: ProductItem[]
+) => {
+  if (!eventProducts) return 0;
+  if (!products || !products.length) return 0;
+
+  const totalEventProducts = eventProducts.map((product: EventProduct) => ({
+    product: products.find(
+      (productItems: ProductItem) => productItems.id === product.productId
+    ),
+    quantity: product.quantity,
+  }));
+
+  const convertedTotalEventProducts = totalEventProducts.map((product) => ({
+    product: product.product,
+    quantity: product.quantity,
+    vtaRate: Number(product.product?.vtaRate),
+  }));
+
+  const total = convertedTotalEventProducts.reduce((acc, curr) => {
+    if (curr?.product?.price && typeof curr.quantity === "number") {
+      return acc + curr.vtaRate * curr.quantity;
+    } else {
+      return acc;
+    }
+  }, 0);
+  return total.toFixed(2);
+};
+
 /**
  * Format bytes as human-readable text.
  *

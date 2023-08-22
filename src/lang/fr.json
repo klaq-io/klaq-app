@@ -787,7 +787,7 @@
         "zip": "ZIP / Code Postal",
         "country": "Pays"
       },
-      "distance-and-duration": "Cette évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais kilométriques estimés sont de <b>{travelFees}€</b>."
+      "distance-and-duration": "Cette évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais de déplacement sont estimés à <b>{travelFees}€</b>."
     },
     "informations": {
       "header": "À propos",
@@ -812,7 +812,35 @@
       "invoice-not-sent": "Facture non envoyée"
     },
     "button": {
-      "attach-files": "Voir les documents attachés"
+      "attach-files": "Voir les documents attachés",
+      "quote": {
+        "edit": "Éditer le devis",
+        "look": "Voir le devis",
+        "send": "Envoyer le devis"
+      },
+      "invoice": {
+        "edit": "Éditer la facture",
+        "look": "Voir la facture",
+        "send": "Envoyer la facture"
+      }
+    }
+  },
+
+  "quote": {
+    "header": "Devis",
+    "issued-on": "Délivré le",
+    "due-on": "Valable jusqu'au",
+    "from": "De",
+    "to": "À",
+    "table": {
+      "products": "Produits",
+      "quantity": "Quantité",
+      "unit-price": "Prix unitaire",
+      "total": "Total",
+      "vat": "TVA (%)",
+      "subtotal": "Total (HT)",
+      "tax": "Montant total de la TVA",
+      "total-with-vat": "Total (TTC)"
     }
   },
 

@@ -8,6 +8,8 @@ export const PATHS = {
   EVENT: "/events/:id",
   EVENT_V2: "/events/2/:id",
   EVENT_EDIT: "/events/:id/edit",
+  EVENT_QUOTE_GENERATOR: "/events/:id/quote/generate",
+  EVENT_QUOTE_DETAILS: "/events/:id/quote/details",
   PRODUCTS: "/products",
   LOGIN: "/login",
   PROFILE: "/settings/profile",
@@ -24,4 +26,6 @@ export const PATHS = {
   ONBOARDING_OFFICE: "/onboarding/office",
   ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
   RESET_PASSWORD: "/reset-password",
+  QUOTE_DETAILS: "/quote/details",
+  QUOTE_GENERATE: "/quote/generate",
 };

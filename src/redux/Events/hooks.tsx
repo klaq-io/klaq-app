@@ -21,6 +21,22 @@ export const useFetchEvents = () => {
   });
 };
 
+export const useFetchEvent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  return useAsyncCallback(async (id: string) => {
+    try {
+      const res = await webClient.get(`/events/${id}`);
+      dispatch(setEvent(res.data));
+    } catch (error: any) {
+      navigate(PATHS.EVENTS);
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
 export const useAddEvent = () => {
   const navigate = useNavigate();
 

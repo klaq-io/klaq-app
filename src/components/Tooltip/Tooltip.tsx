@@ -9,7 +9,7 @@ export const Tooltip: FC<TooltipProps> = (props: TooltipProps) => {
   const { text, children } = props;
   return (
     <div className="has-tooltip">
-      <span className="tooltip rounded shadow-lg p-1 bg-gray-100 text-gray-800 -mt-8 text-sm">
+      <span className="tooltip shadow-sm ring-1 ring-gray-900/5 rounded-xl p-1 bg-gray-50 text-gray-600 -mt-8 text-sm">
         {text}
       </span>
       {children}
