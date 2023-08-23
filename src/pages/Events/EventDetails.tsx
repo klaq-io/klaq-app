@@ -1,44 +1,23 @@
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  BoltIcon,
-  CalendarDaysIcon,
-  ClockIcon,
-  CreditCardIcon,
-  InformationCircleIcon,
-  LinkIcon,
-  UserCircleIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { format, parse } from "date-fns";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
-import {
-  Button,
-  EventBadge,
-  EventSummaryCard,
-  Skeleton,
-  Tooltip,
-} from "../../components";
-import { PageLayout } from "../../layouts";
-import { Map } from "../../components";
-import { getEventById } from "../../redux/Events/selectors";
-import { useFetchEvents } from "../../redux/Events/hooks";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useGetDistanceAndDuration } from "../../redux/Map/hooks";
+import { Button, EventSummaryCard, Map } from "../../components";
+import { Alert } from "../../components/Alert/Alert";
 import {
   Distance,
   Duration,
 } from "../../interface/distance-and-duration.interface";
+import { PageLayout } from "../../layouts";
+import { useFetchEvents } from "../../redux/Events/hooks";
+import { getEventById } from "../../redux/Events/selectors";
+import { Event } from "../../redux/Events/slices";
+import { useGetDistanceAndDuration } from "../../redux/Map/hooks";
 import { PATHS } from "../../routes";
-import { useFetchProductItems } from "../../redux/Products/hooks";
-import { Event, EventProduct } from "../../redux/Events/slices";
-import { ProductItem } from "../../redux/Products/slices";
-import { getAllProducts } from "../../redux/Products/selectors";
-import { format, parse } from "date-fns";
-import { Alert } from "../../components/Alert/Alert";
 
-const EventDetails = () => {
+export const EventDetails = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -73,13 +52,16 @@ const EventDetails = () => {
 
   const handleLookQuote = () => {
     if (!id) return;
-    console.log(`${PATHS.EVENTS}/${id}${PATHS.QUOTE_DETAILS}`);
     navigate(`${PATHS.EVENTS}/${id}${PATHS.QUOTE_DETAILS}`);
   };
 
-  const handleEditQuote = () => {
+  const handlePrevious = () => {
+    navigate(`${PATHS.EVENTS}`);
+  };
+
+  const handleEditEvent = () => {
     if (!id) return;
-    navigate(`${PATHS.EVENTS}/${id}${PATHS.QUOTE_GENERATE}`);
+    navigate(`${PATHS.EVENTS}/${id}/edit`);
   };
 
   useEffect(() => {
@@ -99,6 +81,7 @@ const EventDetails = () => {
             variant="text"
             color="secondary"
             type="button"
+            onClick={handlePrevious}
             leadingIcon={<ArrowLeftIcon className="-ml-0.5 h-5 w-5" />}
           >
             {intl.formatMessage({
@@ -112,10 +95,10 @@ const EventDetails = () => {
               variant="text"
               color="secondary"
               type="button"
-              onClick={handleEditQuote}
+              onClick={handleEditEvent}
             >
               {intl.formatMessage({
-                id: `event-details.button.${"quote"}.edit`,
+                id: `event-details.button.edit`,
               })}
             </Button>
             <Button
@@ -128,7 +111,7 @@ const EventDetails = () => {
                 id: `event-details.button.${"quote"}.look`,
               })}
             </Button>
-            <Button variant="contained" color="primary" type="button" size="lg">
+            <Button variant="contained" color="primary" type="button" size="xl">
               {intl.formatMessage({
                 id: `event-details.button.${"quote"}.send`,
               })}
@@ -344,5 +327,3 @@ const EventDetails = () => {
     </PageLayout>
   );
 };
-
-export { EventDetails as EventDetails2 };

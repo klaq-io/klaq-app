@@ -4,6 +4,7 @@ export * from "./ConfirmSMS";
 export * from "./Customers";
 export * from "./Dashboard";
 export * from "./Event";
+export * from "./Events";
 export * from "./ForgetPassword";
 export * from "./Login";
 export * from "./Onboarding";

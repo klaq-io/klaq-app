@@ -188,7 +188,7 @@ export const getEventTax = (
 
   const total = convertedTotalEventProducts.reduce((acc, curr) => {
     if (curr?.product?.price && typeof curr.quantity === "number") {
-      return acc + curr.vtaRate * curr.quantity;
+      return acc + (curr.vtaRate / 100) * curr.product.price * curr.quantity;
     } else {
       return acc;
     }

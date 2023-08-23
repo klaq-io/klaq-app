@@ -23,7 +23,7 @@ import { NewProducts } from "../Products";
 import { initialValuesEditEvent, validationSchemaEditEvent } from "./form";
 import { Button, CommentaryFeed } from "../../components";
 
-export const EditEvent = () => {
+const EditEvent = () => {
   const { id } = useParams();
   const intl = useIntl();
 
@@ -875,4 +875,4 @@ export const EditEvent = () => {
   );
 };
 
-export default EditEvent;
+export { EditEvent as EditEvent2 };

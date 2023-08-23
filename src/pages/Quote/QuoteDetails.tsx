@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, CommentaryFeed, EventSummaryCard } from "../../components";
 import { InvoiceLayout, PageLayout } from "../../layouts";
 import { useFetchEvent } from "../../redux/Events/hooks";
@@ -17,11 +17,13 @@ import {
   getEventTax,
 } from "../../utils/utils";
 import { add, format } from "date-fns";
+import { PATHS } from "../../routes";
 
 const MAX_DAYS_BEFORE_QUOTE_EXPIRED = 7;
 
 export const QuoteDetails = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [{ isLoading }, fetchEvent] = useFetchEvent();
@@ -44,6 +46,10 @@ export const QuoteDetails = () => {
     "dd/MM/yyyy"
   );
 
+  const handlePrevious = () => {
+    navigate(`${PATHS.EVENTS}/${id}`);
+  };
+
   useEffect(() => {
     fetchEvent(id!);
     fetchCompany();
@@ -59,6 +65,7 @@ export const QuoteDetails = () => {
             color="secondary"
             type="button"
             leadingIcon={<ArrowLeftIcon className="-ml-0.5 h-5 w-5" />}
+            onClick={handlePrevious}
           >
             {intl.formatMessage({
               id: "edit-event.button.previous",

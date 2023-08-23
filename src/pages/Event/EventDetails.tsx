@@ -20,7 +20,7 @@ import { PATHS } from "../../routes";
 import { ProductItem } from "../../redux/Products/slices";
 import { Button, CommentaryFeed } from "../../components";
 
-export const EventDetails = () => {
+export const EventDetails2 = () => {
   const { id } = useParams();
   const intl = useIntl();
   const navigate = useNavigate();
@@ -446,4 +446,4 @@ export const EventDetails = () => {
   );
 };
 
-export default EventDetails;
+export default EventDetails2;

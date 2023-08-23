@@ -100,14 +100,14 @@ function App() {
           <Route path={PATHS.CUSTOMER_DETAILS} element={<CustomerDetails />} />
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route path={PATHS.EVENT_EDIT} element={<EditEvent />} />
-          <Route path={PATHS.EVENT} element={<EventDetails2 />} />
+          <Route path={PATHS.EVENT} element={<EventDetails />} />
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
-          <Route path={PATHS.EVENT_V2} element={<EventDetails />} />
+          <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path={PATHS.EVENT_QUOTE_DETAILS} element={<QuoteDetails />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>

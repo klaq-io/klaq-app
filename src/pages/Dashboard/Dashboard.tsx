@@ -142,7 +142,7 @@ export const Dashboard = () => {
           {stats.map((item) => (
             <div
               key={item.id}
-              className="relative rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+              className="relative shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl bg-white px-4 pb-12 pt-5 sm:px-6 sm:pt-6"
             >
               <dt>
                 <div className="absolute rounded-md bg-klaq-500 p-3">
@@ -169,7 +169,7 @@ export const Dashboard = () => {
                   </p>
                 )}
 
-                <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+                <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6 shadow-sm sm:rounded-b-xl">
                   <Button
                     size="md"
                     variant="text"

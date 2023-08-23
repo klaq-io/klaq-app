@@ -367,9 +367,11 @@
     "header": "Évènement du {date} pour {customerName} ",
     "button": {
       "previous": "Précédent",
-      "edit": "Modifier",
-      "look": "Voir",
-      "generate": "Générer un devis"
+      "submit": "Sauvegarder"
+    },
+    "label": {
+      "autocomplete": "Recherche automatique",
+      "manual": "ou remplir manuellement ci-dessous"
     },
     "my-products": {
       "header": "Mes produits",
@@ -462,19 +464,22 @@
         "address": "Adresse",
         "city": "Ville",
         "state": "Région",
-        "zipcode": "Code postal"
+        "zipcode": "Code postal",
+        "country": "Pays"
       },
       "input": {
         "address": "Saisissez l'adresse",
         "city": "Saisissez la ville",
         "state": "Saisissez la région",
-        "zipcode": "Saisissez le code postal"
+        "zipcode": "Saisissez le code postal",
+        "country": "Saisissez le pays"
       },
       "error": {
         "address": "Veuillez saisir une adresse",
         "city": "Veuillez saisir une ville",
         "state": "Veuillez saisir une région",
-        "zipcode": "Veuillez saisir un code postal avec 5 chiffres"
+        "zipcode": "Veuillez saisir un code postal avec 5 chiffres",
+        "country": "Veuillez saisir le pays"
       }
     },
     "customer": {
@@ -813,6 +818,7 @@
     },
     "button": {
       "attach-files": "Voir les documents attachés",
+      "edit": "Éditer l'évènement",
       "quote": {
         "edit": "Éditer le devis",
         "look": "Voir le devis",
