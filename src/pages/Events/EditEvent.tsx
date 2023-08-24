@@ -3,6 +3,7 @@ import {
   Button,
   EventSummaryCard,
   MapAutocompleteInput,
+  Map,
 } from "../../components";
 import { PageLayout } from "../../layouts";
 import { useIntl } from "react-intl";
@@ -10,6 +11,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PATHS } from "../../routes";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./form";
+import { useEffect, useState } from "react";
+import { RetrieveAddress } from "../../interface/retrieve-address.interface";
+import { useSelector } from "react-redux";
+import { getEventById } from "../../redux/Events/selectors";
+import { useFetchEvent } from "../../redux/Events/hooks";
 
 const eventType = ["wedding", "birthday", "corporate"];
 
@@ -18,22 +24,40 @@ export const EditEvent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [{ isLoading: isFetchingEvent }, fetchEvent] = useFetchEvent();
+  const event = useSelector((state: any) => getEventById(state, id!));
+
+  const setAutocompleteValues = (retrieveAddress: RetrieveAddress) => {
+    formik.setFieldValue("address", retrieveAddress.address);
+    formik.setFieldValue("zipcode", retrieveAddress.zipcode);
+    formik.setFieldValue("city", retrieveAddress.city);
+    formik.setFieldValue("country", retrieveAddress.country);
+    formik.setFieldValue("coordinates", retrieveAddress.coordinates);
+  };
+
   const formik = useFormik({
     initialValues: {
       ...initialValues,
+      ...event,
     },
     validationSchema,
     onSubmit: async (values) => {
       console.log(values);
     },
+    enableReinitialize: true,
   });
 
   const handlePrevious = () => {
     navigate(`${PATHS.EVENTS}/${id}`);
   };
 
+  useEffect(() => {
+    fetchEvent(id!);
+  }, []);
+
   return (
     <PageLayout>
+      {!isFetchingEvent && <div> not loading</div>}
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <Button
@@ -92,7 +116,7 @@ export const EditEvent = () => {
                         value={formik.values.eventType}
                         id="eventType"
                         name="eventType"
-                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="mt-2 block  rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       >
                         {eventType.map((type) => (
                           <option key={type} value={type}>
@@ -117,7 +141,7 @@ export const EditEvent = () => {
                         type="number"
                         name="numberOfGuests"
                         id="numberOfGuest"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>
@@ -133,7 +157,7 @@ export const EditEvent = () => {
                         value={formik.values.publicEvent}
                         id="publicEvent"
                         name="publicEvent"
-                        className="mt-2 block w-4/5 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="mt-2 block  rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       >
                         <option value="yes">
                           {intl.formatMessage({
@@ -161,7 +185,7 @@ export const EditEvent = () => {
                         type="date"
                         name="date"
                         id="date"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.date && formik.touched.date ? (
                         <p
@@ -188,7 +212,7 @@ export const EditEvent = () => {
                         type="date"
                         name="date"
                         id="date"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.date && formik.touched.date ? (
                         <p
@@ -215,7 +239,7 @@ export const EditEvent = () => {
                         type="time"
                         name="startTime"
                         id="startTime"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.startTime && formik.touched.startTime ? (
                         <p
@@ -242,7 +266,7 @@ export const EditEvent = () => {
                         type="time"
                         name="endTime"
                         id="endTime"
-                        className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
                       {formik.errors.endTime && formik.touched.endTime ? (
                         <p
@@ -259,7 +283,7 @@ export const EditEvent = () => {
                 </div>
               </div>
             </form>
-            {/* <EventSummaryCard event={event} /> */}
+            {event && <EventSummaryCard event={event} />}
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3 pt-10">
             <form
@@ -282,7 +306,12 @@ export const EditEvent = () => {
                       })}
                     </label>
                     <div className="mt-2">
-                      <MapAutocompleteInput />
+                      {event && !isFetchingEvent && (
+                        <MapAutocompleteInput
+                          setAddress={setAutocompleteValues}
+                          defaultAddress={`${formik.values.address} ${formik.values.zipcode} ${formik.values.city} ${formik.values.country}`}
+                        />
+                      )}
                     </div>
                     <div className="sm:col-span-full">
                       <div className="relative w-full mt-6">
@@ -425,7 +454,15 @@ export const EditEvent = () => {
                 </div>
               </div>
             </form>
-            {/* <EventSummaryCard event={event} /> */}
+            <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl overflow-hidden">
+              {event && !isFetchingEvent && formik.values.coordinates && (
+                <Map
+                  zoom={12}
+                  longitude={formik.values.coordinates.longitude}
+                  latitude={formik.values.coordinates.latitude}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

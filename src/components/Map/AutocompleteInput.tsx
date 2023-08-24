@@ -4,48 +4,49 @@ import {
   CheckIcon,
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { classNames } from "../../utils/utils";
+import {
+  useGetAutocompleteSuggestions,
+  useRetrieveAddress,
+} from "../../redux/Map/hooks";
+import {
+  AddressSuggestion,
+  AddressSuggestions,
+} from "../../interface/address-suggestion.interface";
+import { RetrieveAddress } from "../../interface/retrieve-address.interface";
 
-type MapAutocompleteInputProps = {};
-
-type Suggestion = {
-  mapboxId: string;
-  name: string;
-  full_address: string;
+type MapAutocompleteInputProps = {
+  defaultAddress: string;
+  setAddress: (address: RetrieveAddress) => void;
 };
-
-const suggestions = [
-  {
-    mapboxId: "1",
-    name: "36 rue de Campulley",
-    full_address: "36 rue de Campulley, 76000 Rouen",
-  },
-  {
-    mapboxId: "2",
-    name: "36 rue de Campulley",
-    full_address: "36 rue de Campulley, 76000 Rouen",
-  },
-  {
-    mapboxId: "3",
-    name: "36 rue de Campulley",
-    full_address: "36 rue de Campulley, 76000 Rouen",
-  },
-];
 
 export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
   props: MapAutocompleteInputProps
 ) => {
-  const intl = useIntl();
+  const { setAddress, defaultAddress } = props;
+
+  const [suggestions, setSuggestions] = useState<AddressSuggestions>([]);
+  const [, getAutocompleteSuggestions] = useGetAutocompleteSuggestions();
+  const [, retrieveAddress] = useRetrieveAddress();
+
+  const setSuggestion = async (mapboxId: string) => {
+    setAddress(await retrieveAddress(mapboxId));
+  };
+
+  const fetchSuggestions = async (query: string) => {
+    setSuggestions(await getAutocompleteSuggestions(query));
+  };
 
   return (
     <Combobox as="div">
       <div className="relative mt-2">
         <Combobox.Input
           className="w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-          displayValue={(suggestion: Suggestion) =>
-            suggestion !== null ? suggestion.full_address : ""
+          onChange={(event) => fetchSuggestions(event.target.value)}
+          displayValue={(suggestion: AddressSuggestion) =>
+            suggestion !== null ? suggestion.full_address : defaultAddress
           }
         />
         <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -56,10 +57,11 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
         </Combobox.Button>
         <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {suggestions && suggestions.length > 0
-            ? suggestions.map((suggestion: Suggestion) => {
+            ? suggestions.map((suggestion: AddressSuggestion) => {
                 return (
                   <Combobox.Option
                     key={suggestion.mapboxId}
+                    onClick={() => setSuggestion(suggestion.mapboxId)}
                     value={suggestion}
                     className={({ active }) =>
                       classNames(

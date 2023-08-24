@@ -15,6 +15,7 @@ import { useFetchCompany } from "../../redux/Company/hooks";
 import { useSelector } from "react-redux";
 import { getCompany } from "../../redux/Company/selectors";
 import { getUser } from "../../redux/Login/selectors";
+import { Skeleton } from "../Skeleton";
 
 type Props = {
   classes?: string;
@@ -103,36 +104,45 @@ export const Navbar = (props: Props) => {
           <Menu as="div" className="relative">
             <Menu.Button className="-m-1.5 flex items-center p-1.5">
               <span className="sr-only">Open user menu</span>
-              <div
-                className={classNames(
-                  "flex items-center justify-center h-8 w-8 rounded-full bg-gray-200",
-                  isFetchingUser ? "animate-pulse" : ""
-                )}
-              >
-                <span className="font-semibold text-gray-600">
-                  {user && user.firstName && user.lastName
-                    ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
-                    : null}
-                </span>
-              </div>
 
-              <span className="hidden lg:flex lg:items-center">
-                <span
+              {isFetchingUser ? (
+                <Skeleton variant="circle" width={8} height={8} />
+              ) : (
+                <div
                   className={classNames(
-                    "ml-4 text-sm font-semibold leading-6 text-gray-900",
-                    isFetchingUser ? "animate-pulse" : ""
+                    "flex items-center justify-center h-8 w-8 rounded-full bg-gray-200"
                   )}
-                  aria-hidden="true"
                 >
-                  {user && user.firstName && user.lastName
-                    ? `${user.firstName} ${user.lastName}`
-                    : null}
+                  <span className="font-semibold text-gray-600">
+                    {user && user.firstName && user.lastName
+                      ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
+                      : null}
+                  </span>
+                </div>
+              )}
+
+              {isFetchingUser ? (
+                <div className="ml-2">
+                  <Skeleton variant="rounded" width={40} height={6} />
+                </div>
+              ) : (
+                <span className="hidden lg:flex lg:items-center">
+                  <span
+                    className={classNames(
+                      "ml-4 text-sm font-semibold leading-6 text-gray-900"
+                    )}
+                    aria-hidden="true"
+                  >
+                    {user && user.firstName && user.lastName
+                      ? `${user.firstName} ${user.lastName}`
+                      : null}
+                  </span>
+                  <ChevronDownIcon
+                    className="ml-2 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
                 </span>
-                <ChevronDownIcon
-                  className="ml-2 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </span>
+              )}
             </Menu.Button>
             <Transition
               as={Fragment}

@@ -14,6 +14,7 @@ export const initialValues = {
   state: "",
   zipcode: "",
   country: "",
+  coordinates: { longitude: 0, latitude: 0 },
 };
 
 export const validationSchema = Yup.object({

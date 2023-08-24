@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { PageLayout } from "../../layouts";
+import { InvoiceLayout, PageLayout } from "../../layouts";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Button } from "../../components";
 
@@ -38,6 +38,18 @@ export const QuoteGenerator = () => {
               })}
             </Button>
           </div>
+        </div>
+      </div>
+      <div className="mt-6">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+          {/* Quote */}
+          <InvoiceLayout>
+            <h2 className="text-base font-semibold leading-6 text-gray-900">
+              {intl.formatMessage({
+                id: "quote.header",
+              })}
+            </h2>
+          </InvoiceLayout>
         </div>
       </div>
     </PageLayout>
