@@ -16,11 +16,14 @@ import { getEventById } from "../../redux/Events/selectors";
 import { Event } from "../../redux/Events/slices";
 import { useGetDistanceAndDuration } from "../../redux/Map/hooks";
 import { PATHS } from "../../routes";
+import { EventDetailsSkeleton } from "./Skeleton";
 
 export const EventDetails = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get("from");
 
   const [distance, setDistance] = useState<Distance | null>(null);
   const [duration, setDuration] = useState<Duration | null>(null);
@@ -56,7 +59,11 @@ export const EventDetails = () => {
   };
 
   const handlePrevious = () => {
-    navigate(`${PATHS.EVENTS}`);
+    if (from === "edit") {
+      navigate(`${PATHS.EVENTS}`);
+    } else {
+      navigate(-1);
+    }
   };
 
   const handleEditEvent = () => {
@@ -120,7 +127,7 @@ export const EventDetails = () => {
         </div>
       </div>
 
-      {event && (
+      {!isLoading && event ? (
         <div className="mt-6">
           <div className="space-y-10 divide-y divide-gray-900/10">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
@@ -285,26 +292,49 @@ export const EventDetails = () => {
                       </div>
                     </div>
                     <div className="sm:col-span-full">
-                      <Alert
-                        text={intl.formatMessage(
-                          {
-                            id: "event-details.location.distance-and-duration",
-                          },
-                          {
-                            distance: (distance && distance.text) || 0,
-                            duration: (duration && duration.text) || 0,
-                            travelFees:
-                              distance &&
-                              Math.round(0.5 * (distance.value / 1000)),
-                            b: (chunk: any) => (
-                              <span className="text-blue-700 font-semibold">
-                                {chunk.join()}
-                              </span>
-                            ),
-                          }
-                        )}
-                        status="info"
-                      />
+                      {distance && duration ? (
+                        <Alert
+                          text={intl.formatMessage(
+                            {
+                              id: "event-details.location.distance-and-duration",
+                            },
+                            {
+                              distance: distance.text,
+                              duration: duration.text,
+                              travelFees: Math.round(
+                                0.5 * (distance.value / 1000)
+                              ),
+                              b: (chunk: any) => (
+                                <span className="text-blue-700 font-semibold">
+                                  {chunk.join()}
+                                </span>
+                              ),
+                            }
+                          )}
+                          status="info"
+                        />
+                      ) : (
+                        <Alert
+                          text={intl.formatMessage(
+                            {
+                              id: "event-details.location.no-distance-and-duration",
+                            },
+                            {
+                              distance: (distance && distance.text) || 0,
+                              duration: (duration && duration.text) || 0,
+                              travelFees:
+                                distance &&
+                                Math.round(0.5 * (distance.value / 1000)),
+                              b: (chunk: any) => (
+                                <span className="text-blue-700 font-semibold">
+                                  {chunk.join()}
+                                </span>
+                              ),
+                            }
+                          )}
+                          status="warning"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -320,6 +350,18 @@ export const EventDetails = () => {
                   </>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-6">
+          <div className="space-y-10 divide-y divide-gray-900/10">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+              <EventDetailsSkeleton />
+              {event && <EventSummaryCard event={event} />}
+            </div>
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3 pt-10">
+              <EventDetailsSkeleton />
             </div>
           </div>
         </div>

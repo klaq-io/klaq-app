@@ -95,6 +95,7 @@ export const useAddEvent = () => {
 
 export const useUpdateEvent = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return useAsyncCallback(
     async (
@@ -120,7 +121,7 @@ export const useUpdateEvent = () => {
       id
     ) => {
       try {
-        await webClient.put(`/events/${id}`, values);
+        const { data } = await webClient.put(`/events/${id}`, values);
         toast.custom(
           <ToastNotification
             status="success"
@@ -129,6 +130,7 @@ export const useUpdateEvent = () => {
           />,
           { duration: 1500, position: "top-right" }
         );
+        dispatch(setEvent(data));
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
         console.log(error);

@@ -64,15 +64,12 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
         variant !== "link" && sizes[size]
       )}
     >
-      {isLoading ? (
-        <Spinner size="small" color={color} />
-      ) : (
-        <>
-          {leadingIcon}
-          {children}
-          {trailingIcon}
-        </>
-      )}
+      {isLoading && <Spinner size="small" color={color} />}
+      <>
+        {leadingIcon}
+        {children}
+        {trailingIcon}
+      </>
     </button>
   );
 };

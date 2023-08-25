@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { CustomerType } from "../../redux/Customer/slices";
 
 export const initialValues = {
   date: "",
@@ -15,6 +16,20 @@ export const initialValues = {
   zipcode: "",
   country: "",
   coordinates: { longitude: 0, latitude: 0 },
+  customer: {
+    firstName: "John",
+    lastName: "Doe",
+    email: "johndoe@gmail.com",
+    phone: "0606060606",
+    type: CustomerType.PRIVATE,
+  },
+  products: [
+    {
+      id: "",
+      quantity: 0,
+      productId: "",
+    },
+  ],
 };
 
 export const validationSchema = Yup.object({

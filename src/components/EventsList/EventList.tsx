@@ -139,7 +139,7 @@ export const EventList: FC<Props> = (props: Props) => {
   );
 };
 
-const EventListSkeletonCard = () => {
+export const EventListSkeletonCard = () => {
   return (
     <div className="flex flex-col space-y-3">
       {Array.from({ length: 3 }, (_, index) => (

@@ -11,7 +11,12 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { DropdownMenu, EventBadgeButton, EventList } from "../../components";
+import {
+  DropdownMenu,
+  EventBadgeButton,
+  EventList,
+  EventListSkeletonCard,
+} from "../../components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents, getEventsByStatus } from "../../redux/Events/selectors";
@@ -340,6 +345,7 @@ export const Events = () => {
                       value={startDate}
                       onChange={(e) => {
                         setStartDate(e.target.value);
+                        setSelectedFilter(FILTER_OPTIONS.CUSTOM);
                         setSearchParams({
                           filter: FILTER_OPTIONS.CUSTOM.toString(),
                         });
@@ -360,6 +366,7 @@ export const Events = () => {
                       value={endDate}
                       onChange={(e) => {
                         setEndDate(e.target.value);
+                        setSelectedFilter(FILTER_OPTIONS.CUSTOM);
                         setSearchParams({
                           filter: FILTER_OPTIONS.CUSTOM.toString(),
                         });

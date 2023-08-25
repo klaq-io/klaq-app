@@ -422,6 +422,7 @@
         "LOST": "Perdu"
       }
     },
+    "address-not-found": "Aucune adresse trouvée",
     "submit": "Sauvegarder"
   },
 
@@ -792,7 +793,8 @@
         "zip": "ZIP / Code Postal",
         "country": "Pays"
       },
-      "distance-and-duration": "Cette évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais de déplacement sont estimés à <b>{travelFees}€</b>."
+      "no-distance-and-duration": "Aucune information concernant la distance et la durée du trajet n'ont pu être trouvé.",
+      "distance-and-duration": "Cet évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais de déplacement sont estimés à <b>{travelFees}€</b>."
     },
     "informations": {
       "header": "À propos",
@@ -928,7 +930,7 @@
       }
     },
     "delete": {
-      "description": "Supprimer mon compte de façon permanente",
+      "description": "Supprimer mon compte de façon permanente.",
       "disclaimer": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
       "header": "Supprimer mon compte",
       "button": "Supprimer mon compte"
