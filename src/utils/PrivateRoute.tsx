@@ -8,10 +8,10 @@ const PrivateRoutes = () => {
   const [, checkAuth] = useCheckAuth();
 
   useEffect(() => {
-    // const checkAuthentication = async () => {
-    //   setIsAuthenticated((await checkAuth()) !== undefined);
-    // };
-    // checkAuthentication();
+    const checkAuthentication = async () => {
+      setIsAuthenticated((await checkAuth()) !== undefined);
+    };
+    checkAuthentication();
   }, []);
 
   return isAuthenticated ? <Outlet /> : <Navigate to={PATHS.LOGIN} />;

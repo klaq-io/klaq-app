@@ -2,6 +2,20 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
+const klaqColors = {
+  50: "#f5f8f7",
+  100: "#dee9e7",
+  200: "#bcd3ce",
+  300: "#93b5af",
+  400: "#709892",
+  500: "#527a75",
+  600: "#40615d",
+  700: "#364f4c",
+  800: "#2e4140",
+  900: "#293837",
+  950: "#141f1f",
+};
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -32,19 +46,7 @@ module.exports = {
       pink: colors.pink,
       green: colors.green,
       red: colors.red,
-      klaq: {
-        50: "#f5f8f7",
-        100: "#dee9e7",
-        200: "#bcd3ce",
-        300: "#93b5af",
-        400: "#709892",
-        500: "#527a75",
-        600: "#40615d",
-        700: "#364f4c",
-        800: "#2e4140",
-        900: "#293837",
-        950: "#141f1f",
-      },
+      klaq: klaqColors,
     },
   },
   important: true,
