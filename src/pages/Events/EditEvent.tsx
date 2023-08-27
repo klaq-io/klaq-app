@@ -16,7 +16,7 @@ import { RetrieveAddress } from "../../interface/retrieve-address.interface";
 import { useSelector } from "react-redux";
 import { getEventById } from "../../redux/Events/selectors";
 import { useFetchEvent, useUpdateEvent } from "../../redux/Events/hooks";
-import { EventDetailsSkeleton } from "./Skeleton";
+import { EventDetailsSkeleton } from "../Event/Skeleton";
 
 const eventType = ["wedding", "birthday", "corporate"];
 

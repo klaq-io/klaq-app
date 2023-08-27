@@ -13,12 +13,12 @@ export const useLogin = () => {
 
   return useAsyncCallback(async (email: string, password: string) => {
     try {
-      const res = await webClient.post("auth/login", {
+      const { data } = await webClient.post("auth/login", {
         email,
         password,
       });
-      dispatch(setUser(res.data));
-      navigate(PATHS.DASHBOARD);
+      if (data.user) dispatch(setUser(data.user));
+      if (data.redirectURI) navigate(data.redirectURI);
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
@@ -176,8 +176,10 @@ export const useCheckAuth = () => {
   return useAsyncCallback(async () => {
     try {
       const res = await webClient.get("auth");
+      console.log(res);
       return res.data;
     } catch (error: any) {
+      console.log(error);
       return undefined;
     }
   });

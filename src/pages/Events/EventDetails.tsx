@@ -16,7 +16,7 @@ import { getEventById } from "../../redux/Events/selectors";
 import { Event } from "../../redux/Events/slices";
 import { useGetDistanceAndDuration } from "../../redux/Map/hooks";
 import { PATHS } from "../../routes";
-import { EventDetailsSkeleton } from "./Skeleton";
+import { EventDetailsSkeleton } from "../Event/Skeleton";
 
 export const EventDetails = () => {
   const intl = useIntl();

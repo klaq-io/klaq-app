@@ -1120,6 +1120,14 @@
         "title": "Erreur",
         "message": "Le client n'a pas pu être supprimé"
       },
+      "auth-invalid-credentials": {
+        "title": "Erreur",
+        "message": "Veuillez vérifier vos identifiants"
+      },
+      "auth-user-email-not-verified": {
+        "title": "Erreur",
+        "message": "Votre email n'a pas été confirmé"
+      },
       "auth-user-mail-already-exist": {
         "title": "Erreur",
         "message": "Un compte existe déjà avec cette adresse e-mail"

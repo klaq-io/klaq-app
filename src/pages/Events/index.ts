@@ -1,3 +1,3 @@
 export * from "./EventDetails";
 export * from "./EditEvent";
-export * from "./Skeleton";
+export * from "../Event/Skeleton";
