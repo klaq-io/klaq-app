@@ -13,7 +13,7 @@ export const useFetchCommentaries = () => {
       const res = await webClient.get(`/commentary/${eventId}`);
       dispatch(setCommentaries(res.data));
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
     }
   });
 };

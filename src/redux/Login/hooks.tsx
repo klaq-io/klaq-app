@@ -13,11 +13,6 @@ export const useLogin = () => {
 
   return useAsyncCallback(async (email: string, password: string) => {
     try {
-      const res = await webClient.post("auth/login", {
-        email,
-        password,
-      });
-      console.log(res);
       const { data } = await webClient.post("auth/login", {
         email,
         password,
@@ -183,7 +178,7 @@ export const useCheckAuth = () => {
       const res = await webClient.get("auth");
       return res.data;
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
       return undefined;
     }
   });

@@ -133,7 +133,6 @@ export const useUpdateEvent = () => {
         dispatch(setEvent(data));
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
-        console.log(error);
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
           : "default";
