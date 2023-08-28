@@ -12,6 +12,8 @@ import { getCompany } from "../../../redux/Company/selectors";
 import { Button } from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../routes";
+import { useUpdateOnboardingStatus } from "../../../redux/User/hooks";
+import { OnboardingStatus } from "../../../interface/user.interface";
 
 type Props = {};
 
@@ -23,6 +25,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
   const company = useSelector(getCompany);
 
   const [{ isLoading }, updateCompany] = useUpdateCompany();
+  const [, updateOnboardingStatus] = useUpdateOnboardingStatus();
 
   const formik = useFormik({
     initialValues,
@@ -35,6 +38,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
         values.officeCountry = company?.country;
       }
       updateCompany(values);
+      updateOnboardingStatus(OnboardingStatus.DONE);
       navigate(PATHS.DASHBOARD);
     },
   });

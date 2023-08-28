@@ -15,6 +15,7 @@ export interface User {
   publicPhone: string;
   publicEmail: string;
   category: PerformingCategory;
+  onboardingStatus: OnboardingStatus;
 }
 
 export enum PerformingCategory {
@@ -48,4 +49,12 @@ export enum PerformingCategory {
   FIRE_EATER = "FIRE_EATER",
   ACROBAT = "ACROBAT",
   OTHER = "OTHER",
+}
+
+export enum OnboardingStatus {
+  NOT_STARTED = "NOT_STARTED",
+  COMPANY = "COMPANY",
+  PERFORMER = "PERFORMER",
+  OFFICE = "OFFICE",
+  DONE = "DONE",
 }

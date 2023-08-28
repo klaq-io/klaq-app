@@ -115,8 +115,6 @@ export const MiniCalendar = () => {
     fetchEvents();
   }, []);
 
-  console.log(intl.locale);
-
   return (
     <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2 p-6">
       <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">

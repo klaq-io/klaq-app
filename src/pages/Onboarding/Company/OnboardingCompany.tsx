@@ -15,6 +15,8 @@ import {
 } from "../../../redux/Company/hooks";
 import { PATHS } from "../../../routes";
 import { companyFormSchema, initialCompanyFormValues } from "./form";
+import { useUpdateOnboardingStatus } from "../../../redux/User/hooks";
+import { OnboardingStatus } from "../../../interface/user.interface";
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -33,6 +35,7 @@ export const OnboardingCompany = () => {
   const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
   const [{ isLoading }, createCompany] = useCreateCompany();
+  const [, updateOnboardingStatus] = useUpdateOnboardingStatus();
   const [step, setStep] = useState(STEP.COMPANY_INFORMATION);
   const [company, setCompany] = useState<any>({});
 
@@ -64,6 +67,7 @@ export const OnboardingCompany = () => {
     onSubmit: (values) => {
       const registrationDate = new Date(values.registrationDate);
       createCompany({ ...values, registrationDate });
+      updateOnboardingStatus(OnboardingStatus.PERFORMER);
     },
     enableReinitialize: true,
   });

@@ -15,10 +15,16 @@ import { useFetchUser } from "../../../redux/Login/hooks";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../redux/Login/selectors";
 import { subYears } from "date-fns";
-import { PerformingCategory } from "../../../interface/user.interface";
+import {
+  OnboardingStatus,
+  PerformingCategory,
+} from "../../../interface/user.interface";
 import { Combobox } from "@headlessui/react";
 import { classNames } from "../../../utils/utils";
-import { useUpdateUser } from "../../../redux/User/hooks";
+import {
+  useUpdateOnboardingStatus,
+  useUpdateUser,
+} from "../../../redux/User/hooks";
 import { PATHS } from "../../../routes";
 import { useNavigate } from "react-router-dom";
 
@@ -48,6 +54,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const [selectCategory, setSelectCategory] = useState(undefined);
 
   const [{ isLoading }, updateUser] = useUpdateUser();
+  const [, updateOnboardingStatus] = useUpdateOnboardingStatus();
 
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
@@ -55,14 +62,15 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      updateUser({
+    onSubmit: async (values) => {
+      await updateUser({
         ...values,
         category:
           selectCategory == PerformingCategory.OTHER
             ? values.category
             : selectCategory,
       });
+      await updateOnboardingStatus(OnboardingStatus.OFFICE);
       navigate(PATHS.ONBOARDING_OFFICE);
     },
     enableReinitialize: true,

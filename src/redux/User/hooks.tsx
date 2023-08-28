@@ -6,6 +6,7 @@ import { setUser } from "../Login/slice";
 import { PATHS } from "../../routes";
 import { ToastNotification } from "../../components";
 import toast from "react-hot-toast";
+import { OnboardingStatus } from "../../interface/user.interface";
 
 export const useUpdateUser = () => {
   const dispatch = useDispatch();
@@ -51,4 +52,15 @@ export const useUpdateUser = () => {
       }
     }
   );
+};
+
+export const useUpdateOnboardingStatus = () => {
+  return useAsyncCallback(async (status: OnboardingStatus) => {
+    try {
+      await webClient.put(`user/onboarding/${status}`);
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
 };
