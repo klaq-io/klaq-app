@@ -6,6 +6,7 @@ import { useLogin } from "../../redux/Login/hooks";
 import { PATHS } from "../../routes";
 import { initialValues, validationSchema } from "./form";
 import { Button } from "../../components";
+import KlaqLogo from "../../assets/klaq.png";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -31,9 +32,9 @@ export const Login = () => {
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
             <h1 className="text-lg leading-6 font-semibold text-klaq-600">
-              Klaq.io
+              <img src={KlaqLogo} className="w-40 h-40" />
             </h1>
-            <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
               {intl.formatMessage({
                 id: "login.header",
               })}
