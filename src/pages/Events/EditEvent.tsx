@@ -4,7 +4,7 @@ import {
   EventSummaryCard,
   MapAutocompleteInput,
   Map,
-} from "../../components";
+} from "components";
 import { PageLayout } from "../../layouts";
 import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";

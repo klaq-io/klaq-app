@@ -10,7 +10,7 @@ import {
   updateCustomers,
 } from "./slices";
 import toast from "react-hot-toast";
-import { ToastNotification } from "../../components";
+import { ToastNotification } from "components";
 
 export const useFetchCustomers = () => {
   const dispatch = useDispatch();

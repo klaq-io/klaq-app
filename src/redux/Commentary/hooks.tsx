@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import webClient from "../../utils/webclient";
 import { CommentaryType, setCommentaries, setCommentary } from "./slices";
 import toast from "react-hot-toast";
-import { ToastNotification } from "../../components";
+import { ToastNotification } from "components";
 
 export const useFetchCommentaries = () => {
   const dispatch = useDispatch();

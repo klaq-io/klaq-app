@@ -3,7 +3,7 @@ import { LoginLayout } from "../../layouts";
 import { initialValues, validationSchema } from "./form";
 import { useResetPassword } from "../../redux/Login/hooks";
 import { useIntl } from "react-intl";
-import { Button } from "../../components";
+import { Button } from "components";
 
 export const ResetPassword = () => {
   const intl = useIntl();

@@ -21,7 +21,7 @@ import { ProductItem } from "../../redux/Products/slices";
 import { classNames, shortenString } from "../../utils/utils";
 import { NewProducts } from "../Products";
 import { initialValuesEditEvent, validationSchemaEditEvent } from "./form";
-import { Button, CommentaryFeed } from "../../components";
+import { Button, CommentaryFeed } from "components";
 
 const EditEvent = () => {
   const { id } = useParams();

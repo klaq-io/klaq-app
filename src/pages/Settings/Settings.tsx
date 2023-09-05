@@ -1,6 +1,6 @@
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { PageLayout } from "../../layouts";
-import { Button } from "../../components";
+import { Button } from "components";
 
 export const Settings = () => {
   return (

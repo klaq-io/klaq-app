@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../../components";
+import { Button } from "components";
 import {
   CompanyLegalForm,
   Suggestion,

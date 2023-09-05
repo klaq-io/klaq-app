@@ -14,7 +14,7 @@ import { FC, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { KebabMenu, Button } from "../../components";
+import { KebabMenu, Button } from "components";
 import { PageLayout } from "../../layouts";
 import { useFetchCustomers } from "../../redux/Customer/hooks";
 import { getCustomer } from "../../redux/Customer/selectors";

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import SidePanel from "../../components/SidePanel";
+import SidePanel from "components/SidePanel";
 import { classNames } from "../../utils/utils";
 import { initialValues, validationSchema } from "./form";
 import { useFormik } from "formik";
@@ -8,7 +8,7 @@ import {
   useAddProductItem,
   useFetchProductItems,
 } from "../../redux/Products/hooks";
-import { UploadDocumentZone } from "../../components";
+import { UploadDocumentZone } from "components";
 
 type Props = {
   openSidePanel: boolean;

@@ -28,7 +28,7 @@ import {
   ChevronDownIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
-import { Button } from "../../components";
+import { Button } from "components";
 
 export const MonthView = () => {
   const navigate = useNavigate();

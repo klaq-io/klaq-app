@@ -18,7 +18,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { PATHS } from "../../routes";
 import { ProductItem } from "../../redux/Products/slices";
-import { Button, CommentaryFeed } from "../../components";
+import { Button, CommentaryFeed } from "components";
 
 export const EventDetails2 = () => {
   const { id } = useParams();

@@ -1,4 +1,4 @@
-import { Spinner } from "../../components";
+import { Spinner } from "components";
 import Klaq from "../../assets/Klaq-2.png";
 
 type Props = {

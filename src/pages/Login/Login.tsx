@@ -5,7 +5,7 @@ import { LoginLayout } from "../../layouts";
 import { useLogin } from "../../redux/Login/hooks";
 import { PATHS } from "../../routes";
 import { initialValues, validationSchema } from "./form";
-import { Button } from "../../components";
+import { Button } from "components";
 import KlaqLogo from "../../assets/klaq.png";
 
 export const Login = () => {

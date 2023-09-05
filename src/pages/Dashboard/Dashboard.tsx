@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, EventList, MiniCalendar, Skeleton } from "../../components";
+import { Button, EventList, MiniCalendar, Skeleton } from "components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getEventsByStatus } from "../../redux/Events/selectors";

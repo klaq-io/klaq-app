@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, EventSummaryCard, Map } from "../../components";
-import { Alert } from "../../components/Alert/Alert";
+import { Button, EventSummaryCard, Map } from "components";
+import { Alert } from "components/Alert/Alert";
 import {
   Distance,
   Duration,

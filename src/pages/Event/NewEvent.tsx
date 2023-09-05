@@ -15,7 +15,7 @@ import { Customer, CustomerType } from "../../redux/Customer/slices";
 import { useAddEvent } from "../../redux/Events/hooks";
 import { classNames } from "../../utils/utils";
 import { initialValuesNewEvent, validationSchemaNewEvent } from "./form";
-import { Map } from "../../components";
+import { Map } from "components";
 
 export const NewEvent = () => {
   const intl = useIntl();

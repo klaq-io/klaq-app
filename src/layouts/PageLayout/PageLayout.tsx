@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Sidebar, Spinner } from "../../components";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { Sidebar, Spinner } from "components";
+import { Navbar } from "components/Navbar/Navbar";
 
 type Props = {
   children: any;

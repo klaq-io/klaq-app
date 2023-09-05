@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { type } from "@testing-library/user-event/dist/type";
 import { initialValues, validationSchema } from "./form";
-import { Button } from "../../../components";
+import { Button } from "components";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,

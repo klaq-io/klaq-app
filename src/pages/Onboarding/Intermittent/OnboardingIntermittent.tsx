@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { Button } from "../../../components";
+import { Button } from "components";
 import { useEffect } from "react";
 import { useFetchUser } from "../../../redux/Login/hooks";
 import { useSelector } from "react-redux";

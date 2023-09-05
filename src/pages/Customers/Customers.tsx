@@ -16,8 +16,8 @@ import {
   DangerModal,
   DropdownMenu,
   KebabMenu,
-} from "../../components";
-import { Button } from "../../components";
+} from "components";
+import { Button } from "components";
 import { PageLayout } from "../../layouts";
 import {
   useDeleteCustomer,

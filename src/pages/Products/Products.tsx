@@ -14,7 +14,7 @@ import {
 import { getAllProducts } from "../../redux/Products/selectors";
 import { NewProducts } from "./NewProducts";
 import { EditProduct } from "./EditProduct";
-import { DangerModal, DropdownMenu, KebabMenu } from "../../components";
+import { DangerModal, DropdownMenu, KebabMenu } from "components";
 import { shortenString } from "../../utils/utils";
 import { ProductItem } from "../../redux/Products/slices";
 

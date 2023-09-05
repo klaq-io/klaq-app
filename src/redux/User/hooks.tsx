@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import webClient from "../../utils/webclient";
 import { setUser } from "../Login/slice";
 import { PATHS } from "../../routes";
-import { ToastNotification } from "../../components";
+import { ToastNotification } from "components";
 import toast from "react-hot-toast";
 import { OnboardingStatus } from "../../interface/user.interface";
 

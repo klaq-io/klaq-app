@@ -16,7 +16,7 @@ import {
   EventBadgeButton,
   EventList,
   EventListSkeletonCard,
-} from "../../components";
+} from "components";
 import { PageLayout } from "../../layouts";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getAllEvents, getEventsByStatus } from "../../redux/Events/selectors";

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, CommentaryFeed, EventSummaryCard } from "../../components";
+import { Button, CommentaryFeed, EventSummaryCard } from "components";
 import { InvoiceLayout, PageLayout } from "../../layouts";
 import { useFetchEvent } from "../../redux/Events/hooks";
 import { getEventById } from "../../redux/Events/selectors";

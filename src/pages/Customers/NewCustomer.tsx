@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
-import SidePanel from "../../components/SidePanel";
+import SidePanel from "components/SidePanel";
 import { initialValues, validationSchema } from "./form";
 import { useIntl } from "react-intl";
-import { Button } from "../../components";
+import { Button } from "components";
 import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
 import { CustomerType } from "../../redux/Customer/slices";
-import { SearchCompany } from "../../components";
+import { SearchCompany } from "components";
 import { Suggestion } from "../../interface/suggestion.interface";
 import { FC, useState } from "react";
 import { useCreateCustomer } from "../../redux/Customer/hooks";

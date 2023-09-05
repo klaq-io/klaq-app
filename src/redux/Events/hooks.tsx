@@ -2,7 +2,7 @@ import { useAsyncCallback } from "@react-hooks-library/core";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastNotification } from "../../components";
+import { ToastNotification } from "components";
 import { PATHS } from "../../routes";
 import webClient from "../../utils/webclient";
 import { setEvent, setEvents } from "./slices";

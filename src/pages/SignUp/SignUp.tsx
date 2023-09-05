@@ -4,7 +4,7 @@ import { PATHS } from "../../routes";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./form";
 import PhoneInput from "react-phone-input-2";
-import { Button } from "../../components";
+import { Button } from "components";
 import { useSignUp } from "../../redux/Login/hooks";
 
 export const SignUp = () => {

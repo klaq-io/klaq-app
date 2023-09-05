@@ -1,6 +1,6 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
 import webClient from "../../utils/webclient";
-import { ToastNotification } from "../../components";
+import { ToastNotification } from "components";
 import toast from "react-hot-toast";
 import { useInitiateSMSVerification } from "../SMS/hooks";
 import { useNavigate } from "react-router-dom";

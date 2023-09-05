@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import SidePanel from "../../components/SidePanel";
+import SidePanel from "components/SidePanel";
 import {
   useEditProductItem,
   useFetchProductItems,
@@ -10,7 +10,7 @@ import {
 import { getProductById } from "../../redux/Products/selectors";
 import { classNames } from "../../utils/utils";
 import { initialValues, validationSchemaEdit } from "./form";
-import { Button } from "../../components";
+import { Button } from "components";
 
 type Props = {
   openSidePanel: boolean;

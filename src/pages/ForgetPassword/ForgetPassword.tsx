@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { LoginLayout } from "../../layouts";
 import { PATHS } from "../../routes";
-import { Button } from "../../components";
+import { Button } from "components";
 import { useFormik } from "formik";
 import { initialValues, validationSchema } from "./form";
 import { useRequestResetPassword } from "../../redux/Login/hooks";
