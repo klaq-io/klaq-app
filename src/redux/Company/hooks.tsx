@@ -1,7 +1,7 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
 import webClient from "../../utils/webclient";
 import { useDispatch } from "react-redux";
-import { Company, setCompany } from "./slices";
+import { Company, Coordinates, setCompany } from "./slices";
 import { toast } from "react-hot-toast";
 import { ToastNotification } from "components";
 import { useNavigate } from "react-router-dom";
@@ -118,6 +118,7 @@ export const useUpdateCompany = () => {
       officeCity?: string;
       officeZip?: string;
       officeCountry?: string;
+      officeCoordinates?: Coordinates;
     }) => {
       try {
         const res = await webClient.put("/company", values);

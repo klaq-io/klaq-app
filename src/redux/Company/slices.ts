@@ -20,6 +20,12 @@ export interface Company {
   officeCity: string;
   officeZip: string;
   officeCountry: string;
+  officeCoordinates: Coordinates;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
 }
 
 export const companySlice = createSlice({

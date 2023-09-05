@@ -3,7 +3,7 @@ import { PageLayout } from "../../../layouts";
 import { useIntl } from "react-intl";
 import { initialValues } from "./form";
 import { useFormik } from "formik";
-import { Button } from "components";
+import { Button, MapAutocompleteInput } from "components";
 import {
   useFetchCompany,
   useUpdateCompany,
@@ -15,6 +15,7 @@ import { PATHS } from "../../../routes";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "components/Alert/Alert";
 import { LegalInformationSkeleton, OfficeSkeleton } from "./Skeleton";
+import { RetrieveAddress } from "interface/retrieve-address.interface";
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -64,6 +65,17 @@ export const Company: FC = () => {
       legalForm: company.legalForm,
       legalName: company.legalName,
     });
+  };
+
+  const setAddressAutocompleteValues = (retrieveAddress: RetrieveAddress) => {
+    formik.setValues({
+      ...formik.values,
+      officeAddress: retrieveAddress.address,
+      officeCity: retrieveAddress.city,
+      officeCountry: retrieveAddress.country,
+      officeZip: retrieveAddress.zipcode,
+    });
+    formik.setFieldValue("officeCoordinates", retrieveAddress.coordinates);
   };
 
   useEffect(() => {
@@ -382,6 +394,34 @@ export const Company: FC = () => {
             >
               <div className="px-4 py-6 sm:p-8">
                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="col-span-full">
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "settings.office.label.autocomplete",
+                      })}
+                    </label>
+                    <MapAutocompleteInput
+                      setAddress={setAddressAutocompleteValues}
+                      defaultAddress={`${formik.values.officeAddress} ${formik.values.officeZip} ${formik.values.officeCity} ${formik.values.officeCountry}`}
+                    />
+                  </div>
+                  <div className="sm:col-span-full">
+                    <div className="relative w-full mt-2">
+                      <div
+                        className="absolute inset-0 flex items-center w-full"
+                        aria-hidden="true"
+                      >
+                        <div className="w-full border-t border-gray-300" />
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="bg-white px-2 text-sm text-gray-500">
+                          {intl.formatMessage({
+                            id: "settings.office.label.manual",
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                   <div className="col-span-full">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({

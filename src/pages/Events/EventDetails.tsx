@@ -17,6 +17,7 @@ import { Event } from "../../redux/Events/slices";
 import { useGetDistanceAndDuration } from "../../redux/Map/hooks";
 import { PATHS } from "../../routes";
 import { EventDetailsSkeleton } from "../Event/Skeleton";
+import { getCompany } from "redux/Company/selectors";
 
 export const EventDetails = () => {
   const intl = useIntl();
@@ -31,6 +32,8 @@ export const EventDetails = () => {
   const [{ isLoading }, fetchEvents] = useFetchEvents();
   const event = useSelector((state: any) => getEventById(state, id!));
 
+  const company = useSelector(getCompany);
+
   const [, getDistanceAndDuration] = useGetDistanceAndDuration();
 
   const formatTime = (time: string) => {
@@ -43,11 +46,8 @@ export const EventDetails = () => {
       return;
     }
     const { distance, duration } = await getDistanceAndDuration(
-      { longitude: 0.57768, latitude: 49.34846 },
-      {
-        latitude: event.coordinates.latitude,
-        longitude: event.coordinates.longitude,
-      }
+      `${company.officeAddress} ${company.officeZip} ${company.officeCity} ${company.officeCountry}`,
+      `${event.address} ${event.zipcode} ${event.city} ${event.country}`
     );
     setDistance(distance);
     setDuration(duration);

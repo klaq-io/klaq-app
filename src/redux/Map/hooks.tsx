@@ -35,13 +35,10 @@ export const useRetrieveAddress = () => {
 
 export const useGetDistanceAndDuration = () => {
   return useAsyncCallback(
-    async (
-      origin: Coordinates,
-      destination: Coordinates
-    ): Promise<DistanceAndDuration> => {
+    async (from: string, to: string): Promise<DistanceAndDuration> => {
       try {
         const { data } = await webClient.get(
-          `map/distance-and-duration?origin.latitude=${origin.latitude}&origin.longitude=${origin.longitude}&destination.latitude=${destination.latitude}&destination.longitude=${destination.longitude}`
+          `map/distance-and-duration?from=${from}&to=${to}`
         );
         return data;
       } catch (error: any) {

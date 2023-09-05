@@ -12,4 +12,8 @@ export const initialValues = {
   city: "",
   country: "",
   zip: "",
+  officeCoordinates: {
+    longitude: 0,
+    latitude: 0,
+  },
 };

@@ -291,7 +291,9 @@
         "address": "Adresse de votre bureau",
         "city": "Ville",
         "zip": "ZIP / Code Postal",
-        "country": "Pays"
+        "country": "Pays",
+        "autocomplete": "Recherche automatique",
+        "manual": "ou remplir manuellement ci-dessous"
       },
       "input": {
         "address": "Saisissez l'adresse de votre bureau",
@@ -986,7 +988,9 @@
         "address": "Adresse de votre bureau",
         "city": "Ville",
         "zip": "ZIP / Code Postal",
-        "country": "Pays"
+        "country": "Pays",
+        "autocomplete": "Recherche automatique",
+        "manual": "ou remplir manuellement ci-dessous"
       },
       "input": {
         "address": "Saisissez l'adresse de votre bureau",
