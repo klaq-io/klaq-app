@@ -1132,7 +1132,7 @@
         "title": "Erreur",
         "message": "Votre email n'a pas été confirmé"
       },
-      "auth-user-mail-already-exist": {
+      "auth-user-email-already-exist": {
         "title": "Erreur",
         "message": "Un compte existe déjà avec cette adresse e-mail"
       },

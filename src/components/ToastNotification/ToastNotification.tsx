@@ -1,13 +1,6 @@
-import { Fragment, useState } from "react";
-import { Transition } from "@headlessui/react";
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import { StatusIcon } from "../StatusIcon";
+import { useState } from "react";
 import { useIntl } from "react-intl";
+import { StatusIcon } from "../StatusIcon";
 
 type Props = {
   classes?: string;
@@ -19,7 +12,6 @@ type Props = {
 export const ToastNotification = (props: Props) => {
   const { status, titleId, messageId } = props;
   const intl = useIntl();
-  const [show, setShow] = useState(true);
 
   return (
     <>
