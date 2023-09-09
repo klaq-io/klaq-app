@@ -1,6 +1,6 @@
 {
-  "short_name": "Klaq",
-  "name": "Klaq",
+  "short_name": "klaq.io",
+  "name": "klaq.io",
   "description": "Klaq, Boosting Artists' Creativity by Simplifying Admin",
   "icons": [
     {
@@ -9,12 +9,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "klaq-iconic-icon.png",
+      "src": "klaq-app-icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "klaq-iconic-icon.png",
+      "src": "klaq-app-icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
