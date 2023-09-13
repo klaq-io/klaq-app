@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { commentarySlice } from "./Commentary/slices";
+import { companySlice } from "./Company/slices";
+import { customerSlice } from "./Customer/slices";
 import { eventsSlice } from "./Events/slices";
 import { userSlice } from "./Login/slice";
 import { productItemSlice } from "./Products/slices";
-import { companySlice } from "./Company/slices";
-import { customerSlice } from "./Customer/slices";
-import { commentarySlice } from "./Commentary/slices";
 
 const store = configureStore({
   reducer: {

@@ -10,12 +10,15 @@ import * as msg_fr from "./lang/fr.json";
 import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { initSentry } from "sentry";
 
 const language = navigator.language.split(/[-_]/)[0];
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+initSentry();
 
 root.render(
   <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}>
