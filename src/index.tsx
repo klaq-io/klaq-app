@@ -24,9 +24,7 @@ root.render(
   <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}>
     <IntlProvider
       locale={navigator.language}
-      messages={flatten(
-        language === "fr" ? msg_fr : language === "es" ? msg_es : msg_en
-      )}
+      messages={flatten(msg_fr)}
       defaultLocale="fr"
     >
       <Provider store={store}>

@@ -6,6 +6,7 @@ import {
   Calendar,
   Company,
   ConfirmMail,
+  ConfirmMailVerify,
   ConfirmPhone,
   CustomerDetails,
   Customers,
@@ -57,13 +58,14 @@ function App() {
     };
   });
 
-  return dimensions.width <= MINIMUM_SCREEN_SIZE.width ||
-    dimensions.height <= MINIMUM_SCREEN_SIZE.height ? (
-    <div>no phone supported</div>
-  ) : (
+  return (
     <BrowserRouter>
       <Routes>
         <Route path={PATHS.SIGN_UP} element={<SignUp />} />
+        <Route
+          path={PATHS.CONFIRM_MAIL_VERIFY}
+          element={<ConfirmMailVerify />}
+        />
         <Route path={PATHS.CONFIRM_MAIL} element={<ConfirmMail />} />
         <Route path={PATHS.CONFIRM_SMS} element={<ConfirmPhone />} />
         <Route path={PATHS.LOGIN} element={<Login />} />

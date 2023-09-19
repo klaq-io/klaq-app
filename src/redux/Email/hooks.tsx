@@ -6,21 +6,40 @@ import { useInitiateSMSVerification } from "../SMS/hooks";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
 
+export const useCheckEmailVerifyingStatus = () => {
+  const navigate = useNavigate();
+
+  return useAsyncCallback(async (interval?: NodeJS.Timer) => {
+    try {
+      const { data } = await webClient.get("email-confirmation/status");
+
+      const { isMailVerified } = data;
+
+      if (isMailVerified) {
+        if (interval) clearInterval(interval);
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId={`toast.success.confirmed-email.title`}
+            messageId={`toast.success.confirmed-email.message`}
+          />,
+          { duration: 1500, position: "top-right" }
+        );
+        navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
+      }
+    } catch {}
+  });
+};
+
 export const useVerifyEmail = () => {
   const navigate = useNavigate();
+  const [, resendVerificationEmail] = useResendVerificationEmail();
   const [, initiateSMSVerification] = useInitiateSMSVerification();
 
   return useAsyncCallback(async (token: string) => {
     try {
       const res = await webClient.post("email-confirmation/confirm", { token });
-      toast.custom(
-        <ToastNotification
-          status="success"
-          titleId={`toast.success.confirmed-email.title`}
-          messageId={`toast.success.confirmed-email.message`}
-        />
-      );
-      navigate(PATHS.CONFIRM_SMS);
+      return true;
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
@@ -34,7 +53,8 @@ export const useVerifyEmail = () => {
         { duration: 1500, position: "top-right" }
       );
       console.error(error);
-      return error.response;
+      resendVerificationEmail();
+      return false;
     }
   });
 };
@@ -46,9 +66,10 @@ export const useResendVerificationEmail = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={`toast.success.confirmed-email.title`}
-          messageId={`toast.success.confirmed-email.message`}
-        />
+          titleId={`toast.success.resend-verify-email.title`}
+          messageId={`toast.success.resend-verify-email.message`}
+        />,
+        { duration: 1500, position: "top-right" }
       );
     } catch (error: any) {
       const code = error.response.data.code

@@ -1,32 +1,38 @@
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { OnboardingLayout } from "../../layouts/OnboardingLayout/OnboardingLayout";
+import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
 import {
+  useCheckEmailVerifyingStatus,
   useResendVerificationEmail,
   useVerifyEmail,
-} from "../../redux/Email/hooks";
+} from "redux/Email/hooks";
+
+const SECONDS = 1000;
+const INITIAL_DELAY = 15 * SECONDS;
 
 export const ConfirmMail = () => {
   const params = new URLSearchParams(document.location.search);
-  const token = params.get("token");
   const email = params.get("email");
 
   const intl = useIntl();
 
-  const [{ isLoading }, verifyEmail] = useVerifyEmail();
   const [, resendVerificationEmail] = useResendVerificationEmail();
+  const [{ data }, checkEmailVerifyingStatus] = useCheckEmailVerifyingStatus();
 
   useEffect(() => {
-    if (token) {
-      verifyEmail(token);
-    }
+    setTimeout(() => {
+      checkEmailVerifyingStatus();
+
+      const interval = setInterval(() => {
+        checkEmailVerifyingStatus(interval);
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }, INITIAL_DELAY);
   }, []);
 
   return (
-    <OnboardingLayout
-      isLoading={isLoading}
-      backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-    >
+    <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
       <div>
         <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
