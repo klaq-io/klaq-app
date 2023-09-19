@@ -43,6 +43,13 @@ export const useResendVerificationEmail = () => {
   return useAsyncCallback(async () => {
     try {
       await webClient.post("email-confirmation/resend-confirmation-link");
+      toast.custom(
+        <ToastNotification
+          status="success"
+          titleId={`toast.success.confirmed-email.title`}
+          messageId={`toast.success.confirmed-email.message`}
+        />
+      );
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
