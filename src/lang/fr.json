@@ -76,11 +76,11 @@
     },
     "verify": {
       "success": {
-        "header": "Votre e-mail a bien été confirmé",
+        "header": "klaq.io  a bien confirmé votre e-mail",
         "description": "Vous pouvez désormais fermer cette fenêtre et vous connecter à votre compte."
       },
       "failed": {
-        "header": "Votre e-mail n'a pas pu être confirmé",
+        "header": "klaq.io n'a pas pu confirmé votre email",
         "description": "Veuillez réessayer en cliquant sur le lien de réinitilialisation qui vient de vous être envoyé. Vous pouvez fermer cette page."
       }
     }

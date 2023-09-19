@@ -1,5 +1,11 @@
+import { Transition, Dialog } from "@headlessui/react";
+import {
+  CheckIcon,
+  ExclamationTriangleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useIntl } from "react-intl";
 import {
   useCheckEmailVerifyingStatus,
@@ -13,7 +19,7 @@ export const ConfirmMailVerify = () => {
   const token = params.get("token");
 
   const [{ data, isLoading }, verifyEmail] = useVerifyEmail();
-  const status = data ? "success" : "failed";
+  const status = data || true ? "success" : "failed";
 
   useEffect(() => {
     if (token) {
@@ -22,25 +28,88 @@ export const ConfirmMailVerify = () => {
   }, []);
 
   return (
-    <OnboardingLayout
-      isLoading={isLoading}
-      backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
-    >
-      <div>
-        <h1 className="text-lg leading-6 font-semibold text-klaq-600">
-          Klaq.io
-        </h1>
-        <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {intl.formatMessage({
-            id: `confirm-mail.verify.${status}.header`,
-          })}
-        </h2>
-        <p className="mt-2 text-sm leading-6 text-gray-500">
-          {intl.formatMessage({
-            id: `confirm-mail.verify.${status}.description`,
-          })}
-        </p>
+    <div className="relative z-10">
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-end justify-center p-4 text-center items-center sm:p-0">
+          <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+            <div className="sm:flex sm:items-start">
+              {status === "success" ? (
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                  <CheckIcon
+                    className="h-6 w-6 text-green-600"
+                    aria-hidden="true"
+                  />
+                </div>
+              ) : (
+                <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <ExclamationTriangleIcon
+                    className="h-6 w-6 text-red-600"
+                    aria-hidden="true"
+                  />
+                </div>
+              )}
+              <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <h3 className="text-base font-semibold leading-6 text-gray-900">
+                  {intl.formatMessage({
+                    id: `confirm-mail.verify.${status}.header`,
+                  })}
+                </h3>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-500">
+                    {intl.formatMessage({
+                      id: `confirm-mail.verify.${status}.description`,
+                    })}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </OnboardingLayout>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <div>
+              {status === "success" ? (
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                  <CheckIcon
+                    className="h-6 w-6 text-green-600"
+                    aria-hidden="true"
+                  />
+                </div>
+              ) : (
+                <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <ExclamationTriangleIcon
+                    className="h-6 w-6 text-red-600"
+                    aria-hidden="true"
+                  />
+                </div>
+              )}
+              <div className="sm:flex sm:items-start">
+                <div className="mt-3 text-center sm:mt-5">
+                  <h3 className="text-base font-semibold leading-6 text-gray-900">
+                    {intl.formatMessage({
+                      id: `confirm-mail.verify.${status}.header`,
+                    })}
+                  </h3>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      {intl.formatMessage({
+                        id: `confirm-mail.verify.${status}.description`,
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
