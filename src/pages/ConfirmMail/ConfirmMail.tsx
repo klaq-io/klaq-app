@@ -6,6 +6,7 @@ import {
   useResendVerificationEmail,
   useVerifyEmail,
 } from "redux/Email/hooks";
+import { Ping } from "@uiball/loaders";
 
 const SECONDS = 1000;
 const INITIAL_DELAY = 15 * SECONDS;
@@ -33,7 +34,7 @@ export const ConfirmMail = () => {
 
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1618060932014-4deda4932554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
-      <div>
+      <div className="flex flex-col">
         <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
         </h1>
@@ -53,12 +54,23 @@ export const ConfirmMail = () => {
             }
           )}
         </p>
+        <div className="mt-6 mx-auto">
+          <Ping size={90} speed={3} color="#40615d" />
+        </div>
+        <div className="mx-auto">
+          <h1 className="text-lg leading-6 text-klaq-600">
+            {intl.formatMessage({
+              id: "confirm-mail.waiting-reception",
+            })}
+          </h1>
+        </div>
       </div>
+
       <div className="mt-8">
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage({
             id: "confirm-mail.resend.text",
-          })}
+          })}{" "}
           <button
             onClick={() => resendVerificationEmail()}
             className="font-semibold text-klaq-600 hover:text-klaq-500"

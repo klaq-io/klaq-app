@@ -69,7 +69,8 @@
 
   "confirm-mail": {
     "header": "Votre e-mail de confirmation vous attend dans votre boîte",
-    "description": "Veuillez cliquer sur le lien de confirmation dans l'e-mail que nous venons de vous envoyer à l'adresse <b>{email}</b> pour continuer.",
+    "description": "Veuillez cliquer sur le lien de confirmation dans l'e-mail que nous venons de vous envoyer à l'adresse <b>{email}</b> pour continuer. Cette page s'actualisera lorsque le mail sera confirmé.",
+    "waiting-reception": "En attente de confirmation...",
     "resend": {
       "text": "Votre email est peut-être dans vos spams. Toujours rien ?",
       "link": "Cliquer ici pour renvoyer l'e-mail"
@@ -1099,8 +1100,8 @@
         "message": "Votre email a bien été confirmé"
       },
       "resend-verify-email": {
-        "title": "Succès",
-        "message": "Votre email a bien été envoyé"
+        "title": "Code de vérification envoyé",
+        "message": "Votre email contenant votre code a bien été envoyé"
       },
       "create-company": {
         "title": "Succès",

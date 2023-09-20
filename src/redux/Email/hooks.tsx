@@ -24,7 +24,7 @@ export const useCheckEmailVerifyingStatus = () => {
             titleId={`toast.success.confirmed-email.title`}
             messageId={`toast.success.confirmed-email.message`}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 2000, position: "top-right" }
         );
         initiateSMSVerification();
         navigate(PATHS.CONFIRM_SMS);
