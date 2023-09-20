@@ -703,6 +703,10 @@
         "invoices": "Factures",
         "quotes": "Devis",
         "new-event": "Créer un nouvel évènement"
+      },
+      "no-documents-found": {
+        "header": "Aucun document",
+        "description": "Aucun document n'a été trouvé pour ce client"
       }
     },
     "status": {

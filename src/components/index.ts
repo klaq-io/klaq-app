@@ -5,6 +5,7 @@ export * from "./DropdownMenu";
 export * from "./EventBadge";
 export * from "./EventSummary";
 export * from "./EventsList";
+export * from "./FileList";
 export * from "./KebabMenu";
 export * from "./Map";
 export * from "./MiniCalendar";

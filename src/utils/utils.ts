@@ -35,6 +35,7 @@ export const getCustomerValue = (
       quantity: product.quantity,
     }))
   );
+
   const customerValue = customerProducts.reduce((acc, curr) => {
     if (curr?.product?.price && typeof curr.quantity === "number") {
       return acc + curr.product.price * curr.quantity;
@@ -54,6 +55,7 @@ export const getPipeValue = (products: ProductItem[], events: Event[]) => {
       quantity: product.quantity,
     }))
   );
+
   const pipeValue = pipeProducts.reduce((acc, curr) => {
     if (curr?.product?.price && typeof curr.quantity === "number") {
       return acc + curr.product.price * curr.quantity;

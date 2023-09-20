@@ -43,12 +43,13 @@ export const Dashboard = () => {
   );
 
   const billedEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.WIN)
+    getEventsByStatus(state, EventStatus.WIN, EventStatus.DONE)
   );
   const billedAndQuotedEvents = useSelector((state: any) =>
     getEventsByStatus(
       state,
       EventStatus.WIN,
+      EventStatus.DONE,
       EventStatus.INVOICE_SENT,
       EventStatus.INVOICE_OPENED,
       EventStatus.CONTRACT_ACCEPTED,

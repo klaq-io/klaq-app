@@ -14,9 +14,12 @@ import { FC, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { KebabMenu, Button } from "components";
+import { KebabMenu, Button, FileList } from "components";
 import { PageLayout } from "../../layouts";
-import { useFetchCustomers } from "../../redux/Customer/hooks";
+import {
+  useFetchCustomers,
+  useFetchQuotesForCustomer,
+} from "../../redux/Customer/hooks";
 import { getCustomer } from "../../redux/Customer/selectors";
 import { CustomerType } from "../../redux/Customer/slices";
 import { getAllProducts } from "../../redux/Products/selectors";
@@ -48,6 +51,8 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
 
   const [{ isLoading, isSuccess }, fetchCustomers] = useFetchCustomers();
   const customer = useSelector((state: any) => getCustomer(state, id!));
+
+  const [{ data: quotes }, fetchCustomerQuotes] = useFetchQuotesForCustomer();
 
   const handlePrevious = () => {
     navigate(-1);
@@ -98,6 +103,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
   useEffect(() => {
     fetchCustomers();
     fetchProducts();
+    fetchCustomerQuotes(id!);
   }, []);
   return (
     <PageLayout isLoading={isLoading || isFetchProductLoading}>
@@ -220,7 +226,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="mt-10 flex space-y-2">
+      <div className="mt-10 flex flex-col space-y-6">
         <div className="flex flex-row w-full">
           <div>
             <Button
@@ -278,6 +284,13 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
               })}
             </Button>
           </div>
+        </div>
+        <div className="flex flex-col">
+          {DocumentType.INVOICE === selectedDocumentType ? (
+            <FileList fileList={[]} />
+          ) : (
+            <FileList fileList={quotes} />
+          )}
         </div>
       </div>
       <EditCustomer

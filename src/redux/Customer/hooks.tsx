@@ -11,6 +11,7 @@ import {
 } from "./slices";
 import toast from "react-hot-toast";
 import { ToastNotification } from "components";
+import { Document } from "interface/document.interface";
 
 export const useFetchCustomers = () => {
   const dispatch = useDispatch();
@@ -161,6 +162,19 @@ export const useDeleteCustomer = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useFetchQuotesForCustomer = () => {
+  return useAsyncCallback(async (id: string): Promise<Document[]> => {
+    try {
+      const { data } = await webClient.get(`/customer/${id}/quotes`);
+      const files = data.map((item: any) => item.document);
+      return files;
+    } catch (error: any) {
       console.error(error);
       return error.response;
     }
