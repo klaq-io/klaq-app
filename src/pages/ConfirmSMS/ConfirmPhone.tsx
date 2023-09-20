@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import OtpInput from "react-otp-input";
 import { useSelector } from "react-redux";
@@ -10,14 +10,23 @@ import {
   useVerifySMS,
 } from "../../redux/SMS/hooks";
 
+import { ReactComponent as OTPIcon } from "assets/icons/otp.svg";
+import { Button } from "components";
+import Countdown from "react-countdown";
+
 const OTP_LENGTH = 6;
+const DELAY = 60;
+const SECONDS_IN_MILLISECONDS = 1000;
+const DELAY_IN_MILLISECONDS = DELAY * SECONDS_IN_MILLISECONDS;
 
 export const ConfirmPhone = () => {
   const intl = useIntl();
+  const countRef: React.LegacyRef<Countdown> = useRef(null);
   const [, fetchUser] = useFetchUser();
   const [, initiateSMSVerification] = useInitiateSMSVerification();
   const user = useSelector(getUser);
   const [otp, setOtp] = useState("");
+  const [time, setTime] = useState(Date.now() + DELAY_IN_MILLISECONDS);
 
   const [, verifySMS] = useVerifySMS();
 
@@ -27,18 +36,56 @@ export const ConfirmPhone = () => {
     }
   }, [otp]);
 
-  useEffect(() => {
-    const initSms = async () => {
-      if (!user.phone) {
-        // await initiateSMSVerification();
-      }
-    };
+  const initSms = () => {
+    if (user.phone) {
+      initiateSMSVerification();
+    }
+  };
+
+  const resendVerificationCode = (api: any) => {
+    setTime(Date.now() + DELAY_IN_MILLISECONDS);
     initSms();
-  }, []);
+  };
 
   useEffect(() => {
     fetchUser();
   }, []);
+
+  const renderer = ({ hours, minutes, seconds, completed, api }: any) => {
+    if (completed) {
+      return (
+        <Button
+          onClick={() => resendVerificationCode(api)}
+          type="button"
+          variant="link"
+          color="primary"
+        >
+          {intl.formatMessage({
+            id: "confirm-sms.resend",
+          })}
+        </Button>
+      );
+    } else {
+      return (
+        <Button disabled={true} type="button" variant="link" color="primary">
+          {intl.formatMessage(
+            {
+              id: "confirm-sms.resend-in",
+            },
+            {
+              time: `${minutes > 9 ? minutes : `0${minutes}`}:${
+                seconds > 9 ? seconds : `0${seconds}`
+              }`,
+            }
+          )}
+        </Button>
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (countRef && countRef.current) countRef.current.api?.start();
+  }, [time]);
 
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1491198246568-ea47742734b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
@@ -63,7 +110,8 @@ export const ConfirmPhone = () => {
           )}
         </p>
       </div>
-      <div className="flex flex-col space-y-16 mt-10">
+      <div className="flex flex-col mt-10">
+        <OTPIcon className="w-48 h-48 mx-auto" />
         <OtpInput
           value={otp}
           onChange={setOtp}
@@ -76,6 +124,14 @@ export const ConfirmPhone = () => {
           )}
           containerStyle="w-16 h-16 flex flex-row items-center justify-between w-full max-w-xs space-x-2 mx-auto"
         />
+        <div className="mt-10 mx-auto">
+          <Countdown
+            date={time}
+            renderer={renderer}
+            autoStart={true}
+            ref={countRef}
+          ></Countdown>
+        </div>
       </div>
     </OnboardingLayout>
   );

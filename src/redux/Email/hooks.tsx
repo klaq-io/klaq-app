@@ -26,7 +26,8 @@ export const useCheckEmailVerifyingStatus = () => {
           />,
           { duration: 1500, position: "top-right" }
         );
-        navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
+        initiateSMSVerification();
+        navigate(PATHS.CONFIRM_SMS);
       }
     } catch {}
   });

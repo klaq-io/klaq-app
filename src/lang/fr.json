@@ -88,7 +88,9 @@
 
   "confirm-sms": {
     "header": "Votre code de confirmation vous attend sur votre téléphone",
-    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer."
+    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer.",
+    "resend": "Envoyer un nouveau code de confirmation",
+    "resend-in": "Envoyer un nouveau code de confirmation dans {time} secondes"
   },
 
   "onboarding": {

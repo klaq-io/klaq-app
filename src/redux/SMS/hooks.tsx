@@ -9,6 +9,7 @@ export const useInitiateSMSVerification = () => {
   return useAsyncCallback(async () => {
     try {
       await webClient.post("sms/initiate-verification");
+      return;
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
