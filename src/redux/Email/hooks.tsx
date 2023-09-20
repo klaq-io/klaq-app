@@ -8,6 +8,7 @@ import { PATHS } from "../../routes";
 
 export const useCheckEmailVerifyingStatus = () => {
   const navigate = useNavigate();
+  const [, initiateSMSVerification] = useInitiateSMSVerification();
 
   return useAsyncCallback(async (interval?: NodeJS.Timer) => {
     try {
@@ -32,9 +33,7 @@ export const useCheckEmailVerifyingStatus = () => {
 };
 
 export const useVerifyEmail = () => {
-  const navigate = useNavigate();
   const [, resendVerificationEmail] = useResendVerificationEmail();
-  const [, initiateSMSVerification] = useInitiateSMSVerification();
 
   return useAsyncCallback(async (token: string) => {
     try {

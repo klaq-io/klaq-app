@@ -148,39 +148,39 @@ export const Customers = () => {
       </div>
       <div className="flex flex-row ">
         <div className="flex-1 mt-10 ">
+          <div className="sm:flex sm:items-center">
+            <div className="sm:flex-auto">
+              <h1 className="text-base font-semibold leading-6 text-gray-900">
+                {intl.formatMessage(
+                  {
+                    id: "customers.my-customers.header",
+                  },
+                  {
+                    nb: customers.length,
+                  }
+                )}
+              </h1>
+              <p className="mt-2 text-sm text-gray-500">
+                {intl.formatMessage({
+                  id: "customers.my-customers.description",
+                })}
+              </p>
+            </div>
+            <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+              <Button
+                variant="contained"
+                color="primary"
+                type="button"
+                onClick={() => setOpenNewCustomerPanel(true)}
+              >
+                {intl.formatMessage({
+                  id: "customers.my-customers.submit",
+                })}
+              </Button>
+            </div>
+          </div>
           {customers && customers.length ? (
-            <div className="">
-              <div className="sm:flex sm:items-center">
-                <div className="sm:flex-auto">
-                  <h1 className="text-base font-semibold leading-6 text-gray-900">
-                    {intl.formatMessage(
-                      {
-                        id: "customers.my-customers.header",
-                      },
-                      {
-                        nb: customers.length,
-                      }
-                    )}
-                  </h1>
-                  <p className="mt-2 text-sm text-gray-500">
-                    {intl.formatMessage({
-                      id: "customers.my-customers.description",
-                    })}
-                  </p>
-                </div>
-                <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="button"
-                    onClick={() => setOpenNewCustomerPanel(true)}
-                  >
-                    {intl.formatMessage({
-                      id: "customers.my-customers.submit",
-                    })}
-                  </Button>
-                </div>
-              </div>
+            <>
               <div className="mt-10 ml-auto w-2/4 flex rounded-md shadow-sm">
                 <div className="relative flex-grow focus-within:z-10">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -217,7 +217,7 @@ export const Customers = () => {
                 </button>
               </div>
 
-              <div className="-mx-4 mt-4 ring-1 ring-gray-300 sm:mx-0 sm:rounded-lg bg-white">
+              <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead>
                     <tr>
@@ -322,9 +322,9 @@ export const Customers = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </>
           ) : (
-            <div className="mt-6">
+            <div className="mt-10">
               <button
                 onClick={() => setOpenNewCustomerPanel(true)}
                 type="button"

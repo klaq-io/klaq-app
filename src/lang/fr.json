@@ -544,7 +544,7 @@
         "delete": "Supprimer"
       }
     },
-    "no-product": "Aucun produit disponible",
+    "no-product": "Ajouter mon premier produit",
     "get-started": "Cliquer pour commencer à ajouter un produit",
     "add-product": "Ajouter un produit",
     "new-product": {
@@ -593,7 +593,7 @@
   "customers": {
     "header": "Clients",
     "description": "Liste de vos clients",
-    "no-customers": "Aucun client disponible",
+    "no-customers": "Ajouter mon premier client",
     "get-started": "Cliquer pour commencer à ajouter un client",
     "my-customers": {
       "header": "Mes clients ({nb})",
@@ -716,7 +716,7 @@
   "events": {
     "header": "Évènements",
     "description": "Liste de vos évènements",
-    "no-events": "Aucun évènement disponible",
+    "no-events": "Ajouter mon premier évènement",
     "get-started": "Cliquer pour commencer à ajouter un évènement",
     "day": {
       "monday": "Lundi",

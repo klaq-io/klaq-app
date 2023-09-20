@@ -2,6 +2,7 @@ import {
   EyeIcon,
   FolderIcon,
   PencilSquareIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 import { EventList } from "components";
 import { format, parse } from "date-fns";
@@ -195,12 +196,8 @@ export const Events = () => {
     },
   ];
 
-  const handleEventDetails = (id: string) => {
-    navigate(`${PATHS.EVENTS}/${id}`);
-  };
-
-  const handleEditEvent = (id: string) => {
-    navigate(`${PATHS.EVENTS}/${id}/edit`);
+  const handleNewEvent = () => {
+    navigate(PATHS.NEW_EVENT);
   };
 
   useEffect(() => {
@@ -254,7 +251,7 @@ export const Events = () => {
       </div>
       <div className="flex mt-5">
         <div className="flex-1">
-          {events && events.length > 0 && (
+          {events && events.length > 0 ? (
             <>
               <div className="pb-5 sm:flex sm:items-center flex flex-row">
                 <div className="flex">
@@ -363,6 +360,33 @@ export const Events = () => {
                 </div>
               )}
             </>
+          ) : (
+            <div className="mt-6">
+              <button
+                onClick={handleNewEvent}
+                type="button"
+                className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+              >
+                <PlusIcon
+                  className="mx-auto h-12 w-12 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                />
+
+                <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                  {intl.formatMessage({
+                    id: "events.no-events",
+                  })}
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  {intl.formatMessage({
+                    id: "events.get-started",
+                  })}
+                </p>
+              </button>
+            </div>
           )}
         </div>
       </div>
