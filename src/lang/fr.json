@@ -1288,6 +1288,18 @@
         "title": "Erreur",
         "message": "Votre profil n'a pas pu être mis à jour"
       },
+      "failed-to-delete-logo": {
+        "title": "Erreur",
+        "message": "Impossible de supprimer le logo. Réessayez plus tard."
+      },
+      "unauthorized-file-type": {
+        "title": "Erreur",
+        "message": "Le type de fichier n'est pas autorisé"
+      },
+      "file-upload-error": {
+        "title": "Erreur",
+        "message": "Une erreur est survenue lors du téléchargement du fichier"
+      },
       "default": {
         "title": "Erreur",
         "message": "Une erreur inconnue est survenue"
