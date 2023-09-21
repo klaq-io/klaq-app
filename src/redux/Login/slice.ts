@@ -21,6 +21,7 @@ export interface User {
   isBlocked: boolean;
   createdAt: Date;
   updatedAt: Date;
+  logoUrl?: string;
 }
 
 export type UserSliceType = User;

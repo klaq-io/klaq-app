@@ -16,6 +16,7 @@ export interface User {
   publicEmail: string;
   category: PerformingCategory;
   onboardingStatus: OnboardingStatus;
+  logoUrl?: string;
 }
 
 export enum PerformingCategory {

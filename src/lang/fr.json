@@ -884,6 +884,7 @@
   "settings": {
     "button": {
       "submit": "Sauvegarder",
+      "delete": "Supprimer",
       "cancel": "Annuler"
     },
     "profile": {
@@ -908,6 +909,12 @@
         "website": "Veuillez saisir votre site internet",
         "public-email": "Veuillez saisir votre adresse e-mail public",
         "public-phone": "Veuillez saisir votre numéro de téléphone public"
+      },
+      "logo": {
+        "header": "Logo",
+        "label": "Logo actuel",
+        "description": "Ce logo sera utilisé sur vos devis et vos factures. Seul les fichiers PNG, JPG et JPEG sont acceptés.",
+        "change": "Changer le logo"
       }
     },
     "personal": {

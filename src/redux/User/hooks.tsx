@@ -64,3 +64,59 @@ export const useUpdateOnboardingStatus = () => {
     }
   });
 };
+
+export const useUpdateLogo = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async (logo: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", logo);
+      const { data } = await webClient.post("user/logo", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch(setUser(data));
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useDeleteLogo = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async () => {
+    try {
+      const { data } = await webClient.delete("user/logo");
+      dispatch(setUser(data));
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : "default";
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code}.title`}
+          messageId={`toast.error.${code}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.error(error);
+      return error.response;
+    }
+  });
+};

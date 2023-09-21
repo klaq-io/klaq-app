@@ -107,6 +107,8 @@ export const Navbar = (props: Props) => {
 
               {isFetchingUser ? (
                 <Skeleton variant="circle" width={8} height={8} />
+              ) : user.logoUrl ? (
+                <img src={user.logoUrl} className="h-8 w-8 rounded-full" />
               ) : (
                 <div
                   className={classNames(

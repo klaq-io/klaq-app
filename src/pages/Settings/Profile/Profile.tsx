@@ -1,38 +1,36 @@
-import { FC, useEffect } from "react";
-import { useIntl } from "react-intl";
-import { PageLayout } from "../../../layouts";
-import {
-  UserCircleIcon,
-  PhotoIcon,
-  LinkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  useFetchUser,
-  useGoogleGenerateOAuthUrl,
-} from "../../../redux/Login/hooks";
-import { useSelector } from "react-redux";
-import { getUser } from "../../../redux/Login/selectors";
-import { useFormik } from "formik";
-import { initialValues, validationSchema } from "./form";
+import { LinkIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { ReactComponent as GoogleIcon } from "assets/icon-google.svg";
+import { Button, Skeleton } from "components";
 import { format, subYears } from "date-fns";
-import { Button } from "components";
-import { useUpdateUser } from "../../../redux/User/hooks";
-import { ReactComponent as GoogleIcon } from "../../../assets/icon-google.svg";
-import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { PageLayout } from "layouts";
+import { FC, LegacyRef, useEffect, useRef } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useFetchUser, useGoogleGenerateOAuthUrl } from "redux/Login/hooks";
+import { getUser } from "redux/Login/selectors";
+import { useDeleteLogo, useUpdateLogo, useUpdateUser } from "redux/User/hooks";
 import {
   PrivateInformationSkeleton,
   PublicInformationSkeleton,
 } from "./Skeleton";
+import { initialValues, validationSchema } from "./form";
+import { JellyTriangle } from "@uiball/loaders";
 
 type Props = {};
 
 export const Profile: FC<Props> = (props: Props) => {
   const intl = useIntl();
+  const hiddenLogoInput: LegacyRef<HTMLInputElement> = useRef(null);
 
   const [{ isLoading: isFetchingUser }, fetchUser] = useFetchUser();
+  const [{ isLoading: isFetchingUserPicture }, fetchUserPicture] =
+    useFetchUser();
   const user = useSelector(getUser);
 
   const [{ isLoading }, updateUser] = useUpdateUser();
+  const [{ isLoading: isUpdatingLogo }, updateLogo] = useUpdateLogo();
+  const [{ isLoading: isDeletingPicture }, deleteLogo] = useDeleteLogo();
 
   const [, getGoogleOAuthUrl] = useGoogleGenerateOAuthUrl();
 
@@ -80,6 +78,16 @@ export const Profile: FC<Props> = (props: Props) => {
   const handleGoToGoogleOAuth = async () => {
     const url = await getGoogleOAuthUrl();
     window.location.href = url;
+  };
+
+  const handleFileUpload = async (file: File | null) => {
+    if (!file) return;
+    await updateLogo(file);
+    fetchUserPicture();
+  };
+
+  const handleFileUploadClick = () => {
+    if (hiddenLogoInput.current) hiddenLogoInput.current.click();
   };
 
   return (
@@ -231,6 +239,7 @@ export const Profile: FC<Props> = (props: Props) => {
                   </div>
                 </div>
               </div>
+
               <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
                 <Button
                   type="button"
@@ -458,6 +467,92 @@ export const Profile: FC<Props> = (props: Props) => {
               </div>
             </form>
           )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              {intl.formatMessage({
+                id: "settings.profile.logo.header",
+              })}
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              {intl.formatMessage({
+                id: "settings.profile.logo.description",
+              })}
+            </p>
+          </div>
+          <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+            <div className="px-4 py-6 sm:p-8">
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-full">
+                  <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                    {intl.formatMessage({
+                      id: "settings.profile.logo.label",
+                    })}
+                  </h3>
+                </div>
+                <div className="col-span-full">
+                  {isUpdatingLogo ||
+                  isFetchingUserPicture ||
+                  isDeletingPicture ? (
+                    <UserCircleIcon
+                      className="h-24 w-24 text-gray-300 animate-pulse"
+                      aria-hidden="true"
+                      onClick={handleFileUploadClick}
+                    />
+                  ) : user.logoUrl ? (
+                    <img
+                      src={user.logoUrl}
+                      className="h-48 w-48 hover:cursor-pointer"
+                      onClick={handleFileUploadClick}
+                    />
+                  ) : (
+                    <UserCircleIcon
+                      className="h-24 w-24 text-gray-300 hover:cursor-pointer"
+                      aria-hidden="true"
+                      onClick={handleFileUploadClick}
+                    />
+                  )}
+
+                  <input
+                    type="file"
+                    className="hidden"
+                    ref={hiddenLogoInput}
+                    onChange={(event) => {
+                      handleFileUpload(
+                        event.target.files ? event.target.files[0] : null
+                      );
+                      event.preventDefault();
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+              <Button
+                type="button"
+                variant="text"
+                color="secondary"
+                onClick={deleteLogo}
+              >
+                {intl.formatMessage({
+                  id: "settings.button.delete",
+                })}
+              </Button>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="lg"
+                onClick={handleFileUploadClick}
+              >
+                {intl.formatMessage({
+                  id: "settings.profile.logo.change",
+                })}
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
