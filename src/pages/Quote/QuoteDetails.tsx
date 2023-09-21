@@ -18,6 +18,8 @@ import {
 } from "../../utils/utils";
 import { add, format } from "date-fns";
 import { PATHS } from "../../routes";
+import { useFetchUser } from "redux/Login/hooks";
+import { getUser } from "redux/Login/selectors";
 
 const MAX_DAYS_BEFORE_QUOTE_EXPIRED = 7;
 
@@ -25,6 +27,9 @@ export const QuoteDetails = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const [, fetchUser] = useFetchUser();
+  const user = useSelector(getUser);
 
   const [{ isLoading }, fetchEvent] = useFetchEvent();
   const event = useSelector((state: any) => getEventById(state, id!));
@@ -54,6 +59,7 @@ export const QuoteDetails = () => {
     fetchEvent(id!);
     fetchCompany();
     fetchProducts();
+    fetchUser();
   }, []);
 
   return (
@@ -103,25 +109,32 @@ export const QuoteDetails = () => {
                 })}
               </h2>
               <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
-                <div className="sm:pr-4">
-                  <dt className="inline text-gray-500">
-                    {intl.formatMessage({
-                      id: "quote.issued-on",
-                    })}
-                  </dt>{" "}
-                  <dd className="inline text-gray-700">
-                    <time dateTime={issuedOn}>{issuedOn}</time>
-                  </dd>
+                <div className="sm:col-span-1">
+                  <div className="">
+                    <dt className="inline text-gray-500">
+                      {intl.formatMessage({
+                        id: "quote.issued-on",
+                      })}
+                    </dt>{" "}
+                    <dd className="inline text-gray-700">
+                      <time dateTime={issuedOn}>{issuedOn}</time>
+                    </dd>
+                  </div>
+                  <div className="mt-2">
+                    <dt className="inline text-gray-500">
+                      {intl.formatMessage({
+                        id: "quote.due-on",
+                      })}
+                    </dt>{" "}
+                    <dd className="inline text-gray-700">
+                      <time dateTime={dueOn}>{dueOn}</time>
+                    </dd>
+                  </div>
                 </div>
-                <div className="mt-2 sm:mt-0 sm:pl-4">
-                  <dt className="inline text-gray-500">
-                    {intl.formatMessage({
-                      id: "quote.due-on",
-                    })}
-                  </dt>{" "}
-                  <dd className="inline text-gray-700">
-                    <time dateTime={dueOn}>{dueOn}</time>
-                  </dd>
+                <div className="sm:col-span-1 -mt-4 ml-64">
+                  {user.logoUrl ? (
+                    <img src={user.logoUrl} width={64} height={64} />
+                  ) : null}
                 </div>
                 <div className="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4">
                   <dt className="font-semibold text-gray-900">
