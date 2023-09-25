@@ -27,6 +27,11 @@ export const PATHS = {
   ONBOARDING_OFFICE: "/onboarding/office",
   ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
   RESET_PASSWORD: "/reset-password",
-  QUOTE_DETAILS: "/quote/details",
-  QUOTE_GENERATE: "/quote/generate",
+  QUOTE_DETAILS: "/quote/details/:id",
+  QUOTE_GENERATE: "/quote/generate/:id",
+  INVOICE_DETAILS: "/invoice/details/:id",
+  INVOICE_GENERATE: "/invoice/generate/:id",
+  BILLING: "/billing",
+  INVOICES: "/invoices",
+  QUOTES: "/quotes",
 };

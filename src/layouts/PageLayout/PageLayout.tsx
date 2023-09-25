@@ -11,7 +11,7 @@ export const PageLayout = (props: Props) => {
   const { children, isLoading } = props;
 
   return (
-    <div>
+    <>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-64 lg:flex-col">
         <Sidebar />
       </div>
@@ -30,7 +30,7 @@ export const PageLayout = (props: Props) => {
           )}
         </main>
       </div>
-    </div>
+    </>
   );
 };
 

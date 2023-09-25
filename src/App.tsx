@@ -26,6 +26,8 @@ import {
   Products,
   Profile,
   QuoteDetails,
+  QuoteGenerate,
+  Quotes,
   ResetPassword,
   Settings,
   SignUp,
@@ -106,6 +108,8 @@ function App() {
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
+          <Route path={PATHS.QUOTE_GENERATE} element={<QuoteGenerate />} />
+          <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />

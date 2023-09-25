@@ -1,18 +1,23 @@
+import { Disclosure } from "@headlessui/react";
 import {
   CalendarIcon,
   ChartPieIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
   Cog6ToothIcon,
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
+  MinusSmallIcon,
+  PlusSmallIcon,
   PresentationChartLineIcon,
   QuestionMarkCircleIcon,
   ShoppingBagIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
-import { PATHS } from "../../routes";
 import KlaqLogo from "../../assets/logo-pres.png";
+import { PATHS } from "../../routes";
 
 type Props = {
   classes?: string;
@@ -57,6 +62,18 @@ export const Sidebar = (props: Props) => {
       href: "#",
       icon: DocumentDuplicateIcon,
       current: false,
+      submenu: [
+        {
+          name: "sidebar.invoices",
+          href: PATHS.INVOICES,
+          current: currentPage === PATHS.INVOICES,
+        },
+        {
+          name: "sidebar.quotes",
+          href: PATHS.QUOTES,
+          current: currentPage === PATHS.QUOTES,
+        },
+      ],
     },
     {
       name: "sidebar.products",
@@ -87,34 +104,96 @@ export const Sidebar = (props: Props) => {
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              {navigation.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-klaq-700 text-white"
-                        : "text-klaq-200 hover:text-white hover:bg-klaq-700",
-                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+              {navigation.map((item) =>
+                item.submenu ? (
+                  <Disclosure
+                    defaultOpen={item.submenu.some(
+                      (subitem: any) => subitem.current
                     )}
+                    as="div"
                   >
-                    <item.icon
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-klaq-200 hover:text-white hover:bg-klaq-700">
+                          <item.icon
+                            className={classNames(
+                              item.current
+                                ? "text-white"
+                                : "text-klaq-200 group-hover:text-white",
+                              "h-6 w-6 shrink-0"
+                            )}
+                            aria-hidden="true"
+                          />
+                          {intl.formatMessage({
+                            id: item.name,
+                          })}
+                          {open ? (
+                            <ChevronUpIcon
+                              className="ml-auto h-6 w-6 shrink-0"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ChevronDownIcon
+                              className="ml-auto h-6 w-6 shrink-0"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </Disclosure.Button>
+                        <Disclosure.Panel
+                          as="ul"
+                          className="flex flex-col gap-y-1 mx-9"
+                        >
+                          {item.submenu.map((subitem: any) => (
+                            <li key={subitem.name}>
+                              <a
+                                href={subitem.href}
+                                className={classNames(
+                                  subitem.current
+                                    ? "bg-klaq-700 text-white"
+                                    : "text-klaq-200 hover:text-white hover:bg-klaq-700",
+                                  "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                )}
+                              >
+                                {intl.formatMessage({
+                                  id: subitem.name,
+                                })}
+                              </a>
+                            </li>
+                          ))}
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ) : (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
                       className={classNames(
                         item.current
-                          ? "text-white"
-                          : "text-klaq-200 group-hover:text-white",
-                        "h-6 w-6 shrink-0"
+                          ? "bg-klaq-700 text-white"
+                          : "text-klaq-200 hover:text-white hover:bg-klaq-700",
+                        "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                       )}
-                      aria-hidden="true"
-                    />
-                    {intl.formatMessage({
-                      id: item.name,
-                    })}
-                  </a>
-                </li>
-              ))}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.current
+                            ? "text-white"
+                            : "text-klaq-200 group-hover:text-white",
+                          "h-6 w-6 shrink-0"
+                        )}
+                        aria-hidden="true"
+                      />
+                      {intl.formatMessage({
+                        id: item.name,
+                      })}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </li>
+
           <li className="mt-auto">
             <a
               href="#"

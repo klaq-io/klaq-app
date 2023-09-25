@@ -55,7 +55,7 @@ export const EventDetails = () => {
 
   const handleLookQuote = () => {
     if (!id) return;
-    navigate(`${PATHS.EVENTS}/${id}${PATHS.QUOTE_DETAILS}`);
+    navigate(`${PATHS.EVENTS}/${id}/quote/details`);
   };
 
   const handlePrevious = () => {

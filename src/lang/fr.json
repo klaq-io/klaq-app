@@ -5,6 +5,8 @@
     "events": "Mes événements",
     "customers": "Clients",
     "billing": "Facturation",
+    "invoices": "Factures",
+    "quotes": "Devis",
     "products": "Produits",
     "marketing": "Marketing",
     "analytics": "Analyses",
@@ -868,6 +870,41 @@
       "subtotal": "Total (HT)",
       "tax": "Montant total de la TVA",
       "total-with-vat": "Total (TTC)"
+    },
+    "generate": {
+      "header": "Nouveau devis",
+      "section": {
+        "details": "Détails du devis",
+        "products": "Produits et services",
+        "customer": "Client",
+        "events": "Évènement"
+      },
+      "label": {
+        "customer": "Client attaché à ce devis",
+        "issued-on": "Délivré le",
+        "valid-until": "Valable jusqu'à",
+        "products": {
+          "name": "Nom du produit",
+          "short-description": "Description courte",
+          "default-vta-rate": "Taux de TVA",
+          "default-price": "Prix par défaut (Hors Taxes)",
+          "default-price-with-vta": "Prix par défaut (Toutes Taxes Comprises): {price}€",
+          "quantity": "Quantité"
+        }
+      },
+      "input": {
+        "valid-until": {
+          "15": "Dans 15 jours",
+          "30": "Dans 30 jours",
+          "45": "Dans 45 jours",
+          "60": "Dans 60 jours",
+          "90": "Dans 90 jours"
+        }
+      },
+      "button": {
+        "add-product": "Ajouter un produit",
+        "delete-product": "Supprimer le produit"
+      }
     }
   },
 
