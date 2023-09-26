@@ -4,12 +4,11 @@ export const initialValues = {
   validUntil: "",
   products: [
     {
-      id: "",
-      quantity: 0,
-      name: "",
+      quantity: 1,
+      title: "",
       description: "",
+      vtaRate: "20",
       price: 0,
-      productId: "",
     },
   ],
 };
