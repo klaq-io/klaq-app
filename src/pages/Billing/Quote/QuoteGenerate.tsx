@@ -1,5 +1,5 @@
 import { PlusIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { add, format, isSameDay } from "date-fns";
+import { add, format, isSameDay, isValid } from "date-fns";
 import { useFormik } from "formik";
 import { InvoiceLayout } from "layouts";
 import { useEffect, useState } from "react";
@@ -17,10 +17,11 @@ import { getUser } from "redux/Login/selectors";
 import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { classNames, formatSiret } from "utils/utils";
-import { initialValues } from "./generateQuoteForm";
+import { initialValues, validationSchema } from "./generateQuoteForm";
 import { Combobox, Transition } from "@headlessui/react";
-import { Button } from "components";
+import { Button, Tooltip } from "components";
 import { ProductItem } from "redux/Products/slices";
+import { Alert } from "components/Alert/Alert";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ export const QuoteGenerate = () => {
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit: async (values, { resetForm }) => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -442,7 +444,7 @@ export const QuoteGenerate = () => {
                       {formik.errors.issuedOn && formik.touched.issuedOn ? (
                         <p className="mt-2 text-sm text-danger-600">
                           {intl.formatMessage({
-                            id: "",
+                            id: "quote.generate.error.issued-on",
                           })}
                         </p>
                       ) : null}
@@ -457,39 +459,58 @@ export const QuoteGenerate = () => {
                     <div className="mt-2">
                       <div className="grid grid-cols-3 gap-x-4 gap-y-4">
                         {Object.keys(QUOTE_VALID_UNTIL).map((validUntil) => (
-                          <button
-                            key={`valid-until-${validUntil}`}
-                            type="button"
-                            onClick={() =>
-                              handleSetValidUntilDate(
-                                QUOTE_VALID_UNTIL[validUntil]
-                              )
-                            }
-                            className={classNames(
-                              isSameDay(
-                                new Date(formik.values.validUntil),
-                                add(new Date(formik.values.issuedOn), {
-                                  days: Number(validUntil),
-                                })
-                              )
-                                ? "bg-klaq-600 text-white hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
-                                : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50",
-                              "rounded-md px-3.5 py-2.5 text-sm font-semibold shadom-sm col-span-1"
-                            )}
-                          >
-                            {intl.formatMessage({
-                              id: `quote.generate.input.valid-until.${validUntil}`,
-                            })}
-                          </button>
+                          <>
+                            <button
+                              key={`valid-until-${validUntil}`}
+                              type="button"
+                              onClick={() =>
+                                handleSetValidUntilDate(
+                                  QUOTE_VALID_UNTIL[validUntil]
+                                )
+                              }
+                              className={classNames(
+                                isSameDay(
+                                  new Date(formik.values.validUntil),
+                                  add(new Date(formik.values.issuedOn), {
+                                    days: Number(validUntil),
+                                  })
+                                )
+                                  ? "bg-klaq-600 text-white hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
+                                  : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50",
+                                "disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 rounded-md px-3.5 py-2.5 text-sm font-semibold shadom-sm col-span-1"
+                              )}
+                              disabled={!formik.values.issuedOn}
+                            >
+                              {intl.formatMessage({
+                                id: `quote.generate.input.valid-until.${validUntil}`,
+                              })}
+                            </button>
+                          </>
                         ))}
                         <input
                           type="date"
                           name="validUntil"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 font-semibold"
+                          className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 font-semibold"
                           onChange={formik.handleChange}
                           value={formik.values.validUntil}
+                          disabled={!formik.values.issuedOn}
                         />
                       </div>
+                      {!formik.values.issuedOn && (
+                        <div className="mt-4">
+                          <Alert
+                            status="warning"
+                            text="Vous devez d'abord remplir la date d'émission avant de pouvoir remplir une date de validité"
+                          />
+                        </div>
+                      )}
+                      {formik.errors.validUntil && formik.touched.validUntil ? (
+                        <p className="mt-2 text-sm text-danger-600">
+                          {intl.formatMessage({
+                            id: "quote.generate.error.issued-on",
+                          })}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
@@ -503,7 +524,6 @@ export const QuoteGenerate = () => {
                         className="bg-klaq-100 p-6 rounded-md mt-2 space-y-2"
                         key={`product-${index}`}
                       >
-                        <></>
                         <div>
                           <label className="flex flex-row text-sm font-medium leading-6 text-gray-900">
                             {intl.formatMessage({
@@ -534,6 +554,15 @@ export const QuoteGenerate = () => {
                               onChange={formik.handleChange}
                               name={`products.${index}.title`}
                             />
+                            {/* {formik.touched.products &&
+                            formik.touched.products.length > 0 &&
+                            formik.touched.products[index].title ? (
+                              <p className="mt-2 text-sm text-danger-600">
+                                {intl.formatMessage({
+                                  id: "quote.generate.error.products.name",
+                                })}
+                              </p>
+                            ) : null} */}
                             <Combobox.Options className="absolute z-10 mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                               {filteredProducts(index) &&
                                 filteredProducts(index).length > 0 &&
@@ -581,6 +610,15 @@ export const QuoteGenerate = () => {
                               onChange={formik.handleChange}
                               value={formik.values.products[index].description}
                             />
+                            {/* {formik.touched.products &&
+                            formik.touched.products.length > 0 &&
+                            formik.touched.products[index].description ? (
+                              <p className="mt-2 text-sm text-danger-600">
+                                {intl.formatMessage({
+                                  id: "quote.generate.error.products.short-description",
+                                })}
+                              </p>
+                            ) : null} */}
                           </div>
                         </div>
                         <div className="flex flex-row">
@@ -592,6 +630,7 @@ export const QuoteGenerate = () => {
                             </label>
                             <div className="mt-2">
                               <input
+                                min={1}
                                 onChange={formik.handleChange}
                                 value={formik.values.products[index].quantity}
                                 type="number"
@@ -676,6 +715,13 @@ export const QuoteGenerate = () => {
                       })}
                     </Button>
                   </div>
+                </div>
+                <div className="mt-4 flex flex-row-reverse">
+                  <Button type="submit" variant="contained" color="primary">
+                    {intl.formatMessage({
+                      id: "quote.generate.button.save",
+                    })}
+                  </Button>
                 </div>
               </form>
             </div>

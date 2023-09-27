@@ -901,9 +901,22 @@
           "90": "Dans 90 jours"
         }
       },
+      "error": {
+        "customer": "Veuillez sélectionner un client",
+        "issued-on": "Veuillez sélectionner une date de délivrance",
+        "valid-until": "Veuillez sélectionner une date de validité",
+        "products": {
+          "name": "Veuillez saisir le nom du produit",
+          "short-description": "Veuillez saisir la description",
+          "default-vta-rate": "Veuillez saisir le taux de TVA",
+          "default-price": "Veuillez saisir le prix par défaut",
+          "quantity": "Veuillez saisir la quantité"
+        }
+      },
       "button": {
         "add-product": "Ajouter un produit",
-        "delete-product": "Supprimer le produit"
+        "delete-product": "Supprimer le produit",
+        "save": "Enregistrer"
       }
     }
   },
