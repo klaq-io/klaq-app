@@ -5,6 +5,7 @@ export const initialState: {
   productItems: any;
   customers: any;
   commentaries: any;
+  quotes: any;
 } = {
   user: {},
   company: {},
@@ -12,4 +13,5 @@ export const initialState: {
   productItems: [],
   customers: [],
   commentaries: [],
+  quotes: [],
 };

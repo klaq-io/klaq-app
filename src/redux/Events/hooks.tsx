@@ -157,6 +157,7 @@ export const useUpdateEventStatus = () => {
 
   return useAsyncCallback(async (status: string, id: string) => {
     try {
+      // todo: dispatch before request
       const res = await webClient.put(`/events/${id}/status`, { status });
       dispatch(setEvent(res.data));
     } catch (error: any) {

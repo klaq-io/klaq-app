@@ -778,6 +778,11 @@
       "WIN": "✅ WIN",
       "LOST": "😞 Perdu"
     },
+    "types": {
+      "wedding": "Mariage",
+      "birthday": "Anniversaire",
+      "corporate": "Évènement d'entreprise"
+    },
     "tabs": {
       "all": "Tous",
       "new": "Nouveau",
@@ -917,6 +922,26 @@
         "add-product": "Ajouter un produit",
         "delete-product": "Supprimer le produit",
         "save": "Enregistrer"
+      }
+    },
+    "attach-to-event": {
+      "not-found": {
+        "title": "Aucun évènement trouvé",
+        "description": "Veuillez réessayer avec d'autres termes ou <btn>créer un nouvel évènement</btn>.",
+        "info": "Pour créer un devis vous devez disposez d'un évènement existant ou en créer un nouveau."
+      },
+      "recent": "Derniers évènements ajoutés",
+      "search": "Rechercher un évènement par nom, adresse, numéro de téléphone, email...",
+      "button": {
+        "generate": "Générer un devis pour cet évènement",
+        "look-event": "Voir la fiche de l'évènement"
+      },
+      "information": {
+        "title": "{eventType} pour {customerName} le {date}",
+        "phone": "Tél.",
+        "number-of-guests": "Nombre d'invités",
+        "location": "Localisation",
+        "public-event": "Évènement public"
       }
     }
   },
@@ -1187,6 +1212,10 @@
       "update-user": {
         "title": "Succès",
         "message": "Votre profil a bien été modifié"
+      },
+      "quote-created": {
+        "title": "Devis créé avec succès",
+        "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
       }
     },
     "error": {

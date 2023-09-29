@@ -48,3 +48,23 @@ code {
 .has-tooltip:hover .tooltip {
   @apply visible z-50;
 }
+
+.slide-in {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #dee9e7;
+  transform-origin: bottom;
+}
+
+.slide-out {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #dee9e7;
+  transform-origin: top;
+}

@@ -2,7 +2,7 @@ import { PlusIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { add, format, isSameDay, isValid } from "date-fns";
 import { useFormik } from "formik";
 import { InvoiceLayout } from "layouts";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,6 +22,7 @@ import { Combobox, Transition } from "@headlessui/react";
 import { Button, Tooltip } from "components";
 import { ProductItem } from "redux/Products/slices";
 import { Alert } from "components/Alert/Alert";
+import { useCreateQuote } from "redux/Quote/hooks";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -45,13 +46,17 @@ export const QuoteGenerate = () => {
     getCustomer(state, event?.customer.id!)
   );
 
+  const [, createQuote] = useCreateQuote();
+
   // todo: frais VHR à fill
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
+      createQuote(values, id!);
       alert(JSON.stringify(values, null, 2));
+      console.log(JSON.stringify(values, null, 2));
     },
   });
 
@@ -120,13 +125,12 @@ export const QuoteGenerate = () => {
     });
   };
 
-  const handleVTARateChange = (rate: string) => {
+  const handleVTARateChange = (rate: string, index: number) => {
     formik.setValues({
       ...formik.values,
-      products: formik.values.products.map((product) => ({
-        ...product,
-        vtaRate: rate,
-      })),
+      products: formik.values.products.map((product, productIndex) =>
+        productIndex === index ? { ...product, vtaRate: rate } : product
+      ),
     });
   };
 
@@ -686,7 +690,7 @@ export const QuoteGenerate = () => {
                               <button
                                 key={`tva-${rate}`}
                                 type="button"
-                                onClick={() => handleVTARateChange(rate)}
+                                onClick={() => handleVTARateChange(rate, index)}
                                 className={classNames(
                                   rate === formik.values.products[index].vtaRate
                                     ? "bg-klaq-600 text-white hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"

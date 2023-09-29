@@ -1,6 +1,8 @@
+import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import TransitionComponent from "./utils/Transitions";
 import "./App.css";
 import {
   Calendar,
@@ -108,7 +110,16 @@ function App() {
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
-          <Route path={PATHS.QUOTE_GENERATE} element={<QuoteGenerate />} />
+          <Route
+            path={PATHS.QUOTE_GENERATE}
+            element={
+              <AnimatePresence mode="wait">
+                <TransitionComponent>
+                  <QuoteGenerate />
+                </TransitionComponent>
+              </AnimatePresence>
+            }
+          />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
