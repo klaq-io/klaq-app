@@ -862,6 +862,7 @@
 
   "quote": {
     "header": "Devis",
+    "description": "Lorem ipsum",
     "issued-on": "Délivré le",
     "due-on": "Valable jusqu'au",
     "from": "De",
@@ -875,6 +876,9 @@
       "subtotal": "Total (HT)",
       "tax": "Montant total de la TVA",
       "total-with-vat": "Total (TTC)"
+    },
+    "button": {
+      "generate": "Créer un devis"
     },
     "generate": {
       "header": "Nouveau devis",

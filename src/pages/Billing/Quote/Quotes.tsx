@@ -18,6 +18,7 @@ import { Event, EventStatus } from "redux/Events/slices";
 import { classNames } from "utils/utils";
 import { PATHS } from "routes";
 import { Alert } from "components/Alert/Alert";
+import { format } from "date-fns";
 
 export const Quotes = () => {
   const navigate = useNavigate();
@@ -71,10 +72,35 @@ export const Quotes = () => {
 
   return (
     <PageLayout>
-      <h1>Quotes</h1>
-      <button onClick={() => setOpenNewQuote(true)}>
-        Go to Quote Generate
-      </button>
+      <div className="md:flex md:items-center md:justify-between">
+        <div className="min-w-0 flex-1">
+          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+            {intl.formatMessage({
+              id: "quote.header",
+            })}
+          </h2>
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+            {intl.formatMessage({
+              id: "quote.description",
+            })}
+          </p>
+        </div>
+        <div className="flex flex-1">
+          <div className="ml-auto">
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              onClick={() => setOpenNewQuote(true)}
+            >
+              {intl.formatMessage({
+                id: "quote.button.generate",
+              })}
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <Transition.Root
         show={openNewQuote}
         as={Fragment}

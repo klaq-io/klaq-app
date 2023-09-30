@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchCompany } from "redux/Company/hooks";
 import { getCompany } from "redux/Company/selectors";
-import { useFetchCustomers } from "redux/Customer/hooks";
+import { useFetchCustomers, useUpdateCustomer } from "redux/Customer/hooks";
 import { getCustomer } from "redux/Customer/selectors";
 import { useFetchEvent } from "redux/Events/hooks";
 import { getEventById } from "redux/Events/selectors";
@@ -19,10 +19,11 @@ import { getAllProducts } from "redux/Products/selectors";
 import { classNames, formatSiret } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
 import { Combobox, Transition } from "@headlessui/react";
-import { Button, Tooltip } from "components";
+import { Button, MapAutocompleteInput, Tooltip } from "components";
 import { ProductItem } from "redux/Products/slices";
 import { Alert } from "components/Alert/Alert";
 import { useCreateQuote } from "redux/Quote/hooks";
+import { RetrieveAddress } from "interface/retrieve-address.interface";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -46,7 +47,9 @@ export const QuoteGenerate = () => {
     getCustomer(state, event?.customer.id!)
   );
 
-  const [, createQuote] = useCreateQuote();
+  const [{ isLoading: isCreatingQuote }, createQuote] = useCreateQuote();
+
+  const [, updateCustomer] = useUpdateCustomer();
 
   // todo: frais VHR à fill
 
@@ -54,9 +57,19 @@ export const QuoteGenerate = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      createQuote(values, id!);
-      alert(JSON.stringify(values, null, 2));
-      console.log(JSON.stringify(values, null, 2));
+      await createQuote(values, id!);
+      if (values.customer.address && values.customer.zipcode) {
+        updateCustomer(
+          {
+            ...event?.customer!,
+            address: values.customer.address,
+            zipcode: values.customer.zipcode,
+            city: values.customer.city,
+            country: values.customer.country,
+          },
+          event?.customer.id!
+        );
+      }
     },
   });
 
@@ -154,6 +167,19 @@ export const QuoteGenerate = () => {
     return subtotal() + tax();
   };
 
+  const handleRetrieveAddress = (address: RetrieveAddress) => {
+    formik.setValues({
+      ...formik.values,
+      customer: {
+        ...formik.values.customer,
+        address: address.address,
+        zipcode: address.zipcode,
+        city: address.city,
+        country: address.country,
+      },
+    });
+  };
+
   useEffect(() => {
     fetchUser();
     fetchEvent(id!);
@@ -219,7 +245,7 @@ export const QuoteGenerate = () => {
                   <br />
                   {company.address}
                   <br />
-                  {company.zip}, {company.city} - {company.country}
+                  {company.zip} {company.city} {company.country}
                   <br />
                   {user.publicEmail}
                   <br />
@@ -233,9 +259,19 @@ export const QuoteGenerate = () => {
                       {customer.name}
                     </span>
                     <br />
-                    {customer.address}
+                    {formik.values.customer.address
+                      ? formik.values.customer.address
+                      : customer.address}
                     <br />
-                    {customer.zipcode}, {customer.city} - {customer.country}
+                    {formik.values.customer.zipcode
+                      ? formik.values.customer.zipcode
+                      : customer.zipcode}{" "}
+                    {formik.values.customer.city
+                      ? formik.values.customer.city
+                      : customer.city}{" "}
+                    {formik.values.customer.country
+                      ? formik.values.customer.country
+                      : customer.country}
                   </dd>
                 )}
               </div>
@@ -426,6 +462,23 @@ export const QuoteGenerate = () => {
                       disabled
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "Adresse de facturation",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      {
+                        <MapAutocompleteInput
+                          defaultAddress={`${event?.customer.address}, ${event?.customer.zipcode} ${event?.customer.city}`}
+                          setAddress={(address) =>
+                            handleRetrieveAddress(address)
+                          }
+                        />
+                      }
+                    </div>
+                  </div>
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
                       id: "quote.generate.section.details",
@@ -522,10 +575,10 @@ export const QuoteGenerate = () => {
                       id: "quote.generate.section.products",
                     })}
                   </h3>
-                  <div>
+                  <div className="flex flex-col space-y-2">
                     {formik.values.products.map((product, index) => (
                       <div
-                        className="bg-klaq-100 p-6 rounded-md mt-2 space-y-2"
+                        className="bg-klaq-100 p-6 rounded-md space-y-2"
                         key={`product-${index}`}
                       >
                         <div>
@@ -546,7 +599,7 @@ export const QuoteGenerate = () => {
                           </label>
                           <Combobox
                             as="div"
-                            className="mt-2"
+                            className="mt-2 relative"
                             value={formik.values.products[index].title}
                           >
                             <Combobox.Input
@@ -567,7 +620,7 @@ export const QuoteGenerate = () => {
                                 })}
                               </p>
                             ) : null} */}
-                            <Combobox.Options className="absolute z-10 mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                               {filteredProducts(index) &&
                                 filteredProducts(index).length > 0 &&
                                 filteredProducts(index).map(
@@ -576,7 +629,7 @@ export const QuoteGenerate = () => {
                                       value={productItem}
                                       className={({ active }) =>
                                         classNames(
-                                          "relative cursor-default select-none py-2 pl-3 pr-9",
+                                          "relative cursor-default select-none py-2 pl-3 pr-9 flex",
                                           active
                                             ? "bg-klaq-600 text-white"
                                             : "text-gray-900"
@@ -589,7 +642,12 @@ export const QuoteGenerate = () => {
                                         )
                                       }
                                     >
-                                      {productItem.title}
+                                      <p className="font-bold">
+                                        {productItem.title}
+                                      </p>
+                                      <p className="ml-auto">
+                                        {productItem.price}€
+                                      </p>
                                     </Combobox.Option>
                                   )
                                 )}
@@ -721,7 +779,12 @@ export const QuoteGenerate = () => {
                   </div>
                 </div>
                 <div className="mt-4 flex flex-row-reverse">
-                  <Button type="submit" variant="contained" color="primary">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    isLoading={isCreatingQuote}
+                  >
                     {intl.formatMessage({
                       id: "quote.generate.button.save",
                     })}

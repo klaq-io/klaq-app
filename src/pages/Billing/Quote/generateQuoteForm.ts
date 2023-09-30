@@ -12,6 +12,12 @@ export const initialValues = {
       price: 0,
     },
   ],
+  customer: {
+    address: "",
+    city: "",
+    country: "",
+    zipcode: "",
+  },
 };
 
 export const validationSchema = Yup.object().shape({
