@@ -12,6 +12,7 @@ export const initialValues = {
       price: 0,
     },
   ],
+  orderFormId: "",
   customer: {
     address: "",
     city: "",
@@ -32,4 +33,5 @@ export const validationSchema = Yup.object().shape({
       price: Yup.number().required("Required"),
     })
   ),
+  orderFormId: Yup.string(),
 });

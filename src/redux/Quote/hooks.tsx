@@ -1,5 +1,5 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import { Quote, setQuote } from "./slices";
+import { Quote, setQuote, setQuotes } from "./slices";
 import webClient from "utils/webclient";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -14,6 +14,19 @@ export const useFetchQuote = () => {
     try {
       const { data } = await webClient.get(`/quote/${id}`);
       dispatch(setQuote(data));
+    } catch (error: any) {
+      console.log(error);
+    }
+  });
+};
+
+export const useFetchQuotes = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async () => {
+    try {
+      const { data } = await webClient.get(`/quote`);
+      dispatch(setQuotes(data));
     } catch (error: any) {
       console.log(error);
     }

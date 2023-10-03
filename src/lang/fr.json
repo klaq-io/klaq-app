@@ -867,6 +867,8 @@
     "due-on": "Valable jusqu'au",
     "from": "De",
     "to": "À",
+    "order-form-id": "Bon de commande",
+    "number": "Numéro de devis",
     "table": {
       "products": "Produits",
       "quantity": "Quantité",
@@ -882,6 +884,7 @@
     },
     "generate": {
       "header": "Nouveau devis",
+      "number": "Numéro du devis automatique: {number}",
       "section": {
         "details": "Détails du devis",
         "products": "Produits et services",
@@ -899,7 +902,8 @@
           "default-price": "Prix par défaut (Hors Taxes)",
           "default-price-with-vta": "Prix par défaut (Toutes Taxes Comprises): {price}€",
           "quantity": "Quantité"
-        }
+        },
+        "order-form-id": "Bon de commande"
       },
       "input": {
         "valid-until": {
@@ -908,7 +912,8 @@
           "45": "Dans 45 jours",
           "60": "Dans 60 jours",
           "90": "Dans 90 jours"
-        }
+        },
+        "order-form-id": "Saisissez le numéro de bon de commande si vous en disposez d'un"
       },
       "error": {
         "customer": "Veuillez sélectionner un client",
@@ -952,7 +957,7 @@
       "header": "Envoyer le devis",
       "label": {
         "to": "Envoyer à",
-        "object": "Object",
+        "object": "Objet",
         "message": "Message",
         "cc": "Envoyer une copie à {email}"
       },

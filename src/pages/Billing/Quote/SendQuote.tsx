@@ -37,7 +37,7 @@ export const SendQuote = () => {
       quote && quote.event && quote.event.customer
         ? {
             ...initialValues,
-            email: quote.event.customer.email,
+            to: quote.event.customer.email,
             subject: intl.formatMessage({
               id: "quote.send.default.subject",
             }),
@@ -58,6 +58,7 @@ export const SendQuote = () => {
           }
         : initialValues,
     onSubmit: async (values) => {
+      console.log(JSON.stringify(values, null, 2));
       alert(values);
     },
     enableReinitialize: true,
@@ -102,7 +103,12 @@ export const SendQuote = () => {
         <div className="grid grid-cols-2 bg-gray-100 shadow-sm ring-1 ring-gray-900/5 sm:rounded-l-xl overflow-hidden col-span-2 py-12 px-12">
           <div className="bg-white shadow-lg ring-1 ring-gray-900/5 m-auto col-span-2 w-[600px]">
             <div className="p-8 flex flex-col space-y-4">
-              <img src={user.logoUrl} width={100} height={100} />
+              <img
+                className="m-auto"
+                src={user.logoUrl}
+                width={100}
+                height={100}
+              />
               <h3 className="text-base font-semibold leading-6 text-gray-900">
                 {formik.values.subject}
               </h3>
@@ -115,7 +121,9 @@ export const SendQuote = () => {
                     id: "quote.send.content.quote-number",
                   })}
                 </dt>
-                <dd className="text-gray-900 font-semibold">XXX-1</dd>
+                <dd className="text-gray-900 font-semibold">
+                  {quote && quote.number}
+                </dd>
                 <dt className="col-end-1 ">
                   {intl.formatMessage({
                     id: "quote.send.content.valid-until",
@@ -166,9 +174,9 @@ export const SendQuote = () => {
                     <div className="mt-2">
                       <input
                         type="email"
-                        name="email"
+                        name="to"
                         className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        value={formik.values.email}
+                        value={formik.values.to}
                         onChange={formik.handleChange}
                       />
                     </div>
@@ -244,9 +252,10 @@ export const SendQuote = () => {
             </Button>
             <Button
               leadingIcon={<PaperAirplaneIcon className="w-5 h-5" />}
-              type="button"
+              type="submit"
               variant="contained"
               color="primary"
+              onClick={formik.submitForm}
             >
               Envoyer
             </Button>
