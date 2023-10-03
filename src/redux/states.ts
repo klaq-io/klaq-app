@@ -13,5 +13,9 @@ export const initialState: {
   productItems: [],
   customers: [],
   commentaries: [],
-  quotes: [],
+  quotes: [
+    {
+      products: [],
+    },
+  ],
 };

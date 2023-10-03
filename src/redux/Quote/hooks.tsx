@@ -7,6 +7,19 @@ import { ToastNotification } from "components";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
 
+export const useFetchQuote = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async (id: string) => {
+    try {
+      const { data } = await webClient.get(`/quote/${id}`);
+      dispatch(setQuote(data));
+    } catch (error: any) {
+      console.log(error);
+    }
+  });
+};
+
 export const useCreateQuote = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,7 +37,7 @@ export const useCreateQuote = () => {
         />,
         { duration: 2, position: "top-right" }
       );
-      navigate(PATHS.QUOTES);
+      navigate(`/quote/send/${data.id}`);
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()

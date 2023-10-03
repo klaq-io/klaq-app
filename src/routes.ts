@@ -29,6 +29,7 @@ export const PATHS = {
   RESET_PASSWORD: "/reset-password",
   QUOTE_DETAILS: "/quote/details/:id",
   QUOTE_GENERATE: "/quote/generate/:id",
+  QUOTE_SEND_MAIL: "/quote/send/:id",
   INVOICE_DETAILS: "/invoice/details/:id",
   INVOICE_GENERATE: "/invoice/generate/:id",
   BILLING: "/billing",

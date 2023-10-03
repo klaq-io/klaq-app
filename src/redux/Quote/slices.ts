@@ -1,7 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "redux/states";
+import { Event } from "../Events/slices";
 
 export interface Quote {
+  id: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   issuedOn: Date | string;
   validUntil: Date | string;
   status: QuoteStatus;

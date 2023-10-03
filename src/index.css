@@ -55,7 +55,7 @@ code {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #dee9e7;
+  background-color: #527a75;
   transform-origin: bottom;
 }
 
@@ -65,6 +65,6 @@ code {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: #dee9e7;
+  background-color: #527a75;
   transform-origin: top;
 }

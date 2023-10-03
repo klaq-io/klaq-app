@@ -31,6 +31,7 @@ import {
   QuoteGenerate,
   Quotes,
   ResetPassword,
+  SendQuote,
   Settings,
   SignUp,
 } from "./pages";
@@ -120,6 +121,7 @@ function App() {
               </AnimatePresence>
             }
           />
+          <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />

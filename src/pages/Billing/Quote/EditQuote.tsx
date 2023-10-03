@@ -1,8 +1,12 @@
-import { PlusIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { add, format, isSameDay, isValid } from "date-fns";
+import { Combobox } from "@headlessui/react";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Button, MapAutocompleteInput } from "components";
+import { Alert } from "components/Alert/Alert";
+import { add, format, isSameDay } from "date-fns";
 import { useFormik } from "formik";
+import { RetrieveAddress } from "interface/retrieve-address.interface";
 import { InvoiceLayout } from "layouts";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,14 +20,10 @@ import { useFetchUser } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
 import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
+import { ProductItem } from "redux/Products/slices";
+import { useCreateQuote } from "redux/Quote/hooks";
 import { classNames, formatSiret } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
-import { Combobox, Transition } from "@headlessui/react";
-import { Button, MapAutocompleteInput, Tooltip } from "components";
-import { ProductItem } from "redux/Products/slices";
-import { Alert } from "components/Alert/Alert";
-import { useCreateQuote } from "redux/Quote/hooks";
-import { RetrieveAddress } from "interface/retrieve-address.interface";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -456,7 +456,7 @@ export const QuoteGenerate = () => {
                   <div>
                     <input
                       type="text"
-                      name="customer.name"
+                      name="issuedOn"
                       className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       value={event?.customer.name}
                       disabled

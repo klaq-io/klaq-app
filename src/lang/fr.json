@@ -947,6 +947,36 @@
         "location": "Localisation",
         "public-event": "Évènement public"
       }
+    },
+    "send": {
+      "header": "Envoyer le devis",
+      "label": {
+        "to": "Envoyer à",
+        "object": "Object",
+        "message": "Message",
+        "cc": "Envoyer une copie à {email}"
+      },
+      "input": {
+        "to": "Saisissez l'adresse e-mail",
+        "object": "Saisissez l'objet",
+        "message": "Saisissez le message"
+      },
+      "button": {
+        "send": "Envoyer le devis",
+        "download": "Télécharger le devis"
+      },
+      "default": {
+        "subject": "Vous avez reçu un devis",
+        "message": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre {eventType} du {eventDate}.\n\nCordialement,\n{stageName}"
+      },
+      "content": {
+        "quote-number": "Numéro du devis :",
+        "valid-until": "Date d'expiration :",
+        "total": {
+          "tax-included": "Montant Total (TTC) :",
+          "tax-excluded": "Montant Total (HT) :"
+        }
+      }
     }
   },
 
