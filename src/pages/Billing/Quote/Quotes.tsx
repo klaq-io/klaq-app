@@ -33,7 +33,7 @@ export const Quotes = () => {
   const [params, setParams] = useSearchParams();
   const query = params.get("q") || "";
 
-  const [, fetchQuotes] = useFetchQuotes();
+  const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
 
   const handleSendByMail = (id: string) => {
@@ -261,7 +261,7 @@ export const Quotes = () => {
               </tr>
             </thead>
             <tbody>
-              {currentTab && currentTab.quotes ? (
+              {currentTab && currentTab.quotes && !isLoading ? (
                 currentTab.quotes.length > 0 &&
                 currentTab.quotes.map((quote: Quote) => (
                   <tr key={quote.id}>
