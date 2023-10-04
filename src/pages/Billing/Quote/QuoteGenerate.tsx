@@ -204,8 +204,8 @@ export const QuoteGenerate = () => {
               })}
             </h2>
             <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
-              <div className="sm:col-span-1">
-                <div className="w-4/5 flex justify-between">
+              <div className="sm:col-span-1 w-full">
+                <div className="flex justify-between">
                   <p className="text-gray-500 w-1/3">
                     {intl.formatMessage({
                       id: "quote.number",
@@ -213,7 +213,7 @@ export const QuoteGenerate = () => {
                   </p>{" "}
                   <p className="text-gray-700">{quoteNumber}</p>
                 </div>
-                <div className="w-4/5 flex justify-between mt-2">
+                <div className="flex justify-between mt-2">
                   <p className="inline text-gray-500">
                     {intl.formatMessage({
                       id: "quote.issued-on",
@@ -227,7 +227,7 @@ export const QuoteGenerate = () => {
                     </time>
                   </p>
                 </div>
-                <div className="w-4/5 flex justify-between mt-2">
+                <div className="flex justify-between mt-2">
                   <p className="inline text-gray-500">
                     {intl.formatMessage({
                       id: "quote.due-on",
@@ -245,7 +245,7 @@ export const QuoteGenerate = () => {
                   </p>
                 </div>
                 {formik.values.orderFormId ? (
-                  <div className="w-4/5 flex justify-between mt-2">
+                  <div className="flex justify-between mt-2">
                     <p className="inline text-gray-500">
                       {intl.formatMessage({
                         id: "quote.order-form-id",

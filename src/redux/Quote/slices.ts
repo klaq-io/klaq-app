@@ -25,10 +25,10 @@ export interface QuoteProduct {
 }
 
 export enum QuoteStatus {
-  DRAFT = "DRAFT",
-  SENT = "SENT",
-  ACCEPTED = "ACCEPTED",
-  REJECTED = "REJECTED",
+  DRAFT = "draft",
+  SENT = "sent",
+  ACCEPTED = "accepted",
+  REJECTED = "rejected",
 }
 
 export const quoteSlice = createSlice({

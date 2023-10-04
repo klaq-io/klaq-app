@@ -29,7 +29,7 @@ export const SendQuote = () => {
   const user = useSelector(getUser);
 
   const handlePrevious = () => {
-    if (quote) navigate(`${PATHS.EVENTS}/${quote.event.id && ""}`);
+    if (quote) navigate(`${PATHS.QUOTES}`);
   };
 
   const formik = useFormik({

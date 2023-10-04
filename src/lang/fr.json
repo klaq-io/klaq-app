@@ -982,6 +982,29 @@
           "tax-excluded": "Montant Total (HT) :"
         }
       }
+    },
+    "list": {
+      "table": {
+        "customer": "Client",
+        "issued-on": "Date d'émission",
+        "valid-until": "Date d'expiration",
+        "status": "Status",
+        "total": "Montant (HT)"
+      },
+      "menu": {
+        "view": "Voir",
+        "send": "Envoyer par mail",
+        "transform-to-invoice": "Transformer en facture",
+        "delete": "Supprimer",
+        "edit": "Éditer",
+        "download": "Télécharger"
+      }
+    },
+    "status": {
+      "draft": "Brouillon",
+      "sent": "Envoyé",
+      "accepted": "Accepté",
+      "rejected": "Refusé"
     }
   },
 

@@ -13,3 +13,5 @@ export const getNextQuoteNumber = (state: RootState): string =>
   `D-${format(new Date(), "yyyy")}-${(state.quotes.quotes.length + 1)
     .toString()
     .padStart(4, "0")}`;
+
+export const getQuotes = (state: RootState): Quote[] => state.quotes.quotes;
