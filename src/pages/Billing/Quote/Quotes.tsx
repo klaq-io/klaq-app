@@ -1,10 +1,12 @@
 import {
   ArrowDownTrayIcon,
   EyeIcon,
+  MagnifyingGlassIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { tab } from "@testing-library/user-event/dist/tab";
 import {
   Button,
   CreateNewQuoteModal,
@@ -19,8 +21,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
-import { Quote } from "redux/Quote/slices";
+import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { PATHS } from "routes";
+import { classNames } from "utils/utils";
 
 export const Quotes = () => {
   const navigate = useNavigate();
@@ -28,6 +31,7 @@ export const Quotes = () => {
 
   const [openNewQuote, setOpenNewQuote] = useState(false);
   const [params, setParams] = useSearchParams();
+  const query = params.get("q") || "";
 
   const [, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
@@ -64,8 +68,61 @@ export const Quotes = () => {
     },
   ];
 
+  const filteredQuotes =
+    quotes && quotes.length > 0 && query === ""
+      ? quotes
+      : quotes.filter((quote) => {
+          return (
+            quote.event.customer.name
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
+            quote.number.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+
+  const tabs = [
+    {
+      name: "all",
+      current: params.get("tab") === "all",
+      quotes: filteredQuotes,
+    },
+    {
+      name: "accepted",
+      current: params.get("tab") === "accepted",
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.ACCEPTED
+      ),
+    },
+    {
+      name: "rejected",
+      current: params.get("tab") === "rejected",
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.REJECTED
+      ),
+    },
+    {
+      name: "sent",
+      current: params.get("tab") === "sent",
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.SENT
+      ),
+    },
+    {
+      name: "draft",
+      current: params.get("tab") === "draft",
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.DRAFT
+      ),
+    },
+  ];
+
+  const currentTab = tabs.find((tab) => tab.current);
+
   useEffect(() => {
     fetchQuotes();
+    setParams({
+      tab: "all",
+    });
   }, []);
 
   return (
@@ -99,6 +156,58 @@ export const Quotes = () => {
         </div>
       </div>
       <div className="mt-10">
+        <div className="flex flex-row justify-between">
+          <nav className="flex space-x-4" aria-label="Tabs">
+            {tabs.map((tab, idx) => (
+              <span
+                className={classNames(
+                  tab.current
+                    ? "bg-klaq-100 text-klaq-700"
+                    : "text-gray-500 hover:text-gray-700",
+                  "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer"
+                )}
+                onClick={() =>
+                  setParams({
+                    q: query,
+                    tab: tab.name,
+                  })
+                }
+              >
+                {intl.formatMessage({
+                  id: `quote.tabs.${tab.name}`,
+                })}
+              </span>
+            ))}
+          </nav>
+          {currentTab && (
+            <div className="w-full">
+              <div className="relative flex-grow focus-within:z-10 ml-auto w-2/4">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <MagnifyingGlassIcon
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <input
+                  onChange={(e) =>
+                    setParams({
+                      tab: currentTab.name,
+                      q: e.target.value,
+                    })
+                  }
+                  value={query}
+                  type="text"
+                  className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
+                  placeholder={intl.formatMessage({
+                    id: "quote.search",
+                  })}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-5">
         <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white">
           <table className="min-w-full divide-y divide-gray-300">
             <thead>
@@ -152,8 +261,9 @@ export const Quotes = () => {
               </tr>
             </thead>
             <tbody>
-              {quotes && quotes.length > 0 ? (
-                quotes.map((quote: Quote) => (
+              {currentTab && currentTab.quotes ? (
+                currentTab.quotes.length > 0 &&
+                currentTab.quotes.map((quote: Quote) => (
                   <tr key={quote.id}>
                     <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
                       <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">

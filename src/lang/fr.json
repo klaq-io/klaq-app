@@ -1005,7 +1005,15 @@
       "sent": "Envoyé",
       "accepted": "Accepté",
       "rejected": "Refusé"
-    }
+    },
+    "tabs": {
+      "all": "Tous",
+      "draft": "Brouillons",
+      "sent": "Envoyés",
+      "accepted": "Acceptés",
+      "rejected": "Refusés"
+    },
+    "search": "Rechercher un numéro de devis ou un client"
   },
 
   "documents": {

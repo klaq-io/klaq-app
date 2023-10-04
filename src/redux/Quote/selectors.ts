@@ -15,3 +15,9 @@ export const getNextQuoteNumber = (state: RootState): string =>
     .padStart(4, "0")}`;
 
 export const getQuotes = (state: RootState): Quote[] => state.quotes.quotes;
+
+export const getQuotesByStatus = (
+  state: RootState,
+  ...status: string[]
+): Quote[] | undefined =>
+  state.quotes.quotes.filter((quote: Quote) => status.includes(quote.status));
