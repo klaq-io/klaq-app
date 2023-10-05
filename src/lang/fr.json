@@ -1286,6 +1286,10 @@
       "quote-created": {
         "title": "Devis créé avec succès",
         "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
+      },
+      "quote-sent": {
+        "title": "Devis envoyé avec succès",
+        "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
       }
     },
     "error": {

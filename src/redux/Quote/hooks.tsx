@@ -67,3 +67,45 @@ export const useCreateQuote = () => {
     }
   });
 };
+
+export const useSendQuote = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(
+    async (
+      values: {
+        subject: string;
+        message: string;
+        to: string;
+        cc: boolean;
+      },
+      id: string
+    ) => {
+      try {
+        const { data } = await webClient.post(`/quote/${id}/send`, values);
+        dispatch(setQuote(data));
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId="toast.success.quote-sent.title"
+            messageId="toast.success.quote-sent.message"
+          />,
+          { duration: 2, position: "top-right" }
+        );
+      } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : null;
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`toast.error.${code ? code : "default"}.title`}
+            messageId={`toast.error.${code ? code : "default"}.message`}
+          />,
+          { duration: 1500, position: "top-right" }
+        );
+        console.log(error);
+      }
+    }
+  );
+};

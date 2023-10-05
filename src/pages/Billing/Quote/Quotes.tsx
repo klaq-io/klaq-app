@@ -6,7 +6,6 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { tab } from "@testing-library/user-event/dist/tab";
 import {
   Button,
   CreateNewQuoteModal,
@@ -18,7 +17,7 @@ import { PageLayout } from "layouts";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
 import { Quote, QuoteStatus } from "redux/Quote/slices";

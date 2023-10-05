@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchUser } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
-import { useFetchQuote } from "redux/Quote/hooks";
+import { useFetchQuote, useSendQuote } from "redux/Quote/hooks";
 import { getQuoteById } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 import { initialValues } from "./sendQuoteForm";
@@ -24,6 +24,8 @@ export const SendQuote = () => {
 
   const [, fetchQuote] = useFetchQuote();
   const quote = useSelector((state: any) => getQuoteById(state, id!));
+
+  const [{ isLoading: isSendingQuote }, sendQuote] = useSendQuote();
 
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
@@ -58,8 +60,8 @@ export const SendQuote = () => {
           }
         : initialValues,
     onSubmit: async (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      alert(values);
+      await sendQuote(values, id!);
+      navigate(PATHS.QUOTES);
     },
     enableReinitialize: true,
   });
@@ -256,6 +258,7 @@ export const SendQuote = () => {
               variant="contained"
               color="primary"
               onClick={formik.submitForm}
+              isLoading={isSendingQuote}
             >
               Envoyer
             </Button>
