@@ -21,12 +21,18 @@ import { getUser } from "redux/Login/selectors";
 import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
-import { useCreateQuote } from "redux/Quote/hooks";
-import { classNames, formatSiret } from "utils/utils";
+import {
+  useCreateQuote,
+  useEditQuote,
+  useFetchQuote,
+  useFetchQuotes,
+} from "redux/Quote/hooks";
+import { getNextQuoteNumber, getQuoteById } from "redux/Quote/selectors";
+import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
 
-export const QuoteGenerate = () => {
-  const { id } = useParams();
+export const EditQuote = () => {
+  const { id, eventId } = useParams();
   const navigate = useNavigate();
   const intl = useIntl();
 
@@ -34,7 +40,7 @@ export const QuoteGenerate = () => {
   const user = useSelector(getUser);
 
   const [{ isLoading }, fetchEvent] = useFetchEvent();
-  const event = useSelector((state: any) => getEventById(state, id!));
+  const event = useSelector((state: any) => getEventById(state, eventId!));
 
   const [, fetchCompany] = useFetchCompany();
   const company = useSelector(getCompany);
@@ -47,17 +53,24 @@ export const QuoteGenerate = () => {
     getCustomer(state, event?.customer.id!)
   );
 
-  const [{ isLoading: isCreatingQuote }, createQuote] = useCreateQuote();
+  const [{ isLoading: isUpdatingQuote }, updateQuote] = useEditQuote();
 
   const [, updateCustomer] = useUpdateCustomer();
+
+  const [, fetchQuote] = useFetchQuote();
+  const quote = useSelector((state: any) => getQuoteById(state, id!));
 
   // todo: frais VHR à fill
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      ...initialValues,
+      ...quote,
+      issuedOn: format(new Date(quote?.issuedOn || new Date()), "yyyy-MM-dd"),
+    },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      await createQuote(values, id!);
+      updateQuote(values, id!);
       if (values.customer.address && values.customer.zipcode) {
         updateCustomer(
           {
@@ -71,6 +84,7 @@ export const QuoteGenerate = () => {
         );
       }
     },
+    enableReinitialize: true,
   });
 
   const filteredProducts = (idx: number) =>
@@ -182,11 +196,14 @@ export const QuoteGenerate = () => {
 
   useEffect(() => {
     fetchUser();
-    fetchEvent(id!);
+    fetchEvent(eventId!);
     fetchCompany();
     fetchProducts();
     fetchCustomer();
+    fetchQuote(id!);
   }, []);
+
+  console.log(quote, formik.errors);
 
   return (
     <>
@@ -199,38 +216,51 @@ export const QuoteGenerate = () => {
               })}
             </h2>
             <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
-              <div className="sm:col-span-1">
-                <div className="">
-                  <dt className="inline text-gray-500">
+              <div className="sm:col-span-1 w-full">
+                <div className="flex">
+                  <p className="flex-1 text-gray-500">
+                    {intl.formatMessage({
+                      id: "quote.number",
+                    })}
+                  </p>{" "}
+                  <p className="flex-1 text-gray-700">{quote?.number}</p>
+                </div>
+                <div className="flex mt-2">
+                  <p className="flex-1 text-gray-500">
                     {intl.formatMessage({
                       id: "quote.issued-on",
                     })}
-                  </dt>{" "}
-                  <dd className="inline text-gray-700">
-                    <time dateTime={formik.values.issuedOn}>
-                      {formik.values.issuedOn
-                        ? format(new Date(formik.values.issuedOn), "dd/MM/yyyy")
-                        : null}
-                    </time>
-                  </dd>
+                  </p>{" "}
+                  <p className="flex-1 text-gray-700">
+                    {formik.values.issuedOn
+                      ? format(new Date(formik.values.issuedOn), "dd/MM/yyyy")
+                      : null}
+                  </p>
                 </div>
-                <div className="mt-2">
-                  <dt className="inline text-gray-500">
+                <div className="flex justify-between mt-2">
+                  <p className="flex-1 text-gray-500">
                     {intl.formatMessage({
                       id: "quote.due-on",
                     })}
-                  </dt>{" "}
-                  <dd className="inline text-gray-700">
-                    <time dateTime={formik.values.validUntil}>
-                      {formik.values.validUntil
-                        ? format(
-                            new Date(formik.values.validUntil),
-                            "dd/MM/yyyy"
-                          )
-                        : null}
-                    </time>
-                  </dd>
+                  </p>{" "}
+                  <p className="flex-1 text-gray-700">
+                    {formik.values.validUntil
+                      ? format(new Date(formik.values.validUntil), "dd/MM/yyyy")
+                      : null}
+                  </p>
                 </div>
+                {formik.values.orderFormId ? (
+                  <div className="flex mt-2">
+                    <p className="flex-1 text-gray-500">
+                      {intl.formatMessage({
+                        id: "quote.order-form-id",
+                      })}
+                    </p>{" "}
+                    <p className="flex-1 text-gray-700">
+                      {shortenString(17, formik.values.orderFormId)}
+                    </p>
+                  </div>
+                ) : null}
               </div>
               <div className="sm:col-span-1 -mt-4 ml-64">
                 {user.logoUrl ? (
@@ -429,12 +459,12 @@ export const QuoteGenerate = () => {
             </table>
           </InvoiceLayout>
         </div>
-        <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-r-xl overflow-hidden col-span-1 flex flex-col overflow-y-scroll">
+        <div className="overflow-y-scroll bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-r-xl overflow-hidden col-span-1 flex flex-col overflow-y-scroll">
           <div className="py-6 px-4 sm:px-6">
             <div className="flex justify-between items-center">
               <h3 className="text-base font-semibold leading-6 text-gray-900">
                 {intl.formatMessage({
-                  id: "quote.generate.header",
+                  id: "quote.edit.header",
                 })}
               </h3>
               <button
@@ -456,7 +486,7 @@ export const QuoteGenerate = () => {
                   <div>
                     <input
                       type="text"
-                      name="issuedOn"
+                      name="customer.name"
                       className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       value={event?.customer.name}
                       disabled
@@ -465,7 +495,7 @@ export const QuoteGenerate = () => {
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "Adresse de facturation",
+                        id: "quote.generate.label.address",
                       })}
                     </label>
                     <div className="mt-2">
@@ -484,6 +514,45 @@ export const QuoteGenerate = () => {
                       id: "quote.generate.section.details",
                     })}
                   </h3>
+                  <div>
+                    <Alert
+                      status="info"
+                      text={intl.formatMessage(
+                        {
+                          id: "quote.generate.number",
+                        },
+                        {
+                          number: quote?.number,
+                        }
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.order-form-id",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="orderFormId"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.orderFormId}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.order-form-id",
+                        })}
+                      />
+                      {formik.errors.orderFormId ? (
+                        <p className="mt-2 text-sm text-danger-600">
+                          {intl.formatMessage({
+                            id: "quote.generate.error.order-form-id",
+                          })}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
@@ -549,7 +618,9 @@ export const QuoteGenerate = () => {
                           name="validUntil"
                           className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 font-semibold"
                           onChange={formik.handleChange}
-                          value={formik.values.validUntil}
+                          value={new Date(
+                            formik.values.validUntil
+                          ).toLocaleDateString()}
                           disabled={!formik.values.issuedOn}
                         />
                       </div>
@@ -570,6 +641,7 @@ export const QuoteGenerate = () => {
                       ) : null}
                     </div>
                   </div>
+
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
                       id: "quote.generate.section.products",
@@ -783,7 +855,7 @@ export const QuoteGenerate = () => {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    isLoading={isCreatingQuote}
+                    isLoading={isUpdatingQuote}
                   >
                     {intl.formatMessage({
                       id: "quote.generate.button.save",

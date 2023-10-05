@@ -68,6 +68,41 @@ export const useCreateQuote = () => {
   });
 };
 
+export const useEditQuote = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  return useAsyncCallback(async (quote: Partial<Quote>, id: string) => {
+    try {
+      if (quote.orderFormId === "") delete quote.orderFormId;
+      const { data } = await webClient.put(`/quote/${id}`, quote);
+      dispatch(setQuote(data));
+      navigate(`/quote/send/${data.id}`);
+      toast.custom(
+        <ToastNotification
+          status="success"
+          titleId="toast.success.quote-edited.title"
+          messageId="toast.success.quote-edited.message"
+        />,
+        { duration: 2, position: "top-right" }
+      );
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : null;
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code ? code : "default"}.title`}
+          messageId={`toast.error.${code ? code : "default"}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.log(error);
+    }
+  });
+};
+
 export const useSendQuote = () => {
   const dispatch = useDispatch();
 

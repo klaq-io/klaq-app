@@ -14,6 +14,7 @@ import {
   Customers,
   Dashboard,
   EditEvent,
+  EditQuote,
   EventDetails,
   EventDetails2,
   Events,
@@ -112,6 +113,16 @@ function App() {
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
           <Route
+            path={PATHS.QUOTE_EDIT}
+            element={
+              <AnimatePresence mode="wait">
+                <TransitionComponent>
+                  <EditQuote />
+                </TransitionComponent>
+              </AnimatePresence>
+            }
+          />
+          <Route
             path={PATHS.QUOTE_GENERATE}
             element={
               <AnimatePresence mode="wait">
@@ -121,6 +132,7 @@ function App() {
               </AnimatePresence>
             }
           />
+
           <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />

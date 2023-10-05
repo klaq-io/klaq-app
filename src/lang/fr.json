@@ -882,6 +882,9 @@
     "button": {
       "generate": "Créer un devis"
     },
+    "edit": {
+      "header": "Modifier le devis"
+    },
     "generate": {
       "header": "Nouveau devis",
       "number": "Numéro du devis automatique: {number}",
@@ -895,6 +898,7 @@
         "customer": "Client attaché à ce devis",
         "issued-on": "Délivré le",
         "valid-until": "Valable jusqu'à",
+        "address": "Adresse de facturation",
         "products": {
           "name": "Nom du produit",
           "short-description": "Description courte",
@@ -925,7 +929,8 @@
           "default-vta-rate": "Veuillez saisir le taux de TVA",
           "default-price": "Veuillez saisir le prix par défaut",
           "quantity": "Veuillez saisir la quantité"
-        }
+        },
+        "order-form-id": "Le numéro de bon de commande ne doit pas dépasser 16 caractères"
       },
       "button": {
         "add-product": "Ajouter un produit",
@@ -1289,6 +1294,10 @@
       },
       "quote-sent": {
         "title": "Devis envoyé avec succès",
+        "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
+      },
+      "quote-edited": {
+        "title": "Devis édité avec succès",
         "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
       }
     },

@@ -23,7 +23,7 @@ import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
 import { useCreateQuote, useFetchQuotes } from "redux/Quote/hooks";
 import { getNextQuoteNumber } from "redux/Quote/selectors";
-import { classNames, formatSiret } from "utils/utils";
+import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
 
 export const QuoteGenerate = () => {
@@ -205,21 +205,21 @@ export const QuoteGenerate = () => {
             </h2>
             <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
               <div className="sm:col-span-1 w-full">
-                <div className="flex justify-between">
-                  <p className="text-gray-500 w-1/3">
+                <div className="flex ">
+                  <p className="text-gray-500 flex-1">
                     {intl.formatMessage({
                       id: "quote.number",
                     })}
                   </p>{" "}
-                  <p className="text-gray-700">{quoteNumber}</p>
+                  <p className="text-gray-700 flex-1">{quoteNumber}</p>
                 </div>
-                <div className="flex justify-between mt-2">
-                  <p className="inline text-gray-500">
+                <div className="flex mt-2">
+                  <p className="text-gray-500 flex-1">
                     {intl.formatMessage({
                       id: "quote.issued-on",
                     })}
                   </p>{" "}
-                  <p className="inline text-gray-700">
+                  <p className="text-gray-700 flex-1">
                     <time dateTime={formik.values.issuedOn}>
                       {formik.values.issuedOn
                         ? format(new Date(formik.values.issuedOn), "dd/MM/yyyy")
@@ -227,13 +227,13 @@ export const QuoteGenerate = () => {
                     </time>
                   </p>
                 </div>
-                <div className="flex justify-between mt-2">
-                  <p className="inline text-gray-500">
+                <div className="flex mt-2">
+                  <p className="flex-1 text-gray-500">
                     {intl.formatMessage({
                       id: "quote.due-on",
                     })}
                   </p>{" "}
-                  <p className="inline text-gray-700">
+                  <p className="flex-1 text-gray-700">
                     <time dateTime={formik.values.validUntil}>
                       {formik.values.validUntil
                         ? format(
@@ -245,14 +245,14 @@ export const QuoteGenerate = () => {
                   </p>
                 </div>
                 {formik.values.orderFormId ? (
-                  <div className="flex justify-between mt-2">
-                    <p className="inline text-gray-500">
+                  <div className="flex mt-2">
+                    <p className="flex-1 text-gray-500">
                       {intl.formatMessage({
                         id: "quote.order-form-id",
                       })}
                     </p>{" "}
-                    <p className="inline text-gray-700">
-                      {formik.values.orderFormId}
+                    <p className="flex-1 text-gray-700">
+                      {shortenString(17, formik.values.orderFormId)}
                     </p>
                   </div>
                 ) : null}
@@ -490,7 +490,7 @@ export const QuoteGenerate = () => {
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "Adresse de facturation",
+                        id: "quote.generate.label.address",
                       })}
                     </label>
                     <div className="mt-2">
@@ -539,6 +539,13 @@ export const QuoteGenerate = () => {
                           id: "quote.generate.input.order-form-id",
                         })}
                       />
+                      {formik.errors.orderFormId ? (
+                        <p className="mt-2 text-sm text-danger-600">
+                          {intl.formatMessage({
+                            id: "quote.generate.error.order-form-id",
+                          })}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                   <div>

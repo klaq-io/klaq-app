@@ -39,6 +39,10 @@ export const Quotes = () => {
     navigate(PATHS.QUOTE + "/send/" + id);
   };
 
+  const handleEdit = (id: string, eventId: string) => {
+    navigate(PATHS.QUOTE + "/edit/" + id + "/" + eventId);
+  };
+
   const optionMenu = (quote: Quote) => [
     {
       name: "quote.list.menu.view",
@@ -48,7 +52,7 @@ export const Quotes = () => {
     {
       name: "quote.list.menu.edit",
       icon: PencilSquareIcon,
-      onClick: () => {},
+      onClick: () => handleEdit(quote.id, quote.event.id),
     },
     {
       name: "quote.list.menu.send",
@@ -159,6 +163,7 @@ export const Quotes = () => {
           <nav className="flex space-x-4" aria-label="Tabs">
             {tabs.map((tab, idx) => (
               <span
+                key={tab.name}
                 className={classNames(
                   tab.current
                     ? "bg-klaq-100 text-klaq-700"

@@ -33,5 +33,5 @@ export const validationSchema = Yup.object().shape({
       price: Yup.number().required("Required"),
     })
   ),
-  orderFormId: Yup.string(),
+  orderFormId: Yup.string().max(16),
 });
