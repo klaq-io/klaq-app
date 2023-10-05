@@ -203,8 +203,6 @@ export const EditQuote = () => {
     fetchQuote(id!);
   }, []);
 
-  console.log(quote, formik.errors);
-
   return (
     <>
       <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 min-h-screen">
