@@ -31,11 +31,21 @@ export const getSubtotalForQuote = (quote: Quote) => {
 export const getQuotePipeValue = (events: Event[]) => {
   const pipeValue = events.map((event) => {
     if (event.quotes_ && event.quotes_.length > 0) {
-      const quoteValues = event.quotes_
-        .filter((quote) => quote.status !== QuoteStatus.REJECTED)
-        .map((quote) => {
-          return getSubtotalForQuote(quote);
-        });
+      const quotes = event.quotes_.filter(
+        (quote) => quote.status !== QuoteStatus.REJECTED
+      );
+
+      const acceptedQuotes = quotes.filter(
+        (quote) => quote.status === QuoteStatus.ACCEPTED
+      );
+      if (acceptedQuotes.length)
+        return acceptedQuotes
+          .map((quote) => getSubtotalForQuote(quote))
+          .reduce((acc, curr) => acc + curr);
+
+      const quoteValues = quotes.map((quote) => {
+        return getSubtotalForQuote(quote);
+      });
       return Math.min(...quoteValues);
     }
     return 0;

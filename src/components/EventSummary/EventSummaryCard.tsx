@@ -53,8 +53,17 @@ export const EventSummaryCard: FC<EventSummaryCardProps> = (
     return total.toFixed(2);
   };
 
-  const getQuoteValue = (quotes_: Quote[] | undefined) => {
+  const getEventValue = (quotes_: Quote[] | undefined) => {
     if (!quotes_ || !quotes_.length) return "0.00";
+
+    const acceptedQuotes = quotes_.filter(
+      (quote) => quote.status === QuoteStatus.ACCEPTED
+    );
+    if (acceptedQuotes.length)
+      return acceptedQuotes
+        .map((quote) => getSubtotalForQuote(quote))
+        .reduce((acc, curr) => acc + curr)
+        .toFixed(2);
 
     const quotes = quotes_
       .filter((quote) => quote.status !== QuoteStatus.REJECTED)
@@ -82,7 +91,7 @@ export const EventSummaryCard: FC<EventSummaryCardProps> = (
                 {isFetchingProductLoading ? (
                   <Skeleton variant="rounded" width={40} height={6} />
                 ) : (
-                  <>{getQuoteValue(event.quotes_)} €</>
+                  <>{getEventValue(event.quotes_)} €</>
                 )}
               </dd>
             </div>
