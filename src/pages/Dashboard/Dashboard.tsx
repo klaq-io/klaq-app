@@ -26,6 +26,7 @@ import {
   getThisMonthDates,
   getThisYearDates,
 } from "../../utils/utils";
+import { getQuotePipeValue } from "utils/quote";
 
 export const Dashboard = () => {
   const intl = useIntl();
@@ -83,12 +84,10 @@ export const Dashboard = () => {
     useFetchProductItems();
   const products = useSelector(getAllProducts);
 
-  const totalBilled = getPipeValue(
-    products,
+  const totalBilled = getQuotePipeValue(
     getEventsForPeriod(billedEvents, startOfYear, endOfYear)
   );
-  const estimatedRevenue = getPipeValue(
-    products,
+  const estimatedRevenue = getQuotePipeValue(
     getEventsForPeriod(billedAndQuotedEvents, startOfYear, endOfYear)
   );
 

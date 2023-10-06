@@ -13,8 +13,6 @@ export const FileList = (props: FileListProps) => {
   const { fileList } = props;
   const intl = useIntl();
 
-  console.log(fileList);
-
   const [{ data }, fetchDocumentUrl] = useFetchDocumentUrl();
 
   const getDownloadUrlForDocument = async (id: string) => {

@@ -17,6 +17,8 @@ import { useFetchProductItems } from "../../redux/Products/hooks";
 import { useSelector } from "react-redux";
 import { getAllProducts } from "../../redux/Products/selectors";
 import { ProductItem } from "../../redux/Products/slices";
+import { Quote, QuoteStatus } from "redux/Quote/slices";
+import { getSubtotalForQuote } from "utils/quote";
 
 type EventSummaryCardProps = {
   event: Event;
@@ -51,6 +53,15 @@ export const EventSummaryCard: FC<EventSummaryCardProps> = (
     return total.toFixed(2);
   };
 
+  const getQuoteValue = (quotes_: Quote[] | undefined) => {
+    if (!quotes_ || !quotes_.length) return "0.00";
+
+    const quotes = quotes_
+      .filter((quote) => quote.status !== QuoteStatus.REJECTED)
+      .map((quote) => getSubtotalForQuote(quote));
+    return Math.min(...quotes).toFixed(2);
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -71,7 +82,7 @@ export const EventSummaryCard: FC<EventSummaryCardProps> = (
                 {isFetchingProductLoading ? (
                   <Skeleton variant="rounded" width={40} height={6} />
                 ) : (
-                  <>{getEventProductsValue(event.products)} €</>
+                  <>{getQuoteValue(event.quotes_)} €</>
                 )}
               </dd>
             </div>

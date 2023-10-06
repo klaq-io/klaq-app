@@ -16,7 +16,7 @@ export const QuoteBadge: FC<QuoteBadgeProps> = (props: QuoteBadgeProps) => {
     [QuoteStatus.SENT]: "text-warning-700 ring-warning-600/20 bg-warning-50",
     [QuoteStatus.ACCEPTED]:
       "text-success-700 ring-success-600/20 bg-success-50",
-    [QuoteStatus.REJECTED]: "text-gray-700 ring-gray-600/20 bg-gray-50",
+    [QuoteStatus.REJECTED]: "text-danger-700 ring-danger-600/20 bg-danger-50",
   };
   return (
     <span

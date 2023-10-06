@@ -13,6 +13,7 @@ import {
   QuoteBadge,
   Skeleton,
 } from "components";
+import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
 import { PageLayout } from "layouts";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -289,7 +290,7 @@ export const Quotes = () => {
                     </td>
                     <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                       <div className="font-medium text-gray-500">
-                        <QuoteBadge status={quote.status} />
+                        <QuoteBadgeButton quote={quote} />
                       </div>
                     </td>
                     <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">

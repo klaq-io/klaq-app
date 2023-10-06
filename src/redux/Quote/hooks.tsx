@@ -1,5 +1,5 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import { Quote, setQuote, setQuotes } from "./slices";
+import { Quote, QuoteStatus, setQuote, setQuotes } from "./slices";
 import webClient from "utils/webclient";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -143,4 +143,22 @@ export const useSendQuote = () => {
       }
     }
   );
+};
+
+export const useUpdateQuoteStatus = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async (quote: Quote, status: QuoteStatus) => {
+    const currentStatus = quote.status;
+    dispatch(setQuote({ ...quote, status }));
+
+    try {
+      const { data } = await webClient.put(`/quote/${quote.id}/status`, {
+        status,
+      });
+    } catch (error: any) {
+      dispatch(setQuote({ ...quote, status: currentStatus }));
+      console.log(error);
+    }
+  });
 };

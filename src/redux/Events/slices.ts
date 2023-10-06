@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "../states";
 import { Customer } from "../Customer/slices";
+import { Quote } from "redux/Quote/slices";
 
 export interface Event {
   id: string;
@@ -25,6 +26,7 @@ export interface Event {
   customer: Customer;
   products?: EventProduct[];
   coordinates?: Coordinates;
+  quotes_?: Quote[];
 }
 
 export interface Coordinates {

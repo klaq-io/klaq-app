@@ -36,7 +36,12 @@ export const quoteSlice = createSlice({
   initialState,
   reducers: {
     setQuote: (state, action: PayloadAction<Quote>) => {
-      state.quotes = [...state.quotes, action.payload];
+      state.quotes = state.quotes.map((quote: Quote) => {
+        if (quote.id === action.payload.id) {
+          return action.payload;
+        }
+        return quote;
+      });
     },
     setQuotes: (state, action: PayloadAction<Quote[]>) => {
       state.quotes = action.payload;

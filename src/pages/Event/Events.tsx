@@ -25,6 +25,7 @@ import {
   getThisWeekDates,
   getThisYearDates,
 } from "../../utils/utils";
+import { getQuotePipeValue } from "utils/quote";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -291,10 +292,7 @@ export const Events = () => {
                         id: "events.pipe-value",
                       },
                       {
-                        pipeValue: getPipeValue(
-                          products,
-                          tabs[selectedTab].events
-                        ),
+                        pipeValue: getQuotePipeValue(tabs[selectedTab].events),
                       }
                     )}
                   </p>
