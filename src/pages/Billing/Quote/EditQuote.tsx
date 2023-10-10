@@ -30,6 +30,7 @@ import {
 import { getNextQuoteNumber, getQuoteById } from "redux/Quote/selectors";
 import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
+import { CustomerType } from "redux/Customer/slices";
 
 export const EditQuote = () => {
   const { id, eventId } = useParams();
@@ -208,28 +209,30 @@ export const EditQuote = () => {
       <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 min-h-screen">
         <div className="grid grid-cols-2 bg-gray-100 shadow-sm ring-1 ring-gray-900/5 sm:rounded-l-xl overflow-hidden col-span-2 py-12 px-12">
           <InvoiceLayout>
-            <h2 className="text-base font-semibold leading-6 text-gray-900">
+            <h2 className="text-2xl font-semibold leading-6 text-gray-900">
               {intl.formatMessage({
                 id: "quote.header",
               })}
             </h2>
             <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
-              <div className="sm:col-span-1 w-full">
+              <div className="sm:col-span-1 w-full bg-klaq-100 p-2">
                 <div className="flex">
                   <p className="flex-1 text-gray-500">
                     {intl.formatMessage({
                       id: "quote.number",
                     })}
                   </p>{" "}
-                  <p className="flex-1 text-gray-700">{quote?.number}</p>
+                  <p className="flex-1 text-gray-700 font-semibold">
+                    {quote?.number}
+                  </p>
                 </div>
                 <div className="flex mt-2">
-                  <p className="flex-1 text-gray-500">
+                  <p className="flex-1 text-gray-500 ">
                     {intl.formatMessage({
                       id: "quote.issued-on",
                     })}
                   </p>{" "}
-                  <p className="flex-1 text-gray-700">
+                  <p className="flex-1 text-gray-700 font-semibold">
                     {formik.values.issuedOn
                       ? format(new Date(formik.values.issuedOn), "dd/MM/yyyy")
                       : null}
@@ -241,7 +244,7 @@ export const EditQuote = () => {
                       id: "quote.due-on",
                     })}
                   </p>{" "}
-                  <p className="flex-1 text-gray-700">
+                  <p className="flex-1 text-gray-700 font-semibold">
                     {formik.values.validUntil
                       ? format(new Date(formik.values.validUntil), "dd/MM/yyyy")
                       : null}
@@ -254,15 +257,15 @@ export const EditQuote = () => {
                         id: "quote.order-form-id",
                       })}
                     </p>{" "}
-                    <p className="flex-1 text-gray-700">
+                    <p className="flex-1 text-gray-700 font-semibold">
                       {shortenString(17, formik.values.orderFormId)}
                     </p>
                   </div>
                 ) : null}
               </div>
-              <div className="sm:col-span-1 -mt-4 ml-64">
+              <div className="sm:col-span-1 -mt-4 ml-60">
                 {user.logoUrl ? (
-                  <img src={user.logoUrl} width={64} height={64} />
+                  <img src={user.logoUrl} width={120} height="auto" />
                 ) : null}
               </div>
               <div className="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4">
@@ -277,7 +280,9 @@ export const EditQuote = () => {
                   <br />
                   {user.publicEmail}
                   <br />
-                  {formatSiret(company.legalRegistrationNumber)}
+                  {user.publicPhone}
+                  <br />
+                  {`SIRET: ${formatSiret(company.legalRegistrationNumber)}`}
                 </dd>
               </div>
               <div className="mt-8 sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6">
@@ -300,19 +305,32 @@ export const EditQuote = () => {
                     {formik.values.customer.country
                       ? formik.values.customer.country
                       : customer.country}
+                    <br />
+                    {customer.email}
+                    <br />
+                    {customer.phone}
+                    <br />
+                    {customer.type === CustomerType.COMPANY &&
+                      `SIRET: ${formatSiret(customer.legalRegistrationNumber)}`}
                   </dd>
                 )}
               </div>
             </dl>
-            <table className="mt-16 w-full whitespace-nowrap text-left text-sm leading-6">
+            <div className="mt-8">
+              <p className="text-md font-semibold text-gray-900">
+                {formik.values.object}
+              </p>
+            </div>
+            <table className="mt-8 w-full text-left text-sm leading-6">
               <colgroup>
                 <col className="w-full" />
                 <col />
                 <col />
                 <col />
+                <col />
               </colgroup>
-              <thead className="border-b border-gray-200 text-gray-900">
-                <tr>
+              <thead className="text-gray-900 whitespace-nowrap">
+                <tr className="bg-klaq-100">
                   <th scope="col" className="px-0 py-3 font-semibold">
                     {intl.formatMessage({
                       id: "quote.table.products",
@@ -321,7 +339,7 @@ export const EditQuote = () => {
 
                   <th
                     scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
                   >
                     {intl.formatMessage({
                       id: "quote.table.quantity",
@@ -329,15 +347,7 @@ export const EditQuote = () => {
                   </th>
                   <th
                     scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
-                  >
-                    {intl.formatMessage({
-                      id: "quote.table.vat",
-                    })}
-                  </th>
-                  <th
-                    scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
                   >
                     {intl.formatMessage({
                       id: "quote.table.unit-price",
@@ -345,7 +355,16 @@ export const EditQuote = () => {
                   </th>
                   <th
                     scope="col"
-                    className="py-3 pl-8 pr-0 text-right font-semibold"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
+                  >
+                    {intl.formatMessage({
+                      id: "quote.table.vat",
+                    })}
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="py-3 pl-8 pr-0 text-left font-semibold"
                   >
                     {intl.formatMessage({
                       id: "quote.table.total",
@@ -360,9 +379,9 @@ export const EditQuote = () => {
                   formik.values.products.map((product, idx) => (
                     <tr
                       key={`${product.title}-${idx}`}
-                      className="border-b border-gray-100"
+                      className="border-b-2 border-gray-100"
                     >
-                      <td className="max-w-0 px-0 py-5 align-top overflow-hidden">
+                      <td className="max-w-0 px-0 py-5 align-top overflow-wrap">
                         <div className="font-medium text-gray-900">
                           {product.title}
                         </div>
@@ -370,23 +389,23 @@ export const EditQuote = () => {
                           {product.description}
                         </div>
                       </td>
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
                         {product.quantity}
                       </td>
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
+                        {product.price} €
+                      </td>
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
                         {product.vtaRate}%
                       </td>
 
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
-                        {product.price} €
-                      </td>
-                      <td className="py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">
+                      <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
                         {(product.quantity * product.price).toFixed(2)}€
                       </td>
                     </tr>
                   ))}
               </tbody>
-              <tfoot>
+              <tfoot className="whitespace-nowrap">
                 <tr>
                   <th
                     scope="row"
@@ -398,7 +417,7 @@ export const EditQuote = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden px-0 pb-0 pt-6 text-right font-normal text-gray-700 sm:table-cell"
                   >
                     {intl.formatMessage({
@@ -412,6 +431,7 @@ export const EditQuote = () => {
                 <tr>
                   <th
                     scope="row"
+                    colSpan={4}
                     className="pt-4 font-normal text-gray-700 sm:hidden"
                   >
                     {intl.formatMessage({
@@ -420,7 +440,7 @@ export const EditQuote = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden pt-4 text-right font-normal text-gray-700 sm:table-cell"
                   >
                     {intl.formatMessage({
@@ -442,7 +462,7 @@ export const EditQuote = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden pt-4 text-right font-semibold text-gray-900 sm:table-cell"
                   >
                     {intl.formatMessage({

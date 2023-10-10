@@ -37,12 +37,15 @@ export const quoteSlice = createSlice({
   initialState,
   reducers: {
     setQuote: (state, action: PayloadAction<Quote>) => {
-      state.quotes = state.quotes.map((quote: Quote) => {
-        if (quote.id === action.payload.id) {
-          return action.payload;
-        }
-        return quote;
-      });
+      const existingQuoteIndex = state.quotes.findIndex(
+        (quote: Quote) => quote.id === action.payload.id
+      );
+
+      if (existingQuoteIndex !== -1) {
+        state.quotes[existingQuoteIndex] = action.payload;
+      } else {
+        state.quotes.push(action.payload);
+      }
     },
     setQuotes: (state, action: PayloadAction<Quote[]>) => {
       state.quotes = action.payload;

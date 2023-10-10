@@ -871,8 +871,8 @@
     "number": "Numéro de devis",
     "table": {
       "products": "Produits",
-      "quantity": "Quantité",
-      "unit-price": "Prix unitaire",
+      "quantity": "Qté",
+      "unit-price": "Prix unitaire (HT)",
       "total": "Total",
       "vat": "TVA (%)",
       "subtotal": "Total (HT)",

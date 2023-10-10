@@ -318,7 +318,7 @@ export const QuoteGenerate = () => {
                 {formik.values.object}
               </p>
             </div>
-            <table className="mt-8 w-full whitespace-nowrap text-left text-sm leading-6">
+            <table className="mt-8 w-full text-left text-sm leading-6">
               <colgroup>
                 <col className="w-full" />
                 <col />
@@ -326,8 +326,8 @@ export const QuoteGenerate = () => {
                 <col />
                 <col />
               </colgroup>
-              <thead className="text-gray-900">
-                <tr className="bg-klaq-100 rounded-md">
+              <thead className="text-gray-900 whitespace-nowrap">
+                <tr className="bg-klaq-100">
                   <th scope="col" className="px-0 py-3 font-semibold">
                     {intl.formatMessage({
                       id: "quote.table.products",
@@ -336,7 +336,7 @@ export const QuoteGenerate = () => {
 
                   <th
                     scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
                   >
                     {intl.formatMessage({
                       id: "quote.table.quantity",
@@ -344,20 +344,21 @@ export const QuoteGenerate = () => {
                   </th>
                   <th
                     scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
-                  >
-                    {intl.formatMessage({
-                      id: "quote.table.vat",
-                    })}
-                  </th>
-                  <th
-                    scope="col"
-                    className="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
                   >
                     {intl.formatMessage({
                       id: "quote.table.unit-price",
                     })}
                   </th>
+                  <th
+                    scope="col"
+                    className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
+                  >
+                    {intl.formatMessage({
+                      id: "quote.table.vat",
+                    })}
+                  </th>
+
                   <th
                     scope="col"
                     className="py-3 pl-8 pr-0 text-left font-semibold"
@@ -377,7 +378,7 @@ export const QuoteGenerate = () => {
                       key={`${product.title}-${idx}`}
                       className="border-b-2 border-gray-100"
                     >
-                      <td className="max-w-0 px-0 py-5 align-top overflow-hidden">
+                      <td className="max-w-0 px-0 py-5 align-top overflow-wrap">
                         <div className="font-medium text-gray-900">
                           {product.title}
                         </div>
@@ -385,23 +386,23 @@ export const QuoteGenerate = () => {
                           {product.description}
                         </div>
                       </td>
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
                         {product.quantity}
                       </td>
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
+                        {product.price} €
+                      </td>
+                      <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-700 sm:table-cell">
                         {product.vtaRate}%
                       </td>
 
-                      <td className="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">
-                        {product.price} €
-                      </td>
-                      <td className="py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">
+                      <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
                         {(product.quantity * product.price).toFixed(2)}€
                       </td>
                     </tr>
                   ))}
               </tbody>
-              <tfoot>
+              <tfoot className="whitespace-nowrap">
                 <tr>
                   <th
                     scope="row"
@@ -540,51 +541,7 @@ export const QuoteGenerate = () => {
                       )}
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      {intl.formatMessage({
-                        id: "quote.generate.label.object",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        name="object"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        onChange={formik.handleChange}
-                        value={formik.values.object}
-                        placeholder={intl.formatMessage({
-                          id: "quote.generate.input.object",
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      {intl.formatMessage({
-                        id: "quote.generate.label.order-form-id",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        name="orderFormId"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        onChange={formik.handleChange}
-                        value={formik.values.orderFormId}
-                        placeholder={intl.formatMessage({
-                          id: "quote.generate.input.order-form-id",
-                        })}
-                      />
-                      {formik.errors.orderFormId ? (
-                        <p className="mt-2 text-sm text-danger-600">
-                          {intl.formatMessage({
-                            id: "quote.generate.error.order-form-id",
-                          })}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
+
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
@@ -671,7 +628,51 @@ export const QuoteGenerate = () => {
                       ) : null}
                     </div>
                   </div>
-
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.order-form-id",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="orderFormId"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.orderFormId}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.order-form-id",
+                        })}
+                      />
+                      {formik.errors.orderFormId ? (
+                        <p className="mt-2 text-sm text-danger-600">
+                          {intl.formatMessage({
+                            id: "quote.generate.error.order-form-id",
+                          })}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.object",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="object"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.object}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.object",
+                        })}
+                      />
+                    </div>
+                  </div>
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
                       id: "quote.generate.section.products",
