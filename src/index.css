@@ -68,3 +68,8 @@ code {
   background-color: #527a75;
   transform-origin: top;
 }
+
+.a4 {
+  width: 210mm;
+  height: 297mm;
+}

@@ -14,6 +14,7 @@ export interface Quote {
   event: Event;
   documentId: string;
   orderFormId?: string;
+  object?: string;
 }
 
 export interface QuoteProduct {

@@ -895,6 +895,7 @@
         "events": "Évènement"
       },
       "label": {
+        "object": "Objet du devis",
         "customer": "Client attaché à ce devis",
         "issued-on": "Délivré le",
         "valid-until": "Valable jusqu'à",
@@ -917,7 +918,8 @@
           "60": "Dans 60 jours",
           "90": "Dans 90 jours"
         },
-        "order-form-id": "Saisissez le numéro de bon de commande si vous en disposez d'un"
+        "order-form-id": "Saisissez le numéro de bon de commande si vous en disposez d'un",
+        "object": "Saisissez l'objet du devis"
       },
       "error": {
         "customer": "Veuillez sélectionner un client",
@@ -930,7 +932,8 @@
           "default-price": "Veuillez saisir le prix par défaut",
           "quantity": "Veuillez saisir la quantité"
         },
-        "order-form-id": "Le numéro de bon de commande ne doit pas dépasser 16 caractères"
+        "order-form-id": "Le numéro de bon de commande ne doit pas dépasser 16 caractères",
+        "object": "Veuillez saisir l'objet du devis"
       },
       "button": {
         "add-product": "Ajouter un produit",

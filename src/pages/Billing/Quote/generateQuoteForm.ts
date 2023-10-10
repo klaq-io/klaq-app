@@ -19,6 +19,7 @@ export const initialValues = {
     country: "",
     zipcode: "",
   },
+  object: "",
 };
 
 export const validationSchema = Yup.object().shape({

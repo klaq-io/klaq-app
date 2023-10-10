@@ -25,6 +25,7 @@ import { useCreateQuote, useFetchQuotes } from "redux/Quote/hooks";
 import { getNextQuoteNumber } from "redux/Quote/selectors";
 import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
+import { CustomerType } from "redux/Customer/slices";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -198,20 +199,22 @@ export const QuoteGenerate = () => {
       <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 min-h-screen">
         <div className="grid grid-cols-2 bg-gray-100 shadow-sm ring-1 ring-gray-900/5 sm:rounded-l-xl overflow-hidden col-span-2 py-12 px-12">
           <InvoiceLayout>
-            <h2 className="text-base font-semibold leading-6 text-gray-900">
+            <h1 className="text-2xl font-semibold leading-6 text-gray-900">
               {intl.formatMessage({
                 id: "quote.header",
               })}
-            </h2>
+            </h1>
             <dl className="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
-              <div className="sm:col-span-1 w-full">
+              <div className="sm:col-span-1 w-full bg-klaq-100 p-2">
                 <div className="flex ">
                   <p className="text-gray-500 flex-1">
                     {intl.formatMessage({
                       id: "quote.number",
                     })}
                   </p>{" "}
-                  <p className="text-gray-700 flex-1">{quoteNumber}</p>
+                  <p className="text-gray-700 flex-1 font-semibold">
+                    {quoteNumber}
+                  </p>
                 </div>
                 <div className="flex mt-2">
                   <p className="text-gray-500 flex-1">
@@ -219,7 +222,7 @@ export const QuoteGenerate = () => {
                       id: "quote.issued-on",
                     })}
                   </p>{" "}
-                  <p className="text-gray-700 flex-1">
+                  <p className="text-gray-700 flex-1 font-semibold">
                     <time dateTime={formik.values.issuedOn}>
                       {formik.values.issuedOn
                         ? format(new Date(formik.values.issuedOn), "dd/MM/yyyy")
@@ -233,7 +236,7 @@ export const QuoteGenerate = () => {
                       id: "quote.due-on",
                     })}
                   </p>{" "}
-                  <p className="flex-1 text-gray-700">
+                  <p className="flex-1 text-gray-700 font-semibold">
                     <time dateTime={formik.values.validUntil}>
                       {formik.values.validUntil
                         ? format(
@@ -251,20 +254,20 @@ export const QuoteGenerate = () => {
                         id: "quote.order-form-id",
                       })}
                     </p>{" "}
-                    <p className="flex-1 text-gray-700">
+                    <p className="flex-1 text-gray-700 font-semibold">
                       {shortenString(17, formik.values.orderFormId)}
                     </p>
                   </div>
                 ) : null}
               </div>
-              <div className="sm:col-span-1 -mt-4 ml-64">
+              <div className="sm:col-span-1 -mt-4 ml-60">
                 {user.logoUrl ? (
-                  <img src={user.logoUrl} width={64} height={64} />
+                  <img src={user.logoUrl} width={120} height="auto" />
                 ) : null}
               </div>
               <div className="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4">
                 <dd className="text-gray-500">
-                  <span className="font-medium text-gray-900">
+                  <span className="text-lg font-semibold text-gray-900">
                     {company.legalName}
                   </span>
                   <br />
@@ -274,13 +277,15 @@ export const QuoteGenerate = () => {
                   <br />
                   {user.publicEmail}
                   <br />
-                  {formatSiret(company.legalRegistrationNumber)}
+                  {user.publicPhone}
+                  <br />
+                  {`SIRET: ${formatSiret(company.legalRegistrationNumber)}`}
                 </dd>
               </div>
               <div className="mt-8 sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6">
                 {customer && (
                   <dd className="text-gray-500">
-                    <span className="font-medium text-gray-900">
+                    <span className="text-lg font-semibold text-gray-900">
                       {customer.name}
                     </span>
                     <br />
@@ -297,19 +302,32 @@ export const QuoteGenerate = () => {
                     {formik.values.customer.country
                       ? formik.values.customer.country
                       : customer.country}
+                    <br />
+                    {customer.email}
+                    <br />
+                    {customer.phone}
+                    <br />
+                    {customer.type === CustomerType.COMPANY &&
+                      `SIRET: ${formatSiret(customer.legalRegistrationNumber)}`}
                   </dd>
                 )}
               </div>
             </dl>
-            <table className="mt-16 w-full whitespace-nowrap text-left text-sm leading-6">
+            <div className="mt-8">
+              <p className="text-md font-semibold text-gray-900">
+                {formik.values.object}
+              </p>
+            </div>
+            <table className="mt-8 w-full whitespace-nowrap text-left text-sm leading-6">
               <colgroup>
                 <col className="w-full" />
                 <col />
                 <col />
                 <col />
+                <col />
               </colgroup>
-              <thead className="border-b border-gray-200 text-gray-900">
-                <tr>
+              <thead className="text-gray-900">
+                <tr className="bg-klaq-100 rounded-md">
                   <th scope="col" className="px-0 py-3 font-semibold">
                     {intl.formatMessage({
                       id: "quote.table.products",
@@ -342,7 +360,7 @@ export const QuoteGenerate = () => {
                   </th>
                   <th
                     scope="col"
-                    className="py-3 pl-8 pr-0 text-right font-semibold"
+                    className="py-3 pl-8 pr-0 text-left font-semibold"
                   >
                     {intl.formatMessage({
                       id: "quote.table.total",
@@ -357,7 +375,7 @@ export const QuoteGenerate = () => {
                   formik.values.products.map((product, idx) => (
                     <tr
                       key={`${product.title}-${idx}`}
-                      className="border-b border-gray-100"
+                      className="border-b-2 border-gray-100"
                     >
                       <td className="max-w-0 px-0 py-5 align-top overflow-hidden">
                         <div className="font-medium text-gray-900">
@@ -395,7 +413,7 @@ export const QuoteGenerate = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden px-0 pb-0 pt-6 text-right font-normal text-gray-700 sm:table-cell"
                   >
                     {intl.formatMessage({
@@ -417,7 +435,7 @@ export const QuoteGenerate = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden pt-4 text-right font-normal text-gray-700 sm:table-cell"
                   >
                     {intl.formatMessage({
@@ -439,7 +457,7 @@ export const QuoteGenerate = () => {
                   </th>
                   <th
                     scope="row"
-                    colSpan={3}
+                    colSpan={4}
                     className="hidden pt-4 text-right font-semibold text-gray-900 sm:table-cell"
                   >
                     {intl.formatMessage({
@@ -521,6 +539,25 @@ export const QuoteGenerate = () => {
                         }
                       )}
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.object",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="object"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.object}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.object",
+                        })}
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
