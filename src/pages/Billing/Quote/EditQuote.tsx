@@ -548,32 +548,6 @@ export const EditQuote = () => {
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "quote.generate.label.order-form-id",
-                      })}
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        name="orderFormId"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        onChange={formik.handleChange}
-                        value={formik.values.orderFormId}
-                        placeholder={intl.formatMessage({
-                          id: "quote.generate.input.order-form-id",
-                        })}
-                      />
-                      {formik.errors.orderFormId ? (
-                        <p className="mt-2 text-sm text-danger-600">
-                          {intl.formatMessage({
-                            id: "quote.generate.error.order-form-id",
-                          })}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      {intl.formatMessage({
                         id: "quote.generate.label.issued-on",
                       })}
                     </label>
@@ -636,9 +610,10 @@ export const EditQuote = () => {
                           name="validUntil"
                           className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 font-semibold"
                           onChange={formik.handleChange}
-                          value={new Date(
-                            formik.values.validUntil
-                          ).toLocaleDateString()}
+                          value={format(
+                            new Date(formik.values.validUntil),
+                            "yyyy-MM-dd"
+                          )}
                           disabled={!formik.values.issuedOn}
                         />
                       </div>
@@ -657,6 +632,51 @@ export const EditQuote = () => {
                           })}
                         </p>
                       ) : null}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.order-form-id",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="orderFormId"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.orderFormId}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.order-form-id",
+                        })}
+                      />
+                      {formik.errors.orderFormId ? (
+                        <p className="mt-2 text-sm text-danger-600">
+                          {intl.formatMessage({
+                            id: "quote.generate.error.order-form-id",
+                          })}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "quote.generate.label.object",
+                      })}
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        name="object"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                        onChange={formik.handleChange}
+                        value={formik.values.object}
+                        placeholder={intl.formatMessage({
+                          id: "quote.generate.input.object",
+                        })}
+                      />
                     </div>
                   </div>
 
