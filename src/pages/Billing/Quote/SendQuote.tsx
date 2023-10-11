@@ -10,7 +10,11 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchUser } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
-import { useFetchQuote, useSendQuote } from "redux/Quote/hooks";
+import {
+  useDownloadQuote,
+  useFetchQuote,
+  useSendQuote,
+} from "redux/Quote/hooks";
 import { getQuoteById } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 import { initialValues } from "./sendQuoteForm";
@@ -26,6 +30,7 @@ export const SendQuote = () => {
   const quote = useSelector((state: any) => getQuoteById(state, id!));
 
   const [{ isLoading: isSendingQuote }, sendQuote] = useSendQuote();
+  const [{ isLoading: isDownloadingQuote }, downloadQuote] = useDownloadQuote();
 
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
@@ -249,8 +254,12 @@ export const SendQuote = () => {
               type="button"
               variant="outlined"
               color="primary"
+              onClick={() => (quote ? downloadQuote(quote) : null)}
+              isLoading={isDownloadingQuote}
             >
-              Télécharger
+              {intl.formatMessage({
+                id: "quote.send.button.download",
+              })}
             </Button>
             <Button
               leadingIcon={<PaperAirplaneIcon className="w-5 h-5" />}
@@ -260,7 +269,9 @@ export const SendQuote = () => {
               onClick={formik.submitForm}
               isLoading={isSendingQuote}
             >
-              Envoyer
+              {intl.formatMessage({
+                id: "quote.send.button.send",
+              })}
             </Button>
           </div>
         </div>

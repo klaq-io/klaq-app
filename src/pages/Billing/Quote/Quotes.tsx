@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useFetchQuotes } from "redux/Quote/hooks";
+import { useDownloadQuote, useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
 import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { PATHS } from "routes";
@@ -35,6 +35,8 @@ export const Quotes = () => {
 
   const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
+
+  const [, downloadQuote] = useDownloadQuote();
 
   const handleSendByMail = (id: string) => {
     navigate(PATHS.QUOTE + "/send/" + id);
@@ -63,7 +65,7 @@ export const Quotes = () => {
     {
       name: "quote.list.menu.download",
       icon: ArrowDownTrayIcon,
-      onClick: () => {},
+      onClick: () => downloadQuote(quote),
     },
     {
       name: "quote.list.menu.delete",

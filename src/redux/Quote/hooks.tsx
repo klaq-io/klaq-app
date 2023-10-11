@@ -162,3 +162,34 @@ export const useUpdateQuoteStatus = () => {
     }
   });
 };
+
+export const useDownloadQuote = () => {
+  return useAsyncCallback(async (quote: Quote) => {
+    try {
+      const { data } = await webClient.get(`/quote/${quote.id}/download`, {
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${quote.number}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : null;
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code ? code : "default"}.title`}
+          messageId={`toast.error.${code ? code : "default"}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.log(error);
+    }
+  });
+};
