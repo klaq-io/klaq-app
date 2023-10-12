@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 type Props = {
@@ -13,11 +14,8 @@ export const PDFViewer = (props: Props) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const onDocumentLoadSuccess = ({ numPages }: any) => {
-    console.log(numPages);
     setNumPages(numPages);
   };
-
-  console.log(numPages);
 
   return (
     <>
