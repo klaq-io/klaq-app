@@ -28,7 +28,7 @@ export const PATHS = {
   ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
   RESET_PASSWORD: "/reset-password",
   QUOTE: "/quote",
-  QUOTE_DETAILS: "/quote/details/:id",
+  QUOTE_VIEW: "/quote/view/:id",
   QUOTE_GENERATE: "/quote/generate/:id",
   QUOTE_SEND_MAIL: "/quote/send/:id",
   QUOTE_EDIT: "/quote/edit/:id/:eventId",

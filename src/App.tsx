@@ -2,7 +2,6 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import TransitionComponent from "./utils/Transitions";
 import "./App.css";
 import {
   Calendar,
@@ -30,6 +29,7 @@ import {
   Profile,
   QuoteDetails,
   QuoteGenerate,
+  QuoteView,
   Quotes,
   ResetPassword,
   SendQuote,
@@ -39,6 +39,7 @@ import {
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
+import TransitionComponent from "./utils/Transitions";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -128,6 +129,16 @@ function App() {
               <AnimatePresence mode="wait">
                 <TransitionComponent>
                   <QuoteGenerate />
+                </TransitionComponent>
+              </AnimatePresence>
+            }
+          />
+          <Route
+            path={PATHS.QUOTE_VIEW}
+            element={
+              <AnimatePresence mode="wait">
+                <TransitionComponent>
+                  <QuoteView />
                 </TransitionComponent>
               </AnimatePresence>
             }

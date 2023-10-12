@@ -4,15 +4,8 @@ import {
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
-import {
-  Button,
-  CreateNewQuoteModal,
-  KebabMenu,
-  QuoteBadge,
-  Skeleton,
-} from "components";
+import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from "components";
 import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
 import { PageLayout } from "layouts";
 import { useEffect, useState } from "react";
@@ -46,11 +39,15 @@ export const Quotes = () => {
     navigate(PATHS.QUOTE + "/edit/" + id + "/" + eventId);
   };
 
+  const handleView = (id: string) => {
+    window.open(PATHS.QUOTE + "/view/" + id, "_blank");
+  };
+
   const optionMenu = (quote: Quote) => [
     {
       name: "quote.list.menu.view",
       icon: EyeIcon,
-      onClick: () => {},
+      onClick: () => handleView(quote.id),
     },
     {
       name: "quote.list.menu.edit",
@@ -67,11 +64,11 @@ export const Quotes = () => {
       icon: ArrowDownTrayIcon,
       onClick: () => downloadQuote(quote),
     },
-    {
-      name: "quote.list.menu.delete",
-      icon: TrashIcon,
-      onClick: () => {},
-    },
+    // {
+    //   name: "quote.list.menu.delete",
+    //   icon: TrashIcon,
+    //   onClick: () => {},
+    // },
   ];
 
   const filteredQuotes =

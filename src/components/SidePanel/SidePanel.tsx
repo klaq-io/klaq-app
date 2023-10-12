@@ -5,13 +5,14 @@ import { useIntl } from "react-intl";
 
 type Props = {
   children: any;
+  leftSideChildren?: any;
   open: boolean;
   setOpen: React.Dispatch<any>;
   titleId: string;
 };
 
 export const SidePanel = (props: Props) => {
-  const { open, setOpen, children, titleId } = props;
+  const { open, setOpen, children, leftSideChildren, titleId } = props;
   const intl = useIntl();
 
   return (

@@ -1021,7 +1021,16 @@
       "accepted": "Acceptés",
       "rejected": "Refusés"
     },
-    "search": "Rechercher un numéro de devis ou un client"
+    "search": "Rechercher un numéro de devis ou un client",
+    "view": {
+      "header": "{number}",
+      "button": {
+        "send": "Envoyer le devis",
+        "download": "Télécharger le devis",
+        "edit": "Éditer le devis",
+        "transform-to-invoice": "Transformer en facture"
+      }
+    }
   },
 
   "documents": {
