@@ -63,7 +63,7 @@ export const OnboardingLegalFormChoice = () => {
             <li
               onClick={item.onClick}
               key={item.id}
-              className="overflow-hidden rounded-md bg-white px-6 py-4 shadow flex hover:bg-gray-50 cursor-pointer"
+              className="overflow-hidden rounded-md border border-gray-200 bg-gray-50 px-6 py-4 shadow flex hover:bg-white cursor-pointer"
             >
               <div className="min-w-0 flex-auto">
                 <div className="flex items-center gap-x-3">

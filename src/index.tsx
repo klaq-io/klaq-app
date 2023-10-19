@@ -1,16 +1,14 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import flatten from "flat";
 import ReactDOM from "react-dom/client";
 import { IntlProvider } from "react-intl";
 import { Provider } from "react-redux";
+import { initSentry } from "sentry";
 import App from "./App";
 import "./index.css";
-import * as msg_en from "./lang/en.json";
-import * as msg_es from "./lang/es.json";
 import * as msg_fr from "./lang/fr.json";
 import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { initSentry } from "sentry";
 
 const language = navigator.language.split(/[-_]/)[0];
 

@@ -6,7 +6,7 @@ type Props = {
 export const LoginLayout = (props: Props) => {
   const { children, backgroundImg } = props;
   return (
-    <div className="flex h-screen flex-1">
+    <div className="flex h-screen flex-1 bg-white">
       {children}
       <div className="relative hidden w-0 flex-1 lg:block">
         <img

@@ -6,6 +6,7 @@ import { initialValues, validationSchema } from "./form";
 import PhoneInput from "react-phone-input-2";
 import { Button } from "components";
 import { useSignUp } from "../../redux/Login/hooks";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export const SignUp = () => {
   const intl = useIntl();
@@ -67,7 +68,7 @@ export const SignUp = () => {
                 name="email"
                 type="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
                   id: "sign-up.input.email",
                 })}
@@ -98,7 +99,7 @@ export const SignUp = () => {
                 name="password"
                 type="password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
                   id: "sign-up.input.password",
                 })}
@@ -128,7 +129,7 @@ export const SignUp = () => {
                   required: true,
                   autoFocus: true,
                   className:
-                    "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6",
+                    "block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm",
                 }}
                 country={"fr"}
                 value={formik.values.phone}
@@ -148,17 +149,19 @@ export const SignUp = () => {
               ) : null}
             </div>
           </div>
-          <div className="w-full mt-8"></div>
-          <Button
-            isLoading={isLoading}
-            color="primary"
-            variant="contained"
-            type="submit"
-          >
-            {intl.formatMessage({
-              id: "sign-up.submit",
-            })}
-          </Button>
+          <div className="w-full mt-8 flex flex-row-reverse">
+            <Button
+              isLoading={isLoading}
+              color="primary"
+              variant="contained"
+              type="submit"
+              trailingIcon={<ArrowRightIcon className="-mr-1 ml-2 h-5 w-5" />}
+            >
+              {intl.formatMessage({
+                id: "sign-up.submit",
+              })}
+            </Button>
+          </div>
         </form>
       </div>
     </OnboardingLayout>

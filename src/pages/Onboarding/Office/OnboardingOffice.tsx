@@ -85,7 +85,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                 value={formik.values.select}
                 name="select"
                 id="select"
-                className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
               >
                 <option key={SelectOptions.YES} value={SelectOptions.YES}>
                   {intl.formatMessage({
@@ -118,7 +118,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                       name="officeAddress"
                       type="text"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                      className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
                         id: `onboarding.office.input.address`,
                       })}
@@ -150,7 +150,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                       name="officeCity"
                       type="text"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                      className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
                         id: `onboarding.office.input.city`,
                       })}
@@ -181,7 +181,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                       name="officeZip"
                       type="text"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                      className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
                         id: `onboarding.office.input.zip`,
                       })}
@@ -212,7 +212,7 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                       name="officeCountry"
                       type="text"
                       required
-                      className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                      className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
                         id: `onboarding.office.input.country`,
                       })}
