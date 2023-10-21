@@ -8,6 +8,7 @@ import { initialValues, validationSchema } from "./form";
 import { Button } from "components";
 import KlaqLogo from "../../assets/klaq.png";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import backgroundAuth from "assets/background-auth.jpeg";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const Login = () => {
   };
 
   return (
-    <LoginLayout>
+    <LoginLayout backgroundImg={backgroundAuth}>
       <div className="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>

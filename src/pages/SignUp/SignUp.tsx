@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-input-2";
 import { Button } from "components";
 import { useSignUp } from "../../redux/Login/hooks";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import backgroundAuth from "assets/background-auth.jpeg";
 
 export const SignUp = () => {
   const intl = useIntl();
@@ -25,7 +26,7 @@ export const SignUp = () => {
     },
   });
   return (
-    <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1518709911915-712d5fd04677?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80">
+    <OnboardingLayout backgroundImg={backgroundAuth}>
       <div>
         <h1 className="text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io

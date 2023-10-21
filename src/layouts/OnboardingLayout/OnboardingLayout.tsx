@@ -1,5 +1,6 @@
 import { Spinner } from "components";
 import Klaq from "../../assets/Klaq-2.png";
+import backgroundOnboarding from "assets/background-onboarding.jpeg";
 
 type Props = {
   children: any;
@@ -25,7 +26,7 @@ export const OnboardingLayout = (props: Props) => {
       <div className="relative hidden w-1/3 lg:block">
         <img
           className="absolute inset-0 h-full w-full object-cover"
-          src={backgroundImg}
+          src={backgroundOnboarding}
           alt=""
         />
       </div>

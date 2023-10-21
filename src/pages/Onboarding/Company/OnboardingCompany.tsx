@@ -102,10 +102,7 @@ export const OnboardingCompany = () => {
   }, []);
 
   return (
-    <OnboardingLayout
-      isLoading={isFetchCompanyLoading}
-      backgroundImg="https://images.unsplash.com/photo-1566314737379-76aaeadb0511?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=709&q=80"
-    >
+    <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1566314737379-76aaeadb0511?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=709&q=80">
       <div>
         <h1 className="mt-8 text-lg leading-6 font-semibold text-klaq-600">
           Klaq.io
@@ -253,6 +250,7 @@ export const OnboardingCompany = () => {
                   type="button"
                   variant="contained"
                   color="primary"
+                  isLoading={isFetchCompanyLoading}
                   trailingIcon={
                     <ArrowRightIcon
                       className="-ml-0.5 h-5 w-5"
