@@ -449,11 +449,11 @@
       "header": "Date & Heure",
       "description": "Heure et date de l'évènement, type d'évènement, nombre d'invités",
       "label": {
-        "date": "Quand",
+        "date": "Date",
         "start-time": "Heure de début",
         "end-time": "Heure de fin",
         "event-type": "Type d'événements",
-        "number-of-guest": "Nombre d'invités",
+        "number-of-guest": "Personnes présentes",
         "public-event": "Évènement public"
       },
       "input": {

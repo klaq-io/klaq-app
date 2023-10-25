@@ -419,6 +419,7 @@ export const NewEventV2 = () => {
                           />
                         </div>
                       )}
+                      <div className="col-span-full border-t border-gray-900/4 my-4"></div>
                       <div className="col-span-1">
                         <TextField
                           label={intl.formatMessage({
