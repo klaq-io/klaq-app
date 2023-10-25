@@ -227,13 +227,6 @@ export const Profile: FC<Props> = (props: Props) => {
                             id: "settings.profile.input.website",
                           })}
                         />
-                        {formik.errors.website && formik.touched.website ? (
-                          <p className="mt-2 text-sm text-danger-600">
-                            {intl.formatMessage({
-                              id: `settings.profile.error.stage-name`,
-                            })}
-                          </p>
-                        ) : null}
                       </div>
                     </div>
                   </div>

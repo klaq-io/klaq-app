@@ -444,7 +444,7 @@
   },
 
   "new-event": {
-    "title": "Nouvel évènement",
+    "title": "Ajouter un nouvel évènement",
     "date": {
       "header": "Date & Heure",
       "description": "Heure et date de l'évènement, type d'évènement, nombre d'invités",

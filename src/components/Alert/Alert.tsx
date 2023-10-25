@@ -3,7 +3,7 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
   XCircleIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import { FC } from "react";
 import { classNames } from "../../utils/utils";
 import React from "react";
@@ -14,10 +14,11 @@ type AlertProps = {
   status: Status;
   title?: React.ReactNode;
   text: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const Alert: FC<AlertProps> = (props: AlertProps) => {
-  const { text, title, status } = props;
+  const { text, title, status, children } = props;
 
   const statusBackgroundClasses: { [key in Status]: string } = {
     success: "bg-green-50",
@@ -31,6 +32,13 @@ export const Alert: FC<AlertProps> = (props: AlertProps) => {
     warning: "text-yellow-400",
     error: "text-red-400",
     info: "text-blue-400",
+  };
+
+  const statusTitleClasses: { [key in Status]: string } = {
+    success: "text-green-800",
+    warning: "text-yellow-800",
+    error: "text-red-800",
+    info: "text-blue-800",
   };
 
   const statusTextClasses: { [key in Status]: string } = {
@@ -58,22 +66,22 @@ export const Alert: FC<AlertProps> = (props: AlertProps) => {
             "aria-hidden": true,
           })}
         </div>
-        <div className="ml-3 flex-1 md:flex md:justify-between">
+        <div className="ml-3">
           {title && (
             <h3
               className={classNames(
-                "text-sm font-medium",
-                statusTextClasses[status]
+                "text-sm font-semibold",
+                statusTitleClasses[status]
               )}
             >
               {title}
             </h3>
           )}
-          {text && (
-            <p className={classNames("text-sm", statusTextClasses[status])}>
-              {text}
-            </p>
-          )}
+          <div
+            className={classNames("mt-2 text-sm", statusTextClasses[status])}
+          >
+            {text || children}
+          </div>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ import {
   Events,
   Login,
   NewEvent,
+  NewEventV2,
   OnboardingCompany,
   OnboardingCompanySearch,
   OnboardingIntermittent,
@@ -110,6 +111,7 @@ function App() {
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route path={PATHS.EVENT_EDIT} element={<EditEvent />} />
           <Route path={PATHS.EVENT} element={<EventDetails />} />
+          <Route path={PATHS.NEW_EVENT_V2} element={<NewEventV2 />} />
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />

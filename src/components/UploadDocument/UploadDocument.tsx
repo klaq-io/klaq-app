@@ -27,7 +27,7 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
     <>
       <div
         className={classNames(
-          "mt-2 flex justify-center rounded-lg border-dashed border-gray-900/25 px-6 py-10 flex flex-col",
+          "flex justify-center rounded-lg border-dashed border-gray-900/25 px-6 py-10 flex flex-col",
           shouldHighlight ? "border-2 bg-gray-50" : "border-2"
         )}
         onDragOver={(e) => {

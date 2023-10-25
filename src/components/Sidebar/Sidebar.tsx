@@ -196,7 +196,7 @@ export const Sidebar = (props: Props) => {
 
           <li className="mt-auto" key="sidebar-footer">
             <a
-              href="#"
+              href="https://help.klaq.io/"
               className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
             >
               <QuestionMarkCircleIcon
