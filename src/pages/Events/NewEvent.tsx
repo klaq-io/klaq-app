@@ -11,6 +11,7 @@ import {
 import {
   Button,
   CardContainer,
+  CommentaryFeed,
   Label,
   MapAutocompleteInput,
   SelectField,
@@ -55,7 +56,7 @@ export const NewEventV2 = () => {
       ...initialValues,
     },
     onSubmit: (values) => {
-      console.log(values);
+      alert(JSON.stringify(values, null, 2));
     },
     enableReinitialize: true,
   });
@@ -134,6 +135,18 @@ export const NewEventV2 = () => {
               id: "new-event.title",
             })}
           </h2>
+        </div>
+        <div>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            onClick={formik.handleSubmit}
+          >
+            {intl.formatMessage({
+              id: "new-event.submit",
+            })}
+          </Button>
         </div>
       </div>
       <div className="mt-10"></div>
@@ -323,6 +336,7 @@ export const NewEventV2 = () => {
                 />
               </div>
             </CardContainer>
+            <CommentaryFeed isCommentingAllowed={true} />
           </div>
           {/* event */}
           <div className="w-2/3">
@@ -532,6 +546,19 @@ export const NewEventV2 = () => {
                   <UploadDocumentZone fileList={fileList} setFiles={setFiles} />
                 </div>
               </CardContainer>
+
+              <div className="flex justify-end">
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  onClick={formik.handleSubmit}
+                >
+                  {intl.formatMessage({
+                    id: "new-event.submit",
+                  })}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
