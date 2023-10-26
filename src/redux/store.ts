@@ -6,6 +6,7 @@ import { eventsSlice } from "./Events/slices";
 import { userSlice } from "./Login/slice";
 import { productItemSlice } from "./Products/slices";
 import { quoteSlice } from "./Quote/slices";
+import { mainEventSlice } from "./MainEvent/slices";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     customers: customerSlice.reducer,
     commentaries: commentarySlice.reducer,
     quotes: quoteSlice.reducer,
+    mainEvents: mainEventSlice.reducer,
   },
 });
 

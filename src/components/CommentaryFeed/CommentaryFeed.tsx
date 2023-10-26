@@ -1,6 +1,7 @@
 import {
   BanknotesIcon,
   BellAlertIcon,
+  BoltIcon,
   ChatBubbleBottomCenterTextIcon,
   CheckCircleIcon,
   CheckIcon,
@@ -36,9 +37,10 @@ import { classNames } from "../../utils/utils";
 import { Button } from "../Button";
 import { initialValues, validationSchema } from "./form";
 import { EventStatus } from "../../redux/Events/slices";
+import { EventBadge } from "components/EventBadge";
 
 type Props = {
-  isCommentingAllowed: boolean;
+  isCommentingAllowed?: boolean;
 };
 
 const TIME = {
@@ -81,7 +83,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
         message: "just-now",
       },
       {
-        threshold: TIME.LESS_THAN_AN_HOUR * 2,
+        threshold: TIME.LESS_THAN_AN_HOUR,
         fn: differenceInMinutes,
         message: "minutes-ago",
       },
@@ -91,7 +93,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
         message: "hours-ago",
       },
       {
-        threshold: TIME.LESS_THAN_A_WEEK * 2,
+        threshold: TIME.LESS_THAN_A_WEEK,
         fn: differenceInDays,
         message: "days-ago",
       },
@@ -237,35 +239,52 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                 </>
               ) : (
                 <>
-                  <div className="relative flex h-6 w-6 flex-none items-center justify-center ">
-                    <div className="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
+                  <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
+                    <BoltIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
+                  </span>
+                  <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
+                    <div className="flex justify-between gap-x-4">
+                      <div className="py-0.5 text-xs leading-5 text-gray-500">
+                        <span className="font-medium text-gray-900">{`KlaqBOT`}</span>{" "}
+                        {intl.formatMessage({
+                          id: "edit-event.commentaries.commented",
+                        })}
+                      </div>
+                      <time
+                        dateTime={format(
+                          new Date(commentary.createdAt),
+                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+                        )}
+                        className="flex-none py-0.5 text-xs leading-5 text-gray-500"
+                      >
+                        {intl.formatMessage(
+                          {
+                            id: `edit-event.commentaries.publicated-time.${
+                              publicatedTime(new Date(commentary.createdAt))
+                                .message
+                            }`,
+                          },
+                          {
+                            time: publicatedTime(new Date(commentary.createdAt))
+                              .time,
+                          }
+                        )}
+                      </time>
+                    </div>
+                    <p className="text-sm leading-6 text-gray-500">
+                      {/* //todo: intl */}
+                      Changement du status en{" "}
+                      {Object.values(EventStatus).includes(
+                        commentary.text as EventStatus
+                      ) ? (
+                        <EventBadge status={commentary.text as EventStatus} />
+                      ) : (
+                        intl.formatMessage({
+                          id: `edit-event.commentaries.status.${commentary.text}`,
+                        })
+                      )}
+                    </p>
                   </div>
-                  <p className="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                    <span className="font-medium text-gray-900">
-                      {intl.formatMessage({
-                        id: `edit-event.commentaries.status.${commentary.text}`,
-                      })}
-                    </span>
-                  </p>
-                  <time
-                    dateTime={format(
-                      new Date(commentary.createdAt),
-                      "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-                    )}
-                    className="flex-none py-0.5 text-xs leading-5 text-gray-500"
-                  >
-                    {intl.formatMessage(
-                      {
-                        id: `edit-event.commentaries.publicated-time.${
-                          publicatedTime(new Date(commentary.createdAt)).message
-                        }`,
-                      },
-                      {
-                        time: publicatedTime(new Date(commentary.createdAt))
-                          .time,
-                      }
-                    )}
-                  </time>
                 </>
               )}
             </li>

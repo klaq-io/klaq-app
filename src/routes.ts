@@ -37,5 +37,6 @@ export const PATHS = {
   BILLING: "/billing",
   INVOICES: "/invoices",
   QUOTES: "/quotes",
-  NEW_EVENT_V2: "/new/v2",
+  NEW_EVENT_V2: "/events/new",
+  EVENT_DETAILS: "/events/:id/details",
 };

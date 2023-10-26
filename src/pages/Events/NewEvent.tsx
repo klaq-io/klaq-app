@@ -129,11 +129,6 @@ export const NewEventV2 = () => {
     });
   };
 
-  console.log(
-    formik.errors,
-    formik.errors.subEvents && formik.errors.subEvents[0]
-  );
-
   useEffect(() => {
     fetchCustomers();
   }, []);
