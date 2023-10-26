@@ -8,12 +8,12 @@ import { FC } from "react";
 import { classNames } from "../../utils/utils";
 import React from "react";
 
-type Status = "success" | "warning" | "error" | "info";
+type Status = "success" | "warning" | "danger" | "info";
 
 type AlertProps = {
   status: Status;
   title?: React.ReactNode;
-  text: React.ReactNode;
+  text?: React.ReactNode;
   children?: React.ReactNode;
 };
 
@@ -23,35 +23,35 @@ export const Alert: FC<AlertProps> = (props: AlertProps) => {
   const statusBackgroundClasses: { [key in Status]: string } = {
     success: "bg-green-50",
     warning: "bg-yellow-50",
-    error: "bg-red-50",
+    danger: "bg-red-50",
     info: "bg-blue-50",
   };
 
   const statusIconClasses: { [key in Status]: string } = {
     success: "text-green-400",
     warning: "text-yellow-400",
-    error: "text-red-400",
+    danger: "text-red-400",
     info: "text-blue-400",
   };
 
   const statusTitleClasses: { [key in Status]: string } = {
     success: "text-green-800",
     warning: "text-yellow-800",
-    error: "text-red-800",
+    danger: "text-red-800",
     info: "text-blue-800",
   };
 
   const statusTextClasses: { [key in Status]: string } = {
     success: "text-green-700",
     warning: "text-yellow-700",
-    error: "text-red-700",
+    danger: "text-red-700",
     info: "text-blue-700",
   };
 
   const statusIcon: { [key in Status]: any } = {
     success: CheckCircleIcon,
     warning: ExclamationTriangleIcon,
-    error: XCircleIcon,
+    danger: XCircleIcon,
     info: InformationCircleIcon,
   };
 

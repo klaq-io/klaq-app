@@ -1,4 +1,5 @@
 import { CustomerType } from "redux/Customer/slices";
+import * as Yup from "yup";
 
 export const initialValues = {
   customer: {
@@ -10,7 +11,7 @@ export const initialValues = {
     type: CustomerType.PRIVATE,
   },
   title: "",
-  kEvents: [
+  subEvents: [
     {
       date: "",
       startTime: "",
@@ -19,9 +20,31 @@ export const initialValues = {
       city: "",
       zipcode: "",
       country: "",
-      title: "",
+      type: "",
       guests: 0,
       publicEvent: "true",
     },
   ],
+  note: "",
 };
+
+export const validationSchema = Yup.object().shape({
+  customer: Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+    phone: Yup.string().required("Required"),
+    firstName: Yup.string().required("Required"),
+    lastName: Yup.string().required("Required"),
+    type: Yup.string().required("Required"),
+  }),
+  title: Yup.string(),
+  note: Yup.string(),
+  subEvents: Yup.array().of(
+    Yup.object().shape({
+      date: Yup.string().required("Required"),
+      address: Yup.string().required("Required"),
+      zipcode: Yup.string().matches(/^\d{5}$/, "Invalid zipcode"),
+      type: Yup.string().required("Required"),
+      guests: Yup.number(),
+    })
+  ),
+});

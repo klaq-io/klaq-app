@@ -7,18 +7,20 @@ import {
   PlusIcon,
   XMarkIcon,
   DocumentDuplicateIcon,
+  ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
   CardContainer,
   CommentaryFeed,
+  DangerModal,
   Label,
   MapAutocompleteInput,
   SelectField,
   TextField,
   UploadDocumentZone,
 } from "components";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { PageLayout } from "layouts";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -27,15 +29,18 @@ import { useFetchCustomers } from "redux/Customer/hooks";
 import { getCustomers } from "redux/Customer/selectors";
 import { Customer, CustomerType } from "redux/Customer/slices";
 import { classNames } from "utils/utils";
-import { initialValues } from "./newEventForm";
+import { initialValues, validationSchema } from "./newEventForm";
 import { RetrieveAddress } from "interface/retrieve-address.interface";
 import { Alert } from "components/Alert/Alert";
+import { useCreateEvent } from "redux/MainEvent/hooks";
 
 export const NewEventV2 = () => {
   const intl = useIntl();
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
+
+  const [{ isLoading: isCreatingEvent }, createEvent] = useCreateEvent();
 
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
@@ -55,21 +60,23 @@ export const NewEventV2 = () => {
     initialValues: {
       ...initialValues,
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema,
+    onSubmit: async (values) => {
+      await createEvent(values);
+      // todo: add file to event
     },
     enableReinitialize: true,
   });
 
   const handleLinkNewEvent = () => {
-    const lastElement = formik.values.kEvents.at(-1);
+    const lastElement = formik.values.subEvents.at(-1);
     formik.setValues({
       ...formik.values,
-      kEvents: [
-        ...formik.values.kEvents,
+      subEvents: [
+        ...formik.values.subEvents,
         lastElement
           ? {
-              ...initialValues.kEvents[0],
+              ...initialValues.subEvents[0],
               date: lastElement.date,
               startTime: lastElement.endTime,
               //   address: lastElement.address,
@@ -77,19 +84,19 @@ export const NewEventV2 = () => {
               //   zipcode: lastElement.zipcode,
               //   country: lastElement.country,
             }
-          : initialValues.kEvents[0],
+          : initialValues.subEvents[0],
       ],
     });
   };
 
   const handleDuplicateNewEvent = () => {
-    const lastElement = formik.values.kEvents.at(-1);
+    const lastElement = formik.values.subEvents.at(-1);
 
     formik.setValues({
       ...formik.values,
-      kEvents: [
-        ...formik.values.kEvents,
-        { ...initialValues.kEvents[0], ...lastElement },
+      subEvents: [
+        ...formik.values.subEvents,
+        { ...initialValues.subEvents[0], ...lastElement },
       ],
     });
   };
@@ -97,7 +104,7 @@ export const NewEventV2 = () => {
   const handleDeleteElement = (index: number) => {
     formik.setValues({
       ...formik.values,
-      kEvents: formik.values.kEvents.filter((_, i) => i !== index),
+      subEvents: formik.values.subEvents.filter((_, i) => i !== index),
     });
   };
 
@@ -107,7 +114,7 @@ export const NewEventV2 = () => {
   ) => {
     formik.setValues({
       ...formik.values,
-      kEvents: formik.values.kEvents.map((kEvent, index) => {
+      subEvents: formik.values.subEvents.map((kEvent, index) => {
         if (index !== eventIndex) {
           return kEvent;
         }
@@ -121,6 +128,11 @@ export const NewEventV2 = () => {
       }),
     });
   };
+
+  console.log(
+    formik.errors,
+    formik.errors.subEvents && formik.errors.subEvents[0]
+  );
 
   useEffect(() => {
     fetchCustomers();
@@ -142,6 +154,7 @@ export const NewEventV2 = () => {
             color="primary"
             variant="contained"
             onClick={formik.handleSubmit}
+            isLoading={isCreatingEvent}
           >
             {intl.formatMessage({
               id: "new-event.submit",
@@ -153,7 +166,7 @@ export const NewEventV2 = () => {
       <form onSubmit={formik.handleSubmit}>
         <div className="flex space-x-8">
           {/* customer */}
-          <div className="w-1/3">
+          <div className="w-1/3 space-y-8">
             <CardContainer>
               <div className="flex-auto pl-6 pt-6 px-4 py-5 sm:p-6">
                 <h3 className="text-sm font-semibold leading-6 text-gray-900">
@@ -265,6 +278,7 @@ export const NewEventV2 = () => {
                     </Combobox.Options>
                   )}
                 </Combobox>
+
                 <SelectField
                   label={intl.formatMessage({
                     id: "new-event.customer.label.type",
@@ -301,6 +315,7 @@ export const NewEventV2 = () => {
                   onChange={formik.handleChange}
                   value={formik.values.customer.firstName}
                 />
+
                 <TextField
                   label={intl.formatMessage({
                     id: "new-event.customer.label.last-name",
@@ -312,6 +327,7 @@ export const NewEventV2 = () => {
                   onChange={formik.handleChange}
                   value={formik.values.customer.lastName}
                 />
+
                 <TextField
                   label={intl.formatMessage({
                     id: "new-event.customer.label.phone-number",
@@ -323,6 +339,7 @@ export const NewEventV2 = () => {
                   onChange={formik.handleChange}
                   value={formik.values.customer.phone}
                 />
+
                 <TextField
                   label={intl.formatMessage({
                     id: "new-event.customer.label.email",
@@ -334,9 +351,31 @@ export const NewEventV2 = () => {
                   onChange={formik.handleChange}
                   value={formik.values.customer.email}
                 />
+                {formik.errors.customer && formik.touched.customer && (
+                  <div className="col-span-full">
+                    <Alert status="danger" title="Erreur">
+                      Tous les champs de la fiche client doivent être remplis
+                      pour valider le formulaire
+                    </Alert>
+                  </div>
+                )}
               </div>
             </CardContainer>
-            <CommentaryFeed isCommentingAllowed={true} />
+            <div>
+              <CardContainer>
+                <textarea
+                  value={formik.values.note}
+                  onChange={formik.handleChange}
+                  rows={4}
+                  name="note"
+                  id="text"
+                  className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  placeholder={intl.formatMessage({
+                    id: "edit-event.commentaries.add-commentary",
+                  })}
+                />
+              </CardContainer>
+            </div>
           </div>
           {/* event */}
           <div className="w-2/3">
@@ -351,7 +390,7 @@ export const NewEventV2 = () => {
                   />
                 </div>
               </CardContainer>
-              {formik.values.kEvents.map((kEvent, index) => (
+              {formik.values.subEvents.map((kEvent, index) => (
                 <CardContainer>
                   <div className="px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-3 gap-x-4 gap-y-4">
@@ -359,13 +398,13 @@ export const NewEventV2 = () => {
                         <TextField
                           label="Type d'évènement"
                           placeholder="Mariage, anniversaire, etc."
-                          name={`kEvents.${index}.title`}
+                          name={`subEvents.${index}.type`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].title}
+                          value={formik.values.subEvents[index].type}
                         />
                       </div>
                       <div className="col-span-1">
-                        {formik.values.kEvents.length !== 1 ? (
+                        {formik.values.subEvents.length !== 1 ? (
                           <div className="flex justify-end">
                             <button
                               type="button"
@@ -383,9 +422,9 @@ export const NewEventV2 = () => {
                           label={intl.formatMessage({
                             id: "new-event.date.label.date",
                           })}
-                          name={`kEvents.${index}.date`}
+                          name={`subEvents.${index}.date`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].date}
+                          value={formik.values.subEvents[index].date}
                         />
                       </div>
                       <div className="col-span-1">
@@ -394,9 +433,9 @@ export const NewEventV2 = () => {
                           label={intl.formatMessage({
                             id: "new-event.date.label.start-time",
                           })}
-                          name={`kEvents.${index}.startTime`}
+                          name={`subEvents.${index}.startTime`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].startTime}
+                          value={formik.values.subEvents[index].startTime}
                         />
                       </div>
                       <div className="col-span-1">
@@ -405,9 +444,9 @@ export const NewEventV2 = () => {
                           label={intl.formatMessage({
                             id: "new-event.date.label.end-time",
                           })}
-                          name={`kEvents.${index}.endTime`}
+                          name={`subEvents.${index}.endTime`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].endTime}
+                          value={formik.values.subEvents[index].endTime}
                         />
                       </div>
                       {false && (
@@ -425,10 +464,11 @@ export const NewEventV2 = () => {
                           label={intl.formatMessage({
                             id: "new-event.date.label.number-of-guest",
                           })}
+                          min={0}
                           type="number"
-                          name={`kEvents.${index}.guests`}
+                          name={`subEvents.${index}.guests`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].guests}
+                          value={formik.values.subEvents[index].guests}
                         />
                       </div>
                       <div className="col-span-1">
@@ -437,8 +477,8 @@ export const NewEventV2 = () => {
                             id: "new-event.date.label.public-event",
                           })}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].publicEvent}
-                          name={`kEvents.${index}.publicEvent`}
+                          value={formik.values.subEvents[index].publicEvent}
+                          name={`subEvents.${index}.publicEvent`}
                         >
                           <option value={"true"}>
                             {intl.formatMessage({
@@ -474,9 +514,9 @@ export const NewEventV2 = () => {
                           placeholder={intl.formatMessage({
                             id: "new-event.location.input.address",
                           })}
-                          name={`kEvents.${index}.address`}
+                          name={`subEvents.${index}.address`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].address}
+                          value={formik.values.subEvents[index].address}
                         />
                       </div>
                       <div className="col-span-1">
@@ -487,9 +527,9 @@ export const NewEventV2 = () => {
                           placeholder={intl.formatMessage({
                             id: "new-event.location.input.zipcode",
                           })}
-                          name={`kEvents.${index}.zipcode`}
+                          name={`subEvents.${index}.zipcode`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].zipcode}
+                          value={formik.values.subEvents[index].zipcode}
                         />
                       </div>
                       <div className="col-span-1">
@@ -500,9 +540,9 @@ export const NewEventV2 = () => {
                           placeholder={intl.formatMessage({
                             id: "new-event.location.input.city",
                           })}
-                          name={`kEvents.${index}.city`}
+                          name={`subEvents.${index}.city`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].city}
+                          value={formik.values.subEvents[index].city}
                         />
                       </div>
                       <div className="col-span-1">
@@ -513,11 +553,23 @@ export const NewEventV2 = () => {
                           placeholder={intl.formatMessage({
                             id: "new-event.location.input.country",
                           })}
-                          name={`kEvents.${index}.country`}
+                          name={`subEvents.${index}.country`}
                           onChange={formik.handleChange}
-                          value={formik.values.kEvents[index].country}
+                          value={formik.values.subEvents[index].country}
                         />
                       </div>
+
+                      {formik.errors.subEvents &&
+                        formik.errors.subEvents[index] &&
+                        formik.touched.subEvents &&
+                        formik.touched.subEvents[index] && (
+                          <div className="col-span-full">
+                            <Alert status="danger" title="Erreur">
+                              Les champs "type d'évènement", "date" et "adresse"
+                              sont obligatoires pour créer un évènement
+                            </Alert>
+                          </div>
+                        )}
                     </div>
                   </div>
                 </CardContainer>
@@ -554,6 +606,7 @@ export const NewEventV2 = () => {
                   color="primary"
                   variant="contained"
                   onClick={formik.handleSubmit}
+                  isLoading={isCreatingEvent}
                 >
                   {intl.formatMessage({
                     id: "new-event.submit",

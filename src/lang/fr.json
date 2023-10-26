@@ -468,6 +468,8 @@
         }
       },
       "error": {
+        "title": "Veuillez ajouter un titre pour l'évènement",
+        "location": "Une adresse est obligatoire pour ajouter l'évènement",
         "date": "Veuillez sélectionner une date",
         "start-time": "Veuillez sélectionner une heure de début",
         "end-time": "Veuillez sélectionner une heure de fin",

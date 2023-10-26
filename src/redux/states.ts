@@ -6,6 +6,7 @@ export const initialState: {
   customers: any;
   commentaries: any;
   quotes: any;
+  mainEvents: any;
 } = {
   user: {},
   company: {},
@@ -14,4 +15,5 @@ export const initialState: {
   customers: [],
   commentaries: [],
   quotes: [],
+  mainEvents: [],
 };
