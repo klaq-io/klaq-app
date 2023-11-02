@@ -7,6 +7,7 @@ import webClient from "utils/webclient";
 import { setMainEvent } from "./slices";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
+import { EventStatus } from "redux/Events/slices";
 
 export const useCreateEvent = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const useCreateEvent = () => {
           { duration: 1500, position: "top-right" }
         );
         dispatch(setMainEvent(data));
-        navigate(`${PATHS.EVENTS}/${data.id}/details`);
+        navigate(`${PATHS.EVENTS}/${data.id}/details?tab=Roadmap`);
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
@@ -72,4 +73,74 @@ export const useFetchMainEvent = () => {
       return error.response;
     }
   });
+};
+
+export const useUpdateMainEvent = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async (values: Partial<MainEvent>) => {
+    try {
+      const { data } = await webClient.put(`/event/${values.id}`, values);
+      dispatch(setMainEvent(data));
+      toast.custom(
+        <ToastNotification
+          status="success"
+          titleId="toast.success.edit-event.title"
+          messageId="toast.success.edit-event.message"
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      return data;
+    } catch (error: any) {
+      const code = error.response.data.code
+        ? error.response.data.code.toLowerCase()
+        : null;
+      toast.custom(
+        <ToastNotification
+          status="danger"
+          titleId={`toast.error.${code ? code : "default"}.title`}
+          messageId={`toast.error.${code ? code : "default"}.message`}
+        />,
+        { duration: 1500, position: "top-right" }
+      );
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useUpdateMainEventStatus = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(
+    async (values: { status: EventStatus }, id: string) => {
+      try {
+        const { data } = await webClient.put(`/event/${id}/status`, values);
+        dispatch(setMainEvent(data));
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId="toast.success.edit-event.title"
+            messageId="toast.success.edit-event.message"
+          />,
+          { duration: 1500, position: "top-right" }
+        );
+        return data;
+      } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : null;
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`toast.error.${code ? code : "default"}.title`}
+            messageId={`toast.error.${code ? code : "default"}.message`}
+          />,
+          { duration: 1500, position: "top-right" }
+        );
+        console.error(error);
+        return error.response;
+      }
+    }
+  );
 };

@@ -5,7 +5,7 @@ import {
   MagnifyingGlassIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { getCompany } from "../../redux/Company/selectors";
 import { getUser } from "../../redux/Login/selectors";
 import { Skeleton } from "../Skeleton";
+import { NewEventModal } from "components/Modal";
 
 type Props = {
   classes?: string;
@@ -32,9 +33,7 @@ export const Navbar = (props: Props) => {
   const navigate = useNavigate();
   const intl = useIntl();
 
-  const handleNewEvent = () => {
-    navigate(PATHS.NEW_EVENT);
-  };
+  const [isNewEventOpened, setNewEventOpen] = useState(false);
 
   const [, fetchCompany] = useFetchCompany();
   const company = useSelector(getCompany);
@@ -81,7 +80,7 @@ export const Navbar = (props: Props) => {
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
-            onClick={handleNewEvent}
+            onClick={() => setNewEventOpen(true)}
           >
             <span className="sr-only">New event</span>
             <PlusIcon className="h-6 w-6" aria-hidden="true" />
@@ -188,6 +187,7 @@ export const Navbar = (props: Props) => {
           </Menu>
         </div>
       </div>
+      <NewEventModal open={isNewEventOpened} setOpen={setNewEventOpen} />
     </div>
   );
 };

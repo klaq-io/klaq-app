@@ -16,6 +16,7 @@ export const initialValues = {
       date: "",
       startTime: "",
       endTime: "",
+      arrivalTime: "",
       address: "",
       city: "",
       zipcode: "",
@@ -26,6 +27,7 @@ export const initialValues = {
     },
   ],
   note: "",
+  budget: "",
 };
 
 export const validationSchema = Yup.object().shape({
@@ -37,13 +39,12 @@ export const validationSchema = Yup.object().shape({
     type: Yup.string().required("Required"),
   }),
   title: Yup.string(),
-  note: Yup.string(),
   subEvents: Yup.array().of(
     Yup.object().shape({
       date: Yup.string().required("Required"),
       address: Yup.string().required("Required"),
       zipcode: Yup.string().matches(/^\d{5}$/, "Invalid zipcode"),
-      type: Yup.string().required("Required"),
+      type: Yup.string(),
       guests: Yup.number(),
     })
   ),

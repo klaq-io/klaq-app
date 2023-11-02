@@ -10,6 +10,8 @@ export interface MainEvent {
   createdAt: Date;
   updatedAt: Date;
   status: EventStatus;
+  budget?: string;
+  note?: string;
   title: string;
   subEvents: SubEvent[];
   user: User;

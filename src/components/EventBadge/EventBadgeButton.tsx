@@ -5,6 +5,12 @@ import { classNames } from "../../utils/utils";
 import { EventStatus } from "../../redux/Events/slices";
 import EventBadge from "./EventBadge";
 import { useFetchEvents, useUpdateEventStatus } from "../../redux/Events/hooks";
+import {
+  useFetchMainEvent,
+  useUpdateMainEventStatus,
+} from "redux/MainEvent/hooks";
+import { SuperBalls } from "@uiball/loaders";
+import { useFetchCommentaries } from "redux/Commentary/hooks";
 
 type Props = {
   status: EventStatus;
@@ -13,16 +19,20 @@ type Props = {
 
 export const EventBadgeButton: FC<Props> = (props: Props) => {
   const { status, eventId } = props;
-  const [, updateEventStatus] = useUpdateEventStatus();
+  const [{ isLoading }, updateEventStatus] = useUpdateMainEventStatus();
 
-  const [, fetchEvents] = useFetchEvents();
+  const [, fetchMainEvent] = useFetchMainEvent();
+  const [, fetchComments] = useFetchCommentaries();
 
   const handleUpdateEventStatus = async (eventStatus: EventStatus) => {
-    await updateEventStatus(eventStatus, eventId);
-    fetchEvents();
+    await updateEventStatus({ status: eventStatus }, eventId);
+    fetchMainEvent(eventId);
+    fetchComments(eventId);
   };
 
-  return (
+  return isLoading ? (
+    <SuperBalls size={45} speed={1.4} color="#527a75" />
+  ) : (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center items-center gap-x-1.5 bg-white px-3 py-2 text-sm font-semibold text-gray-900">

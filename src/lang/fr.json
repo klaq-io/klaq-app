@@ -449,10 +449,11 @@
       "header": "Date & Heure",
       "description": "Heure et date de l'évènement, type d'évènement, nombre d'invités",
       "label": {
-        "date": "Date",
+        "date": "Date*",
         "start-time": "Heure de début",
         "end-time": "Heure de fin",
-        "event-type": "Type d'événements",
+        "arrival-time": "Heure d'arrivée",
+        "event-type": "Type d'événement",
         "number-of-guest": "Personnes présentes",
         "public-event": "Évènement public"
       },
@@ -481,7 +482,7 @@
       "header": "Localisation",
       "description": "Adresse de l'évènement",
       "label": {
-        "address": "Adresse",
+        "address": "Adresse*",
         "city": "Ville",
         "state": "Région",
         "zipcode": "Code postal",
@@ -506,12 +507,12 @@
       "header": "Client",
       "description": "Informations sur le client",
       "label": {
-        "first-name": "Prénom",
-        "last-name": "Nom",
-        "phone-number": "Numéro de téléphone",
-        "email": "Adresse e-mail",
-        "type": "Type de client",
-        "attach-customer": "Attacher un client à cet évènement"
+        "first-name": "Prénom*",
+        "last-name": "Nom*",
+        "phone-number": "Numéro de téléphone*",
+        "email": "Adresse e-mail*",
+        "type": "Type de client*",
+        "attach-customer": "Attacher un client à cet évènement*"
       },
       "input": {
         "first-name": "Saisissez le prénom",

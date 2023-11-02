@@ -105,6 +105,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
     fetchProducts();
     fetchCustomerQuotes(id!);
   }, []);
+
   return (
     <PageLayout isLoading={isLoading || isFetchProductLoading}>
       <div className="md:flex md:items-center md:justify-between">
