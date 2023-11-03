@@ -1,8 +1,12 @@
 import { add, format } from "date-fns";
 import { Customer } from "../redux/Customer/slices";
-import { Event } from "../redux/Events/slices";
+import { Event, EventStatus } from "../redux/Events/slices";
 import { EventProduct } from "../redux/Events/slices";
 import { ProductItem } from "../redux/Products/slices";
+import { MainEvent } from "interface/Event/main-event.interface";
+import { SubEvent } from "interface/Event/subevent.interface";
+import { Quote, QuoteStatus } from "redux/Quote/slices";
+import { getSubtotalForQuote } from "./quote";
 
 export const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");
@@ -44,26 +48,6 @@ export const getCustomerValue = (
     }
   }, 0);
   return customerValue.toFixed(2);
-};
-
-export const getPipeValue = (products: ProductItem[], events: Event[]) => {
-  const pipeProducts = events.flatMap((event) =>
-    event.products?.map((product: EventProduct) => ({
-      product: products.find(
-        (productItems) => productItems.id === product.productId
-      ),
-      quantity: product.quantity,
-    }))
-  );
-
-  const pipeValue = pipeProducts.reduce((acc, curr) => {
-    if (curr?.product?.price && typeof curr.quantity === "number") {
-      return acc + curr.product.price * curr.quantity;
-    } else {
-      return acc;
-    }
-  }, 0);
-  return pipeValue.toFixed(2);
 };
 
 export const getEventsForPeriod = (
@@ -230,4 +214,93 @@ export const getHumanFileSize = (bytes: number, si = false, dp = 1): string => {
   );
 
   return bytes.toFixed(dp) + " " + units[u];
+};
+
+export const sanitize = (obj: any) => {
+  return JSON.parse(
+    JSON.stringify(obj, (key, value) => {
+      return value === null || value === "" ? undefined : value;
+    })
+  );
+};
+
+export const getTimeStr = (seconds: number): string => {
+  if (seconds < 0) {
+    throw new Error("Time cannot be negative.");
+  }
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  let timeStr = "";
+  if (hours > 0) {
+    timeStr += `${hours}h `;
+  }
+  if (minutes > 0) {
+    timeStr += `${minutes}mn`;
+  }
+
+  return timeStr.trim();
+};
+
+export const getSubEventsListFromMainEvents = (mainEvent: MainEvent) => {
+  return mainEvent.subEvents.map((subEvent) => {
+    return {
+      status: mainEvent.status,
+      customer: mainEvent.customer,
+      mainEventId: mainEvent.id,
+      ...subEvent,
+    };
+  });
+};
+
+export const getSubEventsFromPeriod = (
+  events: (SubEvent & {
+    customer: Customer;
+    status: EventStatus;
+    mainEventId: string;
+  })[],
+  startDate: Date | string,
+  endDate: Date | string
+): (SubEvent & {
+  customer: Customer;
+  status: EventStatus;
+  mainEventId: string;
+})[] => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  return events.filter((event) => {
+    const eventDate = new Date(event.date);
+    return eventDate >= start && eventDate <= end;
+  });
+};
+
+const getEventValue = (quotes_: Quote[] | undefined) => {
+  if (!quotes_ || !quotes_.length) return "0.00";
+
+  const acceptedQuotes = quotes_.filter(
+    (quote) => quote.status === QuoteStatus.ACCEPTED
+  );
+  if (acceptedQuotes.length)
+    return acceptedQuotes
+      .map((quote) => getSubtotalForQuote(quote))
+      .reduce((acc, curr) => acc + curr)
+      .toFixed(2);
+
+  const quotes = quotes_
+    .filter((quote) => quote.status !== QuoteStatus.REJECTED)
+    .map((quote) => getSubtotalForQuote(quote));
+  return Math.min(...quotes).toFixed(2);
+};
+
+export const getPipeValue = (mainEvents?: MainEvent[]) => {
+  if (!mainEvents || !mainEvents.length) return "0.00";
+
+  console.log(mainEvents);
+
+  const events = mainEvents
+    .map((mainEvent) => getEventValue(mainEvent.quotes))
+    .map((value) => Number(value));
+
+  return Math.min(...events).toFixed(2);
 };

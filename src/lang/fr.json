@@ -823,7 +823,7 @@
         "country": "Pays"
       },
       "no-distance-and-duration": "Aucune information concernant la distance et la durée du trajet n'ont pu être trouvé.",
-      "distance-and-duration": "Cet évènement se situe à <b>{distance}</b> de votre bureau. Vous aurez besoin de <b>{duration}</b> pour vous y rendre. Les frais de déplacement sont estimés à <b>{travelFees}€</b>."
+      "distance-and-duration": "La durée totale de déplacement est estimé <b>{duration}</b>. La distance totale est estimé à <b>{distance}</b>. Les frais de déplacement sont estimés à <b>{travelFees}€</b>. (La distance comprend l'aller-retour jusqu'à l'adresse de votre bureau renseigné dans vos paramètres)."
     },
     "informations": {
       "header": "À propos",

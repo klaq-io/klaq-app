@@ -21,11 +21,20 @@ import {
   classNames,
   getEventsForPeriod,
   getPipeValue,
+  getSubEventsFromPeriod,
+  getSubEventsListFromMainEvents,
   getThisMonthDates,
   getThisWeekDates,
   getThisYearDates,
 } from "../../utils/utils";
-import { getQuotePipeValue } from "utils/quote";
+import { getQuotePipeValue, getQuotePipeValueV2 } from "utils/quote";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import {
+  getMainEvents,
+  getMainEventsByStatus,
+} from "redux/MainEvent/selectors";
+import { MainEvent } from "interface/Event/main-event.interface";
+import { SubEvent } from "interface/Event/subevent.interface";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -37,8 +46,9 @@ enum FILTER_OPTIONS {
 export const Events = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const tabParam = searchParams.get("tab");
+
   const filterParam =
     FILTER_OPTIONS[searchParams.get("filter") as FILTER_OPTIONS];
   const startDateParam = searchParams.get("startDate");
@@ -50,9 +60,16 @@ export const Events = () => {
   const [endDate, setEndDate] = useState<string>(
     endDateParam || getThisYearDates()[1].toString()
   );
-  const [selectedTab, setSelectedTab] = useState(parseInt(tabParam!) || 0);
   const [selectedFilter, setSelectedFilter] = useState<string>(
     filterParam || FILTER_OPTIONS.THIS_YEAR
+  );
+
+  const [{ isLoading: isLoadingEvents }, fetchMainEvents] =
+    useFetchMainEvents();
+
+  const mainEvents = useSelector(getMainEvents);
+  const mainEventsList = mainEvents.flatMap((event) =>
+    getSubEventsListFromMainEvents(event)
   );
 
   const [{ isLoading }, fetchEvents] = useFetchEvents();
@@ -62,14 +79,16 @@ export const Events = () => {
     useFetchProductItems();
   const products = useSelector(getAllProducts);
 
+  const newEventsList = useSelector((state: any) =>
+    getMainEventsByStatus(state, EventStatus.INBOX)
+  );
+
   const lostEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.LOST)
+    getMainEventsByStatus(state, EventStatus.LOST)
   );
-  const newEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.INBOX)
-  );
+
   const upcomingEvents = useSelector((state: any) =>
-    getEventsByStatus(
+    getMainEventsByStatus(
       state,
       EventStatus.QUOTE_ACCEPTED,
       EventStatus.CONTRACT_SENT,
@@ -80,16 +99,15 @@ export const Events = () => {
     )
   );
   const pendingEvents = useSelector((state: any) =>
-    getEventsByStatus(
+    getMainEventsByStatus(
       state,
-      EventStatus.INBOX,
       EventStatus.QUALIFICATION,
       EventStatus.QUOTE_SENT,
       EventStatus.QUOTE_OPENED
     )
   );
   const pastEvents = useSelector((state: any) =>
-    getEventsByStatus(
+    getMainEventsByStatus(
       state,
       EventStatus.DONE,
       EventStatus.INVOICE_SENT,
@@ -99,7 +117,7 @@ export const Events = () => {
     )
   );
   const overdueEvents = useSelector((state: any) =>
-    getEventsByStatus(
+    getMainEventsByStatus(
       state,
       EventStatus.INVOICE_OVERDUE,
       EventStatus.DEPOSIT_LATE
@@ -108,22 +126,22 @@ export const Events = () => {
 
   const handleFilterChange = (value: string) => {
     switch (value) {
-      case FILTER_OPTIONS.THIS_WEEK.toString():
+      case FILTER_OPTIONS.THIS_WEEK:
         setSelectedFilter(FILTER_OPTIONS.THIS_WEEK);
         setStartDate(getThisWeekDates()[0].toString());
         setEndDate(getThisWeekDates()[1].toString());
         break;
-      case FILTER_OPTIONS.THIS_MONTH.toString():
+      case FILTER_OPTIONS.THIS_MONTH:
         setSelectedFilter(FILTER_OPTIONS.THIS_MONTH);
         setStartDate(getThisMonthDates()[0].toString());
         setEndDate(getThisMonthDates()[1].toString());
         break;
-      case FILTER_OPTIONS.THIS_YEAR.toString():
+      case FILTER_OPTIONS.THIS_YEAR:
         setSelectedFilter(FILTER_OPTIONS.THIS_YEAR);
         setStartDate(getThisYearDates()[0].toString());
         setEndDate(getThisYearDates()[1].toString());
         break;
-      case FILTER_OPTIONS.CUSTOM.toString():
+      case FILTER_OPTIONS.CUSTOM:
         setSelectedFilter(FILTER_OPTIONS.CUSTOM);
         break;
       default:
@@ -134,68 +152,98 @@ export const Events = () => {
   const tabs = [
     {
       name: "new",
-      current: selectedTab === 0 ? true : false,
-      events: getEventsForPeriod(
-        newEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "new" === searchParams.get("tab") ? true : false,
+      events:
+        newEventsList && newEventsList.length
+          ? getSubEventsFromPeriod(
+              newEventsList.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(newEventsList),
     },
     {
       name: "upcoming",
-      current: selectedTab === 1 ? true : false,
-      events: getEventsForPeriod(
-        upcomingEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "upcoming" === searchParams.get("tab") ? true : false,
+      events:
+        upcomingEvents && upcomingEvents.length
+          ? getSubEventsFromPeriod(
+              upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(upcomingEvents),
     },
     {
       name: "pending",
-      current: selectedTab === 2 ? true : false,
-      events: getEventsForPeriod(
-        pendingEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "pending" === searchParams.get("tab") ? true : false,
+      events:
+        pendingEvents && pendingEvents.length
+          ? getSubEventsFromPeriod(
+              pendingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(pendingEvents),
     },
     {
       name: "overdue",
-      current: selectedTab === 3 ? true : false,
-      events: getEventsForPeriod(
-        overdueEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "overdue" === searchParams.get("tab") ? true : false,
+      events:
+        overdueEvents && overdueEvents.length
+          ? getSubEventsFromPeriod(
+              overdueEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(overdueEvents),
     },
     {
       name: "past",
-      current: selectedTab === 4 ? true : false,
-      events: getEventsForPeriod(
-        pastEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "past" === searchParams.get("tab") ? true : false,
+      events:
+        pastEvents && pastEvents.length
+          ? getSubEventsFromPeriod(
+              pastEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(pastEvents),
     },
     {
       name: "lost",
-      current: selectedTab === 5 ? true : false,
-      events: getEventsForPeriod(
-        lostEvents,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "lost" === searchParams.get("tab") ? true : false,
+      events:
+        lostEvents && lostEvents.length
+          ? getSubEventsFromPeriod(
+              lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(lostEvents),
     },
     {
       name: "all",
-      current: selectedTab === 6 ? true : false,
-      events: getEventsForPeriod(
-        events,
-        new Date(startDate),
-        new Date(endDate)
-      ),
+      current: "all" === searchParams.get("tab") ? true : false,
+      events:
+        mainEvents && mainEvents.length
+          ? getSubEventsFromPeriod(
+              mainEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+              startDate,
+              endDate
+            )
+          : [],
+      pipeValue: getQuotePipeValueV2(mainEvents),
     },
   ];
+
+  const current = tabs.find((tab) => tab.current) || tabs[0];
 
   const handleNewEvent = () => {
     navigate(PATHS.NEW_EVENT);
@@ -204,16 +252,17 @@ export const Events = () => {
   useEffect(() => {
     fetchEvents();
     fetchProducts();
+    fetchMainEvents();
   }, []);
 
   useEffect(() => {
     setSearchParams({
       filter: selectedFilter,
-      tab: selectedTab.toString(),
+      tab: tabs[0].name,
       startDate: startDate,
       endDate: endDate,
     });
-  }, [selectedTab, selectedFilter, startDateParam, endDateParam]);
+  }, []);
 
   return (
     <PageLayout>
@@ -241,7 +290,14 @@ export const Events = () => {
                   : "text-gray-500 hover:text-gray-700",
                 "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer"
               )}
-              onClick={() => setSelectedTab(idx)}
+              onClick={() =>
+                setSearchParams({
+                  filter: selectedFilter,
+                  tab: tab.name,
+                  startDate: startDate,
+                  endDate: endDate,
+                })
+              }
             >
               {intl.formatMessage({
                 id: `events.tabs.${tab.name}`,
@@ -292,7 +348,7 @@ export const Events = () => {
                         id: "events.pipe-value",
                       },
                       {
-                        pipeValue: getQuotePipeValue(tabs[selectedTab].events),
+                        pipeValue: current.pipeValue,
                       }
                     )}
                   </p>
@@ -305,7 +361,7 @@ export const Events = () => {
                         setStartDate(e.target.value);
                         setSelectedFilter(FILTER_OPTIONS.CUSTOM);
                         setSearchParams({
-                          filter: FILTER_OPTIONS.CUSTOM.toString(),
+                          filter: FILTER_OPTIONS.CUSTOM,
                         });
                       }}
                       type="date"
@@ -326,7 +382,7 @@ export const Events = () => {
                         setEndDate(e.target.value);
                         setSelectedFilter(FILTER_OPTIONS.CUSTOM);
                         setSearchParams({
-                          filter: FILTER_OPTIONS.CUSTOM.toString(),
+                          filter: FILTER_OPTIONS.CUSTOM,
                         });
                       }}
                       type="date"
@@ -338,11 +394,10 @@ export const Events = () => {
                   </div>
                 </div>
               </div>
-              {tabs[selectedTab].events &&
-              tabs[selectedTab].events.length > 0 ? (
+              {current.events && current.events.length > 0 ? (
                 <EventList
-                  events={tabs[selectedTab].events}
                   isLoading={isLoading && isFetchingProducts}
+                  subEvents={current.events}
                 />
               ) : (
                 <div className="px-6 py-14 text-center text-sm sm:px-14">
@@ -352,7 +407,7 @@ export const Events = () => {
                   />
                   <h3 className="mt-4 font-semibold text-gray-900">
                     {intl.formatMessage({
-                      id: `events.no-events-in-tab.${tabs[selectedTab].name}`,
+                      id: `events.no-events-in-tab.${current.name}`,
                     })}
                   </h3>
                 </div>

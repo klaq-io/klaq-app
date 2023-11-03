@@ -13,6 +13,7 @@ export const initialValues = {
   title: "",
   subEvents: [
     {
+      id: "",
       date: "",
       startTime: "",
       endTime: "",

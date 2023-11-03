@@ -2,9 +2,7 @@ import {
   CalendarDaysIcon,
   CheckIcon,
   ClockIcon,
-  EnvelopeIcon,
   HomeIcon,
-  PencilSquareIcon,
   PlusIcon,
   PlusSmallIcon,
   UserCircleIcon,
@@ -16,13 +14,14 @@ import {
   CardContainer,
   CommentaryFeed,
   EventBadgeButton,
-  KebabMenu,
+  EventMap,
   Label,
   MapAutocompleteInput,
   SelectField,
   TextField,
   UploadDocumentZone,
 } from "components";
+import { Alert } from "components/Alert/Alert";
 import {
   differenceInCalendarDays,
   differenceInMonths,
@@ -38,15 +37,23 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useFetchMainEvent, useUpdateMainEvent } from "redux/MainEvent/hooks";
+import { CustomerType } from "redux/Customer/slices";
+import {
+  useFetchMainEvent,
+  useGetEventMapInformations,
+  useUpdateMainEvent,
+} from "redux/MainEvent/hooks";
 import { getMainEvent } from "redux/MainEvent/selectors";
 import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { PATHS } from "routes";
 import { getSubtotalForQuote } from "utils/quote";
-import { classNames, formatSiret, shortenString } from "utils/utils";
+import {
+  classNames,
+  formatSiret,
+  getTimeStr,
+  shortenString,
+} from "utils/utils";
 import { initialValues, validationSchema } from "./newEventForm";
-import { Alert } from "components/Alert/Alert";
-import { CustomerType } from "redux/Customer/slices";
 
 export const MainEventDetails = () => {
   const intl = useIntl();
@@ -61,8 +68,12 @@ export const MainEventDetails = () => {
 
   const mainEvent = useSelector((state: any) => getMainEvent(state, id!));
 
-  const [, fetchMainEvent] = useFetchMainEvent();
+  const [{ isLoading: isFetchingMainEvent }, fetchMainEvent] =
+    useFetchMainEvent();
   const [{ isLoading: isUpdating }, updateEvent] = useUpdateMainEvent();
+
+  const [{ data: mapData }, getEventMapInformations] =
+    useGetEventMapInformations();
 
   const formik = useFormik({
     initialValues: {
@@ -114,8 +125,6 @@ export const MainEventDetails = () => {
       }),
     });
   };
-
-  const isAmountAvailable = false;
 
   const getEventValue = (quotes_: Quote[] | undefined) => {
     if (!quotes_ || !quotes_.length) return "0.00";
@@ -176,10 +185,6 @@ export const MainEventDetails = () => {
           ? {
               ...initialValues.subEvents[0],
               startTime: lastElement.endTime,
-              //   address: lastElement.address,
-              //   city: lastElement.city,
-              //   zipcode: lastElement.zipcode,
-              //   country: lastElement.country,
             }
           : initialValues.subEvents[0],
       ],
@@ -222,11 +227,12 @@ export const MainEventDetails = () => {
     setQuery({
       tab: tabs[0].name,
     });
+    getEventMapInformations(id!);
   }, []);
 
   return (
     <PageLayout>
-      {mainEvent ? (
+      {!isFetchingMainEvent && mainEvent ? (
         <>
           <form onSubmit={formik.handleSubmit}>
             <div className="flex flex-col space-y-4">
@@ -746,7 +752,41 @@ export const MainEventDetails = () => {
               )}
               {tabs[1].current && (
                 <CardContainer>
-                  <div className="px-4 py-5 sm:p-6"></div>
+                  <div className="px-4 py-5 sm:p-6 h-[600px] w-full flex flex-col space-y-4">
+                    {mapData && mapData.routes && mapData.routes[0] ? (
+                      <>
+                        <EventMap data={mapData} />
+                        <Alert
+                          title={"Distance et frais de déplacement"}
+                          text={intl.formatMessage(
+                            {
+                              id: "event-details.location.distance-and-duration",
+                            },
+                            {
+                              distance: `${Math.round(
+                                mapData.routes[0].distance / 1000
+                              )} km`,
+                              duration: getTimeStr(mapData.routes[0].duration),
+                              travelFees:
+                                Math.round(mapData.routes[0].distance / 1000) *
+                                0.5,
+                              b: (chunk: any) => (
+                                <span className="text-blue-700 font-semibold">
+                                  {chunk.join()}
+                                </span>
+                              ),
+                            }
+                          )}
+                          status="info"
+                        />
+                      </>
+                    ) : (
+                      <Alert
+                        title="Erreur lors du chargement de la carte"
+                        status="danger"
+                      />
+                    )}
+                  </div>
                 </CardContainer>
               )}
               {tabs[2].current && (

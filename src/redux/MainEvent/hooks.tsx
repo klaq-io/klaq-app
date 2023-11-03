@@ -1,10 +1,13 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
 import { ToastNotification } from "components";
-import { MainEvent } from "interface/Event/main-event.interface";
+import {
+  MainEvent,
+  MainEventCreator,
+} from "interface/Event/main-event.interface";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import webClient from "utils/webclient";
-import { setMainEvent } from "./slices";
+import { setMainEvent, setMainEvents } from "./slices";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
 import { EventStatus } from "redux/Events/slices";
@@ -14,7 +17,7 @@ export const useCreateEvent = () => {
   const navigate = useNavigate();
 
   return useAsyncCallback(
-    async (values: Partial<MainEvent> & { note?: string }) => {
+    async (values: Partial<MainEventCreator> & { note?: string }) => {
       try {
         const { data } = await webClient.post("/event", values);
         toast.custom(
@@ -78,7 +81,7 @@ export const useFetchMainEvent = () => {
 export const useUpdateMainEvent = () => {
   const dispatch = useDispatch();
 
-  return useAsyncCallback(async (values: Partial<MainEvent>) => {
+  return useAsyncCallback(async (values: Partial<MainEventCreator>) => {
     try {
       const { data } = await webClient.put(`/event/${values.id}`, values);
       dispatch(setMainEvent(data));
@@ -143,4 +146,31 @@ export const useUpdateMainEventStatus = () => {
       }
     }
   );
+};
+
+export const useGetEventMapInformations = () => {
+  return useAsyncCallback(async (id: string) => {
+    try {
+      const { data } = await webClient.get(`/event/${id}/map`);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useFetchMainEvents = () => {
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(async () => {
+    try {
+      const { data } = await webClient.get("/event");
+      dispatch(setMainEvents(data));
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
 };
