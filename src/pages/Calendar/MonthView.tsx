@@ -1,65 +1,76 @@
+import { Menu, Transition } from "@headlessui/react";
 import {
-  isSameMonth,
-  format,
-  isToday,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EllipsisHorizontalIcon,
+} from "@heroicons/react/24/outline";
+import { Button, NewEventModal } from "components";
+import {
+  add,
   eachDayOfInterval,
   endOfMonth,
   endOfWeek,
-  startOfMonth,
+  format,
+  isSameMonth,
+  isToday,
+  parse,
   startOfToday,
   startOfWeek,
-  parse,
-  intlFormat,
-  add,
 } from "date-fns";
-import { classNames, getMonthStr } from "../../utils/utils";
+import { SubEvent } from "interface/Event/subevent.interface";
 import { Fragment, useEffect, useState } from "react";
-import { Event } from "../../redux/Events/slices";
-import { useSelector } from "react-redux";
-import { getAllEvents } from "../../redux/Events/selectors";
-import { useFetchEvents } from "../../redux/Events/hooks";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
 import { useIntl } from "react-intl";
-import { Menu, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Customer } from "redux/Customer/slices";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEvents } from "redux/MainEvent/selectors";
+import { PATHS } from "../../routes";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronDownIcon,
-  EllipsisHorizontalIcon,
-} from "@heroicons/react/24/outline";
-import { Button } from "components";
+  classNames,
+  getMonthStr,
+  getSubEventsListFromMainEvents,
+} from "../../utils/utils";
+
+type Event = SubEvent & {
+  customer: Customer;
+  mainEventId: string;
+};
 
 export const MonthView = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
+  const [openNewEvent, setOpenNewEvent] = useState(false);
+
   const today = startOfToday();
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
-  const [, fetchEvents] = useFetchEvents();
-  const events = useSelector(getAllEvents);
+  const [, fetchMainEvents] = useFetchMainEvents();
+  const mainEvents = useSelector(getMainEvents);
+
+  const subEventsList = mainEvents.flatMap((e) =>
+    getSubEventsListFromMainEvents(e)
+  );
+
+  const subEventsByDay = subEventsList.reduce((subEventsByDay, event) => {
+    const date = format(new Date(event.date), "yyyy-MM-dd");
+    return {
+      ...subEventsByDay,
+      [date]: (subEventsByDay[date] || []).concat(event),
+    };
+  }, {} as { [key: string]: Event[] });
 
   const days = eachDayOfInterval({
     start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 1 }),
   });
 
-  const eventsByDay: { [key: string]: Event[] } = events.reduce(
-    (eventsByDay, event) => {
-      const date = format(new Date(event.date), "yyyy-MM-dd");
-      return {
-        ...eventsByDay,
-        [date]: (eventsByDay[date] || []).concat(event),
-      };
-    },
-    {} as { [key: string]: Event[] }
-  );
-
   const newDays = days.map((day) => ({
     date: day,
-    events: eventsByDay[format(day, "yyyy-MM-dd")] || [],
+    events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
 
   const formatTime = (time: string) => {
@@ -68,11 +79,11 @@ export const MonthView = () => {
   };
 
   const handleGoToEventDetails = (id: string) => {
-    navigate(`${PATHS.EVENTS}/${id}`);
+    navigate(`${PATHS.EVENTS}/${id}/details?tab=Roadmap`);
   };
 
   const handleGoToCreateEvent = () => {
-    navigate(PATHS.NEW_EVENT);
+    setOpenNewEvent(true);
   };
 
   const nextMonth = () => {
@@ -86,7 +97,7 @@ export const MonthView = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    fetchMainEvents();
   }, []);
 
   return (
@@ -398,24 +409,28 @@ export const MonthView = () => {
                   </time>
                   {day.events.length > 0 && (
                     <ol className="mt-2">
-                      {day.events.slice(0, 2).map((event: Event) => (
-                        <li key={event.id}>
-                          <button
-                            className="group flex"
-                            onClick={() => handleGoToEventDetails(event.id)}
-                          >
-                            <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
-                              {event.customer.name}
-                            </p>
-                            <time
-                              dateTime={formatTime(event.startTime)}
-                              className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
+                      {day.events.slice(0, 2).map((event: Event) =>
+                        event.startTime ? (
+                          <li key={event.id}>
+                            <button
+                              className="group flex"
+                              onClick={() =>
+                                handleGoToEventDetails(event.mainEventId)
+                              }
                             >
-                              {formatTime(event.startTime)}
-                            </time>
-                          </button>
-                        </li>
-                      ))}
+                              <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
+                                {event.customer.name}
+                              </p>
+                              <time
+                                dateTime={formatTime(event.startTime)}
+                                className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
+                              >
+                                {formatTime(event.startTime)}
+                              </time>
+                            </button>
+                          </li>
+                        ) : null
+                      )}
                       {day.events.length > 2 && (
                         <li className="text-gray-500">
                           {intl.formatMessage(
@@ -434,6 +449,7 @@ export const MonthView = () => {
           </div>
         </div>
       </div>
+      <NewEventModal open={openNewEvent} setOpen={setOpenNewEvent} />
     </>
   );
 };

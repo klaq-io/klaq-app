@@ -25,10 +25,24 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFetchEvents } from "../../redux/Events/hooks";
 import { getEventsByStatus } from "../../redux/Events/selectors";
-import { Event, EventStatus } from "../../redux/Events/slices";
+import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
-import { classNames, getDayStr, getMonthStr } from "../../utils/utils";
+import {
+  classNames,
+  getDayStr,
+  getMonthStr,
+  getSubEventsListFromMainEvents,
+} from "../../utils/utils";
 import { KebabMenu } from "../KebabMenu";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import { SubEvent } from "interface/Event/subevent.interface";
+import { Customer } from "redux/Customer/slices";
+
+type Event = SubEvent & {
+  customer: Customer;
+  mainEventId: string;
+};
 
 export const MiniCalendar = () => {
   const intl = useIntl();
@@ -39,15 +53,14 @@ export const MiniCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
   const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
 
-  const [, fetchEvents] = useFetchEvents();
-
   const daysList = eachDayOfInterval({
     start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),
     end: endOfWeek(endOfMonth(firstDayCurrentMonth), { weekStartsOn: 1 }),
   });
 
-  const upcomingEvents = useSelector((state: any) =>
-    getEventsByStatus(
+  const [, fetchMainEvents] = useFetchMainEvents();
+  const mainEvents = useSelector((state: any) =>
+    getMainEventsByStatus(
       state,
       EventStatus.QUOTE_ACCEPTED,
       EventStatus.CONTRACT_SENT,
@@ -58,20 +71,21 @@ export const MiniCalendar = () => {
     )
   );
 
-  const eventsByDay: { [key: string]: Event[] } = upcomingEvents.reduce(
-    (eventsByDay, event) => {
-      const date = format(new Date(event.date), "yyyy-MM-dd");
-      return {
-        ...eventsByDay,
-        [date]: (eventsByDay[date] || []).concat(event),
-      };
-    },
-    {} as { [key: string]: Event[] }
+  const subEventsList = mainEvents.flatMap((e) =>
+    getSubEventsListFromMainEvents(e)
   );
+
+  const subEventsByDay = subEventsList.reduce((subEventsByDay, event) => {
+    const date = format(new Date(event.date), "yyyy-MM-dd");
+    return {
+      ...subEventsByDay,
+      [date]: (subEventsByDay[date] || []).concat(event),
+    };
+  }, {} as { [key: string]: Event[] });
 
   const days = daysList.map((day) => ({
     date: day,
-    events: eventsByDay[format(day, "yyyy-MM-dd")] || [],
+    events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
 
   const formatTime = (time: string) => {
@@ -90,20 +104,10 @@ export const MiniCalendar = () => {
   };
 
   const handleEventDetails = (id: string) => {
-    navigate(`${PATHS.EVENTS}/${id}`);
-  };
-
-  const handleEditEvent = (id: string) => {
-    navigate(`${PATHS.EVENTS}/${id}/edit`);
+    navigate(`${PATHS.EVENTS}/${id}/details?tab=Roadmap`);
   };
 
   const menuItems = (eventId: string) => [
-    {
-      name: "events.button.edit",
-      onClick: () => handleEditEvent(eventId),
-      icon: PencilSquareIcon,
-    },
-
     {
       name: "events.button.look",
       onClick: () => handleEventDetails(eventId),
@@ -112,7 +116,7 @@ export const MiniCalendar = () => {
   ];
 
   useEffect(() => {
-    fetchEvents();
+    fetchMainEvents();
   }, []);
 
   return (
@@ -214,29 +218,34 @@ export const MiniCalendar = () => {
             {format(selectedDay, " yyyy")}
           </h2>
           <ol className="border-t border-gray-200 mt-4 space-y-1 text-sm leading-6 text-gray-500">
-            {eventsByDay &&
-            eventsByDay[format(selectedDay, "yyyy-MM-dd")] &&
-            eventsByDay[format(selectedDay, "yyyy-MM-dd")].length > 0 ? (
-              eventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) => (
-                <li
-                  key={event.id}
-                  className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100"
-                >
-                  <div className="flex-auto">
-                    <p className="text-gray-900">{event.customer.name}</p>
-                    <p className="mt-0.5">
-                      <time dateTime={formatTime(event.startTime)}>
-                        {formatTime(event.startTime)}
-                      </time>{" "}
-                      -{" "}
-                      <time dateTime={formatTime(event.endTime)}>
-                        {formatTime(event.endTime)}
-                      </time>
-                    </p>
-                  </div>
-                  <KebabMenu items={menuItems(event.id)} />
-                </li>
-              ))
+            {subEventsByDay &&
+            subEventsByDay[format(selectedDay, "yyyy-MM-dd")] &&
+            subEventsByDay[format(selectedDay, "yyyy-MM-dd")].length > 0 ? (
+              subEventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) =>
+                event.startTime ? (
+                  <li
+                    key={event.id}
+                    className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100"
+                  >
+                    <div className="flex-auto">
+                      <p className="text-gray-900">{event.customer.name}</p>
+                      <p className="mt-0.5">
+                        <time dateTime={formatTime(event.startTime)}>
+                          {formatTime(event.startTime)}
+                        </time>{" "}
+                        {event.endTime
+                          ? `- ${(
+                              <time dateTime={formatTime(event.endTime)}>
+                                {formatTime(event.endTime)}
+                              </time>
+                            )}`
+                          : null}
+                      </p>
+                    </div>
+                    <KebabMenu items={menuItems(event.id)} />
+                  </li>
+                ) : null
+              )
             ) : (
               <div className="px-6 py-14 text-center text-sm sm:px-6">
                 <CalendarDaysIcon

@@ -16,6 +16,9 @@ import { Event, EventStatus } from "redux/Events/slices";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
 import { useNavigate } from "react-router-dom";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { MainEvent } from "interface/Event/main-event.interface";
 
 type CreateNewQuoteModalProps = {
   open: boolean;
@@ -28,6 +31,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
   const { open, setOpen } = props;
 
   const [, fetchEvents] = useFetchEvents();
+  const [, fetchMainEvents] = useFetchMainEvents();
   const [query, setQuery] = useState("");
   const events = useSelector((state: any) =>
     getEventsByStatus(
@@ -40,15 +44,28 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
     )
   );
 
+  const mainEvents = useSelector((state: any) =>
+    getMainEventsByStatus(
+      state,
+      EventStatus.INBOX,
+      EventStatus.QUALIFICATION,
+      EventStatus.QUOTE_SENT,
+      EventStatus.QUOTE_OPENED,
+      EventStatus.QUOTE_REJECTED
+    )
+  );
+
   const filteredEvents =
     query === ""
       ? []
-      : events.filter((event) => {
+      : mainEvents.filter((event) => {
           return (
             event.customer.phone.toLowerCase().includes(query.toLowerCase()) ||
-            event.eventType.toLowerCase().includes(query.toLowerCase()) ||
+            event.subEvents[0].type
+              .toLowerCase()
+              .includes(query.toLowerCase()) ||
             event.customer.name.toLowerCase().includes(query.toLowerCase()) ||
-            new Date(event.date)
+            new Date(event.subEvents[0].date)
               .toLocaleDateString()
               .toLowerCase()
               .includes(query.toLowerCase())
@@ -68,8 +85,10 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    fetchMainEvents();
   }, []);
+
+  console.log(mainEvents);
 
   return (
     <Transition.Root
@@ -101,7 +120,11 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel className="mx-auto max-w-3xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-              <Combobox onChange={(event: Event) => handleGenerate(event.id)}>
+              <Combobox
+                onChange={(mainEvent: MainEvent) =>
+                  handleGenerate(mainEvent.id)
+                }
+              >
                 {({ activeOption }) => (
                   <>
                     <div className="relative">
@@ -139,13 +162,13 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                           )}
                           <div className="-mx-2 text-sm text-gray-700">
                             {(query === ""
-                              ? events.slice(0, 5)
+                              ? mainEvents.slice(0, 5)
                               : filteredEvents
-                            ).map((event) => (
+                            ).map((mainEvent) => (
                               <Combobox.Option
                                 as="div"
-                                key={event.id}
-                                value={event}
+                                key={mainEvent.id}
+                                value={mainEvent}
                                 className={({ active }) =>
                                   classNames(
                                     "flex cursor-default select-none items-center rounded-md p-2",
@@ -157,11 +180,11 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   <>
                                     <span className="ml-3 flex-auto truncate">
                                       {new Date(
-                                        event.date
+                                        mainEvent.subEvents[0].date
                                       ).toLocaleDateString()}{" "}
-                                      - {event.customer.name} -{" "}
+                                      - {mainEvent.customer.name} -{" "}
                                       {intl.formatMessage({
-                                        id: `events.status.${event.status}`,
+                                        id: `events.status.${mainEvent.status}`,
                                       })}
                                     </span>
                                     {active && (
@@ -186,10 +209,10 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   },
                                   {
                                     eventType: intl.formatMessage({
-                                      id: `events.types.${activeOption.eventType}`,
+                                      id: `events.types.${activeOption.subEvents[0].type}`,
                                     }),
                                     date: new Date(
-                                      activeOption.date
+                                      activeOption.subEvents[0].date
                                     ).toLocaleDateString(),
                                     customerName: activeOption.customer.name,
                                   }
@@ -224,7 +247,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   })}
                                 </dt>
                                 <dd className="truncate">
-                                  {activeOption.numberOfGuests}
+                                  {activeOption.subEvents[0].guests}
                                 </dd>
                                 <dt className="col-end-1 font-semibold text-gray-900">
                                   {intl.formatMessage({
@@ -232,7 +255,8 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   })}
                                 </dt>
                                 <dd>
-                                  {activeOption.publicEvent === "yes" ? (
+                                  {activeOption.subEvents[0].publicEvent ===
+                                  "yes" ? (
                                     <CheckIcon className="h-5 w-5" />
                                   ) : (
                                     <XMarkIcon className="h-5 w-5" />
@@ -244,7 +268,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   })}
                                 </dt>
                                 <dd className="truncate">
-                                  {activeOption.city}
+                                  {activeOption.subEvents[0].city}
                                 </dd>
                               </dl>
                               <div className="mx-auto">

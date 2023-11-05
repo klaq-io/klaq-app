@@ -68,16 +68,6 @@ export const Events = () => {
     useFetchMainEvents();
 
   const mainEvents = useSelector(getMainEvents);
-  const mainEventsList = mainEvents.flatMap((event) =>
-    getSubEventsListFromMainEvents(event)
-  );
-
-  const [{ isLoading }, fetchEvents] = useFetchEvents();
-  const events: Event[] = useSelector(getAllEvents);
-
-  const [{ isLoading: isFetchingProducts }, fetchProducts] =
-    useFetchProductItems();
-  const products = useSelector(getAllProducts);
 
   const newEventsList = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INBOX)
@@ -250,8 +240,6 @@ export const Events = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
-    fetchProducts();
     fetchMainEvents();
   }, []);
 
@@ -308,7 +296,7 @@ export const Events = () => {
       </div>
       <div className="flex mt-5">
         <div className="flex-1">
-          {events && events.length > 0 ? (
+          {mainEvents && mainEvents.length > 0 ? (
             <>
               <div className="pb-5 sm:flex sm:items-center flex flex-row">
                 <div className="flex">
@@ -396,7 +384,7 @@ export const Events = () => {
               </div>
               {current.events && current.events.length > 0 ? (
                 <EventList
-                  isLoading={isLoading && isFetchingProducts}
+                  isLoading={isLoadingEvents}
                   subEvents={current.events}
                 />
               ) : (

@@ -6,27 +6,19 @@ import {
   CurrencyEuroIcon,
   InboxArrowDownIcon,
   InboxIcon,
-  PlusIcon,
 } from "@heroicons/react/24/outline";
+import { Button, MiniCalendar, Skeleton } from "components";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, EventList, MiniCalendar, Skeleton } from "components";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import { getQuotePipeValueV2 } from "utils/quote";
 import { PageLayout } from "../../layouts";
-import { useFetchEvents } from "../../redux/Events/hooks";
-import { getEventsByStatus } from "../../redux/Events/selectors";
 import { EventStatus } from "../../redux/Events/slices";
-import { useFetchProductItems } from "../../redux/Products/hooks";
-import { getAllProducts } from "../../redux/Products/selectors";
 import { PATHS } from "../../routes";
-import {
-  getEventsForPeriod,
-  getPipeValue,
-  getThisMonthDates,
-  getThisYearDates,
-} from "../../utils/utils";
-import { getQuotePipeValue } from "utils/quote";
+import { getThisMonthDates, getThisYearDates } from "../../utils/utils";
 
 export const Dashboard = () => {
   const intl = useIntl();
@@ -35,19 +27,13 @@ export const Dashboard = () => {
   const [startOfYear, endOfYear] = getThisYearDates();
   const [startOfMonth, endOfMonth] = getThisMonthDates();
 
-  const [{ isLoading: isFetchEventLoading }, fetchEvents] = useFetchEvents();
-  const inboxEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.INBOX)
+  const [{ isLoading: isFetchingMainEvents }, fetchMainEvents] =
+    useFetchMainEvents();
+  const overdueMainEvents = useSelector((state: any) =>
+    getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
   );
-  const overdueEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
-  );
-
-  const billedEvents = useSelector((state: any) =>
-    getEventsByStatus(state, EventStatus.WIN, EventStatus.DONE)
-  );
-  const billedAndQuotedEvents = useSelector((state: any) =>
-    getEventsByStatus(
+  const billedAndQuotesMainEvents = useSelector((state: any) =>
+    getMainEventsByStatus(
       state,
       EventStatus.WIN,
       EventStatus.DONE,
@@ -63,49 +49,27 @@ export const Dashboard = () => {
     )
   );
 
-  const upcomingEvents = useSelector((state: any) =>
-    getEventsByStatus(
-      state,
-      EventStatus.QUOTE_ACCEPTED,
-      EventStatus.CONTRACT_SENT,
-      EventStatus.CONTRACT_OPENED,
-      EventStatus.DEPOSIT_REQUESTED,
-      EventStatus.DEPOSIT_LATE,
-      EventStatus.READY
-    )
-  );
-  const thisMonthUpcomingEvents = getEventsForPeriod(
-    upcomingEvents,
-    startOfMonth,
-    endOfMonth
+  const inboxMainEvents = useSelector((state: any) =>
+    getMainEventsByStatus(state, EventStatus.INBOX)
   );
 
-  const [{ isLoading: isFetchProductLoading }, fetchProducts] =
-    useFetchProductItems();
-  const products = useSelector(getAllProducts);
-
-  const totalBilled = getQuotePipeValue(
-    getEventsForPeriod(billedEvents, startOfYear, endOfYear)
-  );
-  const estimatedRevenue = getQuotePipeValue(
-    getEventsForPeriod(billedAndQuotedEvents, startOfYear, endOfYear)
-  );
+  const estimatedRevenue = getQuotePipeValueV2(billedAndQuotesMainEvents);
 
   const stats = [
     {
       id: 1,
       name: "inbox",
-      stat: inboxEvents.length,
-      icon: inboxEvents.length ? InboxArrowDownIcon : InboxIcon,
+      stat: inboxMainEvents.length,
+      icon: inboxMainEvents.length ? InboxArrowDownIcon : InboxIcon,
       onClick: () =>
         navigate(
-          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}`
+          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`
         ),
     },
     {
       id: 2,
       name: "total-billed",
-      stat: `${totalBilled} €`,
+      stat: `0.00 €`,
       icon: BanknotesIcon,
     },
     {
@@ -117,22 +81,17 @@ export const Dashboard = () => {
     {
       id: 4,
       name: "overdue",
-      stat: overdueEvents.length,
-      icon: overdueEvents.length ? BellAlertIcon : BellSlashIcon,
+      stat: overdueMainEvents.length,
+      icon: overdueMainEvents.length ? BellAlertIcon : BellSlashIcon,
       onClick: () =>
         navigate(
-          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=3&startDate=${startOfYear}&endDate=${endOfYear}`
+          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=3&startDate=${startOfYear}&endDate=${endOfYear}&tab=overdue`
         ),
     },
   ];
 
-  const handleNewEvent = () => {
-    navigate(PATHS.NEW_EVENT);
-  };
-
   useEffect(() => {
-    fetchEvents();
-    fetchProducts();
+    fetchMainEvents();
   }, []);
 
   return (
@@ -156,7 +115,7 @@ export const Dashboard = () => {
                 </p>
               </dt>
               <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-                {isFetchProductLoading || isFetchEventLoading ? (
+                {isFetchingMainEvents ? (
                   <Skeleton
                     variant="rounded"
                     width={40}

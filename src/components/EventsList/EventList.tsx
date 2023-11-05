@@ -82,7 +82,7 @@ export const EventList: FC<Props> = (props: Props) => {
                   <span className="ml-2 text-sm text-gray-900 border-r pr-3">
                     {subEvent.startTime
                       ? formatTime(subEvent.startTime)
-                      : "Horaires non définie"}
+                      : "Horaires non définies"}
                     {subEvent.endTime && `- ${formatTime(subEvent.endTime)}`}
                   </span>
                 </div>
