@@ -31,6 +31,8 @@ import { getNextQuoteNumber, getQuoteById } from "redux/Quote/selectors";
 import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
 import { CustomerType } from "redux/Customer/slices";
+import { getMainEvent } from "redux/MainEvent/selectors";
+import { useFetchMainEvent } from "redux/MainEvent/hooks";
 
 export const EditQuote = () => {
   const { id, eventId } = useParams();
@@ -40,8 +42,8 @@ export const EditQuote = () => {
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
 
-  const [{ isLoading }, fetchEvent] = useFetchEvent();
-  const event = useSelector((state: any) => getEventById(state, eventId!));
+  const [{ isLoading }, fetchEvent] = useFetchMainEvent();
+  const event = useSelector((state: any) => getMainEvent(state, eventId!));
 
   const [, fetchCompany] = useFetchCompany();
   const company = useSelector(getCompany);

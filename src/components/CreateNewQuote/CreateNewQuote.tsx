@@ -1,24 +1,22 @@
-import { Dialog, Combobox, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Transition } from "@headlessui/react";
 import {
-  MagnifyingGlassIcon,
-  ChevronRightIcon,
   CheckIcon,
-  XMarkIcon,
+  ChevronRightIcon,
+  MagnifyingGlassIcon,
   UsersIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "components/Button";
-import { useState, useEffect, Fragment } from "react";
+import { MainEvent } from "interface/Event/main-event.interface";
+import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useFetchEvents } from "redux/Events/hooks";
-import { getEventsByStatus } from "redux/Events/selectors";
-import { Event, EventStatus } from "redux/Events/slices";
+import { useNavigate } from "react-router-dom";
+import { EventStatus } from "redux/Events/slices";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
-import { useNavigate } from "react-router-dom";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { MainEvent } from "interface/Event/main-event.interface";
 
 type CreateNewQuoteModalProps = {
   open: boolean;
@@ -30,19 +28,8 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
   const navigate = useNavigate();
   const { open, setOpen } = props;
 
-  const [, fetchEvents] = useFetchEvents();
   const [, fetchMainEvents] = useFetchMainEvents();
   const [query, setQuery] = useState("");
-  const events = useSelector((state: any) =>
-    getEventsByStatus(
-      state,
-      EventStatus.INBOX,
-      EventStatus.QUALIFICATION,
-      EventStatus.QUOTE_SENT,
-      EventStatus.QUOTE_OPENED,
-      EventStatus.QUOTE_REJECTED
-    )
-  );
 
   const mainEvents = useSelector((state: any) =>
     getMainEventsByStatus(

@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "redux/states";
 import { Event } from "../Events/slices";
+import { MainEvent } from "interface/Event/main-event.interface";
 
 export interface Quote {
   id: string;
@@ -15,6 +16,7 @@ export interface Quote {
   documentId: string;
   orderFormId?: string;
   object?: string;
+  mainEvent: MainEvent;
 }
 
 export interface QuoteProduct {

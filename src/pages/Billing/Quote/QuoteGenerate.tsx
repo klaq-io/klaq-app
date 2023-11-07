@@ -26,6 +26,8 @@ import { getNextQuoteNumber } from "redux/Quote/selectors";
 import { classNames, formatSiret, shortenString } from "utils/utils";
 import { initialValues, validationSchema } from "./generateQuoteForm";
 import { CustomerType } from "redux/Customer/slices";
+import { getMainEvent } from "redux/MainEvent/selectors";
+import { useFetchMainEvent } from "redux/MainEvent/hooks";
 
 export const QuoteGenerate = () => {
   const { id } = useParams();
@@ -35,8 +37,8 @@ export const QuoteGenerate = () => {
   const [, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
 
-  const [{ isLoading }, fetchEvent] = useFetchEvent();
-  const event = useSelector((state: any) => getEventById(state, id!));
+  const [{ isLoading }, fetchEvent] = useFetchMainEvent();
+  const event = useSelector((state: any) => getMainEvent(state, id!));
 
   const [, fetchCompany] = useFetchCompany();
   const company = useSelector(getCompany);
@@ -531,6 +533,7 @@ export const QuoteGenerate = () => {
                   <div>
                     <Alert
                       status="info"
+                      title={quoteNumber}
                       text={intl.formatMessage(
                         {
                           id: "quote.generate.number",

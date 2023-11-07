@@ -52,7 +52,7 @@ export const Quotes = () => {
     {
       name: "quote.list.menu.edit",
       icon: PencilSquareIcon,
-      onClick: () => handleEdit(quote.id, quote.event.id),
+      onClick: () => handleEdit(quote.id, quote.mainEvent.id),
     },
     {
       name: "quote.list.menu.send",
@@ -76,7 +76,7 @@ export const Quotes = () => {
       ? quotes
       : quotes.filter((quote) => {
           return (
-            quote.event.customer.name
+            quote.mainEvent.customer.name
               .toLowerCase()
               .includes(query.toLowerCase()) ||
             quote.number.toLowerCase().includes(query.toLowerCase())
@@ -271,7 +271,17 @@ export const Quotes = () => {
                   <tr key={quote.id}>
                     <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
                       <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">
-                        {quote.event.customer.name}
+                        <button
+                          onClick={() =>
+                            navigate(
+                              PATHS.CUSTOMERS +
+                                "/" +
+                                quote.mainEvent.customer.id
+                            )
+                          }
+                        >
+                          {quote.mainEvent.customer.name}
+                        </button>
                       </div>
                       <div className="mt-2 font-medium text-gray-500">
                         {quote.number}
