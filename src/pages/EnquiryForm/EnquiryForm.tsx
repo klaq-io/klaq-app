@@ -86,6 +86,14 @@ export const EnquiryForm = () => {
                 value={formik.values.firstName}
                 placeholder="Prénom"
               />
+              {formik.errors.firstName && formik.touched.firstName ? (
+                <p
+                  className="mt-2 text-sm text-danger-600"
+                  id="firstname-error"
+                >
+                  Veuillez préciser un prénom
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -96,6 +104,11 @@ export const EnquiryForm = () => {
                 value={formik.values.lastName}
                 placeholder="Nom"
               />
+              {formik.errors.lastName && formik.touched.lastName ? (
+                <p className="mt-2 text-sm text-danger-600" id="lastname-error">
+                  Veuillez préciser un nom
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -107,6 +120,11 @@ export const EnquiryForm = () => {
                 value={formik.values.email}
                 placeholder="nom@email.com"
               />
+              {formik.errors.email && formik.touched.email ? (
+                <p className="mt-2 text-sm text-danger-600" id="email-error">
+                  Veuillez préciser un email
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -117,6 +135,11 @@ export const EnquiryForm = () => {
                 value={formik.values.phone}
                 placeholder="06 12 34 56 78"
               />
+              {formik.errors.phone && formik.touched.phone ? (
+                <p className="mt-2 text-sm text-danger-600" id="phone-error">
+                  Veuillez préciser un numéro de téléphone
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -127,6 +150,11 @@ export const EnquiryForm = () => {
                 onChange={formik.handleChange}
                 placeholder="Mariage, anniversaire, baptême..."
               />
+              {formik.errors.type && formik.touched.type ? (
+                <p className="mt-2 text-sm text-danger-600" id="type-error">
+                  Veuillez préciser un type d'évènement
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -136,7 +164,13 @@ export const EnquiryForm = () => {
                 label="Date de l'évènement*"
                 value={formik.values.date}
                 onChange={formik.handleChange}
+                min={new Date().toISOString().split("T")[0]}
               />
+              {formik.errors.date && formik.touched.date ? (
+                <p className="mt-2 text-sm text-danger-600" id="date-error">
+                  Veuillez préciser une date
+                </p>
+              ) : null}
             </div>
             <div className="col-span-1">
               <TextField
@@ -155,6 +189,11 @@ export const EnquiryForm = () => {
                 setAddress={handleRetrieveAddress}
                 defaultAddress=""
               />
+              {formik.errors.address && formik.touched.address ? (
+                <p className="mt-2 text-sm text-danger-600" id="address-error">
+                  Veuillez préciser un lieu
+                </p>
+              ) : null}
             </div>
             <div className="col-span-full">
               <Label htmlFor="note">
