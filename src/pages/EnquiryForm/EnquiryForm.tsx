@@ -1,9 +1,10 @@
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { SuperBalls } from "@uiball/loaders";
 import KlaqIcon from "assets/klaq.png";
-import { Label, TextField } from "components";
+import { Label, MapAutocompleteInput, TextField } from "components";
 import { Alert } from "components/Alert/Alert";
 import { useFormik } from "formik";
+import { RetrieveAddress } from "interface/retrieve-address.interface";
 import { createRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams } from "react-router-dom";
@@ -41,6 +42,9 @@ export const EnquiryForm = () => {
       address: "",
       note: "",
       guests: 0,
+      city: "",
+      zipcode: "",
+      country: "",
     },
     onSubmit: async (values) => {
       await recaptchaRef.current?.executeAsync();
@@ -53,6 +57,15 @@ export const EnquiryForm = () => {
     },
     validationSchema,
   });
+
+  const handleRetrieveAddress = (retrieveAddress: RetrieveAddress) => {
+    const { address, city, zipcode, country } = retrieveAddress;
+
+    formik.setFieldValue("address", address);
+    formik.setFieldValue("city", city);
+    formik.setFieldValue("zipcode", zipcode);
+    formik.setFieldValue("country", country);
+  };
 
   return (
     <>
@@ -137,13 +150,10 @@ export const EnquiryForm = () => {
               />
             </div>
             <div className="col-span-1">
-              <TextField
-                variant="black"
-                name="address"
-                label="Lieu*"
-                onChange={formik.handleChange}
-                value={formik.values.address}
-                placeholder="Adresse"
+              <Label htmlFor="address">Lieu*</Label>
+              <MapAutocompleteInput
+                setAddress={handleRetrieveAddress}
+                defaultAddress=""
               />
             </div>
             <div className="col-span-full">
