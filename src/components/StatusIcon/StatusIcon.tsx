@@ -2,6 +2,7 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
+  InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 
 interface StatusHandler {
@@ -23,6 +24,10 @@ const statusHandler: StatusHandler = {
   warning: {
     icon: ExclamationTriangleIcon,
     classes: "text-warning-400",
+  },
+  info: {
+    icon: InformationCircleIcon,
+    classes: "text-blue-400",
   },
 };
 

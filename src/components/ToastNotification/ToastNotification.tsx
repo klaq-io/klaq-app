@@ -4,7 +4,7 @@ import { StatusIcon } from "../StatusIcon";
 
 type Props = {
   classes?: string;
-  status: "success" | "danger" | "warning";
+  status: "success" | "danger" | "warning" | "info";
   titleId: string;
   messageId?: string;
 };

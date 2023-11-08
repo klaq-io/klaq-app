@@ -1047,6 +1047,14 @@
   },
 
   "settings": {
+    "enquiry": {
+      "header": "Formulaire de capture de prospects",
+      "description": "Lier votre site web avec votre Klaq.",
+      "form": {
+        "header": "Intégrer mon formulaire",
+        "description": "Insérez le code HTML ci-dessous dans les pages de votre site web. Une fois que quelqu'un aura rempli le formulaire, vous recevrez un courrier électronique et un nouvel événement sera ajouté à votre compte. Le client recevra également un courriel de confirmation de l'envoi de la demande d'événement."
+      }
+    },
     "button": {
       "submit": "Sauvegarder",
       "delete": "Supprimer",
@@ -1314,6 +1322,12 @@
       "quote-edited": {
         "title": "Devis édité avec succès",
         "message": "Vous pouvez le retrouver sur la page de l'évènement ou dans l'onglet devis"
+      }
+    },
+    "info": {
+      "copy-clipboard": {
+        "title": "Copié dans le presse-papier",
+        "message": "Le code a bien été copié dans le presse-papier"
       }
     },
     "error": {

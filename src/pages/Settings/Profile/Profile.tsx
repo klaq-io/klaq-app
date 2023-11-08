@@ -1,6 +1,10 @@
-import { LinkIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  DocumentDuplicateIcon,
+  LinkIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import { ReactComponent as GoogleIcon } from "assets/icon-google.svg";
-import { Button, Skeleton } from "components";
+import { Button, Skeleton, ToastNotification } from "components";
 import { format, subYears } from "date-fns";
 import { useFormik } from "formik";
 import { PageLayout } from "layouts";
@@ -16,6 +20,7 @@ import {
 } from "./Skeleton";
 import { initialValues, validationSchema } from "./form";
 import { JellyTriangle } from "@uiball/loaders";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -88,6 +93,20 @@ export const Profile: FC<Props> = (props: Props) => {
 
   const handleFileUploadClick = () => {
     if (hiddenLogoInput.current) hiddenLogoInput.current.click();
+  };
+
+  const iframeLink = `<iframe loading="lazy" src="https://app.klaq.io/embedded-form?token=${user.id}" width="100%" height="540" frameborder="0" marginheight="0" marginwidth="0"><br /></iframe>`;
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(iframeLink);
+    toast.custom(
+      <ToastNotification
+        messageId="toast.info.copy-clipboard.message"
+        titleId="toast.info.copy-clipboard.title"
+        status="info"
+      />,
+      { duration: 1500, position: "top-right" }
+    );
   };
 
   return (
@@ -546,6 +565,63 @@ export const Profile: FC<Props> = (props: Props) => {
               </Button>
             </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              {intl.formatMessage({
+                id: "settings.enquiry.header",
+              })}
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              {intl.formatMessage({
+                id: "settings.enquiry.description",
+              })}
+            </p>
+          </div>
+
+          <form
+            onSubmit={formik.handleSubmit}
+            className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
+          >
+            <div className="px-4 py-6 sm:p-8">
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-full">
+                  <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                    {intl.formatMessage({
+                      id: "settings.enquiry.form.header",
+                    })}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-600">
+                    {intl.formatMessage({
+                      id: "settings.enquiry.form.description",
+                    })}
+                  </p>
+                </div>
+                <div className="sm:col-span-full">
+                  <textarea
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                    rows={3}
+                    value={iframeLink}
+                    disabled
+                  />
+                </div>
+                <div className="sm:col-span-full">
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    size="lg"
+                    leadingIcon={<DocumentDuplicateIcon className="h-5 w-5" />}
+                    onClick={handleCopyCode}
+                  >
+                    Copier le code
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
