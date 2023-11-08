@@ -1,8 +1,10 @@
 import { useId } from "react";
 
-const formClasses =
-  "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6";
-
+const formClasses = {
+  klaq: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6",
+  black:
+    "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6",
+};
 type LabelProps = {
   htmlFor: string;
   children: React.ReactNode;
@@ -23,16 +25,17 @@ export const Label = (props: LabelProps) => {
 
 type TextFieldProps = {
   label?: string;
+  variant?: "klaq" | "black";
 } & Omit<React.ComponentPropsWithoutRef<"input">, "id">;
 
 export const TextField = (props: TextFieldProps) => {
-  const { label, type = "text" } = props;
+  const { label, type = "text", variant = "klaq" } = props;
   const id = useId();
 
   return (
     <div>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <input id={id} type={type} {...props} className={formClasses} />
+      <input id={id} type={type} {...props} className={formClasses[variant]} />
     </div>
   );
 };
@@ -48,7 +51,7 @@ export const SelectField = (props: SelectFieldProps) => {
   return (
     <div>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <select id={id} {...props} className={formClasses} />
+      <select id={id} {...props} className={formClasses["klaq"]} />
     </div>
   );
 };

@@ -14,6 +14,7 @@ import {
   Dashboard,
   EditEvent,
   EditQuote,
+  EnquiryForm,
   EventDetails,
   EventDetails2,
   Events,
@@ -80,6 +81,7 @@ function App() {
         <Route path={PATHS.LOGIN} element={<Login />} />
         <Route path={PATHS.RESET_PASSWORD} element={<ResetPassword />} />
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
+        <Route path={PATHS.EMBEDDED_FORM} element={<EnquiryForm />} />
         <Route element={<PrivateRoutes />}>
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route

@@ -2,6 +2,7 @@ export * from "./Billing";
 export * from "./Calendar";
 export * from "./ConfirmMail";
 export * from "./ConfirmSMS";
+export * from "./EnquiryForm";
 export * from "./Customers";
 export * from "./Dashboard";
 export * from "./Event";

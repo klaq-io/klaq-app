@@ -39,4 +39,5 @@ export const PATHS = {
   QUOTES: "/quotes",
   NEW_EVENT_V2: "/events/new",
   EVENT_DETAILS: "/events/:id/details",
+  EMBEDDED_FORM: "/embedded-form",
 };
