@@ -5,7 +5,6 @@ export * from "./CreateNewQuote";
 export * from "./CustomerStatus";
 export * from "./DropdownMenu";
 export * from "./EventBadge";
-export * from "./EventSummary";
 export * from "./EventsList";
 export * from "./Fields";
 export * from "./FileList";

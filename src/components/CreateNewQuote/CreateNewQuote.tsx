@@ -75,8 +75,6 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
     fetchMainEvents();
   }, []);
 
-  console.log(mainEvents);
-
   return (
     <Transition.Root
       show={open}
@@ -196,7 +194,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   },
                                   {
                                     eventType: intl.formatMessage({
-                                      id: `events.types.${activeOption.subEvents[0].type}`,
+                                      id: activeOption.subEvents[0].type,
                                     }),
                                     date: new Date(
                                       activeOption.subEvents[0].date

@@ -246,11 +246,19 @@ export const Events = () => {
   useEffect(() => {
     setSearchParams({
       filter: selectedFilter,
+      startDate: startDate,
+      endDate: endDate,
       tab: tabs[0].name,
+    });
+  }, []);
+
+  useEffect(() => {
+    setSearchParams({
+      filter: selectedFilter,
       startDate: startDate,
       endDate: endDate,
     });
-  }, []);
+  }, [selectedFilter, startDate, endDate]);
 
   return (
     <PageLayout>

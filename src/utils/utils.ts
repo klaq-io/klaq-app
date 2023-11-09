@@ -296,11 +296,21 @@ const getEventValue = (quotes_: Quote[] | undefined) => {
 export const getPipeValue = (mainEvents?: MainEvent[]) => {
   if (!mainEvents || !mainEvents.length) return "0.00";
 
-  console.log(mainEvents);
-
   const events = mainEvents
     .map((mainEvent) => getEventValue(mainEvent.quotes))
     .map((value) => Number(value));
 
   return Math.min(...events).toFixed(2);
+};
+
+export const getPipeValueForCustomer = (customer?: Customer) => {
+  if (!customer) return "0.00";
+
+  if (!customer.mainEvents || !customer.mainEvents.length) return "0.00";
+
+  const events = customer.mainEvents
+    .map((mainEvent) => getEventValue(mainEvent.quotes))
+    .map((value) => Number(value));
+  const total = events.reduce((acc, curr) => acc + curr);
+  return total.toFixed(2);
 };

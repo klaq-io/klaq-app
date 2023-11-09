@@ -1,12 +1,13 @@
 import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useFormik } from "formik";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useIntl } from "react-intl";
-import { Button } from "components";
+import { Button, SearchCompany } from "components";
 import SidePanel from "components/SidePanel";
 import { useUpdateCustomer } from "../../redux/Customer/hooks";
 import { Customer, CustomerType } from "../../redux/Customer/slices";
 import { initialValues, validationSchema } from "./form";
+import { Suggestion } from "interface/suggestion.interface";
 
 type Props = {
   open: boolean;
@@ -17,21 +18,33 @@ type Props = {
 export const EditCustomer: FC<Props> = (props: Props) => {
   const intl = useIntl();
   const { open, setOpen, customer } = props;
+  const [customerCompany, setCustomerCompany] = useState<
+    Suggestion | undefined
+  >();
 
-  const [, updateCustomer] = useUpdateCustomer();
+  const [{ isLoading }, updateCustomer] = useUpdateCustomer();
 
   const formik = useFormik({
-    initialValues: { ...initialValues, ...customer },
+    initialValues: {
+      ...initialValues,
+      ...customer,
+      ...customerCompany,
+      name: customerCompany?.legalName,
+    },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       if (values.type === CustomerType.PRIVATE)
         values.name = `${values.firstName} ${values.lastName}`;
-      updateCustomer(values, customer?.id!);
+      await updateCustomer(values, customer?.id!);
       setOpen(false);
       resetForm();
     },
     enableReinitialize: true,
   });
+
+  const handleSetCompany = (customerType: CustomerType) => {
+    formik.setValues({ ...formik.values, type: customerType }, false);
+  };
 
   return (
     <SidePanel
@@ -41,8 +54,76 @@ export const EditCustomer: FC<Props> = (props: Props) => {
     >
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col space-y-4">
+          <div>
+            <label
+              htmlFor="client-type"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              {intl.formatMessage({
+                id: "customers.new-customer.label.client-type",
+              })}
+            </label>
+            <div className="mt-2 flex flex-row space-x-4">
+              <Button
+                variant="contained"
+                color={
+                  formik.values.type === CustomerType.COMPANY
+                    ? "primary"
+                    : "secondary"
+                }
+                onClick={() => handleSetCompany(CustomerType.COMPANY)}
+                type="button"
+                leadingIcon={
+                  <BuildingLibraryIcon
+                    className="-ml-0.5 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                }
+              >
+                {intl.formatMessage({
+                  id: "customers.new-customer.input.client-type.company",
+                })}
+              </Button>
+              <Button
+                variant="contained"
+                color={
+                  formik.values.type === CustomerType.PRIVATE
+                    ? "primary"
+                    : "secondary"
+                }
+                onClick={() => handleSetCompany(CustomerType.PRIVATE)}
+                type="button"
+                leadingIcon={
+                  <UserIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                }
+              >
+                {intl.formatMessage({
+                  id: "customers.new-customer.input.client-type.private",
+                })}
+              </Button>
+            </div>
+          </div>
           {formik.values.type === CustomerType.COMPANY ? (
             <>
+              <div>
+                <label
+                  htmlFor="look-for-company"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: "customers.new-customer.label.look-for-company",
+                  })}
+                </label>
+                <div className="mt-2">
+                  <SearchCompany
+                    customerCompany={customerCompany}
+                    setCustomerCompany={setCustomerCompany}
+                    placeholder={intl.formatMessage({
+                      id: "onboarding.search-company.input",
+                    })}
+                  />
+                </div>
+              </div>
               {/** divider */}
               <div className="mt-4">
                 <div className="relative">
@@ -427,7 +508,12 @@ export const EditCustomer: FC<Props> = (props: Props) => {
             </div>
           </div>
           <div className="flex justify-end">
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              isLoading={isLoading}
+            >
               {intl.formatMessage({
                 id: `customers.edit-customer.submit`,
               })}

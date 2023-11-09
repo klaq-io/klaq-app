@@ -7,17 +7,13 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { Button, CustomerStatus, DangerModal, KebabMenu } from "components";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { generatePath, useNavigate } from "react-router-dom";
-import {
-  CustomerStatus,
-  DangerModal,
-  DropdownMenu,
-  KebabMenu,
-} from "components";
-import { Button } from "components";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEvents } from "redux/MainEvent/selectors";
 import { PageLayout } from "../../layouts";
 import {
   useDeleteCustomer,
@@ -25,13 +21,9 @@ import {
 } from "../../redux/Customer/hooks";
 import { getCustomers } from "../../redux/Customer/selectors";
 import { Customer } from "../../redux/Customer/slices";
-import { useFetchEvents } from "../../redux/Events/hooks";
-import { getAllEvents } from "../../redux/Events/selectors";
 import { EventStatus } from "../../redux/Events/slices";
-import { useFetchProductItems } from "../../redux/Products/hooks";
-import { getAllProducts } from "../../redux/Products/selectors";
 import { PATHS } from "../../routes";
-import { getCustomerValue } from "../../utils/utils";
+import { getPipeValueForCustomer } from "../../utils/utils";
 import EditCustomer from "./EditCustomer";
 import { NewCustomer } from "./NewCustomer";
 
@@ -49,14 +41,6 @@ export const Customers = () => {
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
-
-  const [{ isLoading: isFetchEventsLoading }, fetchEvents] = useFetchEvents();
-  const events = useSelector(getAllEvents);
-
-  const [{ isLoading: isFetchProductsLoading }, fetchProducts] =
-    useFetchProductItems();
-  const products = useSelector(getAllProducts);
-
   const filteredCustomers =
     query === ""
       ? customers
@@ -71,9 +55,9 @@ export const Customers = () => {
 
   const getCustomerStatus = (customer: Customer) => {
     // TODO: change it to a better logic
-    if (!customer.events || customer.events.length === 0) return "new";
-    const eventsStatus = customer.events.flatMap((event) => event.status);
-    if (!customer.events.length) return "new";
+    if (!customer.mainEvents || customer.mainEvents.length === 0) return "new";
+    const eventsStatus = customer.mainEvents.flatMap((event) => event.status);
+    if (!customer.mainEvents.length) return "new";
     if (eventsStatus.includes(EventStatus.INBOX)) return "in-deal";
 
     if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
@@ -124,14 +108,10 @@ export const Customers = () => {
 
   useEffect(() => {
     fetchCustomers();
-    fetchEvents();
-    fetchProducts();
   }, []);
 
   return (
-    <PageLayout
-      isLoading={isLoading || isFetchEventsLoading || isFetchProductsLoading}
-    >
+    <PageLayout isLoading={isLoading}>
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
@@ -307,7 +287,7 @@ export const Customers = () => {
                           </td>
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                             <div className="font-medium text-gray-500">
-                              {getCustomerValue(products, customer)} €
+                              {getPipeValueForCustomer(customer)} €
                             </div>
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
