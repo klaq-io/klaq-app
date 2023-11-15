@@ -16,6 +16,7 @@ import {
   EnquiryForm,
   EventDetails2,
   Events,
+  Integrations,
   Login,
   MainEventDetails,
   NewEvent,
@@ -149,6 +150,7 @@ function App() {
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
+          <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
           <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />

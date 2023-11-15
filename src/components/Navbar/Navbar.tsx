@@ -25,8 +25,8 @@ type Props = {
 
 const userNavigation = [
   { name: "navbar.profile", href: PATHS.PROFILE },
+  { name: "navbar.integrations", href: PATHS.INTEGRATIONS },
   { name: "navbar.company", href: PATHS.COMPANY },
-  // { name: "navbar.integrations", href: "#" },
   // { name: "navbar.billing", href: "#" },
 ];
 

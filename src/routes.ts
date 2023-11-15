@@ -12,6 +12,7 @@ export const PATHS = {
   EVENT_QUOTE_DETAILS: "/events/:id/quote/details",
   PRODUCTS: "/products",
   LOGIN: "/login",
+  INTEGRATIONS: "/settings/integrations",
   PROFILE: "/settings/profile",
   COMPANY: "/settings/company",
   SETTINGS: "/settings",
