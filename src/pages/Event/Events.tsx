@@ -245,15 +245,7 @@ export const Events = () => {
 
   useEffect(() => {
     setSearchParams({
-      filter: selectedFilter,
-      startDate: startDate,
-      endDate: endDate,
-      tab: tabs[0].name,
-    });
-  }, []);
-
-  useEffect(() => {
-    setSearchParams({
+      tab: current.name,
       filter: selectedFilter,
       startDate: startDate,
       endDate: endDate,

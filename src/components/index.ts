@@ -13,6 +13,7 @@ export * from "./Map";
 export * from "./MiniCalendar";
 export * from "./Modal";
 export * from "./Navbar";
+export * from "./Notifications";
 export * from "./Quote";
 export * from "./SearchCompany";
 export * from "./SidePanel";

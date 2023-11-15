@@ -7,6 +7,7 @@ export const initialState: {
   commentaries: any;
   quotes: any;
   mainEvents: any;
+  notifications: any;
 } = {
   user: {},
   company: {},
@@ -16,4 +17,5 @@ export const initialState: {
   commentaries: [],
   quotes: [],
   mainEvents: [],
+  notifications: [],
 };

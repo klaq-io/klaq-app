@@ -17,6 +17,7 @@ import { getCompany } from "../../redux/Company/selectors";
 import { getUser } from "../../redux/Login/selectors";
 import { Skeleton } from "../Skeleton";
 import { NewEventModal } from "components/Modal";
+import { NotificationWidget } from "components/Notifications";
 
 type Props = {
   classes?: string;
@@ -85,13 +86,9 @@ export const Navbar = (props: Props) => {
             <span className="sr-only">New event</span>
             <PlusIcon className="h-6 w-6" aria-hidden="true" />
           </button>
-          <button
-            type="button"
-            className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
-          >
-            <span className="sr-only">View notifications</span>
-            <BellIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
+          <div className="-m-2.5 p-2.5">
+            <NotificationWidget />
+          </div>
 
           {/* Separator */}
           <div

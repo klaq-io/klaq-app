@@ -60,7 +60,6 @@ export const getQuotePipeValue = (events: Event[]) => {
 export const getQuotePipeValueV2 = (events: MainEvent[]) => {
   if (!events) return "0.00";
 
-  console.log(events);
   const pipeValue = events.map((event) => {
     if (event.quotes && event.quotes.length > 0) {
       const quotes = event.quotes.filter(

@@ -1,10 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import {
-  CalendarDaysIcon,
-  EyeIcon,
-  FaceFrownIcon,
-  PencilSquareIcon,
-} from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, EyeIcon } from "@heroicons/react/24/outline";
 import {
   add,
   eachDayOfInterval,
@@ -19,12 +14,14 @@ import {
   startOfWeek,
 } from "date-fns";
 import { enUS, fr } from "date-fns/esm/locale";
+import { SubEvent } from "interface/Event/subevent.interface";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useFetchEvents } from "../../redux/Events/hooks";
-import { getEventsByStatus } from "../../redux/Events/selectors";
+import { Customer } from "redux/Customer/slices";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
 import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
 import {
@@ -34,10 +31,6 @@ import {
   getSubEventsListFromMainEvents,
 } from "../../utils/utils";
 import { KebabMenu } from "../KebabMenu";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
-import { SubEvent } from "interface/Event/subevent.interface";
-import { Customer } from "redux/Customer/slices";
 
 type Event = SubEvent & {
   customer: Customer;
@@ -242,7 +235,7 @@ export const MiniCalendar = () => {
                           : null}
                       </p>
                     </div>
-                    <KebabMenu items={menuItems(event.id)} />
+                    <KebabMenu items={menuItems(event.mainEventId)} />
                   </li>
                 ) : null
               )
