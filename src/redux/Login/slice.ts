@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "../states";
+import { Settings } from "interface/user.interface";
 
 export interface User {
   id: string;
@@ -22,6 +23,7 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   logoUrl?: string;
+  settings: Settings;
 }
 
 export type UserSliceType = User;

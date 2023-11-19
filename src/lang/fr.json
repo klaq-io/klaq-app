@@ -15,7 +15,7 @@
   },
 
   "navbar": {
-    "profile": "Profil",
+    "profile": "Général",
     "company": "Entreprise",
     "integrations": "Intégrations",
     "billing": "Facturation",
@@ -1126,6 +1126,24 @@
       "social-login": {
         "header": "Connexion sociale activée avec un ou plusieurs fournisseurs.",
         "description": "Vous pouvez lier votre compte Google afin de pouvoir synchroniser vos évènements."
+      }
+    },
+    "notifications": {
+      "header": "Préférences de notification",
+      "description": "Notifications par e-mail.",
+      "options": {
+        "marketing": {
+          "header": "Marketing",
+          "description": "Recevoir un email lorsque nous ajoutons de nouvelles fonctionnalités."
+        },
+        "new-deal": {
+          "header": "Nouvelle demande entrante",
+          "description": "Recevoir un email lorsque vous recevez une nouvelle demande entrante depuis le formulaire de capture de prospects."
+        },
+        "changelog": {
+          "header": "Changelog",
+          "description": "Recevoir une notification lorsque nous publions une mise à jour hebdomadaire."
+        }
       }
     },
     "delete": {

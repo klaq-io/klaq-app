@@ -8,12 +8,18 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useFetchUser } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
-import { useDeleteLogo, useUpdateLogo, useUpdateUser } from "redux/User/hooks";
+import {
+  useDeleteLogo,
+  useUpdateLogo,
+  useUpdateSettings,
+  useUpdateUser,
+} from "redux/User/hooks";
 import {
   PrivateInformationSkeleton,
   PublicInformationSkeleton,
 } from "./Skeleton";
 import { initialValues, validationSchema } from "./form";
+import { settingsInitialValues } from "./settings-form";
 
 type Props = {};
 
@@ -29,6 +35,8 @@ export const Profile: FC<Props> = (props: Props) => {
   const [{ isLoading }, updateUser] = useUpdateUser();
   const [{ isLoading: isUpdatingLogo }, updateLogo] = useUpdateLogo();
   const [{ isLoading: isDeletingPicture }, deleteLogo] = useDeleteLogo();
+  const [{ isLoading: isUpdatingSettings }, updateSettings] =
+    useUpdateSettings();
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +49,16 @@ export const Profile: FC<Props> = (props: Props) => {
     validationSchema,
     onSubmit: (values) => {
       updateUser(values);
+    },
+    enableReinitialize: true,
+  });
+
+  const settingsFormik = useFormik({
+    initialValues: user
+      ? { ...settingsInitialValues, ...user.settings }
+      : { ...settingsInitialValues },
+    onSubmit: async (values) => {
+      updateSettings(values);
     },
     enableReinitialize: true,
   });
@@ -103,7 +121,7 @@ export const Profile: FC<Props> = (props: Props) => {
           ) : (
             <form
               onSubmit={formik.handleSubmit}
-              className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
+              className="bg-white shadow-sm border sm:rounded-xl md:col-span-2"
             >
               <div className="px-4 py-6 sm:p-8">
                 <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -224,7 +242,7 @@ export const Profile: FC<Props> = (props: Props) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+              <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
                 <Button
                   type="button"
                   variant="text"
@@ -426,7 +444,7 @@ export const Profile: FC<Props> = (props: Props) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+              <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
                 <Button
                   type="button"
                   variant="text"
@@ -513,7 +531,7 @@ export const Profile: FC<Props> = (props: Props) => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+            <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
               <Button
                 type="button"
                 variant="text"
@@ -537,6 +555,142 @@ export const Profile: FC<Props> = (props: Props) => {
               </Button>
             </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              {intl.formatMessage({
+                id: "settings.notifications.header",
+              })}
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              {intl.formatMessage({
+                id: "settings.notifications.description",
+              })}
+            </p>
+          </div>
+
+          {isFetchingUser ? (
+            <PrivateInformationSkeleton />
+          ) : (
+            <form
+              onSubmit={settingsFormik.handleSubmit}
+              className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2"
+            >
+              <div className="px-4 py-6 sm:p-8">
+                <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:col-span-3">
+                    <div className="relative flex items-start">
+                      <div className="flex h-6 items-center">
+                        <input
+                          onChange={settingsFormik.handleChange}
+                          name="isChangelogNotificationEnabled"
+                          type="checkbox"
+                          checked={
+                            settingsFormik.values.isChangelogNotificationEnabled
+                          }
+                          className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm leading-6">
+                        <label className="font-medium text-gray-900">
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.changelog.header",
+                          })}
+                        </label>
+                        <p className="text-gray-500">
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.changelog.description",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <div className="relative flex items-start">
+                      <div className="flex h-6 items-center">
+                        <input
+                          onChange={settingsFormik.handleChange}
+                          name="isNewDealNotificationEnabled"
+                          type="checkbox"
+                          checked={
+                            settingsFormik.values.isNewDealNotificationEnabled
+                          }
+                          className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm leading-6">
+                        <label
+                          htmlFor="comments"
+                          className="font-medium text-gray-900"
+                        >
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.new-deal.header",
+                          })}
+                        </label>
+                        <p id="comments-description" className="text-gray-500">
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.new-deal.description",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="sm:col-span-3">
+                    <div className="relative flex items-start">
+                      <div className="flex h-6 items-center">
+                        <input
+                          onChange={settingsFormik.handleChange}
+                          name="isMarketingNotificationEnabled"
+                          checked={
+                            settingsFormik.values.isMarketingNotificationEnabled
+                          }
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
+                        />
+                      </div>
+                      <div className="ml-3 text-sm leading-6">
+                        <label className="font-medium text-gray-900">
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.marketing.header",
+                          })}
+                        </label>
+                        <p className="text-gray-500">
+                          {intl.formatMessage({
+                            id: "settings.notifications.options.marketing.description",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
+                <Button
+                  type="button"
+                  variant="text"
+                  color="secondary"
+                  onClick={handleResetPersonalInfo}
+                >
+                  {intl.formatMessage({
+                    id: "settings.button.cancel",
+                  })}
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="lg"
+                  isLoading={isUpdatingSettings}
+                >
+                  {intl.formatMessage({
+                    id: "settings.button.submit",
+                  })}
+                </Button>
+              </div>
+            </form>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">

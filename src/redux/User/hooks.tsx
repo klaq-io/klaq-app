@@ -6,7 +6,7 @@ import { setUser } from "../Login/slice";
 import { PATHS } from "../../routes";
 import { ToastNotification } from "components";
 import toast from "react-hot-toast";
-import { OnboardingStatus } from "../../interface/user.interface";
+import { OnboardingStatus, Settings } from "../../interface/user.interface";
 
 export const useUpdateUser = () => {
   const dispatch = useDispatch();
@@ -115,6 +115,17 @@ export const useDeleteLogo = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useUpdateSettings = () => {
+  return useAsyncCallback(async (values: Partial<Settings>) => {
+    try {
+      await webClient.put("/settings", values);
+    } catch (error: any) {
       console.error(error);
       return error.response;
     }

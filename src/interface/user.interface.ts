@@ -17,6 +17,7 @@ export interface User {
   category: PerformingCategory;
   onboardingStatus: OnboardingStatus;
   logoUrl?: string;
+  settings: Settings;
 }
 
 export enum PerformingCategory {
@@ -58,4 +59,14 @@ export enum OnboardingStatus {
   PERFORMER = "PERFORMER",
   OFFICE = "OFFICE",
   DONE = "DONE",
+}
+
+export interface Settings {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  isChangelogNotificationEnabled: boolean;
+  isNewDealNotificationEnabled: boolean;
+  isMarketingNotificationEnabled: boolean;
+  pricePerKm: number;
 }

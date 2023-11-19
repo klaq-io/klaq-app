@@ -345,7 +345,7 @@ export const Company: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+              <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
                 <Button
                   type="button"
                   variant="text"
@@ -536,6 +536,7 @@ export const Company: FC = () => {
                   </div>
                   <div className="sm:col-span-full">
                     <Alert
+                      title={"Frais de déplacement"}
                       status="info"
                       text={intl.formatMessage(
                         {
@@ -563,7 +564,7 @@ export const Company: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+              <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
                 <Button
                   type="button"
                   variant="text"
