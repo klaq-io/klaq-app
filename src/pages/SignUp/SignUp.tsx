@@ -8,11 +8,16 @@ import { Button } from "components";
 import { useSignUp } from "../../redux/Login/hooks";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import backgroundAuth from "assets/background-auth.jpeg";
+import { useState } from "react";
+import { useUpdateSettings } from "redux/User/hooks";
 
 export const SignUp = () => {
   const intl = useIntl();
 
   const [{ isLoading }, signUp] = useSignUp();
+  const [, updateSettings] = useUpdateSettings();
+  const [mailNotificationEnabled, setEnabledMailNotification] = useState(true);
+  const [cguAccepted, setAcceptedCgu] = useState(false);
 
   const setPhoneNumber = (value: string) => {
     formik.setFieldValue("phone", value);
@@ -21,8 +26,11 @@ export const SignUp = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      signUp(values);
+    onSubmit: async (values) => {
+      await signUp(values);
+      await updateSettings({
+        isMarketingNotificationEnabled: mailNotificationEnabled,
+      });
     },
   });
   return (
@@ -150,12 +158,56 @@ export const SignUp = () => {
               ) : null}
             </div>
           </div>
+          <div className="relative flex items-start">
+            <div className="flex h-6 items-center">
+              <input
+                onChange={() =>
+                  setEnabledMailNotification(!mailNotificationEnabled)
+                }
+                checked={mailNotificationEnabled}
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
+              />
+            </div>
+            <div className="ml-3 text-sm leading-6">
+              <span className="text-gray-500">
+                {intl.formatMessage({
+                  id: "sign-up.label.newsletter",
+                })}
+              </span>
+            </div>
+          </div>
+          <div className="relative flex items-start">
+            <div className="flex h-6 items-center">
+              <input
+                onChange={() => setAcceptedCgu(!cguAccepted)}
+                checked={cguAccepted}
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
+              />
+            </div>
+            <div className="ml-3 text-sm leading-6">
+              <span className="text-gray-500">
+                <a
+                  href="https://klaq.io/cgu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-klaq-600 hover:text-klaq-500"
+                >
+                  {intl.formatMessage({
+                    id: "sign-up.label.cgu",
+                  })}
+                </a>
+              </span>
+            </div>
+          </div>
           <div className="w-full mt-8 flex flex-row-reverse">
             <Button
               isLoading={isLoading}
               color="primary"
               variant="contained"
               type="submit"
+              disabled={!cguAccepted}
               trailingIcon={<ArrowRightIcon className="-mr-1 ml-2 h-5 w-5" />}
             >
               {intl.formatMessage({
