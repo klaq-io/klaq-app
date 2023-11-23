@@ -20,6 +20,8 @@ import { Customer, CustomerType } from "redux/Customer/slices";
 import { classNames } from "utils/utils";
 import { Alert } from "components/Alert/Alert";
 import { useCreateEvent } from "redux/MainEvent/hooks";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "routes";
 
 type NewEventModalProps = {
   open: boolean;
@@ -29,6 +31,7 @@ type NewEventModalProps = {
 export const NewEventModal = (props: NewEventModalProps) => {
   const { open, setOpen } = props;
   const intl = useIntl();
+  const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
   const [isMapAutocompleteEnabled, setMapAutocompleteEnabled] = useState(true);
@@ -45,7 +48,8 @@ export const NewEventModal = (props: NewEventModalProps) => {
           return customer.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const [{ isLoading: isCreatingEvent }, createEvent] = useCreateEvent();
+  const [{ isLoading: isCreatingEvent, data, isSuccess }, createEvent] =
+    useCreateEvent();
 
   const formik = useFormik({
     initialValues,
@@ -64,6 +68,8 @@ export const NewEventModal = (props: NewEventModalProps) => {
       });
       setOpen(false);
       resetForm();
+      if (isSuccess && data)
+        navigate(`${PATHS.EVENTS}/${data.id}/details?tab=Roadmap`);
     },
     enableReinitialize: true,
   });

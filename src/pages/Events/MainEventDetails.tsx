@@ -410,7 +410,7 @@ export const MainEventDetails = () => {
                           {editBudget ? (
                             <div className="relative">
                               <TextField
-                                placeholder="Titre de l'évènement ou laisser vide pour le générer automatiquement"
+                                placeholder="Budget de votre client"
                                 name="budget"
                                 onChange={formik.handleChange}
                                 value={formik.values.budget}
@@ -706,7 +706,7 @@ export const MainEventDetails = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
+                          <div className="bg-gray-50 rounded-b-xl flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
                             {formik.values.subEvents &&
                               formik.values.subEvents.length !== 1 && (
                                 <Button

@@ -10,7 +10,7 @@ export interface MainEvent {
   createdAt: Date;
   updatedAt: Date;
   status: EventStatus;
-  budget?: string;
+  budget?: number;
   note?: string;
   title: string;
   subEvents: SubEvent[];
@@ -25,7 +25,7 @@ export interface MainEventCreator {
   createdAt: Date;
   updatedAt: Date;
   status: EventStatus;
-  budget?: string;
+  budget?: number;
   note?: string;
   title: string;
   subEvents: Partial<SubEventCreator>[];

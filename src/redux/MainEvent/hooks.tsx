@@ -29,7 +29,7 @@ export const useCreateEvent = () => {
           { duration: 1500, position: "top-right" }
         );
         dispatch(setMainEvent(data));
-        navigate(`${PATHS.EVENTS}/${data.id}/details?tab=Roadmap`);
+        return data;
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()

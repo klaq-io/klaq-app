@@ -28,7 +28,7 @@ export const initialValues = {
     },
   ],
   note: "",
-  budget: "",
+  budget: 0,
 };
 
 export const validationSchema = Yup.object().shape({

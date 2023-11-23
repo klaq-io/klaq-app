@@ -8,10 +8,7 @@ export const CardContainer = (props: CardContainerProps) => {
   const { children } = props;
   const id = useId();
   return (
-    <div
-      className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
-      key={id}
-    >
+    <div className="bg-white shadow-sm sm:rounded-xl" key={id}>
       {children}
     </div>
   );
