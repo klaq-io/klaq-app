@@ -34,7 +34,7 @@ export const PATHS = {
   QUOTE_SEND_MAIL: "/quote/send/:id",
   QUOTE_EDIT: "/quote/edit/:id/:eventId",
   INVOICE_DETAILS: "/invoice/details/:id",
-  INVOICE_GENERATE: "/invoice/generate/:id",
+  INVOICE_GENERATE: "/invoice/generate",
   BILLING: "/billing",
   INVOICES: "/invoices",
   QUOTES: "/quotes",

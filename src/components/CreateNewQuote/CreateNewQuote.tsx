@@ -40,7 +40,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
       EventStatus.QUOTE_OPENED,
       EventStatus.QUOTE_REJECTED
     )
-  );
+  ).reverse();
 
   const filteredEvents =
     query === ""

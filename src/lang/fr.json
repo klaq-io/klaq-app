@@ -865,6 +865,85 @@
     }
   },
 
+  "invoice": {
+    "header": "Facture",
+    "description": "Lorem ipsum"
+  },
+
+  "invoice-generate": {
+    "header": "Nouvelle facture",
+    "description": "Lorem ipsum",
+    "attach-event": {
+      "title": "Attacher un évènement à cette facture",
+      "info": {
+        "title": "Évènement existant nécessaire",
+        "description": "Pour créer une facture vous devez disposez d'un évènement existant ou en créer un nouveau."
+      }
+    },
+    "informations": {
+      "title": "Informations",
+      "invoice-number": {
+        "label": "Numéro de facture automatique"
+      },
+      "currency": {
+        "label": "Devise",
+        "EUR": "Euro"
+      },
+      "issued-on": {
+        "label": "Délivré le"
+      },
+      "due-on": {
+        "label": "Date d'échéance",
+        "days": {
+          "15": "Dans 15 jours",
+          "30": "Dans 30 jours",
+          "45": "Dans 45 jours",
+          "60": "Dans 60 jours",
+          "90": "Dans 90 jours"
+        }
+      },
+      "order-form-id": {
+        "label": "Bon de commande",
+        "placeholder": "Saisissez le numéro de bon de commande si vous en disposez d'un"
+      },
+      "object": {
+        "label": "Objet de la facture",
+        "placeholder": "Saisissez l'objet de la facture"
+      }
+    },
+    "products": {
+      "title": "Produits",
+      "name": {
+        "label": "Nom du produit"
+      },
+      "short-description": {
+        "label": "Description courte",
+        "placeholder": "Saisissez la description de votre produit"
+      },
+      "default-vta-rate": {
+        "label": "Taux de TVA"
+      },
+      "default-price": { "label": "Prix H.T." },
+      "default-price-with-vta": {
+        "label": "Prix T.T.C."
+      },
+      "quantity": { "label": "Quantité" },
+      "discount": {
+        "label": "Réduction",
+        "type": {
+          "percent": "Pourcentage",
+          "amount": "Montant"
+        }
+      },
+      "total": {
+        "label": {
+          "subtotal": "Total H.T.",
+          "total": "Total T.T.C."
+        }
+      }
+    }
+  },
+
   "quote": {
     "header": "Devis",
     "description": "Lorem ipsum",

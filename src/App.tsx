@@ -17,6 +17,7 @@ import {
   EventDetails2,
   Events,
   Integrations,
+  InvoiceGenerate,
   Login,
   MainEventDetails,
   NewEvent,
@@ -41,6 +42,7 @@ import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
 import TransitionComponent from "./utils/Transitions";
+import { Invoice } from "pages/Billing/Invoice/Invoice";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -148,6 +150,8 @@ function App() {
 
           <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
+          <Route path={PATHS.INVOICES} element={<Invoice />} />
+          <Route path={PATHS.INVOICE_GENERATE} element={<InvoiceGenerate />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />
