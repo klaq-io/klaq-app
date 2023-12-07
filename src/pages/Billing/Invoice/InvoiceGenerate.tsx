@@ -1,4 +1,4 @@
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, Switch, Transition } from "@headlessui/react";
 import {
   MagnifyingGlassIcon,
   PlusIcon,
@@ -33,6 +33,7 @@ import { add } from "date-fns";
 import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
+import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
@@ -174,6 +175,29 @@ export const InvoiceGenerate = () => {
     const subtotal = getProductSubtotal(index);
     return subtotal + subtotal * (Number(product.vtaRate) / 100);
   };
+
+  const subtotal = formik.values.products.reduce(
+    (acc, product) =>
+      acc + getProductSubtotal(formik.values.products.indexOf(product)),
+    0
+  );
+
+  const globalDiscount =
+    formik.values.globalDiscountType === "percent"
+      ? subtotal * (formik.values.globalDiscount / 100)
+      : formik.values.globalDiscount;
+
+  const subtotalWithDiscount = subtotal - globalDiscount;
+
+  const tax = formik.values.products.reduce(
+    (acc, product) =>
+      acc +
+      getProductSubtotal(formik.values.products.indexOf(product)) *
+        (Number(product.vtaRate) / 100),
+    0
+  );
+
+  const total = subtotal + tax;
 
   useEffect(() => {
     fetchMainEvents();
@@ -406,24 +430,7 @@ export const InvoiceGenerate = () => {
                         })}
                       </p>
                     ) : null}
-                    <SelectField
-                      className="col-span-1"
-                      label={intl.formatMessage({
-                        id: "invoice-generate.informations.due-on.label",
-                      })}
-                      name="validUntil"
-                      onChange={formik.handleChange}
-                      value={formik.values.validUntil}
-                      disabled={!formik.values.issuedOn}
-                    >
-                      {Object.keys(QUOTE_VALID_UNTIL).map((validUntil) => (
-                        <option key={validUntil} value={validUntil}>
-                          {intl.formatMessage({
-                            id: `invoice-generate.informations.due-on.days.${validUntil}`,
-                          })}
-                        </option>
-                      ))}
-                    </SelectField>
+                    <div className="col-span-1" />
                     <TextField
                       label={intl.formatMessage({
                         id: "invoice-generate.informations.object.label",
@@ -737,9 +744,181 @@ export const InvoiceGenerate = () => {
                     </Button>
                   </div>
                 </div>
+                <div className="flex flex-col space-y-4">
+                  <h1 className="text-base font-semibold leading-6 text-gray-900">
+                    {intl.formatMessage({
+                      id: "invoice-generate.total.title",
+                    })}
+                  </h1>
+
+                  <div className="bg-gray-50 p-4 flex">
+                    <div className="ml-auto flex flex-col">
+                      <div className="flex justify-between">
+                        <span className="font-semibold text-gray-900">
+                          {intl.formatMessage({
+                            id: "invoice-generate.total.label.subtotal",
+                          })}
+                        </span>
+                        <span className="font-semibold text-gray-900">
+                          {subtotal.toFixed(2)} €
+                        </span>
+                      </div>
+                      <div className="flex space-x-8">
+                        <span className="font-semibold text-gray-900">
+                          {intl.formatMessage({
+                            id: "invoice-generate.total.label.tax",
+                          })}
+                        </span>
+                        <span className="font-semibold text-gray-900">
+                          {tax.toFixed(2)} €
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="font-semibold text-gray-900">
+                          {intl.formatMessage({
+                            id: "invoice-generate.total.label.total",
+                          })}
+                        </span>
+                        <span className="font-semibold text-gray-900">
+                          {total.toFixed(2)} €
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <h1 className="text-base font-semibold leading-6 text-gray-900">
+                    Conditions de règlement
+                  </h1>
+                  <div className="grid grid-cols-3 gap-4">
+                    <SelectField
+                      className="col-span-1"
+                      label={intl.formatMessage({
+                        id: "invoice-generate.informations.due-on.label",
+                      })}
+                      name="validUntil"
+                      onChange={formik.handleChange}
+                      value={formik.values.validUntil}
+                      disabled={!formik.values.issuedOn}
+                    >
+                      {Object.keys(QUOTE_VALID_UNTIL).map((validUntil) => (
+                        <option key={validUntil} value={validUntil}>
+                          {intl.formatMessage({
+                            id: `invoice-generate.informations.due-on.days.${validUntil}`,
+                          })}{" "}
+                          ({QUOTE_VALID_UNTIL[validUntil].toLocaleDateString()})
+                        </option>
+                      ))}
+                    </SelectField>
+                    <SelectField
+                      className="col-span-1"
+                      label="Type de règlement"
+                      name="paymentType"
+                      onChange={formik.handleChange}
+                      value={formik.values.paymentType}
+                    >
+                      <option value="bank-transfer">Virement bancaire</option>
+                      <option value="check">Chèque</option>
+                      <option value="cash">Espèces</option>
+                      <option value="credit-card">Carte bancaire</option>
+                      <option value="paypal" disabled>
+                        Paypal - bientôt
+                      </option>
+                      <option value="other">Autre</option>
+                    </SelectField>
+                    {/* TODO: add iban if bank transfer */}
+                  </div>
+                  <CardContainer className="ring-1 ring-gray-200 px-4 py-5 sm:p-6 flex justify-between items-center">
+                    <div className="flex">
+                      <div className="pr-4">
+                        <Switch
+                          checked={formik.values.onlinePaymentAccepted}
+                          onChange={() =>
+                            formik.setFieldValue(
+                              "onlinePaymentAccepted",
+                              !formik.values.onlinePaymentAccepted
+                            )
+                          }
+                          className={classNames(
+                            formik.values.onlinePaymentAccepted
+                              ? "bg-klaq-600"
+                              : "bg-gray-200",
+                            "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-klaq-600 focus:ring-offset-2"
+                          )}
+                        >
+                          <span
+                            className={classNames(
+                              formik.values.onlinePaymentAccepted
+                                ? "translate-x-5"
+                                : "translate-x-0",
+                              "pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                            )}
+                          >
+                            <span
+                              className={classNames(
+                                formik.values.onlinePaymentAccepted
+                                  ? "opacity-0 duration-100 ease-out"
+                                  : "opacity-100 duration-200 ease-in",
+                                "absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+                              )}
+                              aria-hidden="true"
+                            >
+                              <svg
+                                className="h-3 w-3 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 12 12"
+                              >
+                                <path
+                                  d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              className={classNames(
+                                formik.values.onlinePaymentAccepted
+                                  ? "opacity-100 duration-200 ease-in"
+                                  : "opacity-0 duration-100 ease-out",
+                                "absolute inset-0 flex h-full w-full items-center justify-center transition-opacity"
+                              )}
+                              aria-hidden="true"
+                            >
+                              <svg
+                                className="h-3 w-3 text-klaq-600"
+                                fill="currentColor"
+                                viewBox="0 0 12 12"
+                              >
+                                <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
+                              </svg>
+                            </span>
+                          </span>
+                        </Switch>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-md text-gray-900">
+                          Accepter le paiement en ligne
+                        </span>
+                        <span className="text-sm text-gray-600">
+                          Facilitez le règlement en ligne de la facture par
+                          votre client, de manière simple et rapide.
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-row-reverse">
+                      <img
+                        src={onlinePaymentMethod}
+                        alt="stripe"
+                        className="w-2/3"
+                      />
+                    </div>
+                  </CardContainer>
+                </div>
                 <div className="">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
-                    Règlement
+                    Note (optionnel)
                   </h1>
                 </div>
               </div>

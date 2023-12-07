@@ -25,7 +25,9 @@ export const initialValues = {
   },
   object: "",
   globalDiscount: 0,
+  globalDiscountType: "percent",
   paymentType: "cash",
+  onlinePaymentAccepted: false,
 };
 
 export const validationSchema = Yup.object().shape({

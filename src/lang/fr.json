@@ -941,6 +941,16 @@
           "total": "Total T.T.C."
         }
       }
+    },
+    "total": {
+      "title": "Total",
+      "label": {
+        "general-discount": "Réduction générale",
+        "subtotal": "Total H.T.",
+        "total": "Total T.T.C.",
+        "tax": "Montant total de la TVA",
+        "subtotal-discount": "Total H.T. final"
+      }
     }
   },
 
