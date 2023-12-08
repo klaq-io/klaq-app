@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const initialValues = {
   issuedOn: "",
-  validUntil: "",
+  validUntil: "45",
   products: [
     {
       quantity: 1,
@@ -24,8 +24,6 @@ export const initialValues = {
     zipcode: "",
   },
   object: "",
-  globalDiscount: 0,
-  globalDiscountType: "percent",
   paymentType: "cash",
   onlinePaymentAccepted: false,
 };

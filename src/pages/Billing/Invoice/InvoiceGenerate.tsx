@@ -182,13 +182,6 @@ export const InvoiceGenerate = () => {
     0
   );
 
-  const globalDiscount =
-    formik.values.globalDiscountType === "percent"
-      ? subtotal * (formik.values.globalDiscount / 100)
-      : formik.values.globalDiscount;
-
-  const subtotalWithDiscount = subtotal - globalDiscount;
-
   const tax = formik.values.products.reduce(
     (acc, product) =>
       acc +
@@ -202,6 +195,7 @@ export const InvoiceGenerate = () => {
   useEffect(() => {
     fetchMainEvents();
     fetchProducts();
+    formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
   }, []);
 
   return (
@@ -763,7 +757,7 @@ export const InvoiceGenerate = () => {
                           {subtotal.toFixed(2)} €
                         </span>
                       </div>
-                      <div className="flex space-x-8">
+                      <div className="flex space-x-12">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
                             id: "invoice-generate.total.label.tax",
@@ -916,10 +910,10 @@ export const InvoiceGenerate = () => {
                     </div>
                   </CardContainer>
                 </div>
-                <div className="">
-                  <h1 className="text-base font-semibold leading-6 text-gray-900">
-                    Note (optionnel)
-                  </h1>
+                <div>
+                  <Button type="submit" color="primary" variant="contained">
+                    Créer la facture
+                  </Button>
                 </div>
               </div>
             </Transition>
