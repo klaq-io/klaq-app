@@ -19,7 +19,10 @@
     "company": "Entreprise",
     "integrations": "Intégrations",
     "billing": "Facturation",
-    "subscriptions": "Mon abonnement",
+    "notifications": "Notifications",
+    "security": "Sécurité",
+    "bank-account": "Compte Bancaire",
+    "subscriptions": "Abonnement",
     "logout": "Déconnexion",
     "searchbar": "Rechercher..."
   },
@@ -1220,6 +1223,22 @@
         "city": "Veuillez saisir la ville",
         "zip": "Veuillez saisir le code postal",
         "country": "Veuillez saisir le pays"
+      }
+    },
+    "bank-account": {
+      "header": "Mon compte bancaire",
+      "description": "Ces données seront nécessaires pour afficher vos informations bancaires, notamment votre IBAN, sur vos factures, devis et contrats générés.",
+      "label": {
+        "iban": "IBAN",
+        "bic-swift": "BIC / SWIFT",
+        "holder": "Titulaire",
+        "label": "Libellé"
+      },
+      "error": {
+        "iban": "Veuillez saisir votre IBAN",
+        "bic-swift": "Veuillez saisir votre BIC",
+        "holder": "Veuillez saisir le nom du titulaire du compte",
+        "label": "Veuillez saisir l'intitulé du compte"
       }
     }
   },

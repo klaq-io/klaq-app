@@ -5,7 +5,9 @@ import { Button } from "components";
 export const Settings = () => {
   return (
     <PageLayout>
-      <h1>Settings</h1>
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold">Settings</h1>
+      </div>
     </PageLayout>
   );
 };

@@ -16,7 +16,7 @@ export const PageLayout = (props: Props) => {
       </div>
 
       <div className="lg:pl-64">
-        <Navbar />
+        {/* <Navbar /> */}
         <main className="py-10">
           {isLoading ? (
             <div className="flex min-h-screen">
