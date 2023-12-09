@@ -116,7 +116,6 @@ export const useRequestResetPassword = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
-      navigate(PATHS.LOGIN);
       return res.data;
     } catch (error: any) {
       const code = error.response.data.code

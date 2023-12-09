@@ -1095,6 +1095,15 @@
         "change": "Changer le logo"
       }
     },
+    "change-password": {
+      "header": "Réinitialiser mon mot de passe",
+      "description": "Un email vous sera envoyé pour réinitialiser votre mot de passe.",
+      "send-mail": {
+        "header": "M'envoyer un email de réinitialisation",
+        "description": "Un email vous sera envoyé pour réinitialiser votre mot de passe à l'adresse <b>{mail}</b>.",
+        "button": "Envoyer l'email"
+      }
+    },
     "personal": {
       "header": "Informations personnels",
       "description": "Ces informations ne seront pas partagées.",
@@ -1371,6 +1380,10 @@
       "copy-clipboard": {
         "title": "Copié dans le presse-papier",
         "message": "Le code a bien été copié dans le presse-papier"
+      },
+      "reset-password-mail-sent": {
+        "title": "Email envoyé",
+        "message": "Un email vous a été envoyé pour réinitialiser votre mot de passe"
       }
     },
     "error": {
