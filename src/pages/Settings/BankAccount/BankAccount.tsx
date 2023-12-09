@@ -4,17 +4,36 @@ import { PageLayout } from "layouts";
 import { useIntl } from "react-intl";
 import { initialValues, validationSchema } from "./form";
 import { PublicInformationSkeleton } from "../Profile/Skeleton";
+import {
+  useAddBankAccountDetails,
+  useFetchBankAccountDetails,
+} from "redux/BankAccountDetails/hooks";
+import { useEffect } from "react";
 
 export const BankAccount = () => {
   const intl = useIntl();
 
+  const [{ isLoading, data }, fetchBankAccountDetails] =
+    useFetchBankAccountDetails();
+
+  const [{ isLoading: isSubmitting }, addBankAccountDetails] =
+    useAddBankAccountDetails();
+
   const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: (values) => {
-      alert(values);
+    initialValues: {
+      ...initialValues,
+      ...data,
     },
+    validationSchema,
+    onSubmit: async (values) => {
+      await addBankAccountDetails(values);
+    },
+    enableReinitialize: true,
   });
+
+  useEffect(() => {
+    fetchBankAccountDetails();
+  }, []);
   return (
     <PageLayout>
       <SettingsNavbar />
@@ -33,7 +52,7 @@ export const BankAccount = () => {
             </p>
           </div>
 
-          {false ? (
+          {isLoading ? (
             <PublicInformationSkeleton />
           ) : (
             <form
@@ -48,9 +67,11 @@ export const BankAccount = () => {
                         id: "settings.bank-account.label.iban",
                       })}
                       placeholder="DE89 3704 0044 0532 0130 00"
+                      name="accountIBAN"
+                      onChange={formik.handleChange}
+                      value={formik.values.accountIBAN}
                     />
-                    {formik.errors.iban?.ibanNumber &&
-                    formik.touched.iban?.ibanNumber ? (
+                    {formik.errors.accountIBAN && formik.touched.accountIBAN ? (
                       <p className="mt-2 text-sm text-danger-600">
                         {intl.formatMessage({
                           id: `settings.bank-account.error.iban`,
@@ -64,9 +85,12 @@ export const BankAccount = () => {
                         id: "settings.bank-account.label.bic-swift",
                       })}
                       placeholder="COBADEFFXXX"
+                      name="accountBicSwift"
+                      onChange={formik.handleChange}
+                      value={formik.values.accountBicSwift}
                     />
-                    {formik.errors.iban?.bicSwift &&
-                    formik.touched.iban?.bicSwift ? (
+                    {formik.errors.accountBicSwift &&
+                    formik.touched.accountBicSwift ? (
                       <p className="mt-2 text-sm text-danger-600">
                         {intl.formatMessage({
                           id: `settings.bank-account.error.bic-swift`,
@@ -80,9 +104,12 @@ export const BankAccount = () => {
                         id: "settings.bank-account.label.holder",
                       })}
                       placeholder="John Doe"
+                      name="accountHolder"
+                      onChange={formik.handleChange}
+                      value={formik.values.accountHolder}
                     />
-                    {formik.errors.iban?.ibanHolderName &&
-                    formik.touched.iban?.ibanHolderName ? (
+                    {formik.errors.accountHolder &&
+                    formik.touched.accountHolder ? (
                       <p className="mt-2 text-sm text-danger-600">
                         {intl.formatMessage({
                           id: `settings.bank-account.error.holder`,
@@ -96,8 +123,11 @@ export const BankAccount = () => {
                         id: "settings.bank-account.label.label",
                       })}
                       placeholder="Professionel"
+                      name="label"
+                      onChange={formik.handleChange}
+                      value={formik.values.label}
                     />
-                    {formik.errors.iban?.label && formik.touched.iban?.label ? (
+                    {formik.errors.label && formik.touched.label ? (
                       <p className="mt-2 text-sm text-danger-600">
                         {intl.formatMessage({
                           id: `settings.bank-account.error.label`,
@@ -119,6 +149,7 @@ export const BankAccount = () => {
                   variant="contained"
                   color="primary"
                   size="lg"
+                  isLoading={isSubmitting}
                 >
                   {intl.formatMessage({
                     id: "settings.button.submit",
