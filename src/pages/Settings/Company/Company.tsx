@@ -3,7 +3,7 @@ import { PageLayout } from "../../../layouts";
 import { useIntl } from "react-intl";
 import { initialValues } from "./form";
 import { useFormik } from "formik";
-import { Button, MapAutocompleteInput } from "components";
+import { Button, MapAutocompleteInput, SettingsNavbar } from "components";
 import {
   useFetchCompany,
   useUpdateCompany,
@@ -84,6 +84,7 @@ export const Company: FC = () => {
 
   return (
     <PageLayout>
+      <SettingsNavbar />
       <div className="space-y-10 divide-y divide-gray-900/10">
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
           <div className="px-4 sm:px-0">

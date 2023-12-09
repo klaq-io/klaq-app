@@ -9,6 +9,7 @@ import {
   DocumentDuplicateIcon,
   ChevronUpIcon,
   ChevronDownIcon,
+  ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 import {
   Button,
@@ -34,6 +35,9 @@ import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
 import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
+import { PaymentMethod } from "interface/Invoice/paymentMethod.interface";
+import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
+import { PATHS } from "routes";
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
@@ -43,6 +47,8 @@ export const InvoiceGenerate = () => {
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
+
+  const [{ data }, fetchBankAccountsDetails] = useFetchBankAccountDetails();
 
   const invoiceNumber = "F-2023-0001";
 
@@ -195,6 +201,7 @@ export const InvoiceGenerate = () => {
   useEffect(() => {
     fetchMainEvents();
     fetchProducts();
+    fetchBankAccountsDetails();
     formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
   }, []);
 
@@ -811,16 +818,51 @@ export const InvoiceGenerate = () => {
                       onChange={formik.handleChange}
                       value={formik.values.paymentType}
                     >
-                      <option value="bank-transfer">Virement bancaire</option>
-                      <option value="check">Chèque</option>
-                      <option value="cash">Espèces</option>
-                      <option value="credit-card">Carte bancaire</option>
-                      <option value="paypal" disabled>
+                      <option value={PaymentMethod.TRANSFER}>
+                        Virement bancaire
+                      </option>
+                      <option value={PaymentMethod.CHECK}>Chèque</option>
+                      <option value={PaymentMethod.CASH}>Espèces</option>
+                      <option value={PaymentMethod.CREDIT_CARD}>
+                        Carte bancaire
+                      </option>
+                      <option value={PaymentMethod.PAYPAL} disabled>
                         Paypal - bientôt
                       </option>
-                      <option value="other">Autre</option>
+                      <option value={PaymentMethod.OTHER}>Autre</option>
                     </SelectField>
-                    {/* TODO: add iban if bank transfer */}
+                    {formik.values.paymentType === PaymentMethod.TRANSFER &&
+                      data &&
+                      data.accountIBAN && (
+                        <SelectField
+                          className="col-span-1"
+                          label="Compte bancaire"
+                        >
+                          <option
+                            value={data.accountIBAN}
+                          >{`${data.label} - ${data.accountIBAN}`}</option>
+                        </SelectField>
+                      )}
+
+                    {formik.values.paymentType === PaymentMethod.TRANSFER &&
+                      data === null && (
+                        <div className="col-span-1">
+                          <Label htmlFor="bank-account">Compte bancaire</Label>
+                          <Button
+                            type="button"
+                            variant="text"
+                            color="secondary"
+                            leadingIcon={
+                              <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                            }
+                            onClick={() => {
+                              window.open(PATHS.BANK_ACCOUNT, "_blank");
+                            }}
+                          >
+                            Configurer mes informations bancaires
+                          </Button>
+                        </div>
+                      )}
                   </div>
                   <CardContainer className="ring-1 ring-gray-200 px-4 py-5 sm:p-6 flex justify-between items-center">
                     <div className="flex">

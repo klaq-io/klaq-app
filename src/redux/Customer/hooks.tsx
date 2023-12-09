@@ -60,16 +60,16 @@ export const useCreateCustomer = () => {
         dispatch(setCustomer(response.data));
       } catch (error: any) {
         console.error(error);
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : "default";
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`toast.success.${error.response.data.code.toLowerCase()}.title`}
-            messageId={`toast.success.${error.response.data.code.toLowerCase()}.message`}
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
           />,
-          {
-            duration: 1500,
-            position: "top-right",
-          }
+          { duration: 1500, position: "top-right" }
         );
         return error.data;
       }

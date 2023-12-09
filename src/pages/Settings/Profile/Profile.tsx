@@ -1,5 +1,5 @@
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { Button } from "components";
+import { Button, SettingsNavbar } from "components";
 import { format, subYears } from "date-fns";
 import { useFormik } from "formik";
 import { PageLayout } from "layouts";
@@ -101,6 +101,7 @@ export const Profile: FC<Props> = (props: Props) => {
 
   return (
     <PageLayout>
+      <SettingsNavbar />
       <div className="space-y-8 divide-y divide-gray-900/10">
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
           <div className="px-4 sm:px-0">

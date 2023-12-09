@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  BankAccount,
   Calendar,
   Company,
   ConfirmMail,
@@ -155,6 +156,7 @@ function App() {
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />
+          <Route path={PATHS.BANK_ACCOUNT} element={<BankAccount />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
           <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />

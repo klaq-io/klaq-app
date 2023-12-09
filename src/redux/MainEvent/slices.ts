@@ -11,7 +11,6 @@ export const mainEventSlice = createSlice({
         state.mainEvents.length === 0
           ? [action.payload]
           : state.mainEvents.map((mainEvent: MainEvent) => {
-              console.log(mainEvent.id, action.payload.id);
               if (mainEvent.id === action.payload.id) {
                 return action.payload;
               }

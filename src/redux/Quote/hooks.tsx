@@ -15,7 +15,7 @@ export const useFetchQuote = () => {
       const { data } = await webClient.get(`/quote/${id}`);
       dispatch(setQuote(data));
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -28,7 +28,7 @@ export const useFetchQuotes = () => {
       const { data } = await webClient.get(`/quote`);
       dispatch(setQuotes(data));
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -63,7 +63,7 @@ export const useCreateQuote = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -98,7 +98,7 @@ export const useEditQuote = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -139,7 +139,7 @@ export const useSendQuote = () => {
           />,
           { duration: 1500, position: "top-right" }
         );
-        console.log(error);
+        console.error(error);
       }
     }
   );
@@ -158,7 +158,7 @@ export const useUpdateQuoteStatus = () => {
       });
     } catch (error: any) {
       dispatch(setQuote({ ...quote, status: currentStatus }));
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -189,7 +189,7 @@ export const useDownloadQuote = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
-      console.log(error);
+      console.error(error);
     }
   });
 };
@@ -213,7 +213,7 @@ export const useGetQuoteBlob = () => {
         />,
         { duration: 1500, position: "top-right" }
       );
-      console.log(error);
+      console.error(error);
     }
   });
 };

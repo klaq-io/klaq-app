@@ -9,7 +9,12 @@ import { useSelector } from "react-redux";
 import { getUser } from "redux/Login/selectors";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import { Button, Skeleton, ToastNotification } from "components";
+import {
+  Button,
+  SettingsNavbar,
+  Skeleton,
+  ToastNotification,
+} from "components";
 import { DocumentDuplicateIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { ReactComponent as GoogleIcon } from "assets/icon-google.svg";
 
@@ -62,6 +67,7 @@ export const Integrations = () => {
 
   return (
     <PageLayout>
+      <SettingsNavbar />
       <div className="space-y-8 divide-y divide-gray-900/10">
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
           <div className="px-4 sm:px-0">
