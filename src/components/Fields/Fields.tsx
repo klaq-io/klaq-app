@@ -26,16 +26,18 @@ export const Label = (props: LabelProps) => {
 type TextFieldProps = {
   label?: string;
   variant?: "klaq" | "black";
+  error?: string | null;
 } & Omit<React.ComponentPropsWithoutRef<"input">, "id">;
 
 export const TextField = (props: TextFieldProps) => {
-  const { label, type = "text", variant = "klaq", className } = props;
+  const { label, type = "text", variant = "klaq", className, error } = props;
   const id = useId();
 
   return (
     <div className={className}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <input id={id} type={type} {...props} className={formClasses[variant]} />
+      {error && <p className="mt-2 text-sm text-danger-600">{error}</p>}
     </div>
   );
 };

@@ -18,6 +18,7 @@ import {
   EventDetails2,
   Events,
   Integrations,
+  InvoiceDetailsPage,
   InvoiceGenerate,
   Login,
   MainEventDetails,
@@ -148,10 +149,13 @@ function App() {
               </AnimatePresence>
             }
           />
-
           <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.INVOICES} element={<Invoice />} />
+          <Route
+            path={PATHS.INVOICE_DETAILS}
+            element={<InvoiceDetailsPage />}
+          />
           <Route path={PATHS.INVOICE_GENERATE} element={<InvoiceGenerate />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />

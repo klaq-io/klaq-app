@@ -1,8 +1,12 @@
+import {
+  DiscountType,
+  PaymentMethod,
+} from "interface/Invoice/invoice.interface";
 import * as Yup from "yup";
 
 export const initialValues = {
   issuedOn: "",
-  validUntil: "45",
+  validUntil: "",
   products: [
     {
       quantity: 1,
@@ -11,7 +15,7 @@ export const initialValues = {
       vtaRate: "20",
       price: 0,
       discount: 0,
-      discountType: "percent",
+      discountType: DiscountType.PERCENT,
       total: 0,
     },
   ],
@@ -24,13 +28,13 @@ export const initialValues = {
     zipcode: "",
   },
   object: "",
-  paymentType: "cash",
+  paymentMethod: PaymentMethod.CHECK,
   onlinePaymentAccepted: false,
 };
 
 export const validationSchema = Yup.object().shape({
-  issuedOn: Yup.date().required("Required"),
-  validUntil: Yup.date().required("Required"),
+  issuedOn: Yup.string().required("Required"),
+  validUntil: Yup.string().required("Required"),
   products: Yup.array().of(
     Yup.object().shape({
       quantity: Yup.number().required("Required"),
@@ -38,7 +42,13 @@ export const validationSchema = Yup.object().shape({
       description: Yup.string().required("Required"),
       vtaRate: Yup.string().required("Required"),
       price: Yup.number().required("Required"),
+      discount: Yup.number().required("Required"),
+      discountType: Yup.string().required("Required"),
+      total: Yup.number().required("Required"),
     })
   ),
-  orderFormId: Yup.string().max(16),
+  orderFormId: Yup.string(),
+  object: Yup.string(),
+  paymentMethod: Yup.string().required("Required"),
+  onlinePaymentAccepted: Yup.boolean().required("Required"),
 });

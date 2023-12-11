@@ -921,7 +921,8 @@
       },
       "short-description": {
         "label": "Description courte",
-        "placeholder": "Saisissez la description de votre produit"
+        "placeholder": "Saisissez la description de votre produit",
+        "error": "Les champs nom, description courte, prix et quantité sont obligatoires"
       },
       "default-vta-rate": {
         "label": "Taux de TVA"
@@ -1642,6 +1643,10 @@
       "bank-account-failed-to-create": {
         "title": "Erreur",
         "message": "Impossible de créer le compte bancaire"
+      },
+      "invoice-get-error": {
+        "title": "Erreur",
+        "message": "La facture n'a pas pu être récupérée"
       },
       "default": {
         "title": "Erreur",

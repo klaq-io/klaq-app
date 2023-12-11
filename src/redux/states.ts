@@ -8,6 +8,7 @@ export const initialState: {
   quotes: any;
   mainEvents: any;
   notifications: any;
+  invoices: any;
 } = {
   user: {},
   company: {},
@@ -18,4 +19,5 @@ export const initialState: {
   quotes: [],
   mainEvents: [],
   notifications: [],
+  invoices: [],
 };

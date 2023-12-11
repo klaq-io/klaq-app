@@ -25,7 +25,7 @@ export const PageLayout = (props: Props) => {
               </div>
             </div>
           ) : (
-            <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+            <div className="px-4 sm:px-6 lg:px-8 min-h-screen">{children}</div>
           )}
         </main>
       </div>

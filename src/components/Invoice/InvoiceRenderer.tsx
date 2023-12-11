@@ -1,16 +1,11 @@
 import {
-  Page,
   Document,
-  Image,
-  StyleSheet,
-  View,
-  Text,
   Font,
+  Page,
+  StyleSheet,
+  Text,
+  View,
 } from "@react-pdf/renderer";
-import { InvoiceStatus, NewInvoice } from "interface/Invoice/invoice.interface";
-import { InvoiceContext } from "pages/Billing/Invoice/InvoiceContext";
-import { Customer } from "redux/Customer/slices";
-import { User } from "redux/Login/slice";
 
 {
   /* <InvoiceContext.Provider
