@@ -868,6 +868,134 @@
     }
   },
 
+  "invoice": {
+    "header": {
+      "final": "Facture {number}",
+      "provisional": "Facture provisoire"
+    },
+    "description": "Lorem ipsum",
+    "informations": {
+      "title": "Informations générales"
+    },
+    "recipient": {
+      "title": "Destinataire"
+    },
+    "details": {
+      "title": "Détails"
+    },
+    "payment-conditions": {
+      "title": "Conditions de règlement"
+    },
+    "status": {
+      "draft": "✍🏻 Provisoire",
+      "paid": "💰 Payé",
+      "canceled": "❌ Annulée",
+      "late": "⏰ En retard",
+      "sent": "💸 Envoyé"
+    }
+  },
+
+  "invoice-generate": {
+    "header": "Nouvelle facture",
+    "description": "Lorem ipsum",
+    "attach-event": {
+      "title": "Attacher un évènement à cette facture",
+      "info": {
+        "title": "Évènement existant nécessaire",
+        "description": "Pour créer une facture vous devez disposez d'un évènement existant ou en créer un nouveau."
+      }
+    },
+    "informations": {
+      "title": "Informations",
+      "invoice-number": {
+        "label": "Numéro de facture automatique"
+      },
+      "currency": {
+        "label": "Devise",
+        "EUR": "Euro"
+      },
+      "issued-on": {
+        "label": "Délivré le"
+      },
+      "due-on": {
+        "label": "Date d'échéance",
+        "days": {
+          "15": "Dans 15 jours",
+          "30": "Dans 30 jours",
+          "45": "Dans 45 jours",
+          "60": "Dans 60 jours",
+          "90": "Dans 90 jours"
+        }
+      },
+      "order-form-id": {
+        "label": "Bon de commande",
+        "placeholder": "Saisissez le numéro de bon de commande si vous en disposez d'un"
+      },
+      "object": {
+        "label": "Objet de la facture",
+        "placeholder": "Saisissez l'objet de la facture"
+      }
+    },
+    "products": {
+      "title": "Produits",
+      "name": {
+        "label": "Nom du produit"
+      },
+      "short-description": {
+        "label": "Description courte",
+        "placeholder": "Saisissez la description de votre produit",
+        "error": "Les champs nom, description courte, prix et quantité sont obligatoires"
+      },
+      "default-vta-rate": {
+        "label": "Taux de TVA"
+      },
+      "default-price": { "label": "Prix H.T." },
+      "default-price-with-vta": {
+        "label": "Prix T.T.C."
+      },
+      "quantity": { "label": "Quantité" },
+      "discount": {
+        "label": "Réduction",
+        "type": {
+          "percent": "Pourcentage",
+          "amount": "Montant"
+        }
+      },
+      "total": {
+        "label": {
+          "subtotal": "Total H.T.",
+          "total": "Total T.T.C."
+        }
+      }
+    },
+    "total": {
+      "title": "Total",
+      "label": {
+        "general-discount": "Réduction générale",
+        "subtotal": "Total H.T.",
+        "total": "Total T.T.C.",
+        "tax": "Montant total de la TVA",
+        "subtotal-discount": "Total H.T. final"
+      }
+    },
+    "payment-condition": {
+      "title": "Conditions de règlement",
+      "payment-method": {
+        "label": "Type de réglement",
+        "account": "Compte bancaire"
+      },
+      "valid-until": { "label": "Date d'échéance" }
+    },
+    "payment-method": {
+      "transfer": "Virement bancaire",
+      "check": "Chèque",
+      "cash": "Espèces",
+      "credit_card": "Carte bancaire",
+      "paypal": "Paypal",
+      "other": "Autre"
+    }
+  },
+
   "quote": {
     "header": "Devis",
     "description": "Lorem ipsum",
@@ -1566,6 +1694,10 @@
       "bank-account-failed-to-create": {
         "title": "Erreur",
         "message": "Impossible de créer le compte bancaire"
+      },
+      "invoice-get-error": {
+        "title": "Erreur",
+        "message": "La facture n'a pas pu être récupérée"
       },
       "default": {
         "title": "Erreur",

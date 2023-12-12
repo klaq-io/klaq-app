@@ -8,6 +8,7 @@ import { productItemSlice } from "./Products/slices";
 import { quoteSlice } from "./Quote/slices";
 import { mainEventSlice } from "./MainEvent/slices";
 import { notificationSlice } from "./Notification/slices";
+import { invoiceSlice } from "./Invoice/slices";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     quotes: quoteSlice.reducer,
     mainEvents: mainEventSlice.reducer,
     notifications: notificationSlice.reducer,
+    invoices: invoiceSlice.reducer,
   },
 });
 

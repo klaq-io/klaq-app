@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 const formClasses = {
-  klaq: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6",
+  klaq: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200",
   black:
     "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6",
 };
@@ -26,16 +26,18 @@ export const Label = (props: LabelProps) => {
 type TextFieldProps = {
   label?: string;
   variant?: "klaq" | "black";
+  error?: string | null;
 } & Omit<React.ComponentPropsWithoutRef<"input">, "id">;
 
 export const TextField = (props: TextFieldProps) => {
-  const { label, type = "text", variant = "klaq" } = props;
+  const { label, type = "text", variant = "klaq", className, error } = props;
   const id = useId();
 
   return (
-    <div>
+    <div className={className}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <input id={id} type={type} {...props} className={formClasses[variant]} />
+      {error && <p className="mt-2 text-sm text-danger-600">{error}</p>}
     </div>
   );
 };
@@ -45,11 +47,11 @@ type SelectFieldProps = {
 } & Omit<React.ComponentPropsWithoutRef<"select">, "id">;
 
 export const SelectField = (props: SelectFieldProps) => {
-  const { label } = props;
+  const { label, className } = props;
   const id = useId();
 
   return (
-    <div>
+    <div className={className}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <select id={id} {...props} className={formClasses["klaq"]} />
     </div>

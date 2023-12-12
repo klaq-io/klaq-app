@@ -1,6 +1,7 @@
 import {
   ArrowLeftIcon,
   BanknotesIcon,
+  BuildingLibraryIcon,
   CalendarDaysIcon,
   ClipboardDocumentCheckIcon,
   EnvelopeIcon,
@@ -133,8 +134,12 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
         <div className="flex flex-col space-y-2">
           <div className="flex flex-row overflow-hidden px-6 py-4 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
             <div className="flex flex-col space-y-4">
-              <span className="border border-gray-200 rounded-md px-3.5 py-2.5 font-semibold text-gray-600 bg-gray-200">
-                {customer?.name?.at(0)}
+              <span className="border border-gray-200 rounded-md px-2.5 py-2.5 font-semibold text-gray-600 bg-gray-200">
+                {customer?.type === CustomerType.PRIVATE ? (
+                  <UserIcon className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <BuildingLibraryIcon className="h-5 w-5" aria-hidden="true" />
+                )}
               </span>
             </div>
             <div className="flex flex-col space-y-2 ml-10">
