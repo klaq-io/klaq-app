@@ -45,6 +45,7 @@ import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
 import TransitionComponent from "./utils/Transitions";
 import { Invoice } from "pages/Billing/Invoice/Invoice";
+import { InvoiceEditionPage } from "pages/Billing/Invoice/InvoiceEdit";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -157,6 +158,7 @@ function App() {
             element={<InvoiceDetailsPage />}
           />
           <Route path={PATHS.INVOICE_GENERATE} element={<InvoiceGenerate />} />
+          <Route path={PATHS.INVOICE_EDIT} element={<InvoiceEditionPage />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />

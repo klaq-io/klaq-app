@@ -104,7 +104,6 @@ export const InvoiceGenerate = () => {
     validationSchema,
     onSubmit: async (values) => {
       await createInvoice(values, mainEventId);
-      alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -136,7 +135,6 @@ export const InvoiceGenerate = () => {
               quantity: 1,
               discount: 0,
               discountType: DiscountType.PERCENT,
-              total: 0,
             }
           : product
       ),
@@ -744,7 +742,7 @@ export const InvoiceGenerate = () => {
                                 </span>
                               </div>
                               <input
-                                value={getProductTotal(index)}
+                                value={getProductTotal(index).toFixed(2)}
                                 type="number"
                                 className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200"
                                 disabled

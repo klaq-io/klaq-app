@@ -22,13 +22,15 @@ import EditCustomer from "pages/Customers/EditCustomer";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
 import { useFetchInvoice } from "redux/Invoice/hooks";
 import { getInvoice } from "redux/Invoice/selectors";
+import { PATHS } from "routes";
 
 export const InvoiceDetailsPage = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [{ isLoading }, fetchInvoice] = useFetchInvoice();
@@ -64,6 +66,11 @@ export const InvoiceDetailsPage = () => {
   const hasAtLeastOneDiscount =
     !!invoice &&
     invoice.products.some((product) => Number(product.discount) !== 0);
+
+  const handleGoToEdit = () => {
+    if (!invoice) return;
+    navigate(`${PATHS.INVOICE}/${invoice.id}/edit`);
+  };
 
   useEffect(() => {
     fetchInvoice(id);
@@ -171,7 +178,7 @@ export const InvoiceDetailsPage = () => {
                             </td>
                           )}
                           <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
-                            {getProductSubtotal(product)} €
+                            {getProductSubtotal(product).toFixed(2)} €
                           </td>
                         </tr>
                       ))}
@@ -221,7 +228,10 @@ export const InvoiceDetailsPage = () => {
                     </button>
                   </Tooltip>
                   <Tooltip text="Editer" position="bottom">
-                    <button className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none">
+                    <button
+                      className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none"
+                      onClick={handleGoToEdit}
+                    >
                       <PencilSquareIcon className="h-5 w-5" />
                     </button>
                   </Tooltip>

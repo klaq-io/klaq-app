@@ -27,6 +27,31 @@ export const useCreateInvoice = () => {
   });
 };
 
+export const useUpdateInvoice = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  return useAsyncCallback(
+    async (values: NewInvoice, mainEventId: string, invoiceId: string) => {
+      try {
+        const { data } = await webClient.put(
+          `/invoice/${invoiceId}/${mainEventId}`,
+          values
+        );
+        dispatch(setInvoice(data));
+        navigate(`${PATHS.INVOICE}/${data.id}/details`);
+        return data;
+      } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : null;
+        KlaqToast("danger", code);
+        console.error(error);
+      }
+    }
+  );
+};
+
 export const useFetchInvoice = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

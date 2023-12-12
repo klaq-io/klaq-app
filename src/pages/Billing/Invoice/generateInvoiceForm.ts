@@ -16,7 +16,6 @@ export const initialValues = {
       price: 0,
       discount: 0,
       discountType: DiscountType.PERCENT,
-      total: 0,
     },
   ],
   orderFormId: "",
@@ -44,7 +43,6 @@ export const validationSchema = Yup.object().shape({
       price: Yup.number().required("Required"),
       discount: Yup.number().required("Required"),
       discountType: Yup.string().required("Required"),
-      total: Yup.number().required("Required"),
     })
   ),
   orderFormId: Yup.string(),
