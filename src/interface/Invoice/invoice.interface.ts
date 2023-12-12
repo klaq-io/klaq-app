@@ -4,13 +4,22 @@ export type NewInvoiceProduct = Omit<InvoiceProduct, "id">;
 
 export type NewInvoice = Omit<
   Invoice,
-  "id" | "status" | "documentId" | "number" | "mainEvent" | "products"
+  | "id"
+  | "status"
+  | "documentId"
+  | "number"
+  | "mainEvent"
+  | "products"
+  | "createdAt"
+  | "updatedAt"
 > & {
   products: NewInvoiceProduct[];
 };
 
 export interface Invoice {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   issuedOn: Date | string;
   validUntil: Date | string;
   status: InvoiceStatus;

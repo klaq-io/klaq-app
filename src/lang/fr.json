@@ -869,8 +869,30 @@
   },
 
   "invoice": {
-    "header": "Facture",
-    "description": "Lorem ipsum"
+    "header": {
+      "final": "Facture {number}",
+      "provisional": "Facture provisoire"
+    },
+    "description": "Lorem ipsum",
+    "informations": {
+      "title": "Informations générales"
+    },
+    "recipient": {
+      "title": "Destinataire"
+    },
+    "details": {
+      "title": "Détails"
+    },
+    "payment-conditions": {
+      "title": "Conditions de règlement"
+    },
+    "status": {
+      "draft": "✍🏻 Provisoire",
+      "paid": "💰 Payé",
+      "canceled": "❌ Annulée",
+      "late": "⏰ En retard",
+      "sent": "💸 Envoyé"
+    }
   },
 
   "invoice-generate": {
@@ -955,6 +977,22 @@
         "tax": "Montant total de la TVA",
         "subtotal-discount": "Total H.T. final"
       }
+    },
+    "payment-condition": {
+      "title": "Conditions de règlement",
+      "payment-method": {
+        "label": "Type de réglement",
+        "account": "Compte bancaire"
+      },
+      "valid-until": { "label": "Date d'échéance" }
+    },
+    "payment-method": {
+      "transfer": "Virement bancaire",
+      "check": "Chèque",
+      "cash": "Espèces",
+      "credit_card": "Carte bancaire",
+      "paypal": "Paypal",
+      "other": "Autre"
     }
   },
 

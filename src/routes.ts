@@ -40,7 +40,7 @@ export const PATHS = {
   INVOICE: "/invoice",
   INVOICE_DETAILS: "/invoice/:id/details",
   INVOICE_EDIT: "/invoice/:id/edit",
-  INVOICE_GENERATE: "/invoice/generate",
+  INVOICE_GENERATE: "/invoice/new",
   BILLING: "/billing",
   INVOICES: "/invoices",
   QUOTES: "/quotes",

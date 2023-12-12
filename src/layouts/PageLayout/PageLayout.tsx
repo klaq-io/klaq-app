@@ -15,9 +15,9 @@ export const PageLayout = (props: Props) => {
         <Sidebar />
       </div>
 
-      <div className="lg:pl-64">
+      <div className="lg:pl-64 min-h-screen">
         {/* <Navbar /> */}
-        <main className="py-10">
+        <main className="py-8 h-screen">
           {isLoading ? (
             <div className="flex min-h-screen">
               <div className="m-auto">
@@ -25,7 +25,9 @@ export const PageLayout = (props: Props) => {
               </div>
             </div>
           ) : (
-            <div className="px-4 sm:px-6 lg:px-8 min-h-screen">{children}</div>
+            <div className="px-4 sm:px-6 lg:px-8 h-full overflow-y-scroll overflow-x-hidden">
+              {children}
+            </div>
           )}
         </main>
       </div>

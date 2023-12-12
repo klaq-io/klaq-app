@@ -224,8 +224,6 @@ export const InvoiceGenerate = () => {
     formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
   }, []);
 
-  console.log(formik.errors);
-
   return (
     <PageLayout>
       <div className="md:flex md:items-center md:justify-between">
@@ -822,7 +820,9 @@ export const InvoiceGenerate = () => {
                   </div>
                   <div className="flex flex-col space-y-4">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">
-                      Conditions de règlement
+                      {intl.formatMessage({
+                        id: "invoice-generate.payment-condition.title",
+                      })}
                     </h1>
                     <div className="grid grid-cols-3 gap-4">
                       {formik.values.issuedOn && (
@@ -859,23 +859,44 @@ export const InvoiceGenerate = () => {
                       )}
                       <SelectField
                         className="col-span-1"
-                        label="Type de règlement"
+                        label={intl.formatMessage({
+                          id: "invoice-generate.payment-condition.payment-method.label",
+                        })}
                         name="paymentMethod"
                         onChange={formik.handleChange}
                         value={formik.values.paymentMethod}
                       >
                         <option value={PaymentMethod.TRANSFER}>
-                          Virement bancaire
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.TRANSFER.toLowerCase()}`,
+                          })}
                         </option>
-                        <option value={PaymentMethod.CHECK}>Chèque</option>
-                        <option value={PaymentMethod.CASH}>Espèces</option>
+                        <option value={PaymentMethod.CHECK}>
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.CHECK.toLowerCase()}`,
+                          })}
+                        </option>
+                        <option value={PaymentMethod.CASH}>
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.CASH.toLowerCase()}`,
+                          })}
+                        </option>
                         <option value={PaymentMethod.CREDIT_CARD}>
-                          Carte bancaire
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.CREDIT_CARD.toLowerCase()}`,
+                          })}
                         </option>
                         <option value={PaymentMethod.PAYPAL} disabled>
-                          Paypal - bientôt
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.PAYPAL.toLowerCase()}`,
+                          })}{" "}
+                          - bientôt
                         </option>
-                        <option value={PaymentMethod.OTHER}>Autre</option>
+                        <option value={PaymentMethod.OTHER}>
+                          {intl.formatMessage({
+                            id: `invoice-generate.payment-method.${PaymentMethod.OTHER.toLowerCase()}`,
+                          })}
+                        </option>
                       </SelectField>
                       {formik.values.paymentMethod === PaymentMethod.TRANSFER &&
                         data &&
