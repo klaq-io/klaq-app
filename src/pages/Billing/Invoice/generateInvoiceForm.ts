@@ -29,6 +29,7 @@ export const initialValues = {
   object: "",
   paymentMethod: PaymentMethod.CHECK,
   onlinePaymentAccepted: false,
+  isFinal: false,
 };
 
 export const validationSchema = Yup.object().shape({

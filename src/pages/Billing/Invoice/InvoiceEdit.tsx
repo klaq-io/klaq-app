@@ -37,6 +37,7 @@ import { ProductItem } from "redux/Products/slices";
 import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
 import {
   DiscountType,
+  InvoiceStatus,
   PaymentMethod,
 } from "interface/Invoice/invoice.interface";
 import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
@@ -46,12 +47,14 @@ import {
   useFetchInvoice,
   useUpdateInvoice,
 } from "redux/Invoice/hooks";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getInvoice } from "redux/Invoice/selectors";
+import { KlaqToast } from "utils/KlaqToast";
 
 export const InvoiceEditionPage = () => {
   const intl = useIntl();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
   const [mainEventId, setMainEventId] = useState("");
@@ -241,20 +244,23 @@ export const InvoiceEditionPage = () => {
     formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
   }, []);
 
+  useEffect(() => {
+    if (!invoice) return;
+    if (invoice.status !== InvoiceStatus.DRAFT) {
+      navigate(`${PATHS.INVOICE}/${invoice.id}/details`);
+      KlaqToast("warning", "invoice-already-finalized");
+    }
+  }, [invoice]);
+
   return (
     <PageLayout>
       <div className="md:flex md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             {intl.formatMessage({
-              id: "invoice-generate.header",
+              id: "invoice.header.provisional",
             })}
           </h2>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-            {intl.formatMessage({
-              id: "invoice-generate.description",
-            })}
-          </p>
         </div>
       </div>
       <form onSubmit={formik.handleSubmit}>

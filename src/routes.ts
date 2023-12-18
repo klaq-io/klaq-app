@@ -38,6 +38,8 @@ export const PATHS = {
   QUOTE_SEND_MAIL: "/quote/send/:id",
   QUOTE_EDIT: "/quote/edit/:id/:eventId",
   INVOICE: "/invoice",
+  INVOICE_PDF: "/invoice/:id/pdf",
+  INVOICE_SEND: "/invoice/:id/send",
   INVOICE_DETAILS: "/invoice/:id/details",
   INVOICE_EDIT: "/invoice/:id/edit",
   INVOICE_GENERATE: "/invoice/new",

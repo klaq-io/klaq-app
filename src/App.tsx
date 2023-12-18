@@ -20,6 +20,7 @@ import {
   Integrations,
   InvoiceDetailsPage,
   InvoiceGenerate,
+  InvoiceViewPage,
   Login,
   MainEventDetails,
   NewEvent,
@@ -44,8 +45,9 @@ import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
 import TransitionComponent from "./utils/Transitions";
-import { Invoice } from "pages/Billing/Invoice/Invoice";
+import { InvoicesPage } from "pages/Billing/Invoice/Invoices";
 import { InvoiceEditionPage } from "pages/Billing/Invoice/InvoiceEdit";
+import { InvoiceSendMailPage } from "pages/Billing/Invoice/InvoiceSendMail";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -152,13 +154,15 @@ function App() {
           />
           <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
-          <Route path={PATHS.INVOICES} element={<Invoice />} />
+          <Route path={PATHS.INVOICES} element={<InvoicesPage />} />
           <Route
             path={PATHS.INVOICE_DETAILS}
             element={<InvoiceDetailsPage />}
           />
           <Route path={PATHS.INVOICE_GENERATE} element={<InvoiceGenerate />} />
           <Route path={PATHS.INVOICE_EDIT} element={<InvoiceEditionPage />} />
+          <Route path={PATHS.INVOICE_PDF} element={<InvoiceViewPage />} />
+          <Route path={PATHS.INVOICE_SEND} element={<InvoiceSendMailPage />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />

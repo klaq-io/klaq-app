@@ -9,3 +9,6 @@ export const getInvoice = (
   id
     ? state.invoices.invoices.find((invoice: Invoice) => invoice.id === id)
     : undefined;
+
+export const getInvoices = (state: RootState): Invoice[] =>
+  state.invoices.invoices;

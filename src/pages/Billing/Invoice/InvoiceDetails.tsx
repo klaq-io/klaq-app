@@ -1,7 +1,9 @@
 import { Transition } from "@headlessui/react";
 import {
   ArrowDownTrayIcon,
+  BanknotesIcon,
   BuildingLibraryIcon,
+  CheckBadgeIcon,
   CheckIcon,
   EnvelopeIcon,
   EyeIcon,
@@ -10,7 +12,14 @@ import {
   TrashIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { CardContainer, InvoiceBadge, Label, Tooltip } from "components";
+import {
+  CardContainer,
+  DangerModal,
+  InfoModal,
+  InvoiceBadge,
+  Label,
+  Tooltip,
+} from "components";
 import { format } from "date-fns";
 import {
   DiscountType,
@@ -24,7 +33,13 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
-import { useFetchInvoice } from "redux/Invoice/hooks";
+import {
+  useDeleteInvoice,
+  useDownloadInvoicePDF,
+  useFetchInvoice,
+  useMarkAsFinal,
+  useUpdateInvoiceStatus,
+} from "redux/Invoice/hooks";
 import { getInvoice } from "redux/Invoice/selectors";
 import { PATHS } from "routes";
 
@@ -34,9 +49,17 @@ export const InvoiceDetailsPage = () => {
   const { id } = useParams();
 
   const [{ isLoading }, fetchInvoice] = useFetchInvoice();
+  const [{ isLoading: isUpdatingStatus }, updateInvoiceStatus] =
+    useUpdateInvoiceStatus();
   const invoice = useSelector((state: any) => getInvoice(state, id));
+  const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
+    useDownloadInvoicePDF();
+  const [{ isLoading: isMarkingAsFinal }, markAsFinal] = useMarkAsFinal();
+  const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 
-  const [show, setShow] = useState(false);
+  const [openMarkAsFinalModal, setOpenMarkAsFinalModal] = useState(false);
+  const [openPaidModal, setOpenPaidModal] = useState(false);
+  const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);
 
   const [openNewCustomer, setOpenNewCustomer] = useState(false);
 
@@ -72,13 +95,23 @@ export const InvoiceDetailsPage = () => {
     navigate(`${PATHS.INVOICE}/${invoice.id}/edit`);
   };
 
-  useEffect(() => {
-    fetchInvoice(id);
-  }, []);
+  const handleGoToPDF = () => {
+    if (!invoice) return;
+    navigate(`${PATHS.INVOICE}/${invoice.id}/pdf`);
+  };
+
+  const handleGoToSend = () => {
+    if (!invoice) return;
+    navigate(`${PATHS.INVOICE}/${invoice.id}/send`);
+  };
 
   useEffect(() => {
     fetchInvoice(id);
   }, [openNewCustomer]);
+
+  useEffect(() => {
+    fetchInvoice(id);
+  }, []);
 
   return (
     <PageLayout>
@@ -96,7 +129,7 @@ export const InvoiceDetailsPage = () => {
           >
             <div className="sm:flex sm:space-x-4 h-full">
               <CardContainer className="flex flex-col space-y-8 px-4 py-5 sm:p-6 w-full h-full sm:w-3/4">
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full overflow-y-scroll">
                   <table className="text-left text-sm leading-6">
                     <colgroup>
                       <col className="w-full" />
@@ -222,39 +255,82 @@ export const InvoiceDetailsPage = () => {
               </CardContainer>
               <div className="sm:flex flex-col space-y-4 min-h-fit w-full sm:w-1/4 h-full">
                 <div className="flex justify-between">
-                  <Tooltip text="Finaliser ma facture" position="bottom">
-                    <button className="bg-klaq-500 text-white rounded-full p-3 hover:bg-klaq-700 focus:outline-none">
-                      <CheckIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip text="Editer" position="bottom">
-                    <button
-                      className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none"
-                      onClick={handleGoToEdit}
-                    >
-                      <PencilSquareIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip text="Envoyer par email" position="bottom">
-                    <button className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none">
-                      <EnvelopeIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip text="Voir" position="bottom">
-                    <button className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none">
-                      <EyeIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
+                  {invoice.status === InvoiceStatus.DRAFT ? (
+                    <>
+                      <Tooltip text="Finaliser ma facture" position="bottom">
+                        <button
+                          className="bg-klaq-500 text-white rounded-full p-3 hover:bg-klaq-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                          disabled={isMarkingAsFinal}
+                          onClick={() => setOpenMarkAsFinalModal(true)}
+                        >
+                          <CheckIcon className="h-5 w-5" />
+                        </button>
+                      </Tooltip>
+                      <Tooltip text="Editer" position="bottom">
+                        <button
+                          disabled={isUpdatingStatus}
+                          className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                          onClick={handleGoToEdit}
+                        >
+                          <PencilSquareIcon className="h-5 w-5" />
+                        </button>
+                      </Tooltip>
+                    </>
+                  ) : (
+                    <>
+                      {invoice.status !== InvoiceStatus.PAID && (
+                        <Tooltip text="Facture encaissée" position="bottom">
+                          <button
+                            className="bg-klaq-500 text-white rounded-full p-3 hover:bg-klaq-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                            onClick={() => setOpenPaidModal(true)}
+                          >
+                            <BanknotesIcon className="h-5 w-5" />
+                          </button>
+                        </Tooltip>
+                      )}
+
+                      <Tooltip text="Envoyer par email" position="bottom">
+                        <button
+                          onClick={handleGoToSend}
+                          className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                        >
+                          <EnvelopeIcon className="h-5 w-5" />
+                        </button>
+                      </Tooltip>
+                    </>
+                  )}
                   <Tooltip text="Télécharger" position="bottom">
-                    <button className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none">
+                    <button
+                      onClick={() =>
+                        downloadInvoice(invoice.id, invoice.number)
+                      }
+                      disabled={isDownloadingInvoice}
+                      className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                    >
                       <ArrowDownTrayIcon className="h-5 w-5" />
                     </button>
                   </Tooltip>
-                  <Tooltip text="Supprimer" position="bottom">
-                    <button className="bg-danger-500 text-white rounded-full p-3 hover:bg-danger-700 focus:outline-none">
-                      <TrashIcon className="h-5 w-5" />
+                  <Tooltip text="Voir" position="bottom">
+                    <button
+                      onClick={handleGoToPDF}
+                      className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                    >
+                      <EyeIcon className="h-5 w-5" />
                     </button>
                   </Tooltip>
+
+                  {invoice.status === InvoiceStatus.DRAFT ? (
+                    <>
+                      <Tooltip text="Supprimer" position="bottom">
+                        <button
+                          onClick={() => setOpenDeleteInvoice(true)}
+                          className="bg-danger-500 text-white rounded-full p-3 hover:bg-danger-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                        >
+                          <TrashIcon className="h-5 w-5" />
+                        </button>
+                      </Tooltip>
+                    </>
+                  ) : null}
                 </div>
 
                 <CardContainer className="flex flex-col space-y-4 px-4 py-5 sm:p-6">
@@ -374,6 +450,48 @@ export const InvoiceDetailsPage = () => {
           setOpen={setOpenNewCustomer}
           open={openNewCustomer}
           customer={invoice?.mainEvent.customer}
+        />
+      )}
+      {invoice && (
+        <InfoModal
+          open={openMarkAsFinalModal}
+          setOpen={setOpenMarkAsFinalModal}
+          title="Vous vous apprêtez à convertir ce projet en une facture officielle"
+          message="Une fois cette opération effectuée, la facture recevra un numéro d'identification, pourra être transmise à votre client et ne sera plus modifiable. Veuillez noter que cette action est irréversible. Confirmez-vous cette démarche ?"
+          button2={"Annuler"}
+          button1={"Marqué comme finalisée"}
+          onClick={() => {
+            markAsFinal(invoice.id);
+            setOpenMarkAsFinalModal(false);
+          }}
+        />
+      )}
+      {invoice && (
+        <InfoModal
+          open={openPaidModal}
+          setOpen={setOpenPaidModal}
+          title="Vous vous apprêtez à marquer cette facture comme payée"
+          message="Confirmez-vous cette démarche ?"
+          button2={"Annuler"}
+          button1={"Marqué comme payée"}
+          onClick={() => {
+            updateInvoiceStatus(InvoiceStatus.PAID, invoice.id);
+            setOpenPaidModal(false);
+          }}
+        />
+      )}
+      {invoice && (
+        <DangerModal
+          open={openDeleteInvoice}
+          setOpen={setOpenDeleteInvoice}
+          title="Voulez-vous vraiment supprimer cette facture ?"
+          message="Confirmez-vous cette démarche ?"
+          button2={"Annuler"}
+          button1={"Supprimer"}
+          onClick={() => {
+            deleteInvoice(invoice.id);
+            setOpenDeleteInvoice(false);
+          }}
         />
       )}
     </PageLayout>

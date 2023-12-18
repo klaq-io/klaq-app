@@ -158,7 +158,7 @@ export const Quotes = () => {
           </div>
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-8">
         <div className="flex flex-row justify-between">
           <nav className="flex space-x-4" aria-label="Tabs">
             {tabs.map((tab, idx) => (

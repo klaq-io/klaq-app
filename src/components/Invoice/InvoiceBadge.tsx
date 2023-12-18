@@ -20,6 +20,7 @@ export const InvoiceBadge: FC<InvoiceBadgeProps> = (
     [InvoiceStatus.PAID]: "text-success-700 ring-success-600/20 bg-success-50",
     [InvoiceStatus.LATE]: "text-danger-700 ring-danger-600/20 bg-danger-50",
     [InvoiceStatus.CANCELED]: "text-danger-700 ring-danger-600/20 bg-danger-50",
+    [InvoiceStatus.PENDING]: "text-warning-700 ring-gray-600/20 bg-warning-50",
   };
   return (
     <span

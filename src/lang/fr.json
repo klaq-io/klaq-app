@@ -868,6 +868,40 @@
     }
   },
 
+  "invoices": {
+    "header": "Facture",
+    "description": "Lorem ipsum",
+    "no-invoices": "Ajouter ma première facture",
+    "get-started": "Cliquer pour commencer à ajouter une facture",
+    "button": {
+      "new": "Créer une nouvelle facture"
+    },
+    "status": {
+      "draft": "Provisoire",
+      "paid": "Payée",
+      "canceled": "Annulée",
+      "late": "En retard",
+      "sent": "Envoyé",
+      "pending": "En attente"
+    },
+    "search": "Rechercher un numéro de facture ou un client",
+    "table": {
+      "customer": "Client",
+      "issued-on": "Date d'émission",
+      "valid-until": "Date d'échéance",
+      "status": "Status",
+      "total": "Montant (HT)"
+    },
+    "menu": {
+      "view": "Voir",
+      "send": "Envoyer par mail",
+      "transform-to-invoice": "Transformer en facture",
+      "delete": "Supprimer",
+      "edit": "Éditer",
+      "download": "Télécharger"
+    }
+  },
+
   "invoice": {
     "header": {
       "final": "Facture {number}",
@@ -888,11 +922,21 @@
     },
     "status": {
       "draft": "✍🏻 Provisoire",
-      "paid": "💰 Payé",
+      "paid": "💰 Payée",
       "canceled": "❌ Annulée",
       "late": "⏰ En retard",
-      "sent": "💸 Envoyé"
+      "sent": "💸 Envoyé",
+      "pending": "⌛️ En attente"
     }
+  },
+
+  "invoice-send": {
+    "default": {
+      "subject": "Vous avez reçu une facture",
+      "message": "Bonjour,\n\nVeuillez trouver ci-joint la facture pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
+    },
+    "download": "Télécharger la facture",
+    "send": "Envoyer la facture"
   },
 
   "invoice-generate": {
@@ -1493,6 +1537,28 @@
       "bank-account-details": {
         "title": "Succès",
         "message": "Vos informations bancaires ont bien été enregistrées"
+      },
+      "invoice-edit": {
+        "title": "Succès",
+        "message": "La facture a bien été modifiée"
+      },
+      "invoice-send": {
+        "title": "Succès",
+        "message": "La facture a bien été envoyée"
+      },
+      "invoice-created": {
+        "title": "Succès",
+        "message": "La facture a bien été créée"
+      },
+      "invoice-status": {
+        "title": "Succès",
+        "message": "Le status de la facture a bien été modifié"
+      }
+    },
+    "warning": {
+      "invoice-already-finalized": {
+        "title": "Attention",
+        "message": "La facture a déjà été finalisée, vous ne pouvez plus la modifier"
       }
     },
     "info": {
@@ -1685,6 +1751,10 @@
       "invoice-get-error": {
         "title": "Erreur",
         "message": "La facture n'a pas pu être récupérée"
+      },
+      "invoice-status-update-error": {
+        "title": "Erreur",
+        "message": "Le status de la facture n'a pas pu être modifié"
       },
       "default": {
         "title": "Erreur",

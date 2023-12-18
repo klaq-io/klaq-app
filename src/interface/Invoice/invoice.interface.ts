@@ -31,6 +31,7 @@ export interface Invoice {
   object?: string;
   paymentMethod: PaymentMethod;
   onlinePaymentAccepted: boolean;
+  isFinal: boolean;
 }
 
 export interface InvoiceProduct {
@@ -55,6 +56,7 @@ export enum InvoiceStatus {
   LATE = "late",
   PAID = "paid",
   CANCELED = "canceled",
+  PENDING = "pending",
 }
 
 export enum PaymentMethod {
