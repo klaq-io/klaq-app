@@ -1,26 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  ExclamationTriangleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import { useIntl } from "react-intl";
 
-type Props = {
-  classes?: string;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  title: string;
-  message: string;
-  onClick: () => void;
+type InfoModalProps = {
   button1: string;
   button2: string;
+  title: string;
+  message: string;
+  open: boolean;
+  onClick: () => void;
+  setOpen: (open: boolean) => void;
 };
 
-export const DangerModal = (props: Props) => {
-  const intl = useIntl();
-  const { open, setOpen, title, message, onClick, button1, button2 } = props;
-
+export const InfoModal = (props: InfoModalProps) => {
+  const { button1, button2, title, message, open, setOpen, onClick } = props;
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -59,9 +52,9 @@ export const DangerModal = (props: Props) => {
                   </button>
                 </div>
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-danger-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <ExclamationTriangleIcon
-                      className="h-6 w-6 text-danger-600"
+                  <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <ExclamationCircleIcon
+                      className="h-6 w-6 text-blue-600"
                       aria-hidden="true"
                     />
                   </div>
@@ -78,23 +71,25 @@ export const DangerModal = (props: Props) => {
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-danger-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-danger-500 sm:ml-3 sm:w-auto"
-                    onClick={() => {
-                      setOpen(false);
-                      onClick();
-                    }}
-                  >
-                    {button1}
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
-                  >
-                    {button2}
-                  </button>
+                  <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                    <button
+                      type="button"
+                      className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                      onClick={() => {
+                        setOpen(false);
+                        onClick();
+                      }}
+                    >
+                      {button1}
+                    </button>
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      onClick={() => setOpen(false)}
+                    >
+                      {button2}
+                    </button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -104,5 +99,3 @@ export const DangerModal = (props: Props) => {
     </Transition.Root>
   );
 };
-
-export default DangerModal;

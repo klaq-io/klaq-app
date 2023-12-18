@@ -5,7 +5,9 @@ import {
   ChartPieIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  ClipboardDocumentIcon,
   Cog6ToothIcon,
+  DocumentCheckIcon,
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
@@ -73,22 +75,16 @@ export const Sidebar = (props: Props) => {
       current: currentPage === PATHS.CUSTOMERS,
     },
     {
-      name: "sidebar.billing",
-      href: "#",
-      icon: DocumentDuplicateIcon,
-      current: false,
-      submenu: [
-        {
-          name: "sidebar.invoices",
-          href: PATHS.INVOICES,
-          current: currentPage === PATHS.INVOICES,
-        },
-        {
-          name: "sidebar.quotes",
-          href: PATHS.QUOTES,
-          current: currentPage === PATHS.QUOTES,
-        },
-      ],
+      name: "sidebar.invoices",
+      href: PATHS.INVOICES,
+      icon: DocumentCheckIcon,
+      current: currentPage === PATHS.INVOICES,
+    },
+    {
+      name: "sidebar.quotes",
+      icon: ClipboardDocumentIcon,
+      href: PATHS.QUOTES,
+      current: currentPage === PATHS.QUOTES,
     },
     {
       name: "sidebar.products",
@@ -132,7 +128,7 @@ export const Sidebar = (props: Props) => {
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li key="sidebar">
             <ul role="list" className="-mx-2 space-y-1">
-              {navigation.map((item) =>
+              {navigation.map((item: any) =>
                 item.submenu ? (
                   <Disclosure
                     defaultOpen={item.submenu.some(
@@ -231,7 +227,7 @@ export const Sidebar = (props: Props) => {
                 >
                   <span className="sr-only">Open user menu</span>
 
-                  {isFetchingUser ? (
+                  {!user.logoUrl && isFetchingUser ? (
                     <Skeleton variant="circle" width={8} height={8} />
                   ) : user.logoUrl ? (
                     <img src={user.logoUrl} className="h-8 w-8 rounded-full" />
@@ -251,7 +247,7 @@ export const Sidebar = (props: Props) => {
                     </div>
                   )}
 
-                  {isFetchingUser ? (
+                  {!user.firstName && !user.lastName && isFetchingUser ? (
                     <div className="ml-2">
                       <Skeleton variant="rounded" width={20} height={6} />
                     </div>

@@ -11,6 +11,7 @@
     "@math.gl/web-mercator": "^4.0.0",
     "@react-hooks-library/core": "^0.5.1",
     "@react-oauth/google": "^0.11.1",
+    "@react-pdf/renderer": "^3.1.14",
     "@reduxjs/toolkit": "^1.9.5",
     "@sentry/react": "^7.69.0",
     "@tailwindcss/forms": "^0.5.3",

@@ -868,6 +868,178 @@
     }
   },
 
+  "invoices": {
+    "header": "Facture",
+    "description": "Lorem ipsum",
+    "no-invoices": "Ajouter ma première facture",
+    "get-started": "Cliquer pour commencer à ajouter une facture",
+    "button": {
+      "new": "Créer une nouvelle facture"
+    },
+    "status": {
+      "draft": "Provisoire",
+      "paid": "Payée",
+      "canceled": "Annulée",
+      "late": "En retard",
+      "sent": "Envoyé",
+      "pending": "En attente"
+    },
+    "search": "Rechercher un numéro de facture ou un client",
+    "table": {
+      "customer": "Client",
+      "issued-on": "Date d'émission",
+      "valid-until": "Date d'échéance",
+      "status": "Status",
+      "total": "Montant (HT)"
+    },
+    "menu": {
+      "view": "Voir",
+      "send": "Envoyer par mail",
+      "transform-to-invoice": "Transformer en facture",
+      "delete": "Supprimer",
+      "edit": "Éditer",
+      "download": "Télécharger"
+    }
+  },
+
+  "invoice": {
+    "header": {
+      "final": "Facture {number}",
+      "provisional": "Facture provisoire"
+    },
+    "description": "Lorem ipsum",
+    "informations": {
+      "title": "Informations générales"
+    },
+    "recipient": {
+      "title": "Destinataire"
+    },
+    "details": {
+      "title": "Détails"
+    },
+    "payment-conditions": {
+      "title": "Conditions de règlement"
+    },
+    "status": {
+      "draft": "✍🏻 Provisoire",
+      "paid": "💰 Payée",
+      "canceled": "❌ Annulée",
+      "late": "⏰ En retard",
+      "sent": "💸 Envoyé",
+      "pending": "⌛️ En attente"
+    }
+  },
+
+  "invoice-send": {
+    "default": {
+      "subject": "Vous avez reçu une facture",
+      "message": "Bonjour,\n\nVeuillez trouver ci-joint la facture pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
+    },
+    "download": "Télécharger la facture",
+    "send": "Envoyer la facture"
+  },
+
+  "invoice-generate": {
+    "header": "Nouvelle facture",
+    "description": "Lorem ipsum",
+    "attach-event": {
+      "title": "Attacher un évènement à cette facture",
+      "info": {
+        "title": "Évènement existant nécessaire",
+        "description": "Pour créer une facture vous devez disposez d'un évènement existant ou en créer un nouveau."
+      }
+    },
+    "informations": {
+      "title": "Informations",
+      "invoice-number": {
+        "label": "Numéro de facture automatique"
+      },
+      "currency": {
+        "label": "Devise",
+        "EUR": "Euro"
+      },
+      "issued-on": {
+        "label": "Délivré le"
+      },
+      "due-on": {
+        "label": "Date d'échéance",
+        "days": {
+          "15": "Dans 15 jours",
+          "30": "Dans 30 jours",
+          "45": "Dans 45 jours",
+          "60": "Dans 60 jours",
+          "90": "Dans 90 jours"
+        }
+      },
+      "order-form-id": {
+        "label": "Bon de commande",
+        "placeholder": "Saisissez le numéro de bon de commande si vous en disposez d'un"
+      },
+      "object": {
+        "label": "Objet de la facture",
+        "placeholder": "Saisissez l'objet de la facture"
+      }
+    },
+    "products": {
+      "title": "Produits",
+      "name": {
+        "label": "Nom du produit"
+      },
+      "short-description": {
+        "label": "Description courte",
+        "placeholder": "Saisissez la description de votre produit",
+        "error": "Les champs nom, description courte, prix et quantité sont obligatoires"
+      },
+      "default-vta-rate": {
+        "label": "Taux de TVA"
+      },
+      "default-price": { "label": "Prix H.T." },
+      "default-price-with-vta": {
+        "label": "Prix T.T.C."
+      },
+      "quantity": { "label": "Quantité" },
+      "discount": {
+        "label": "Réduction",
+        "type": {
+          "percent": "Pourcentage",
+          "amount": "Montant"
+        }
+      },
+      "total": {
+        "label": {
+          "subtotal": "Total H.T.",
+          "total": "Total T.T.C."
+        }
+      }
+    },
+    "total": {
+      "title": "Total",
+      "label": {
+        "general-discount": "Réduction générale",
+        "subtotal": "Total H.T.",
+        "total": "Total T.T.C.",
+        "tax": "Montant total de la TVA",
+        "subtotal-discount": "Total H.T. final"
+      }
+    },
+    "payment-condition": {
+      "title": "Conditions de règlement",
+      "payment-method": {
+        "label": "Type de réglement",
+        "account": "Compte bancaire"
+      },
+      "valid-until": { "label": "Date d'échéance" }
+    },
+    "payment-method": {
+      "transfer": "Virement bancaire",
+      "check": "Chèque",
+      "cash": "Espèces",
+      "credit_card": "Carte bancaire",
+      "paypal": "Paypal",
+      "other": "Autre"
+    }
+  },
+
   "quote": {
     "header": "Devis",
     "description": "Lorem ipsum",
@@ -876,7 +1048,7 @@
     "from": "De",
     "to": "À",
     "order-form-id": "Bon de commande",
-    "number": "Numéro de devis",
+    "number": "Numéro",
     "table": {
       "products": "Produits",
       "quantity": "Qté",
@@ -991,7 +1163,7 @@
         "message": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre {eventType} du {eventDate}.\n\nCordialement,\n{stageName}"
       },
       "content": {
-        "quote-number": "Numéro du devis :",
+        "quote-number": "Numéro :",
         "valid-until": "Date d'expiration :",
         "total": {
           "tax-included": "Montant Total (TTC) :",
@@ -1374,6 +1546,28 @@
       "bank-account-details": {
         "title": "Succès",
         "message": "Vos informations bancaires ont bien été enregistrées"
+      },
+      "invoice-edit": {
+        "title": "Succès",
+        "message": "La facture a bien été modifiée"
+      },
+      "invoice-send": {
+        "title": "Succès",
+        "message": "La facture a bien été envoyée"
+      },
+      "invoice-created": {
+        "title": "Succès",
+        "message": "La facture a bien été créée"
+      },
+      "invoice-status": {
+        "title": "Succès",
+        "message": "Le status de la facture a bien été modifié"
+      }
+    },
+    "warning": {
+      "invoice-already-finalized": {
+        "title": "Attention",
+        "message": "La facture a déjà été finalisée, vous ne pouvez plus la modifier"
       }
     },
     "info": {
@@ -1566,6 +1760,14 @@
       "bank-account-failed-to-create": {
         "title": "Erreur",
         "message": "Impossible de créer le compte bancaire"
+      },
+      "invoice-get-error": {
+        "title": "Erreur",
+        "message": "La facture n'a pas pu être récupérée"
+      },
+      "invoice-status-update-error": {
+        "title": "Erreur",
+        "message": "Le status de la facture n'a pas pu être modifié"
       },
       "default": {
         "title": "Erreur",

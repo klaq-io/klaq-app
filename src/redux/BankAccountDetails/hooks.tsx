@@ -12,6 +12,7 @@ export const useFetchBankAccountDetails = () => {
       return data;
     } catch (error: any) {
       console.error(error);
+      return null;
     }
   });
 };
