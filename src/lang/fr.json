@@ -1048,7 +1048,7 @@
     "from": "De",
     "to": "À",
     "order-form-id": "Bon de commande",
-    "number": "Numéro de devis",
+    "number": "Numéro",
     "table": {
       "products": "Produits",
       "quantity": "Qté",
@@ -1163,7 +1163,7 @@
         "message": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre {eventType} du {eventDate}.\n\nCordialement,\n{stageName}"
       },
       "content": {
-        "quote-number": "Numéro du devis :",
+        "quote-number": "Numéro :",
         "valid-until": "Date d'expiration :",
         "total": {
           "tax-included": "Montant Total (TTC) :",

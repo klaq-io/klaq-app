@@ -196,7 +196,7 @@ export const useSendInvoiceByEmail = () => {
     ) => {
       if (!id) return;
       try {
-        await webClient.post(`/invoice/${id}/send`);
+        await webClient.post(`/invoice/${id}/send`, values);
         KlaqToast("success", "invoice-send");
       } catch (error: any) {
         console.error(error);
