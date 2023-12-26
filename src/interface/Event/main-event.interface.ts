@@ -4,6 +4,7 @@ import { User } from "redux/Login/slice";
 import { Quote } from "redux/Quote/slices";
 import { SubEvent, SubEventCreator } from "./subevent.interface";
 import { EventStatus } from "redux/Events/slices";
+import { Invoice } from "interface/Invoice/invoice.interface";
 
 export interface MainEvent {
   id: string;
@@ -18,6 +19,7 @@ export interface MainEvent {
   customer: Customer;
   quotes?: Quote[];
   commentaries?: Commentary[];
+  invoices?: Invoice[];
 }
 
 export interface MainEventCreator {

@@ -21,7 +21,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Customer } from "redux/Customer/slices";
 import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import {
+  getMainEvents,
+  getMainEventsByStatus,
+} from "redux/MainEvent/selectors";
 import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
 import {
@@ -52,17 +55,7 @@ export const MiniCalendar = () => {
   });
 
   const [, fetchMainEvents] = useFetchMainEvents();
-  const mainEvents = useSelector((state: any) =>
-    getMainEventsByStatus(
-      state,
-      EventStatus.QUOTE_ACCEPTED,
-      EventStatus.CONTRACT_SENT,
-      EventStatus.CONTRACT_OPENED,
-      EventStatus.DEPOSIT_REQUESTED,
-      EventStatus.DEPOSIT_LATE,
-      EventStatus.READY
-    )
-  );
+  const mainEvents = useSelector(getMainEvents);
 
   const subEventsList = mainEvents.flatMap((e) =>
     getSubEventsListFromMainEvents(e)
@@ -80,6 +73,8 @@ export const MiniCalendar = () => {
     date: day,
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
+
+  console.log(days, subEventsByDay);
 
   const formatTime = (time: string) => {
     const t = parse(time, "HH:mm:ss", new Date());
@@ -214,31 +209,34 @@ export const MiniCalendar = () => {
             {subEventsByDay &&
             subEventsByDay[format(selectedDay, "yyyy-MM-dd")] &&
             subEventsByDay[format(selectedDay, "yyyy-MM-dd")].length > 0 ? (
-              subEventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) =>
-                event.startTime ? (
-                  <li
-                    key={event.id}
-                    className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100"
-                  >
-                    <div className="flex-auto">
-                      <p className="text-gray-900">{event.customer.name}</p>
-                      <p className="mt-0.5">
+              subEventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) => (
+                <li
+                  key={event.id}
+                  className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100"
+                >
+                  <div className="flex-auto">
+                    <p className="text-gray-900">{event.customer.name}</p>
+                    <p className="mt-0.5">
+                      {event.startTime ? (
                         <time dateTime={formatTime(event.startTime)}>
                           {formatTime(event.startTime)}
-                        </time>{" "}
-                        {event.endTime
-                          ? `- ${(
-                              <time dateTime={formatTime(event.endTime)}>
-                                {formatTime(event.endTime)}
-                              </time>
-                            )}`
-                          : null}
-                      </p>
-                    </div>
-                    <KebabMenu items={menuItems(event.mainEventId)} />
-                  </li>
-                ) : null
-              )
+                        </time>
+                      ) : null}{" "}
+                      {event.endTime ? (
+                        <>
+                          -
+                          {
+                            <time dateTime={formatTime(event.endTime)}>
+                              {formatTime(event.endTime)}
+                            </time>
+                          }
+                        </>
+                      ) : null}
+                    </p>
+                  </div>
+                  <KebabMenu items={menuItems(event.mainEventId)} />
+                </li>
+              ))
             ) : (
               <div className="px-6 py-14 text-center text-sm sm:px-6">
                 <CalendarDaysIcon

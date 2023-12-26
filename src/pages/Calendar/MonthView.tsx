@@ -72,6 +72,7 @@ export const MonthView = () => {
     date: day,
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
+  console.log(subEventsByDay, newDays);
 
   const formatTime = (time: string) => {
     const t = parse(time, "HH:mm:ss", new Date());
@@ -409,28 +410,28 @@ export const MonthView = () => {
                   </time>
                   {day.events.length > 0 && (
                     <ol className="mt-2">
-                      {day.events.slice(0, 2).map((event: Event) =>
-                        event.startTime ? (
-                          <li key={event.id}>
-                            <button
-                              className="group flex"
-                              onClick={() =>
-                                handleGoToEventDetails(event.mainEventId)
-                              }
-                            >
-                              <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
-                                {event.customer.name}
-                              </p>
+                      {day.events.slice(0, 2).map((event: Event) => (
+                        <li key={event.id}>
+                          <button
+                            className="group flex"
+                            onClick={() =>
+                              handleGoToEventDetails(event.mainEventId)
+                            }
+                          >
+                            <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
+                              {event.customer.name}
+                            </p>
+                            {event.startTime ? (
                               <time
                                 dateTime={formatTime(event.startTime)}
                                 className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
                               >
                                 {formatTime(event.startTime)}
                               </time>
-                            </button>
-                          </li>
-                        ) : null
-                      )}
+                            ) : null}
+                          </button>
+                        </li>
+                      ))}
                       {day.events.length > 2 && (
                         <li className="text-gray-500">
                           {intl.formatMessage(

@@ -54,6 +54,8 @@ import {
   shortenString,
 } from "utils/utils";
 import { initialValues, validationSchema } from "./newEventForm";
+import { Invoice, InvoiceStatus } from "interface/Invoice/invoice.interface";
+import { getInvoiceSubtotal } from "utils/invoice";
 
 export const MainEventDetails = () => {
   const intl = useIntl();
@@ -144,6 +146,21 @@ export const MainEventDetails = () => {
     return Math.min(...quotes).toFixed(2);
   };
 
+  const getInvoiceValue = (invoices: Invoice[] | undefined) => {
+    if (!invoices || !invoices.length) return "0.00";
+
+    if (invoices.length)
+      return invoices
+        .map((invoice) => getInvoiceSubtotal(invoice))
+        .reduce((acc, curr) => acc + curr)
+        .toFixed(2);
+
+    const invoices_ = invoices
+      .filter((invoice) => invoice.status !== InvoiceStatus.CANCELED)
+      .map((invoice) => getInvoiceSubtotal(invoice));
+    return Math.min(...invoices_).toFixed(2);
+  };
+
   const tabs = [
     {
       name: "Roadmap",
@@ -173,6 +190,10 @@ export const MainEventDetails = () => {
 
   const handleGenerateQuote = () => {
     navigate(`${PATHS.QUOTE}/generate/${id}`);
+  };
+
+  const handleGenerateInvoice = () => {
+    navigate(PATHS.INVOICE_GENERATE);
   };
 
   const handleLinkNewEvent = () => {
@@ -472,14 +493,15 @@ export const MainEventDetails = () => {
                             Facturé :{" "}
                           </span>
                           <span className="text-sm font-medium leading-6 text-gray-900">
-                            {mainEvent.quotes && mainEvent.quotes.length > 0 ? (
-                              `${getEventValue(mainEvent.quotes)} €`
+                            {mainEvent.invoices &&
+                            mainEvent.invoices.length > 0 ? (
+                              `${getInvoiceValue(mainEvent.invoices)} €`
                             ) : (
                               <Button
                                 variant="link"
                                 color="primary"
                                 type="button"
-                                disabled
+                                onClick={handleGenerateInvoice}
                                 leadingIcon={
                                   <PlusSmallIcon className="h-5 w-5" />
                                 }
