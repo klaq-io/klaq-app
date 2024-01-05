@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from "components";
 import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
+import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
 import { PageLayout } from "layouts";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -14,7 +15,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDownloadQuote, useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
-import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
 
@@ -35,12 +35,16 @@ export const Quotes = () => {
     navigate(PATHS.QUOTE + "/send/" + id);
   };
 
+  const handleNewQuote = () => {
+    navigate(PATHS.QUOTE_GENERATE);
+  };
+
   const handleEdit = (id: string, eventId: string) => {
     navigate(PATHS.QUOTE + "/edit/" + id + "/" + eventId);
   };
 
   const handleView = (id: string) => {
-    window.open(PATHS.QUOTE + "/view/" + id, "_blank");
+    navigate(PATHS.QUOTE + "/" + id + "/details");
   };
 
   const optionMenu = (quote: Quote) => [
@@ -149,7 +153,7 @@ export const Quotes = () => {
               type="button"
               variant="contained"
               color="primary"
-              onClick={() => setOpenNewQuote(true)}
+              onClick={handleNewQuote}
             >
               {intl.formatMessage({
                 id: "quote.button.generate",
@@ -304,13 +308,13 @@ export const Quotes = () => {
                     </td>
                     <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                       <div className="font-medium text-gray-500">
-                        {quote.products
+                        {/* {quote.products
                           .reduce(
                             (acc, product) =>
                               acc + product.price * product.quantity,
                             0
                           )
-                          .toFixed(2)}{" "}
+                          .toFixed(2)}{" "} */}
                         €
                       </div>
                     </td>

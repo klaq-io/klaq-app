@@ -18,6 +18,7 @@ import {
   InfoModal,
   InvoiceBadge,
   Label,
+  QuoteBadge,
   Tooltip,
 } from "components";
 import { format } from "date-fns";
@@ -26,6 +27,7 @@ import {
   InvoiceProduct,
   InvoiceStatus,
 } from "interface/Invoice/invoice.interface";
+import { QuoteProduct, QuoteStatus } from "interface/Quote/quote.interface";
 import { PageLayout } from "layouts";
 import EditCustomer from "pages/Customers/EditCustomer";
 import { useEffect, useState } from "react";
@@ -41,29 +43,28 @@ import {
   useUpdateInvoiceStatus,
 } from "redux/Invoice/hooks";
 import { getInvoice } from "redux/Invoice/selectors";
+import { useCreateQuote, useFetchQuote } from "redux/Quote/hooks";
+import { getQuoteById } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 
-export const InvoiceDetailsPage = () => {
+export const QuoteDetailsPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [{ isLoading }, fetchInvoice] = useFetchInvoice();
+  const [{ isLoading }, fetchQuote] = useFetchQuote();
   const [{ isLoading: isUpdatingStatus }, updateInvoiceStatus] =
     useUpdateInvoiceStatus();
-  const invoice = useSelector((state: any) => getInvoice(state, id));
+  const quote = useSelector((state: any) => getQuoteById(state, id!));
   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
     useDownloadInvoicePDF();
-  const [{ isLoading: isMarkingAsFinal }, markAsFinal] = useMarkAsFinal();
   const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 
-  const [openMarkAsFinalModal, setOpenMarkAsFinalModal] = useState(false);
-  const [openPaidModal, setOpenPaidModal] = useState(false);
   const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);
 
   const [openNewCustomer, setOpenNewCustomer] = useState(false);
 
-  const getProductSubtotal = (product: InvoiceProduct) => {
+  const getProductSubtotal = (product: QuoteProduct) => {
     const discount =
       product.discountType === DiscountType.PERCENT
         ? product.price * (product.discount / 100)
@@ -72,13 +73,13 @@ export const InvoiceDetailsPage = () => {
   };
 
   const subtotal =
-    invoice?.products.reduce(
+    quote?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
       0
     ) || 0;
 
   const tax =
-    invoice?.products.reduce(
+    quote?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
       0
@@ -87,38 +88,37 @@ export const InvoiceDetailsPage = () => {
   const total = subtotal + tax;
 
   const hasAtLeastOneDiscount =
-    !!invoice &&
-    invoice.products.some((product) => Number(product.discount) !== 0);
+    !!quote && quote.products.some((product) => Number(product.discount) !== 0);
 
   const handleGoToEdit = () => {
-    if (!invoice) return;
-    navigate(`${PATHS.INVOICE}/${invoice.id}/edit`);
+    if (!quote) return;
+    navigate(`${PATHS.QUOTE}/${quote.id}/edit`);
   };
 
   const handleGoToPDF = () => {
-    if (!invoice) return;
-    navigate(`${PATHS.INVOICE}/${invoice.id}/pdf`);
+    if (!quote) return;
+    navigate(`${PATHS.QUOTE}/${quote.id}/pdf`);
   };
 
   const handleGoToSend = () => {
-    if (!invoice) return;
-    navigate(`${PATHS.INVOICE}/${invoice.id}/send`);
+    if (!quote) return;
+    navigate(`${PATHS.QUOTE}/${quote.id}/send`);
   };
 
   useEffect(() => {
-    fetchInvoice(id);
+    fetchQuote(id);
   }, [openNewCustomer]);
 
   useEffect(() => {
-    fetchInvoice(id);
+    fetchQuote(id);
   }, []);
 
   return (
     <PageLayout>
-      {invoice && (
+      {quote && (
         <div className="flex flex-col space-y-8 h-full">
           <Transition
-            show={!isLoading && !!invoice && !openNewCustomer}
+            show={!isLoading && !!quote && !openNewCustomer}
             enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
@@ -180,7 +180,7 @@ export const InvoiceDetailsPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {invoice.products.map((product: InvoiceProduct) => (
+                      {quote.products.map((product: InvoiceProduct) => (
                         <tr
                           key={product.id}
                           className="border-b-2 border-gray-100"
@@ -255,55 +255,26 @@ export const InvoiceDetailsPage = () => {
               </CardContainer>
               <div className="sm:flex flex-col space-y-4 min-h-fit w-full sm:w-1/4 h-full">
                 <div className="flex justify-between">
-                  {invoice.status === InvoiceStatus.DRAFT ? (
-                    <>
-                      <Tooltip text="Finaliser ma facture" position="bottom">
-                        <button
-                          className="bg-klaq-500 text-white rounded-full p-3 hover:bg-klaq-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                          disabled={isMarkingAsFinal}
-                          onClick={() => setOpenMarkAsFinalModal(true)}
-                        >
-                          <CheckIcon className="h-5 w-5" />
-                        </button>
-                      </Tooltip>
-                      <Tooltip text="Editer" position="bottom">
-                        <button
-                          disabled={isUpdatingStatus}
-                          className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                          onClick={handleGoToEdit}
-                        >
-                          <PencilSquareIcon className="h-5 w-5" />
-                        </button>
-                      </Tooltip>
-                    </>
-                  ) : (
-                    <>
-                      {invoice.status !== InvoiceStatus.PAID && (
-                        <Tooltip text="Facture encaissée" position="bottom">
-                          <button
-                            className="bg-klaq-500 text-white rounded-full p-3 hover:bg-klaq-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                            onClick={() => setOpenPaidModal(true)}
-                          >
-                            <BanknotesIcon className="h-5 w-5" />
-                          </button>
-                        </Tooltip>
-                      )}
-
-                      <Tooltip text="Envoyer par email" position="bottom">
-                        <button
-                          onClick={handleGoToSend}
-                          className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                        >
-                          <EnvelopeIcon className="h-5 w-5" />
-                        </button>
-                      </Tooltip>
-                    </>
-                  )}
+                  <Tooltip text="Editer" position="bottom">
+                    <button
+                      disabled={isUpdatingStatus}
+                      className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                      onClick={handleGoToEdit}
+                    >
+                      <PencilSquareIcon className="h-5 w-5" />
+                    </button>
+                  </Tooltip>
+                  <Tooltip text="Envoyer par email" position="bottom">
+                    <button
+                      onClick={handleGoToSend}
+                      className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                    >
+                      <EnvelopeIcon className="h-5 w-5" />
+                    </button>
+                  </Tooltip>
                   <Tooltip text="Télécharger" position="bottom">
                     <button
-                      onClick={() =>
-                        downloadInvoice(invoice.id, invoice.number)
-                      }
+                      onClick={() => downloadInvoice(quote.id, quote.number)}
                       disabled={isDownloadingInvoice}
                       className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
                     >
@@ -319,7 +290,7 @@ export const InvoiceDetailsPage = () => {
                     </button>
                   </Tooltip>
 
-                  {invoice.status === InvoiceStatus.DRAFT ? (
+                  {quote.status === QuoteStatus.DRAFT ? (
                     <>
                       <Tooltip text="Supprimer" position="bottom">
                         <button
@@ -343,12 +314,12 @@ export const InvoiceDetailsPage = () => {
                   </div>
                   <div>
                     <Label htmlFor="status">Statut</Label>
-                    <InvoiceBadge status={invoice.status} />
+                    <QuoteBadge status={quote.status} />
                   </div>
                   <div>
                     <Label htmlFor="issuedOn">Délivré le</Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(invoice.issuedOn), "dd/MM/yyyy")}
+                      {format(new Date(quote.issuedOn), "dd/MM/yyyy")}
                     </span>
                   </div>
                   <div>
@@ -358,7 +329,7 @@ export const InvoiceDetailsPage = () => {
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {invoice.object || "N/A"}
+                      {quote.object || "N/A"}
                     </span>
                   </div>
 
@@ -369,7 +340,7 @@ export const InvoiceDetailsPage = () => {
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {invoice.orderFormId || "N/A"}
+                      {quote.orderFormId || "N/A"}
                     </span>
                   </div>
                 </CardContainer>
@@ -390,7 +361,7 @@ export const InvoiceDetailsPage = () => {
                     </div>
                     <div className="sm:flex sm:space-x-4 items-center">
                       <span className="border border-gray-200 rounded-md px-2.5 py-2.5 font-semibold text-gray-600 bg-gray-200">
-                        {invoice.mainEvent.customer.type ===
+                        {quote.mainEvent.customer.type ===
                         CustomerType.PRIVATE ? (
                           <UserIcon className="h-5 w-5" aria-hidden="true" />
                         ) : (
@@ -402,10 +373,10 @@ export const InvoiceDetailsPage = () => {
                       </span>
                       <div className="flex flex-col">
                         <h2 className="text-lg leading-7 text-gray-900 sm:truncate sm:tracking-tight">
-                          {invoice.mainEvent.customer.name}
+                          {quote.mainEvent.customer.name}
                         </h2>{" "}
                         <p className="text-sm text-gray-500">
-                          {invoice.mainEvent.customer.email}
+                          {quote.mainEvent.customer.email}
                         </p>
                       </div>
                     </div>
@@ -424,19 +395,7 @@ export const InvoiceDetailsPage = () => {
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(invoice.validUntil), "dd/MM/yyyy")}
-                    </span>
-                  </div>
-                  <div>
-                    <Label htmlFor="Payment">
-                      {intl.formatMessage({
-                        id: "invoice-generate.payment-condition.payment-method.label",
-                      })}
-                    </Label>
-                    <span className="text-sm text-gray-500">
-                      {intl.formatMessage({
-                        id: `invoice-generate.payment-method.${invoice.paymentMethod.toLowerCase()}`,
-                      })}
+                      {format(new Date(quote.validUntil), "dd/MM/yyyy")}
                     </span>
                   </div>
                 </CardContainer>
@@ -445,42 +404,15 @@ export const InvoiceDetailsPage = () => {
           </Transition>
         </div>
       )}
-      {invoice && (
+      {quote && (
         <EditCustomer
           setOpen={setOpenNewCustomer}
           open={openNewCustomer}
-          customer={invoice?.mainEvent.customer}
+          customer={quote?.mainEvent.customer}
         />
       )}
-      {invoice && (
-        <InfoModal
-          open={openMarkAsFinalModal}
-          setOpen={setOpenMarkAsFinalModal}
-          title="Vous vous apprêtez à convertir ce projet en une facture officielle"
-          message="Une fois cette opération effectuée, la facture recevra un numéro d'identification, pourra être transmise à votre client et ne sera plus modifiable. Veuillez noter que cette action est irréversible. Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Marqué comme finalisée"}
-          onClick={() => {
-            markAsFinal(invoice.id);
-            setOpenMarkAsFinalModal(false);
-          }}
-        />
-      )}
-      {invoice && (
-        <InfoModal
-          open={openPaidModal}
-          setOpen={setOpenPaidModal}
-          title="Vous vous apprêtez à marquer cette facture comme payée"
-          message="Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Marqué comme payée"}
-          onClick={() => {
-            updateInvoiceStatus(InvoiceStatus.PAID, invoice.id);
-            setOpenPaidModal(false);
-          }}
-        />
-      )}
-      {invoice && (
+
+      {quote && (
         <DangerModal
           open={openDeleteInvoice}
           setOpen={setOpenDeleteInvoice}
@@ -489,7 +421,7 @@ export const InvoiceDetailsPage = () => {
           button2={"Annuler"}
           button1={"Supprimer"}
           onClick={() => {
-            deleteInvoice(invoice.id);
+            deleteInvoice(quote.id);
             setOpenDeleteInvoice(false);
           }}
         />
@@ -497,5 +429,3 @@ export const InvoiceDetailsPage = () => {
     </PageLayout>
   );
 };
-
-export default InvoiceDetailsPage;

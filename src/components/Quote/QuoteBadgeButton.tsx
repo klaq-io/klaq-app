@@ -2,9 +2,9 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { FC, Fragment } from "react";
 import { useUpdateQuoteStatus } from "redux/Quote/hooks";
-import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { classNames } from "utils/utils";
 import { QuoteBadge } from "./QuoteBadge";
+import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
 
 type QuoteBadgeButtonProps = {
   quote: Quote;

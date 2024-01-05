@@ -1,34 +1,42 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import { Quote, QuoteStatus, setQuote, setQuotes } from "./slices";
 import webClient from "utils/webclient";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { ToastNotification } from "components";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
+import { NewQuote, Quote, QuoteStatus } from "interface/Quote/quote.interface";
+import { KlaqToast } from "utils/KlaqToast";
+import { setQuote, setQuotes } from "./slices";
 
 export const useFetchQuote = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  return useAsyncCallback(async (id: string) => {
+  return useAsyncCallback(async (id?: string) => {
     try {
       const { data } = await webClient.get(`/quote/${id}`);
       dispatch(setQuote(data));
     } catch (error: any) {
+      KlaqToast("danger", "quote-get-error");
       console.error(error);
+      navigate(PATHS.QUOTES);
     }
   });
 };
 
 export const useFetchQuotes = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return useAsyncCallback(async () => {
     try {
       const { data } = await webClient.get(`/quote`);
       dispatch(setQuotes(data));
     } catch (error: any) {
+      KlaqToast("danger", "quote-get-error");
       console.error(error);
+      navigate(PATHS.QUOTES);
     }
   });
 };
@@ -37,7 +45,7 @@ export const useCreateQuote = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  return useAsyncCallback(async (quote: Partial<Quote>, eventId: string) => {
+  return useAsyncCallback(async (quote: NewQuote, eventId: string) => {
     try {
       const { data } = await webClient.post(`/quote/${eventId}`, quote);
       dispatch(setQuote(data));
@@ -50,7 +58,7 @@ export const useCreateQuote = () => {
         />,
         { duration: 2, position: "top-right" }
       );
-      navigate(`/quote/send/${data.id}`);
+      navigate(PATHS.QUOTE_DETAILS);
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
@@ -72,12 +80,12 @@ export const useEditQuote = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  return useAsyncCallback(async (quote: Partial<Quote>, id: string) => {
+  return useAsyncCallback(async (quote: NewQuote, id: string) => {
     try {
       if (quote.orderFormId === "") delete quote.orderFormId;
       const { data } = await webClient.put(`/quote/${id}`, quote);
       dispatch(setQuote(data));
-      navigate(`/quote/send/${data.id}`);
+      navigate(PATHS.QUOTE + "/" + id + "/details");
       toast.custom(
         <ToastNotification
           status="success"

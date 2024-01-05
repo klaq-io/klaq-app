@@ -1040,6 +1040,19 @@
     }
   },
 
+  "quote-generate": {
+    "header": "Nouveau devis",
+    "description": "Lorem ipsum",
+    "informations": {
+      "quote-number": {
+        "label": "Numéro de devis automatique"
+      }
+    },
+    "payment-condition": {
+      "title": "Conditions"
+    }
+  },
+
   "quote": {
     "header": "Devis",
     "description": "Lorem ipsum",

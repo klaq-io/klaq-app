@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { RootState } from "../store";
-import { Quote } from "./slices";
+import { Quote } from "interface/Quote/quote.interface";
 
 export const getQuoteById = (
   state: RootState,

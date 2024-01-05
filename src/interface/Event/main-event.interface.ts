@@ -1,10 +1,10 @@
 import { Commentary } from "redux/Commentary/slices";
 import { Customer } from "redux/Customer/slices";
 import { User } from "redux/Login/slice";
-import { Quote } from "redux/Quote/slices";
 import { SubEvent, SubEventCreator } from "./subevent.interface";
 import { EventStatus } from "redux/Events/slices";
 import { Invoice } from "interface/Invoice/invoice.interface";
+import { Quote } from "interface/Quote/quote.interface";
 
 export interface MainEvent {
   id: string;
