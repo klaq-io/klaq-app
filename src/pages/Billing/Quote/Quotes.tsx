@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDownloadQuote, useFetchQuotes } from "redux/Quote/hooks";
+import { useDownloadQuotePDF, useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
@@ -29,10 +29,10 @@ export const Quotes = () => {
   const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
 
-  const [, downloadQuote] = useDownloadQuote();
+  const [, downloadQuote] = useDownloadQuotePDF();
 
   const handleSendByMail = (id: string) => {
-    navigate(PATHS.QUOTE + "/send/" + id);
+    navigate(PATHS.QUOTE + "/" + id + "/send/");
   };
 
   const handleNewQuote = () => {
@@ -66,7 +66,7 @@ export const Quotes = () => {
     {
       name: "quote.list.menu.download",
       icon: ArrowDownTrayIcon,
-      onClick: () => downloadQuote(quote),
+      onClick: () => downloadQuote(quote.id, quote.number),
     },
     // {
     //   name: "quote.list.menu.delete",
@@ -308,13 +308,13 @@ export const Quotes = () => {
                     </td>
                     <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                       <div className="font-medium text-gray-500">
-                        {/* {quote.products
+                        {quote.products
                           .reduce(
                             (acc, product) =>
                               acc + product.price * product.quantity,
                             0
                           )
-                          .toFixed(2)}{" "} */}
+                          .toFixed(2)}{" "}
                         €
                       </div>
                     </td>

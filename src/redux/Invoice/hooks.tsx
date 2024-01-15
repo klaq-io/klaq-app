@@ -208,3 +208,15 @@ export const useSendInvoiceByEmail = () => {
     }
   );
 };
+
+export const useFetchInvoicesForCustomer = () => {
+  return useAsyncCallback(async (customerId: string | undefined) => {
+    if (!customerId) return;
+    try {
+      const { data } = await webClient.get(`/invoice/customer/${customerId}`);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+    }
+  });
+};

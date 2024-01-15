@@ -127,27 +127,13 @@ export const useSendQuote = () => {
       try {
         const { data } = await webClient.post(`/quote/${id}/send`, values);
         dispatch(setQuote(data));
-        toast.custom(
-          <ToastNotification
-            status="success"
-            titleId="toast.success.quote-sent.title"
-            messageId="toast.success.quote-sent.message"
-          />,
-          { duration: 2, position: "top-right" }
-        );
+        KlaqToast("success", "quote-send");
       } catch (error: any) {
+        console.error(error);
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
           : null;
-        toast.custom(
-          <ToastNotification
-            status="danger"
-            titleId={`toast.error.${code ? code : "default"}.title`}
-            messageId={`toast.error.${code ? code : "default"}.message`}
-          />,
-          { duration: 1500, position: "top-right" }
-        );
-        console.error(error);
+        KlaqToast("danger", code);
       }
     }
   );
@@ -171,56 +157,40 @@ export const useUpdateQuoteStatus = () => {
   });
 };
 
-export const useDownloadQuote = () => {
-  return useAsyncCallback(async (quote: Quote) => {
-    try {
-      const { data } = await webClient.get(`/quote/${quote.id}/streamable`, {
-        responseType: "blob",
-      });
-      const url = window.URL.createObjectURL(new Blob([data]));
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${quote.number}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error: any) {
-      const code = error.response.data.code
-        ? error.response.data.code.toLowerCase()
-        : null;
-      toast.custom(
-        <ToastNotification
-          status="danger"
-          titleId={`toast.error.${code ? code : "default"}.title`}
-          messageId={`toast.error.${code ? code : "default"}.message`}
-        />,
-        { duration: 1500, position: "top-right" }
-      );
-      console.error(error);
+export const useDownloadQuotePDF = () => {
+  return useAsyncCallback(
+    async (id: string | undefined, quoteNumber: string) => {
+      if (!id) return;
+      try {
+        const { data } = await webClient.get(`/invoice/${id}/pdf`, {
+          responseType: "blob",
+        });
+        const blob = new Blob([data], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", quoteNumber + ".pdf");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (error: any) {
+        KlaqToast("danger", "quote-pdf-error");
+        console.error(error);
+      }
     }
-  });
+  );
 };
 
-export const useGetQuoteBlob = () => {
-  return useAsyncCallback(async (quoteId: string) => {
+export const useFetchQuotesForCustomer = () => {
+  return useAsyncCallback(async (customerId: string) => {
     try {
-      const { data } = await webClient.get(`/quote/${quoteId}/streamable`, {
-        responseType: "blob",
-      });
-      return data;
+      const { data } = await webClient.get(`/quote/customer/${customerId}`);
+      return data as Quote[];
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
         : null;
-      toast.custom(
-        <ToastNotification
-          status="danger"
-          titleId={`toast.error.${code ? code : "default"}.title`}
-          messageId={`toast.error.${code ? code : "default"}.message`}
-        />,
-        { duration: 1500, position: "top-right" }
-      );
+      KlaqToast("danger", "quote-get-error");
       console.error(error);
     }
   });

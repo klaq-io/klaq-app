@@ -37,6 +37,7 @@ import {
   QuoteDetailsPage,
   QuoteEditionPage,
   QuoteGeneratePage,
+  QuoteSendMailPage,
   Quotes,
   ResetPassword,
   Security,
@@ -123,6 +124,7 @@ function App() {
           <Route path={PATHS.QUOTE_GENERATE} element={<QuoteGeneratePage />} />
           <Route path={PATHS.QUOTE_DETAILS} element={<QuoteDetailsPage />} />
           <Route path={PATHS.QUOTE_EDIT} element={<QuoteEditionPage />} />
+          <Route path={PATHS.QUOTE_SEND} element={<QuoteSendMailPage />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.INVOICES} element={<InvoicesPage />} />
           <Route

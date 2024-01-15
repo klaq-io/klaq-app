@@ -22,14 +22,17 @@ import { Alert } from "components/Alert/Alert";
 import { useCreateEvent } from "redux/MainEvent/hooks";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
+import { format } from "date-fns";
 
 type NewEventModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  suggestedDate?: Date | null;
+  suggestedCustomer?: Customer | null;
 };
 
 export const NewEventModal = (props: NewEventModalProps) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, suggestedDate, suggestedCustomer } = props;
   const intl = useIntl();
   const navigate = useNavigate();
 
@@ -52,7 +55,21 @@ export const NewEventModal = (props: NewEventModalProps) => {
     useCreateEvent();
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      ...initialValues,
+      customer: {
+        ...initialValues.customer,
+        ...suggestedCustomer,
+      },
+      subEvents: [
+        {
+          ...initialValues.subEvents[0],
+          date: suggestedDate
+            ? format(suggestedDate, "yyyy-MM-dd")
+            : initialValues.subEvents[0].date,
+        },
+      ],
+    },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       await createEvent({
@@ -98,6 +115,14 @@ export const NewEventModal = (props: NewEventModalProps) => {
   useEffect(() => {
     fetchCustomers();
   }, []);
+
+  useEffect(() => {
+    if (!open) {
+      formik.resetForm();
+      setCustomerAutocompleteEnabled(true);
+      setMapAutocompleteEnabled(true);
+    }
+  }, [open]);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -314,7 +339,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
                       )}
                       {isCustomerAutocompleteEnabled ? (
                         <div className="col-span-full">
-                          <Combobox as="div">
+                          <Combobox as="div" value={formik.values.customer}>
                             <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
                               {intl.formatMessage({
                                 id: "new-event.customer.label.attach-customer",

@@ -34,6 +34,7 @@ import {
   getSubEventsListFromMainEvents,
 } from "../../utils/utils";
 import { KebabMenu } from "../KebabMenu";
+import { NewEventModal } from "components/Modal";
 
 type Event = SubEvent & {
   customer: Customer;
@@ -43,6 +44,9 @@ type Event = SubEvent & {
 export const MiniCalendar = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [openNewEvent, setOpenNewEvent] = useState(false);
 
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
@@ -73,8 +77,6 @@ export const MiniCalendar = () => {
     date: day,
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
-
-  console.log(days, subEventsByDay);
 
   const formatTime = (time: string) => {
     const t = parse(time, "HH:mm:ss", new Date());
@@ -183,7 +185,13 @@ export const MiniCalendar = () => {
                     "mx-auto flex h-8 w-8 items-center justify-center rounded-full flex-col"
                   )}
                 >
-                  <time dateTime={format(day.date, "yyyy-MM-dd")}>
+                  <time
+                    dateTime={format(day.date, "yyyy-MM-dd")}
+                    onDoubleClick={() => {
+                      setSelectedDate(day.date);
+                      setOpenNewEvent(true);
+                    }}
+                  >
                     {format(day.date, "d")}
                   </time>
                   {day.events.length && !isEqual(day.date, selectedDay) ? (
@@ -265,6 +273,11 @@ export const MiniCalendar = () => {
           </ol>
         </section>
       </div>
+      <NewEventModal
+        open={openNewEvent}
+        setOpen={setOpenNewEvent}
+        suggestedDate={selectedDate}
+      />
     </div>
   );
 };

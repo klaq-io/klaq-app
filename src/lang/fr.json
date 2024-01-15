@@ -632,7 +632,7 @@
         "client-type": "Mon client est",
         "look-for-company": "Rechercher mon client",
         "name": "Nom de l'entreprise",
-        "address": "Adresse de l'entreprise",
+        "address": "Adresse",
         "city": "Ville",
         "zip": "ZIP / Code Postal",
         "country": "Pays",
@@ -650,7 +650,7 @@
         },
         "look-for-company": "Entreprise, SIRET, SIREN, Dirigeant, Mot-clé...",
         "name": "Saisissez le nom de l'entreprise",
-        "address": "Saisissez l'adresse de l'entreprise",
+        "address": "Saisissez l'adresse",
         "city": "Saisissez la ville",
         "zip": "Saisissez le code postal",
         "country": "Saisissez le pays",
@@ -663,7 +663,7 @@
       },
       "error": {
         "name": "Veuillez saisir le nom de l'entreprise",
-        "address": "Veuillez saisir l'adresse de l'entreprise",
+        "address": "Veuillez saisir l'adresse",
         "city": "Veuillez saisir la ville",
         "zip": "Veuillez saisir le code postal",
         "country": "Veuillez saisir le pays",
@@ -1173,7 +1173,7 @@
       },
       "default": {
         "subject": "Vous avez reçu un devis",
-        "message": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre {eventType} du {eventDate}.\n\nCordialement,\n{stageName}"
+        "message": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
       },
       "content": {
         "quote-number": "Numéro :",
