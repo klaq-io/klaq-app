@@ -111,7 +111,7 @@ export const useFetchInvoicePDF = () => {
   return useAsyncCallback(async (id: string | undefined) => {
     if (!id) return;
     try {
-      const { data } = await webClient.get(`/invoice/${id}/pdf`, {
+      const { data } = await webClient.get(`/invoice/render/pdf/${id}/`, {
         responseType: "blob",
       });
       return data;
@@ -127,7 +127,8 @@ export const useDownloadInvoicePDF = () => {
     async (id: string | undefined, invoiceNumber: string) => {
       if (!id) return;
       try {
-        const { data } = await webClient.get(`/invoice/${id}/pdf`, {
+        await webClient.get(`/invoice/render/pdf/${id}`);
+        const { data } = await webClient.get(`/invoice/render/pdf/${id}`, {
           responseType: "blob",
         });
         const blob = new Blob([data], { type: "application/pdf" });

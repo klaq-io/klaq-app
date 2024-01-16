@@ -162,7 +162,7 @@ export const useDownloadQuotePDF = () => {
     async (id: string | undefined, quoteNumber: string) => {
       if (!id) return;
       try {
-        const { data } = await webClient.get(`/invoice/${id}/pdf`, {
+        const { data } = await webClient.get(`/quote/render/pdf/${id}/`, {
           responseType: "blob",
         });
         const blob = new Blob([data], { type: "application/pdf" });
@@ -179,6 +179,21 @@ export const useDownloadQuotePDF = () => {
       }
     }
   );
+};
+
+export const useFetchQuotePDF = () => {
+  return useAsyncCallback(async (id: string | undefined) => {
+    if (!id) return;
+    try {
+      const { data } = await webClient.get(`/quote/render/pdf/${id}/`, {
+        responseType: "blob",
+      });
+      return data;
+    } catch (error: any) {
+      KlaqToast("danger", "invoice-pdf-error");
+      console.error(error);
+    }
+  });
 };
 
 export const useFetchQuotesForCustomer = () => {
