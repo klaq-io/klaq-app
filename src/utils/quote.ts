@@ -1,22 +1,7 @@
 import { MainEvent } from "interface/Event/main-event.interface";
+import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
 import { Customer } from "redux/Customer/slices";
 import { Event } from "redux/Events/slices";
-import { Quote, QuoteStatus } from "redux/Quote/slices";
-
-export const getCustomerValue = (customer: Customer) => {
-  // todo: sum of billed invoice
-  // if (!customer) return 0;
-  // if (customer.events === undefined) return 0;
-  // if (customer.events)
-  // const customerValue = customer.events.reduce((acc, curr) => {
-  //     if (curr.price) {
-  //     return acc + curr.price;
-  //     } else {
-  //     return acc;
-  //     }
-  // }, 0);
-  // return customerValue.toFixed(2);
-};
 
 export const getSubtotalForQuote = (quote: Quote) => {
   const subtotal = quote.products.reduce((acc, curr) => {

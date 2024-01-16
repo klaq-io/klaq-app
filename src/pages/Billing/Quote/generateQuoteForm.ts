@@ -1,3 +1,4 @@
+import { DiscountType } from "interface/Invoice/invoice.interface";
 import * as Yup from "yup";
 
 export const initialValues = {
@@ -10,6 +11,8 @@ export const initialValues = {
       description: "",
       vtaRate: "20",
       price: 0,
+      discount: 0,
+      discountType: DiscountType.PERCENT,
     },
   ],
   orderFormId: "",
@@ -18,6 +21,7 @@ export const initialValues = {
     city: "",
     country: "",
     zipcode: "",
+    name: "",
   },
   object: "",
 };

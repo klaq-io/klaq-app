@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { initialValues } from "./sendInvoiceForm";
+import { initialValues } from "./sendQuoteForm";
 import { PageLayout } from "layouts";
 import { Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
@@ -24,51 +24,54 @@ import {
   ArrowDownTrayIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
+import { getQuoteById } from "redux/Quote/selectors";
+import { useFetchQuote, useSendQuote } from "redux/Quote/hooks";
 import { PATHS } from "routes";
 
-export const InvoiceSendMailPage = () => {
+export const QuoteSendMailPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [{ isLoading }, fetchInvoice] = useFetchInvoice();
-  const [{ isLoading: isSendingEmail }, sendInvoiceByEmail] =
-    useSendInvoiceByEmail();
+  const [{ isLoading }, fetchQuote] = useFetchQuote();
+  const [{ isLoading: isSending }, sendQuoteByEmail] = useSendQuote();
   const [, fetchUser] = useFetchUser();
 
-  const invoice = useSelector((state: any) => getInvoice(state, id));
+  const quote = useSelector((state: any) => getQuoteById(state, id!));
   const user = useSelector(getUser);
 
-  const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
-    useDownloadInvoicePDF();
+  //   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
+  //     useDownloadInvoicePDF();
 
   const isCustomerPro =
-    invoice && invoice.mainEvent.customer.type === CustomerType.COMPANY;
+    quote && quote.mainEvent.customer.type === CustomerType.COMPANY;
 
   const formik = useFormik({
-    initialValues: invoice
+    initialValues: quote
       ? {
           ...initialValues,
-          to: invoice.mainEvent.customer.email,
+          to: quote.mainEvent.customer.email,
           subject: intl.formatMessage({
-            id: "invoice-send.default.subject",
+            id: "quote.send.default.subject",
           }),
           message: intl.formatMessage(
             {
-              id: "invoice-send.default.message",
+              id: "quote.send.default.message",
             },
             {
               stageName: user.stageName,
-              type: invoice?.mainEvent.title.toLowerCase(),
-              date: new Date(
-                invoice.mainEvent.subEvents[0].date
-              ).toLocaleDateString(),
+              type: quote.mainEvent.title.toLowerCase(),
+              date: quote
+                ? new Date(
+                    quote.mainEvent.subEvents[0].date
+                  ).toLocaleDateString()
+                : "",
             }
           ),
         }
       : initialValues,
     onSubmit: async (values) => {
-      await sendInvoiceByEmail(values, id!);
-      navigate(`${PATHS.INVOICE}/${id}/details`);
+      await sendQuoteByEmail(values, id!);
+      navigate(PATHS.QUOTE + "/" + id + "/details");
     },
     enableReinitialize: true,
   });
@@ -82,13 +85,13 @@ export const InvoiceSendMailPage = () => {
   };
 
   const subtotal =
-    invoice?.products.reduce(
+    quote?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
       0
     ) || 0;
 
   const tax =
-    invoice?.products.reduce(
+    quote?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
       0
@@ -97,16 +100,16 @@ export const InvoiceSendMailPage = () => {
   const total = subtotal + tax;
 
   useEffect(() => {
-    fetchInvoice(id);
+    fetchQuote(id);
     fetchUser();
   }, []);
 
   return (
     <PageLayout>
-      {invoice && (
+      {quote && (
         <div className="flex flex-col space-y-8 h-full">
           <Transition
-            show={!isLoading && !!invoice}
+            show={!isLoading && !!quote}
             enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
@@ -138,7 +141,7 @@ export const InvoiceSendMailPage = () => {
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
-                        {invoice && invoice.number}
+                        {quote && quote.number}
                       </dd>
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
@@ -146,8 +149,7 @@ export const InvoiceSendMailPage = () => {
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
-                        {invoice &&
-                          new Date(invoice.issuedOn).toLocaleDateString()}
+                        {quote && new Date(quote.issuedOn).toLocaleDateString()}
                       </dd>
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
@@ -226,15 +228,15 @@ export const InvoiceSendMailPage = () => {
                       type="button"
                       variant="outlined"
                       color="primary"
-                      onClick={() =>
-                        invoice
-                          ? downloadInvoice(invoice.id, invoice.number)
-                          : null
-                      }
-                      isLoading={isDownloadingInvoice}
+                      //   onClick={() =>
+                      //     quote
+                      //       ? downloadInvoice(quote.id, quote.number)
+                      //       : null
+                      //   }
+                      //   isLoading={isDownloadingInvoice}
                     >
                       {intl.formatMessage({
-                        id: "invoice-send.download",
+                        id: "quote.send.button.download",
                       })}
                     </Button>
                     <Button
@@ -243,10 +245,10 @@ export const InvoiceSendMailPage = () => {
                       variant="contained"
                       color="primary"
                       onClick={formik.submitForm}
-                      isLoading={isSendingEmail}
+                      isLoading={isSending}
                     >
                       {intl.formatMessage({
-                        id: "invoice-send.send",
+                        id: "quote.send.button.send",
                       })}
                     </Button>
                   </div>

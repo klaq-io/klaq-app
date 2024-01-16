@@ -1,6 +1,6 @@
+import { QuoteStatus } from "interface/Quote/quote.interface";
 import { FC } from "react";
 import { useIntl } from "react-intl";
-import { QuoteStatus } from "redux/Quote/slices";
 import { classNames } from "utils/utils";
 
 type QuoteBadgeProps = {

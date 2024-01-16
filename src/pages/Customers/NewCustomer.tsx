@@ -3,11 +3,17 @@ import SidePanel from "components/SidePanel";
 import { initialValues, validationSchema } from "./form";
 import { useIntl } from "react-intl";
 import { Button } from "components";
-import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  BuildingLibraryIcon,
+  HomeIcon,
+  PlusIcon,
+  PlusSmallIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import { CustomerType } from "../../redux/Customer/slices";
 import { SearchCompany } from "components";
 import { Suggestion } from "../../interface/suggestion.interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useCreateCustomer } from "../../redux/Customer/hooks";
 
 type Props = {
@@ -21,8 +27,9 @@ export const NewCustomer: FC<Props> = (props: Props) => {
   const [customerCompany, setCustomerCompany] = useState<
     Suggestion | undefined
   >();
+  const [addAddress, setAddAddress] = useState<boolean>(false);
 
-  const [, createCustomer] = useCreateCustomer();
+  const [{ isLoading }, createCustomer] = useCreateCustomer();
 
   const formik = useFormik({
     initialValues: customerCompany
@@ -59,6 +66,10 @@ export const NewCustomer: FC<Props> = (props: Props) => {
   const handleSetCompany = (customerType: CustomerType) => {
     formik.setValues({ ...formik.values, type: customerType }, false);
   };
+
+  useEffect(() => {
+    setAddAddress(formik.values.type === CustomerType.COMPANY ? true : false);
+  }, [formik.values.type]);
 
   return (
     <SidePanel
@@ -188,130 +199,6 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   ) : null}
                 </div>
               </div>
-              {/** address */}
-              <div>
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  {intl.formatMessage({
-                    id: "customers.new-customer.label.address",
-                  })}
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={formik.handleChange}
-                    value={formik.values.address}
-                    id="address"
-                    name="address"
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                    placeholder={intl.formatMessage({
-                      id: `customers.new-customer.input.address`,
-                    })}
-                  />
-                  {formik.errors.address && formik.touched.address ? (
-                    <p className="mt-2 text-sm text-danger-600">
-                      {intl.formatMessage({
-                        id: `customers.new-customer.error.address`,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-              {/** city */}
-              <div>
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  {intl.formatMessage({
-                    id: "customers.new-customer.label.city",
-                  })}
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={formik.handleChange}
-                    value={formik.values.city}
-                    id="city"
-                    name="city"
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                    placeholder={intl.formatMessage({
-                      id: `customers.new-customer.input.city`,
-                    })}
-                  />
-                  {formik.errors.city && formik.touched.city ? (
-                    <p className="mt-2 text-sm text-danger-600">
-                      {intl.formatMessage({
-                        id: `customers.new-customer.error.city`,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-              {/** zipcode */}
-              <div>
-                <label
-                  htmlFor="zipcode"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  {intl.formatMessage({
-                    id: "customers.new-customer.label.zip",
-                  })}
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={formik.handleChange}
-                    value={formik.values.zipcode}
-                    id="zipcode"
-                    name="zipcode"
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                    placeholder={intl.formatMessage({
-                      id: `customers.new-customer.input.zip`,
-                    })}
-                  />
-                  {formik.errors.zipcode && formik.touched.zipcode ? (
-                    <p className="mt-2 text-sm text-danger-600">
-                      {intl.formatMessage({
-                        id: `customers.new-customer.error.zip`,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-              {/** country */}
-              <div>
-                <label
-                  htmlFor="country"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  {intl.formatMessage({
-                    id: "customers.new-customer.label.country",
-                  })}
-                </label>
-                <div className="mt-2">
-                  <input
-                    onChange={formik.handleChange}
-                    value={formik.values.country}
-                    id="country"
-                    name="country"
-                    type="text"
-                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                    placeholder={intl.formatMessage({
-                      id: `customers.new-customer.input.country`,
-                    })}
-                  />
-                  {formik.errors.country && formik.touched.country ? (
-                    <p className="mt-2 text-sm text-danger-600">
-                      {intl.formatMessage({
-                        id: `customers.new-customer.error.country`,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
               {/** legalRegistrationNumber */}
               <div>
                 <label
@@ -378,6 +265,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               </div>
             </>
           ) : null}
+
           {/** divider */}
           <div>
             <div className="mt-4 relative">
@@ -521,10 +409,178 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               ) : null}
             </div>
           </div>
-          <div className="flex justify-end">
-            <Button type="submit" color="primary" variant="contained">
-              {intl.formatMessage({ id: `customers.new-customer.submit` })}
+
+          {addAddress === true && (
+            <>
+              {/** divider */}
+              <div>
+                <div className="mt-4 relative">
+                  <div
+                    className="absolute inset-0 flex items-center"
+                    aria-hidden="true"
+                  >
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center">
+                    <span className="bg-white px-2 text-gray-500">
+                      <HomeIcon
+                        className="h-5 w-5 text-gray-500"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {/** address */}
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: "customers.new-customer.label.address",
+                  })}
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={formik.handleChange}
+                    value={formik.values.address}
+                    id="address"
+                    name="address"
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                    placeholder={intl.formatMessage({
+                      id: `customers.new-customer.input.address`,
+                    })}
+                  />
+                  {formik.errors.address && formik.touched.address ? (
+                    <p className="mt-2 text-sm text-danger-600">
+                      {intl.formatMessage({
+                        id: `customers.new-customer.error.address`,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              {/** city */}
+              <div>
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: "customers.new-customer.label.city",
+                  })}
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={formik.handleChange}
+                    value={formik.values.city}
+                    id="city"
+                    name="city"
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                    placeholder={intl.formatMessage({
+                      id: `customers.new-customer.input.city`,
+                    })}
+                  />
+                  {formik.errors.city && formik.touched.city ? (
+                    <p className="mt-2 text-sm text-danger-600">
+                      {intl.formatMessage({
+                        id: `customers.new-customer.error.city`,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              {/** zipcode */}
+              <div>
+                <label
+                  htmlFor="zipcode"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: "customers.new-customer.label.zip",
+                  })}
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={formik.handleChange}
+                    value={formik.values.zipcode}
+                    id="zipcode"
+                    name="zipcode"
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                    placeholder={intl.formatMessage({
+                      id: `customers.new-customer.input.zip`,
+                    })}
+                  />
+                  {formik.errors.zipcode && formik.touched.zipcode ? (
+                    <p className="mt-2 text-sm text-danger-600">
+                      {intl.formatMessage({
+                        id: `customers.new-customer.error.zip`,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              {/** country */}
+              <div>
+                <label
+                  htmlFor="country"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: "customers.new-customer.label.country",
+                  })}
+                </label>
+                <div className="mt-2">
+                  <input
+                    onChange={formik.handleChange}
+                    value={formik.values.country}
+                    id="country"
+                    name="country"
+                    type="text"
+                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                    placeholder={intl.formatMessage({
+                      id: `customers.new-customer.input.country`,
+                    })}
+                  />
+                  {formik.errors.country && formik.touched.country ? (
+                    <p className="mt-2 text-sm text-danger-600">
+                      {intl.formatMessage({
+                        id: `customers.new-customer.error.country`,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </>
+          )}
+          <div className="flex flex-row-reverse justify-between">
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              isLoading={isLoading}
+            >
+              {intl.formatMessage({
+                id: `customers.edit-customer.submit`,
+              })}
             </Button>
+            {addAddress === false && (
+              <Button
+                type="button"
+                color="primary"
+                onClick={() => setAddAddress(true)}
+                variant="text"
+                leadingIcon={
+                  <PlusIcon className="-ml-0.5 h-4 w-4" aria-hidden="true" />
+                }
+              >
+                Ajouter une adresse
+              </Button>
+            )}
           </div>
         </div>
       </form>

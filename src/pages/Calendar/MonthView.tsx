@@ -43,6 +43,7 @@ export const MonthView = () => {
   const intl = useIntl();
 
   const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const today = startOfToday();
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -72,7 +73,6 @@ export const MonthView = () => {
     date: day,
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
-  console.log(subEventsByDay, newDays);
 
   const formatTime = (time: string) => {
     const t = parse(time, "HH:mm:ss", new Date());
@@ -397,6 +397,10 @@ export const MonthView = () => {
                       : "bg-gray-50 text-gray-500",
                     "relative px-3 py-2 h-32"
                   )}
+                  onDoubleClick={() => {
+                    setSelectedDate(day.date);
+                    setOpenNewEvent(true);
+                  }}
                 >
                   <time
                     dateTime={format(day.date, "yyyy-MM-dd")}
@@ -450,7 +454,11 @@ export const MonthView = () => {
           </div>
         </div>
       </div>
-      <NewEventModal open={openNewEvent} setOpen={setOpenNewEvent} />
+      <NewEventModal
+        open={openNewEvent}
+        setOpen={setOpenNewEvent}
+        suggestedDate={selectedDate}
+      />
     </>
   );
 };

@@ -5,8 +5,8 @@ import { EventProduct } from "../redux/Events/slices";
 import { ProductItem } from "../redux/Products/slices";
 import { MainEvent } from "interface/Event/main-event.interface";
 import { SubEvent } from "interface/Event/subevent.interface";
-import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { getSubtotalForQuote } from "./quote";
+import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
 
 export const classNames = (...classes: any) => {
   return classes.filter(Boolean).join(" ");

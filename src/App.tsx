@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -13,14 +12,16 @@ import {
   CustomerDetails,
   Customers,
   Dashboard,
-  EditQuote,
   EnquiryForm,
   EventDetails2,
   Events,
   Integrations,
   InvoiceDetailsPage,
+  InvoiceEditionPage,
   InvoiceGenerate,
+  InvoiceSendMailPage,
   InvoiceViewPage,
+  InvoicesPage,
   Login,
   MainEventDetails,
   NewEvent,
@@ -33,22 +34,20 @@ import {
   OnboardingPerformer,
   Products,
   Profile,
-  QuoteGenerate,
-  QuoteView,
+  QuoteDetailsPage,
+  QuoteEditionPage,
+  QuoteGeneratePage,
+  QuoteSendMailPage,
+  QuoteViewPage,
   Quotes,
   ResetPassword,
   Security,
-  SendQuote,
   Settings,
   SignUp,
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
-import TransitionComponent from "./utils/Transitions";
-import { InvoicesPage } from "pages/Billing/Invoice/Invoices";
-import { InvoiceEditionPage } from "pages/Billing/Invoice/InvoiceEdit";
-import { InvoiceSendMailPage } from "pages/Billing/Invoice/InvoiceSendMail";
 
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
@@ -123,37 +122,11 @@ function App() {
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
-          <Route
-            path={PATHS.QUOTE_EDIT}
-            element={
-              <AnimatePresence mode="wait">
-                <TransitionComponent>
-                  <EditQuote />
-                </TransitionComponent>
-              </AnimatePresence>
-            }
-          />
-          <Route
-            path={PATHS.QUOTE_GENERATE}
-            element={
-              <AnimatePresence mode="wait">
-                <TransitionComponent>
-                  <QuoteGenerate />
-                </TransitionComponent>
-              </AnimatePresence>
-            }
-          />
-          <Route
-            path={PATHS.QUOTE_VIEW}
-            element={
-              <AnimatePresence mode="wait">
-                <TransitionComponent>
-                  <QuoteView />
-                </TransitionComponent>
-              </AnimatePresence>
-            }
-          />
-          <Route path={PATHS.QUOTE_SEND_MAIL} element={<SendQuote />} />
+          <Route path={PATHS.QUOTE_GENERATE} element={<QuoteGeneratePage />} />
+          <Route path={PATHS.QUOTE_PDF} element={<QuoteViewPage />} />
+          <Route path={PATHS.QUOTE_DETAILS} element={<QuoteDetailsPage />} />
+          <Route path={PATHS.QUOTE_EDIT} element={<QuoteEditionPage />} />
+          <Route path={PATHS.QUOTE_SEND} element={<QuoteSendMailPage />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.INVOICES} element={<InvoicesPage />} />
           <Route

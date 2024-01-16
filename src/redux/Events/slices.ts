@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "../states";
 import { Customer } from "../Customer/slices";
-import { Quote } from "redux/Quote/slices";
+import { Quote } from "interface/Quote/quote.interface";
 
 export interface Event {
   id: string;

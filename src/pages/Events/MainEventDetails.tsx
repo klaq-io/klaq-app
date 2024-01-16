@@ -44,7 +44,6 @@ import {
   useUpdateMainEvent,
 } from "redux/MainEvent/hooks";
 import { getMainEvent } from "redux/MainEvent/selectors";
-import { Quote, QuoteStatus } from "redux/Quote/slices";
 import { PATHS } from "routes";
 import { getSubtotalForQuote } from "utils/quote";
 import {
@@ -56,6 +55,7 @@ import {
 import { initialValues, validationSchema } from "./newEventForm";
 import { Invoice, InvoiceStatus } from "interface/Invoice/invoice.interface";
 import { getInvoiceSubtotal } from "utils/invoice";
+import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
 
 export const MainEventDetails = () => {
   const intl = useIntl();
