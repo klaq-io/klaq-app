@@ -4,7 +4,10 @@ import {
   BuildingLibraryIcon,
   CalendarDaysIcon,
   ClipboardDocumentCheckIcon,
+  ClipboardDocumentIcon,
+  DocumentCheckIcon,
   EnvelopeIcon,
+  FolderIcon,
   HomeIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
@@ -35,6 +38,7 @@ type Props = {};
 const DocumentType = {
   INVOICE: "invoice",
   QUOTE: "quote",
+  EVENT: "event",
 };
 
 export const CustomerDetails: FC<Props> = (props: Props) => {
@@ -245,7 +249,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
                 type="button"
                 onClick={() => setSelectedDucomentType(DocumentType.INVOICE)}
                 leadingIcon={
-                  <ClipboardDocumentCheckIcon
+                  <DocumentCheckIcon
                     className="-ml-0.5 h-5 w-5"
                     aria-hidden="true"
                   />
@@ -267,7 +271,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
                 type="button"
                 onClick={() => setSelectedDucomentType(DocumentType.QUOTE)}
                 leadingIcon={
-                  <PaperAirplaneIcon
+                  <ClipboardDocumentIcon
                     className="-ml-0.5 h-5 w-5"
                     aria-hidden="true"
                   />
@@ -275,6 +279,25 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
               >
                 {intl.formatMessage({
                   id: "customers.customer-details.button.quotes",
+                })}
+              </Button>
+            </div>
+            <div className="ml-2">
+              <Button
+                variant={
+                  DocumentType.EVENT === selectedDocumentType
+                    ? "outlined"
+                    : "contained"
+                }
+                color="secondary"
+                type="button"
+                onClick={() => setSelectedDucomentType(DocumentType.EVENT)}
+                leadingIcon={
+                  <FolderIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                }
+              >
+                {intl.formatMessage({
+                  id: "customers.customer-details.button.events",
                 })}
               </Button>
             </div>
@@ -292,11 +315,56 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
             </div>
           </div>
           <div className="flex flex-col">
-            {DocumentType.INVOICE === selectedDocumentType ? (
+            {DocumentType.INVOICE === selectedDocumentType && (
               <BillingDocumentList type="invoice" documents={invoices} />
-            ) : (
+            )}
+            {DocumentType.QUOTE === selectedDocumentType && (
               <BillingDocumentList type="quote" documents={quotes} />
             )}
+            {DocumentType.EVENT === selectedDocumentType &&
+            customer?.mainEvents &&
+            customer?.mainEvents.length > 0 ? (
+              <ul
+                role="list"
+                className="bg-white mt-2 divide-y divide-gray-100 rounded-md border border-gray-200 w-full"
+              >
+                {customer.mainEvents.map((event, idx: number) => (
+                  <li
+                    key={`${event.title}-${idx}`}
+                    className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6"
+                  >
+                    <div className="flex w-0 flex-1 items-center">
+                      <PaperAirplaneIcon
+                        className="h-5 w-5 flex-shrink-0 text-gray-400"
+                        aria-hidden="true"
+                      />
+                      <div className="ml-4 flex min-w-0 flex-1 gap-2">
+                        <span className="truncate font-medium">
+                          {event.title}
+                        </span>
+                        <span className="flex-shrink-0 text-gray-400">
+                          {event.subEvents[0]
+                            ? new Date(
+                                event.subEvents[0].date
+                              ).toLocaleDateString()
+                            : null}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="ml-4 flex-shrink-0">
+                      <Button
+                        type="button"
+                        variant="link"
+                        color="primary"
+                        onClick={() => navigate(`/events/${event.id}/details`)}
+                      >
+                        Voir
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </div>
       </div>

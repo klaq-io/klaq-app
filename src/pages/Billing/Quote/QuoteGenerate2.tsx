@@ -224,7 +224,7 @@ export const QuoteGeneratePage = () => {
             <div className="flex flex-col space-y-4">
               <h1 className="text-base font-semibold leading-6 text-gray-900">
                 {intl.formatMessage({
-                  id: "invoice-generate.attach-event.title",
+                  id: "quote-generate.attach-event.title",
                 })}
               </h1>
               <Combobox
@@ -377,10 +377,10 @@ export const QuoteGeneratePage = () => {
                 <Alert
                   status="info"
                   title={intl.formatMessage({
-                    id: "invoice-generate.attach-event.info.title",
+                    id: "quote-generate.attach-event.info.title",
                   })}
                   text={intl.formatMessage({
-                    id: "invoice-generate.attach-event.info.description",
+                    id: "quote-generate.attach-event.info.description",
                   })}
                 />
               )}
@@ -431,10 +431,10 @@ export const QuoteGeneratePage = () => {
                     <div className="col-span-1" />
                     <TextField
                       label={intl.formatMessage({
-                        id: "invoice-generate.informations.object.label",
+                        id: "quote-generate.informations.object.label",
                       })}
                       placeholder={intl.formatMessage({
-                        id: "invoice-generate.informations.object.placeholder",
+                        id: "quote-generate.informations.object.placeholder",
                       })}
                       name="object"
                       onChange={formik.handleChange}

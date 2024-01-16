@@ -701,8 +701,8 @@
       "contact": "Contact",
       "first-interact": "Premier contact le {date}",
       "last-interact": "Dernier contact le {date}",
-      "deals-amount": "Montant total des deals: {amount}€",
-      "deals-count": "Nombre de deals: {count}",
+      "deals-amount": "Montant total des évènements: {amount}€",
+      "deals-count": "Nombre d'évènements: {count}",
       "button": {
         "button": "Options",
         "previous": "Précédent",
@@ -712,6 +712,7 @@
         "delete": "Supprimer",
         "invoices": "Factures",
         "quotes": "Devis",
+        "events": "Évènements",
         "new-event": "Créer un nouvel évènement"
       },
       "no-documents-found": {
@@ -1043,9 +1044,20 @@
   "quote-generate": {
     "header": "Nouveau devis",
     "description": "Lorem ipsum",
+    "attach-event": {
+      "title": "Attacher un évènement à ce devis",
+      "info": {
+        "title": "Évènement existant nécessaire",
+        "description": "Pour créer un devis vous devez disposez d'un évènement existant n'ayant pas encore été facturé ou en créer un nouveau."
+      }
+    },
     "informations": {
       "quote-number": {
         "label": "Numéro de devis automatique"
+      },
+      "object": {
+        "label": "Objet du devis",
+        "placeholder": "Saisissez l'objet du devis"
       }
     },
     "payment-condition": {

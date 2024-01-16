@@ -189,7 +189,7 @@ export const MainEventDetails = () => {
   };
 
   const handleGenerateQuote = () => {
-    navigate(`${PATHS.QUOTE}/generate/${id}`);
+    navigate(`${PATHS.QUOTE}/new/${id}`);
   };
 
   const handleGenerateInvoice = () => {
