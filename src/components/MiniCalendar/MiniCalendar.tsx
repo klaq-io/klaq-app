@@ -220,7 +220,8 @@ export const MiniCalendar = () => {
               subEventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) => (
                 <li
                   key={event.id}
-                  className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100"
+                  className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100 hover:cursor-pointer"
+                  onClick={() => handleEventDetails(event.mainEventId)}
                 >
                   <div className="flex-auto">
                     <p className="text-gray-900">{event.customer.name}</p>
@@ -242,7 +243,7 @@ export const MiniCalendar = () => {
                       ) : null}
                     </p>
                   </div>
-                  <KebabMenu items={menuItems(event.mainEventId)} />
+                  {/* <KebabMenu items={menuItems(event.mainEventId)} /> */}
                 </li>
               ))
             ) : (
