@@ -1,5 +1,6 @@
 import {
   ArrowDownTrayIcon,
+  DocumentDuplicateIcon,
   EyeIcon,
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
@@ -67,6 +68,12 @@ export const Quotes = () => {
       name: "quote.list.menu.download",
       icon: ArrowDownTrayIcon,
       onClick: () => downloadQuote(quote.id, quote.number),
+    },
+    {
+      name: "quote.list.menu.transform-to-invoice",
+      icon: DocumentDuplicateIcon,
+      onClick: () =>
+        navigate(`${PATHS.INVOICE_GENERATE}?fromQuote=${quote.id}`),
     },
     // {
     //   name: "quote.list.menu.delete",
@@ -223,7 +230,7 @@ export const Quotes = () => {
           </div>
         </div>
         <div>
-          <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white">
+          <div className="-mx-4 sm:mx-0 sm:rounded-lg bg-white">
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>

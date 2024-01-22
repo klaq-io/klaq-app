@@ -40,6 +40,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
 import {
   useFetchMainEvent,
+  useFetchMainEvents,
   useGetEventMapInformations,
   useUpdateMainEvent,
 } from "redux/MainEvent/hooks";
@@ -70,8 +71,8 @@ export const MainEventDetails = () => {
 
   const mainEvent = useSelector((state: any) => getMainEvent(state, id!));
 
-  const [{ isLoading: isFetchingMainEvent }, fetchMainEvent] =
-    useFetchMainEvent();
+  const [{ isLoading: isFetchingMainEvent }, fetchMainEvents] =
+    useFetchMainEvents();
   const [{ isLoading: isUpdating }, updateEvent] = useUpdateMainEvent();
 
   const [{ data: mapData }, getEventMapInformations] =
@@ -85,7 +86,7 @@ export const MainEventDetails = () => {
     validationSchema,
     onSubmit: async (values) => {
       await updateEvent(values);
-      fetchMainEvent(id);
+      fetchMainEvents();
     },
     enableReinitialize: true,
   });
@@ -189,7 +190,7 @@ export const MainEventDetails = () => {
   };
 
   const handleGenerateQuote = () => {
-    navigate(`${PATHS.QUOTE}/new/${id}`);
+    navigate(`${PATHS.QUOTE_GENERATE}?fromEventId=${id}`);
   };
 
   const handleGenerateInvoice = () => {
@@ -244,13 +245,15 @@ export const MainEventDetails = () => {
   };
 
   useEffect(() => {
-    fetchMainEvent(id);
+    console.log("fetching", id);
+    fetchMainEvents();
     setQuery({
       tab: tabs[0].name,
     });
     getEventMapInformations(id!);
   }, []);
 
+  console.log(mainEvent);
   return (
     <PageLayout>
       {!isFetchingMainEvent && mainEvent ? (
@@ -724,6 +727,19 @@ export const MainEventDetails = () => {
                                   name={`subEvents.${index}.country`}
                                   onChange={formik.handleChange}
                                   value={formik.values.subEvents[index].country}
+                                />
+                              </div>
+                              <div className="col-span-full">
+                                <Label htmlFor="note">Note additionnelle</Label>
+                                <textarea
+                                  value={formik.values.subEvents[index].note}
+                                  onChange={formik.handleChange}
+                                  rows={2}
+                                  name={`subEvents.${index}.note`}
+                                  className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                                  placeholder={intl.formatMessage({
+                                    id: "edit-event.commentaries.add-commentary",
+                                  })}
                                 />
                               </div>
                             </div>

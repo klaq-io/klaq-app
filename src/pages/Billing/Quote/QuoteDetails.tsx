@@ -325,7 +325,7 @@ export const QuoteDetailsPage = () => {
                   <div>
                     <Label htmlFor="object">
                       {intl.formatMessage({
-                        id: "invoice-generate.informations.object.label",
+                        id: "quote-generate.informations.object.label",
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">

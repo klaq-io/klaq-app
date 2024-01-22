@@ -42,16 +42,22 @@ import {
 import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
 import { PATHS } from "routes";
 import { useCreateInvoice } from "redux/Invoice/hooks";
+import { useParams } from "react-router-dom";
+import { getQuoteById } from "redux/Quote/selectors";
+import { useFetchQuote } from "redux/Quote/hooks";
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
 
+  const { fromQuoteId } = useParams();
   const [query, setQuery] = useState("");
   const [mainEventId, setMainEventId] = useState("");
   const [, fetchMainEvents] = useFetchMainEvents();
+  const [, fetchQuote] = useFetchQuote();
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
+  const quote = useSelector((state: any) => getQuoteById(state, fromQuoteId));
 
   const [{ isLoading: isSubmitting }, createInvoice] = useCreateInvoice();
 
@@ -220,7 +226,17 @@ export const InvoiceGenerate = () => {
     fetchProducts();
     fetchBankAccountsDetails();
     formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
+    formik.setFieldValue(
+      "validUntil",
+      add(new Date(), { days: 15 }).toISOString().split("T")[0]
+    );
   }, []);
+
+  useEffect(() => {
+    if (fromQuoteId) {
+      fetchQuote(fromQuoteId);
+    }
+  }, [fromQuoteId]);
 
   return (
     <PageLayout>
@@ -659,6 +675,14 @@ export const InvoiceGenerate = () => {
                               type="number"
                               className="w-2/3"
                               min={0}
+                              onBlur={() =>
+                                formik.values.products[index].discount
+                                  ? formik.values.products[index].discount
+                                  : formik.setFieldValue(
+                                      `products.${index}.discount`,
+                                      0
+                                    )
+                              }
                             />
                             <span className="w-1/3">
                               <Label htmlFor={`product-discount-type-{index}`}>

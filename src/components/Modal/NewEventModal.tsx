@@ -51,8 +51,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
           return customer.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const [{ isLoading: isCreatingEvent, data, isSuccess }, createEvent] =
-    useCreateEvent();
+  const [{ isLoading: isCreatingEvent, data }, createEvent] = useCreateEvent();
 
   const formik = useFormik({
     initialValues: {
@@ -72,7 +71,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      await createEvent({
+      const { id } = await createEvent({
         ...values,
         customer: {
           ...values.customer,
@@ -85,8 +84,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
       });
       setOpen(false);
       resetForm();
-      if (isSuccess && data)
-        navigate(`${PATHS.EVENTS}/${data.id}/details?tab=Roadmap`);
+      navigate(`${PATHS.EVENT}/${id}/details?tab=Roadmap`);
     },
     enableReinitialize: true,
   });
@@ -592,16 +590,18 @@ export const NewEventModal = (props: NewEventModalProps) => {
                     </div>
                   </form>
                 </div>
-                <div className="mt-4 sm:mt-8 ">
-                  <button
+                <div className="mt-4 sm:mt-8 w-full">
+                  <Button
+                    isLoading={isCreatingEvent}
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-klaq-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
+                    color="primary"
+                    variant="contained"
                     onClick={formik.submitForm}
                   >
                     {intl.formatMessage({
                       id: "new-event.submit",
                     })}
-                  </button>
+                  </Button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

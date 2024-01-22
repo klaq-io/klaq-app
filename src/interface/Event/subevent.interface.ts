@@ -12,6 +12,7 @@ export interface SubEvent {
   state?: string;
   zipcode?: string;
   country?: string;
+  note?: string;
 }
 
 export interface SubEventCreator {

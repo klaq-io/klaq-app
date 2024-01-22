@@ -35,10 +35,13 @@ import { ProductItem } from "redux/Products/slices";
 import { DiscountType } from "interface/Invoice/invoice.interface";
 import { add, formatISO } from "date-fns";
 import { useCreateQuote } from "redux/Quote/hooks";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export const QuoteGeneratePage = () => {
   const intl = useIntl();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const fromEventId = searchParams.get("fromEventId");
   const [query, setQuery] = useState("");
   const [mainEventId, setMainEventId] = useState("");
   const [, fetchMainEvents] = useFetchMainEvents();
@@ -200,7 +203,22 @@ export const QuoteGeneratePage = () => {
     fetchMainEvents();
     fetchProducts();
     formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
+    formik.setFieldValue(
+      "validUntil",
+      add(new Date(), { days: 15 }).toISOString().split("T")[0]
+    );
   }, []);
+
+  useEffect(() => {
+    if (fromEventId) {
+      const mainEvent = mainEvents.find(
+        (mainEvent) => mainEvent.id === fromEventId
+      );
+      if (mainEvent) {
+        handleSetMainEvent(mainEvent);
+      }
+    }
+  }, [fromEventId]);
 
   return (
     <PageLayout>
@@ -221,170 +239,172 @@ export const QuoteGeneratePage = () => {
       <form onSubmit={formik.handleSubmit}>
         <div className="mt-8 flex flex-col">
           <CardContainer className="grow px-4 py-5 sm:p-6 flex flex-col space-y-8">
-            <div className="flex flex-col space-y-4">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
-                {intl.formatMessage({
-                  id: "quote-generate.attach-event.title",
-                })}
-              </h1>
-              <Combobox
-                as="div"
-                onChange={(mainEvent: MainEvent) => {
-                  handleSetMainEvent(mainEvent);
-                }}
-              >
-                {({ activeOption }) => (
-                  <>
-                    <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <MagnifyingGlassIcon
-                          className="pointer-events-none absolute h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <Combobox.Input
-                        className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        placeholder={intl.formatMessage({
-                          id: "quote.attach-to-event.search",
-                        })}
-                        onChange={(event) => setQuery(event.target.value)}
-                        displayValue={(mainEvent: MainEvent) =>
-                          mainEvent
-                            ? `${new Date(
-                                mainEvent.subEvents[0].date
-                              ).toLocaleDateString()} - ${
-                                mainEvent.customer.name
-                              } - ${
-                                mainEvent.subEvents[0].type
-                              } - ${intl.formatMessage({
-                                id: `events.status.${mainEvent.status}`,
-                              })}`
-                            : ""
-                        }
-                      />
-                      <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                        <ChevronUpDownIcon
-                          className="h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                      </Combobox.Button>
-                    </div>
-                    <Combobox.Options className="flex absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {query === "" || filteredEvents.length > 0 ? (
-                        <div
-                          className={classNames(
-                            "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4"
-                          )}
-                        >
-                          {query === "" && (
-                            <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
-                              {intl.formatMessage({
-                                id: "quote.attach-to-event.recent",
-                              })}
-                            </h2>
-                          )}
-                          <div className="-mx-2 text-sm text-gray-700">
-                            {(query === ""
-                              ? mainEvents.slice(0, 5)
-                              : filteredEvents
-                            ).map((mainEvent) => (
-                              <Combobox.Option
-                                as="div"
-                                key={mainEvent.id}
-                                value={mainEvent}
-                                className={({ active }) =>
-                                  classNames(
-                                    "relativeflex cursor-default select-none items-center rounded-md p-2",
-                                    active && "bg-gray-100 text-gray-900"
-                                  )
-                                }
-                              >
-                                {({ active, selected }) => (
-                                  <>
-                                    <span className="ml-3 flex-auto truncate">
-                                      {new Date(
-                                        mainEvent.subEvents[0].date
-                                      ).toLocaleDateString()}{" "}
-                                      - {mainEvent.customer.name} -{" "}
-                                      {mainEvent.subEvents[0].type} -{" "}
-                                      {intl.formatMessage({
-                                        id: `events.status.${mainEvent.status}`,
-                                      })}{" "}
-                                    </span>
-                                    {selected && (
-                                      <span
-                                        className={classNames(
-                                          "absolute inset-y-0 right-0 flex items-center pr-4",
-                                          active && "text-klaq-600"
-                                        )}
-                                      >
-                                        <CheckIcon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    )}
-                                  </>
-                                )}
-                              </Combobox.Option>
-                            ))}
-                          </div>
+            {!formik.values.customer.name && (
+              <div className="flex flex-col space-y-4">
+                <h1 className="text-base font-semibold leading-6 text-gray-900">
+                  {intl.formatMessage({
+                    id: "quote-generate.attach-event.title",
+                  })}
+                </h1>
+                <Combobox
+                  as="div"
+                  onChange={(mainEvent: MainEvent) => {
+                    handleSetMainEvent(mainEvent);
+                  }}
+                >
+                  {({ activeOption }) => (
+                    <>
+                      <div className="relative">
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                          <MagnifyingGlassIcon
+                            className="pointer-events-none absolute h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
                         </div>
-                      ) : (
-                        query !== "" &&
-                        filteredEvents.length === 0 && (
-                          <div className="px-6 py-14 text-center text-sm sm:px-14">
-                            <UsersIcon
-                              className="mx-auto h-6 w-6 text-gray-400"
-                              aria-hidden="true"
-                            />
-                            <p className="mt-4 font-semibold text-gray-900">
-                              {intl.formatMessage({
-                                id: "quote.attach-to-event.not-found.title",
-                              })}
-                            </p>
-                            <p className="mt-2 text-gray-500">
-                              {intl.formatMessage(
-                                {
-                                  id: "quote.attach-to-event.not-found.description",
-                                },
-                                {
-                                  btn: (...chunks: any) => (
-                                    <Button
-                                      type="button"
-                                      variant="link"
-                                      color="primary"
-                                    >
-                                      {chunks.join()}
-                                    </Button>
-                                  ),
-                                }
-                              )}
-                            </p>
-                            <p className="mt-2 text-gray-500">
-                              {intl.formatMessage({
-                                id: "quote.attach-to-event.not-found.info",
-                              })}
-                            </p>
+                        <Combobox.Input
+                          className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                          placeholder={intl.formatMessage({
+                            id: "quote.attach-to-event.search",
+                          })}
+                          onChange={(event) => setQuery(event.target.value)}
+                          displayValue={(mainEvent: MainEvent) =>
+                            mainEvent
+                              ? `${new Date(
+                                  mainEvent.subEvents[0].date
+                                ).toLocaleDateString()} - ${
+                                  mainEvent.customer.name
+                                } - ${
+                                  mainEvent.subEvents[0].type
+                                } - ${intl.formatMessage({
+                                  id: `events.status.${mainEvent.status}`,
+                                })}`
+                              : ""
+                          }
+                        />
+                        <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                          <ChevronUpDownIcon
+                            className="h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </Combobox.Button>
+                      </div>
+                      <Combobox.Options className="flex absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        {query === "" || filteredEvents.length > 0 ? (
+                          <div
+                            className={classNames(
+                              "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4"
+                            )}
+                          >
+                            {query === "" && (
+                              <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
+                                {intl.formatMessage({
+                                  id: "quote.attach-to-event.recent",
+                                })}
+                              </h2>
+                            )}
+                            <div className="-mx-2 text-sm text-gray-700">
+                              {(query === ""
+                                ? mainEvents.slice(0, 5)
+                                : filteredEvents
+                              ).map((mainEvent) => (
+                                <Combobox.Option
+                                  as="div"
+                                  key={mainEvent.id}
+                                  value={mainEvent}
+                                  className={({ active }) =>
+                                    classNames(
+                                      "relativeflex cursor-default select-none items-center rounded-md p-2",
+                                      active && "bg-gray-100 text-gray-900"
+                                    )
+                                  }
+                                >
+                                  {({ active, selected }) => (
+                                    <>
+                                      <span className="ml-3 flex-auto truncate">
+                                        {new Date(
+                                          mainEvent.subEvents[0].date
+                                        ).toLocaleDateString()}{" "}
+                                        - {mainEvent.customer.name} -{" "}
+                                        {mainEvent.subEvents[0].type} -{" "}
+                                        {intl.formatMessage({
+                                          id: `events.status.${mainEvent.status}`,
+                                        })}{" "}
+                                      </span>
+                                      {selected && (
+                                        <span
+                                          className={classNames(
+                                            "absolute inset-y-0 right-0 flex items-center pr-4",
+                                            active && "text-klaq-600"
+                                          )}
+                                        >
+                                          <CheckIcon
+                                            className="h-5 w-5"
+                                            aria-hidden="true"
+                                          />
+                                        </span>
+                                      )}
+                                    </>
+                                  )}
+                                </Combobox.Option>
+                              ))}
+                            </div>
                           </div>
-                        )
-                      )}
-                    </Combobox.Options>
-                  </>
+                        ) : (
+                          query !== "" &&
+                          filteredEvents.length === 0 && (
+                            <div className="px-6 py-14 text-center text-sm sm:px-14">
+                              <UsersIcon
+                                className="mx-auto h-6 w-6 text-gray-400"
+                                aria-hidden="true"
+                              />
+                              <p className="mt-4 font-semibold text-gray-900">
+                                {intl.formatMessage({
+                                  id: "quote.attach-to-event.not-found.title",
+                                })}
+                              </p>
+                              <p className="mt-2 text-gray-500">
+                                {intl.formatMessage(
+                                  {
+                                    id: "quote.attach-to-event.not-found.description",
+                                  },
+                                  {
+                                    btn: (...chunks: any) => (
+                                      <Button
+                                        type="button"
+                                        variant="link"
+                                        color="primary"
+                                      >
+                                        {chunks.join()}
+                                      </Button>
+                                    ),
+                                  }
+                                )}
+                              </p>
+                              <p className="mt-2 text-gray-500">
+                                {intl.formatMessage({
+                                  id: "quote.attach-to-event.not-found.info",
+                                })}
+                              </p>
+                            </div>
+                          )
+                        )}
+                      </Combobox.Options>
+                    </>
+                  )}
+                </Combobox>
+                {!formik.values.customer.name && (
+                  <Alert
+                    status="info"
+                    title={intl.formatMessage({
+                      id: "quote-generate.attach-event.info.title",
+                    })}
+                    text={intl.formatMessage({
+                      id: "quote-generate.attach-event.info.description",
+                    })}
+                  />
                 )}
-              </Combobox>
-              {!formik.values.customer.name && (
-                <Alert
-                  status="info"
-                  title={intl.formatMessage({
-                    id: "quote-generate.attach-event.info.title",
-                  })}
-                  text={intl.formatMessage({
-                    id: "quote-generate.attach-event.info.description",
-                  })}
-                />
-              )}
-            </div>
+              </div>
+            )}
             <Transition
               show={!!formik.values.customer.name}
               enter="transition ease duration-500 transform"
@@ -637,6 +657,14 @@ export const QuoteGeneratePage = () => {
                             type="number"
                             className="w-2/3"
                             min={0}
+                            onBlur={() =>
+                              formik.values.products[index].discount
+                                ? formik.values.products[index].discount
+                                : formik.setFieldValue(
+                                    `products.${index}.discount`,
+                                    0
+                                  )
+                            }
                           />
                           <span className="w-1/3">
                             <Label htmlFor={`product-discount-type-{index}`}>

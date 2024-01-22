@@ -1587,6 +1587,10 @@
       "invoice-status": {
         "title": "Succès",
         "message": "Le status de la facture a bien été modifié"
+      },
+      "invoice-final": {
+        "title": "Succès",
+        "message": "La facture a bien été finalisée"
       }
     },
     "warning": {

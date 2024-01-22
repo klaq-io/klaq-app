@@ -5,7 +5,7 @@ export const PATHS = {
   CALENDAR: "/calendar",
   NEW_EVENT: "/new",
   EVENTS: "/events",
-  EVENT: "/events/:id",
+  EVENT: "/events",
   EVENT_V2: "/events/2/:id",
   EVENT_EDIT: "/events/:id/edit",
   EVENT_QUOTE_GENERATOR: "/events/:id/quote/generate",

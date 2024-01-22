@@ -58,7 +58,7 @@ export const useCreateQuote = () => {
         />,
         { duration: 2, position: "top-right" }
       );
-      navigate(PATHS.QUOTE_DETAILS);
+      navigate(`${PATHS.QUOTE}/${data.id}/details`);
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()

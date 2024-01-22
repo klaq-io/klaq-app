@@ -163,7 +163,7 @@ export const Products = () => {
                     {productItems.map((product: ProductItem) => (
                       <tr key={product.id}>
                         <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-                          <div className="font-medium text-gray-900">
+                          <div className="font-semibold text-gray-900">
                             {product.title}
                           </div>
                         </td>

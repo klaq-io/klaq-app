@@ -44,7 +44,7 @@ export const validationSchema = Yup.object().shape({
     Yup.object().shape({
       date: Yup.string().required("Required"),
       address: Yup.string().required("Required"),
-      zipcode: Yup.string().matches(/^\d{5}$/, "Invalid zipcode"),
+      zipcode: Yup.string().required("Required"),
       type: Yup.string(),
       guests: Yup.number(),
     })
