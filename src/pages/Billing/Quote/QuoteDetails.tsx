@@ -1,13 +1,9 @@
 import { Transition } from "@headlessui/react";
 import {
   ArrowDownTrayIcon,
-  BanknotesIcon,
   BuildingLibraryIcon,
-  CheckBadgeIcon,
-  CheckIcon,
   EnvelopeIcon,
   EyeIcon,
-  PaperAirplaneIcon,
   PencilSquareIcon,
   TrashIcon,
   UserIcon,
@@ -15,8 +11,6 @@ import {
 import {
   CardContainer,
   DangerModal,
-  InfoModal,
-  InvoiceBadge,
   Label,
   QuoteBadge,
   Tooltip,
@@ -25,7 +19,6 @@ import { format } from "date-fns";
 import {
   DiscountType,
   InvoiceProduct,
-  InvoiceStatus,
 } from "interface/Invoice/invoice.interface";
 import { QuoteProduct, QuoteStatus } from "interface/Quote/quote.interface";
 import { PageLayout } from "layouts";
@@ -35,15 +28,8 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
-import {
-  useDeleteInvoice,
-  useDownloadInvoicePDF,
-  useFetchInvoice,
-  useMarkAsFinal,
-  useUpdateInvoiceStatus,
-} from "redux/Invoice/hooks";
-import { getInvoice } from "redux/Invoice/selectors";
-import { useCreateQuote, useFetchQuote } from "redux/Quote/hooks";
+import { useDeleteInvoice, useUpdateInvoiceStatus } from "redux/Invoice/hooks";
+import { useDownloadQuotePDF, useFetchQuote } from "redux/Quote/hooks";
 import { getQuoteById } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 
@@ -56,8 +42,8 @@ export const QuoteDetailsPage = () => {
   const [{ isLoading: isUpdatingStatus }, updateInvoiceStatus] =
     useUpdateInvoiceStatus();
   const quote = useSelector((state: any) => getQuoteById(state, id!));
-  const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
-    useDownloadInvoicePDF();
+  const [{ isLoading: isDownloadingQuote }, downloadQuote] =
+    useDownloadQuotePDF();
   const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 
   const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);
@@ -274,8 +260,8 @@ export const QuoteDetailsPage = () => {
                   </Tooltip>
                   <Tooltip text="Télécharger" position="bottom">
                     <button
-                      onClick={() => downloadInvoice(quote.id, quote.number)}
-                      disabled={isDownloadingInvoice}
+                      onClick={() => downloadQuote(quote.id, quote.number)}
+                      disabled={isDownloadingQuote}
                       className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
                     >
                       <ArrowDownTrayIcon className="h-5 w-5" />
