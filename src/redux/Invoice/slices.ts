@@ -7,15 +7,10 @@ export const invoiceSlice = createSlice({
   initialState,
   reducers: {
     setInvoice: (state, action: PayloadAction<Invoice>) => {
-      state.invoices =
-        state.invoices.length === 0
-          ? [action.payload]
-          : state.invoices.map((invoice: Invoice) => {
-              if (invoice.id === action.payload.id) {
-                return action.payload;
-              }
-              return invoice;
-            });
+      state.invoices = state.invoices.filter(
+        (invoice: Invoice) => invoice.id !== action.payload.id
+      );
+      state.invoices.push(action.payload);
     },
     setInvoices: (state, action: PayloadAction<Invoice[]>) => {
       state.invoices = action.payload;

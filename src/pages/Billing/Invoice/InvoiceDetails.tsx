@@ -107,11 +107,11 @@ export const InvoiceDetailsPage = () => {
 
   useEffect(() => {
     fetchInvoice(id);
-  }, [openNewCustomer]);
+  }, []);
 
   useEffect(() => {
     fetchInvoice(id);
-  }, []);
+  }, [openNewCustomer]);
 
   return (
     <PageLayout>
