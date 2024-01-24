@@ -17,3 +17,15 @@ export const getMainEventsByStatus = (
   state.mainEvents.mainEvents.filter((event: MainEvent) =>
     status.includes(event.status)
   );
+
+export const getThisMonthMainEvents = (state: RootState): MainEvent[] => {
+  const thisMonth = new Date().getMonth();
+  // check each subEvents of mainEvents if it is in this month
+  return state.mainEvents.mainEvents.filter((mainEvent: MainEvent) => {
+    const subEvents = mainEvent.subEvents;
+    return subEvents.some((subEvent) => {
+      const subEventDate = new Date(subEvent.date);
+      return subEventDate.getMonth() === thisMonth;
+    });
+  });
+};

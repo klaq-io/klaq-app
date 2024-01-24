@@ -1454,7 +1454,9 @@
       "inbox": "Nouveau deal",
       "total-billed": "Total facturé",
       "estimated-revenue": "Revenu estimé",
-      "overdue": "En retard"
+      "overdue": "En retard",
+      "confirmed-this-month": "Confirmé ce mois-ci",
+      "event-this-month": "Évènements ce mois-ci"
     },
     "upcoming-events": "Évènement à venir ce mois-ci",
     "button": {

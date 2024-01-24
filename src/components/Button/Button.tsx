@@ -11,7 +11,7 @@ type ButtonProps = {
   variant: "contained" | "outlined" | "text" | "link";
   onClick?: () => void;
   href?: string;
-  type: "button" | "submit" | "reset";
+  type?: "button" | "submit" | "reset";
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -25,7 +25,7 @@ export const Button: FC<ButtonProps> = (props: ButtonProps) => {
     disabled,
     isLoading,
     onClick,
-    type,
+    type = "button",
     color,
     variant,
     size = "xl",

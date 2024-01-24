@@ -1,5 +1,6 @@
 import {
   ArrowRightIcon,
+  ArrowUpRightIcon,
   BanknotesIcon,
   BellAlertIcon,
   BellSlashIcon,
@@ -7,53 +8,64 @@ import {
   InboxArrowDownIcon,
   InboxIcon,
 } from "@heroicons/react/24/outline";
-import { Button, MiniCalendar, Skeleton } from "components";
-import { useEffect } from "react";
+import {
+  Button,
+  MiniCalendar,
+  NewEventModal,
+  NotificationWidget,
+  Skeleton,
+} from "components";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import {
+  getMainEventsByStatus,
+  getThisMonthMainEvents,
+} from "redux/MainEvent/selectors";
 import { getQuotePipeValueV2 } from "utils/quote";
 import { PageLayout } from "../../layouts";
 import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
 import { getThisMonthDates, getThisYearDates } from "../../utils/utils";
+import { greetingByTime } from "utils/greetings";
+import { getUser } from "redux/Login/selectors";
+import { NotificationCard } from "components/Notifications/NotificationCard";
 
 export const Dashboard = () => {
   const intl = useIntl();
   const navigate = useNavigate();
 
+  const [openNewEventModal, setOpenNewEventModal] = useState<boolean>(false);
   const [startOfYear, endOfYear] = getThisYearDates();
   const [startOfMonth, endOfMonth] = getThisMonthDates();
+  const user = useSelector(getUser);
 
   const [{ isLoading: isFetchingMainEvents }, fetchMainEvents] =
     useFetchMainEvents();
+
   const overdueMainEvents = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
-  );
-  const billedAndQuotesMainEvents = useSelector((state: any) =>
-    getMainEventsByStatus(
-      state,
-      EventStatus.WIN,
-      EventStatus.DONE,
-      EventStatus.INVOICE_SENT,
-      EventStatus.INVOICE_OPENED,
-      EventStatus.CONTRACT_ACCEPTED,
-      EventStatus.CONTRACT_OPENED,
-      EventStatus.CONTRACT_SENT,
-      EventStatus.CONTRACT_REJECTED,
-      EventStatus.QUOTE_ACCEPTED,
-      EventStatus.QUOTE_OPENED,
-      EventStatus.QUOTE_SENT
-    )
   );
 
   const inboxMainEvents = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INBOX)
   );
 
-  const estimatedRevenue = getQuotePipeValueV2(billedAndQuotesMainEvents);
+  const thisMonthEvents = useSelector(getThisMonthMainEvents);
+  const confirmedEvents = thisMonthEvents.filter((event) =>
+    [
+      EventStatus.QUOTE_ACCEPTED,
+      EventStatus.INVOICE_SENT,
+      EventStatus.INVOICE_OVERDUE,
+      EventStatus.INVOICE_OPENED,
+      EventStatus.DONE,
+      EventStatus.READY,
+      EventStatus.WIN,
+    ].includes(event.status)
+  );
+  const confirmedEventsTotal = getQuotePipeValueV2(confirmedEvents);
 
   const stats = [
     {
@@ -68,14 +80,14 @@ export const Dashboard = () => {
     },
     {
       id: 2,
-      name: "total-billed",
-      stat: `0.00 €`,
-      icon: BanknotesIcon,
+      name: "event-this-month",
+      stat: confirmedEvents.length,
+      icon: ArrowUpRightIcon,
     },
     {
       id: 3,
-      name: "estimated-revenue",
-      stat: `${estimatedRevenue} €`,
+      name: "confirmed-this-month",
+      stat: `${confirmedEventsTotal} €`,
       icon: CurrencyEuroIcon,
     },
     {
@@ -96,7 +108,7 @@ export const Dashboard = () => {
 
   return (
     <PageLayout>
-      <div>
+      <div className="flex flex-col space-y-8">
         <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
           {stats.map((item) => (
             <div
@@ -152,36 +164,26 @@ export const Dashboard = () => {
             </div>
           ))}
         </dl>
-        <div className="mt-6">
-          {/* <div className="flex flex-row items-center justify-between">
-            <h3 className="text-base font-semibold leading-6 text-gray-900">
-              {intl.formatMessage({
-                id: `dashboard.upcoming-events`,
-              })}
-            </h3>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              leadingIcon={<PlusIcon className="h-5 w-5" aria-hidden="true" />}
-              onClick={handleNewEvent}
-            >
-              {intl.formatMessage({
-                id: `dashboard.button.new-event`,
-              })}
-            </Button>
-          </div> */}
-
-          <div className="mt-6">
-            <div className="flex flex-row">
-              <div className="w-2/3">
-                <MiniCalendar />
-              </div>
-              <div className="w-1/3"></div>
-            </div>
+        <div className="flex flex-row justify-between">
+          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight">
+            {`${greetingByTime()} ${user.firstName} !`}
+          </h2>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setOpenNewEventModal(true)}
+          >
+            {intl.formatMessage({ id: `dashboard.button.new-event` })}
+          </Button>
+        </div>
+        <div className="flex flex-row">
+          <div className="w-2/3">
+            <MiniCalendar />
           </div>
+          <div className="w-1/3"></div>
         </div>
       </div>
+      <NewEventModal open={openNewEventModal} setOpen={setOpenNewEventModal} />
     </PageLayout>
   );
 };
