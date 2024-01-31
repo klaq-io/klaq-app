@@ -29,10 +29,15 @@ import { getQuotePipeValueV2 } from "utils/quote";
 import { PageLayout } from "../../layouts";
 import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
-import { getThisMonthDates, getThisYearDates } from "../../utils/utils";
+import {
+  classNames,
+  getThisMonthDates,
+  getThisYearDates,
+} from "../../utils/utils";
 import { greetingByTime } from "utils/greetings";
 import { getUser } from "redux/Login/selectors";
 import { NotificationCard } from "components/Notifications/NotificationCard";
+import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 
 export const Dashboard = () => {
   const intl = useIntl();
@@ -77,6 +82,7 @@ export const Dashboard = () => {
       name: "inbox",
       stat: inboxMainEvents.length,
       icon: inboxMainEvents.length ? InboxArrowDownIcon : InboxIcon,
+      animate: !!inboxMainEvents.length,
       onClick: () =>
         navigate(
           `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`
@@ -87,22 +93,22 @@ export const Dashboard = () => {
       name: "event-this-month",
       stat: confirmedEvents.length,
       icon: ArrowUpRightIcon,
+      animate: false,
     },
     {
       id: 3,
       name: "confirmed-this-month",
       stat: `${confirmedEventsTotal} €`,
       icon: CurrencyEuroIcon,
+      animate: false,
     },
     {
       id: 4,
       name: "overdue",
       stat: overdueMainEvents.length,
       icon: overdueMainEvents.length ? BellAlertIcon : BellSlashIcon,
-      onClick: () =>
-        navigate(
-          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=3&startDate=${startOfYear}&endDate=${endOfYear}&tab=overdue`
-        ),
+      animate: !!overdueMainEvents.length,
+      onClick: () => navigate(`${PATHS.INVOICES}?tab=${InvoiceStatus.LATE}`),
     },
   ];
 
@@ -122,7 +128,10 @@ export const Dashboard = () => {
               <dt>
                 <div className="absolute rounded-md bg-klaq-500 p-3">
                   <item.icon
-                    className="h-6 w-6 text-white"
+                    className={classNames(
+                      "h-6 w-6 text-white",
+                      item.animate && "animate-pulse"
+                    )}
                     aria-hidden="true"
                   />
                 </div>

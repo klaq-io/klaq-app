@@ -105,6 +105,14 @@ export const InvoicesPage = () => {
       ),
     },
     {
+      name: "invoices.status.pending",
+      tab: "pending",
+      current: params.get("tab") === "pending",
+      invoices: filteredInvoices.filter(
+        (invoice) => invoice.status === InvoiceStatus.PENDING
+      ),
+    },
+    {
       name: "invoices.status.draft",
       tab: InvoiceStatus.DRAFT,
       current: params.get("tab") === InvoiceStatus.DRAFT,
@@ -128,23 +136,12 @@ export const InvoicesPage = () => {
         (invoice) => invoice.status === InvoiceStatus.CANCELED
       ),
     },
-    {
-      name: "invoices.status.pending",
-      tab: "pending",
-      current: params.get("tab") === "pending",
-      invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.PENDING
-      ),
-    },
   ];
 
   const currentTab = tabs.find((tab) => tab.current) || tabs[0];
 
   useEffect(() => {
     fetchInvoices();
-    setParams({
-      tab: tabs[0].tab,
-    });
   }, []);
   return (
     <PageLayout>

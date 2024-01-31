@@ -284,12 +284,14 @@ export const Events = () => {
   }, []);
 
   useEffect(() => {
-    setSearchParams({
-      tab: current.name,
-      filter: selectedFilter,
-      startDate: startDate,
-      endDate: endDate,
-    });
+    if (mainEvents && mainEvents.length > 0) {
+      setSearchParams({
+        tab: current.name,
+        filter: selectedFilter,
+        startDate: startDate,
+        endDate: endDate,
+      });
+    }
   }, [selectedFilter, startDate, endDate]);
 
   return (

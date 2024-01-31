@@ -79,13 +79,13 @@ export const Sidebar = (props: Props) => {
       name: "sidebar.invoices",
       href: PATHS.INVOICES,
       icon: DocumentCheckIcon,
-      current: currentPage === PATHS.INVOICES,
+      current: currentPage === PATHS.INVOICES || currentPage === PATHS.INVOICE,
     },
     {
       name: "sidebar.quotes",
       icon: ClipboardDocumentIcon,
       href: PATHS.QUOTES,
-      current: currentPage === PATHS.QUOTES,
+      current: currentPage === PATHS.QUOTES || currentPage === PATHS.QUOTE,
     },
     {
       name: "sidebar.products",
