@@ -7,28 +7,6 @@ import {
   View,
 } from "@react-pdf/renderer";
 
-{
-  /* <InvoiceContext.Provider
-value={{
-  paymentDue: new Date(),
-  issuedOn: new Date(),
-  status: InvoiceStatus.SENT,
-  products: [
-    {
-      quantity: 1,
-      price: 3,
-      description: "test",
-      title: "produit",
-      vtaRate: "20",
-    },
-  ],
-  number: "1",
-}}
->
-<Invoice.
-</InvoiceContext.Provider> */
-}
-
 const styles = StyleSheet.create({
   page: {
     fontFamily: "Poppins",

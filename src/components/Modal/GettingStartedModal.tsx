@@ -6,6 +6,7 @@ import {
 import { Button } from "components/Button";
 import { Fragment, useState } from "react";
 import { useIntl } from "react-intl";
+import { handleClickHelp } from "utils/clickOnCrisp";
 
 type Props = {
   isOpen: boolean;
@@ -20,14 +21,6 @@ export const GettingStartedModal = (props: Props) => {
 
   const loomLink =
     "https://www.loom.com/embed/8a7f72f999aa47eeb90d77daf44499e3?sid=d3a366c2-9cbf-4263-bfd1-243a1fec0220";
-
-  const handleHelp = () => {
-    const element = document.getElementsByClassName("cc-nsge")[0];
-
-    if (element) {
-      (element as HTMLElement).click();
-    }
-  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -103,7 +96,7 @@ export const GettingStartedModal = (props: Props) => {
                     <Button
                       variant="text"
                       color="secondary"
-                      onClick={handleHelp}
+                      onClick={handleClickHelp}
                       leadingIcon={
                         <QuestionMarkCircleIcon className="w-5 h-5" />
                       }

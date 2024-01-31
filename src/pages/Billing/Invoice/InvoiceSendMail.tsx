@@ -4,7 +4,7 @@ import { PageLayout } from "layouts";
 import { Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { getInvoice } from "redux/Invoice/selectors";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Button, CardContainer, TextField } from "components";
 import { useIntl } from "react-intl";
 import { useEffect } from "react";
@@ -25,11 +25,14 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { PATHS } from "routes";
+import { differenceInDays } from "date-fns";
 
 export const InvoiceSendMailPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [search] = useSearchParams();
+  const type = search.get("type");
   const [{ isLoading }, fetchInvoice] = useFetchInvoice();
   const [{ isLoading: isSendingEmail }, sendInvoiceByEmail] =
     useSendInvoiceByEmail();
@@ -43,35 +46,6 @@ export const InvoiceSendMailPage = () => {
 
   const isCustomerPro =
     invoice && invoice.mainEvent.customer.type === CustomerType.COMPANY;
-
-  const formik = useFormik({
-    initialValues: invoice
-      ? {
-          ...initialValues,
-          to: invoice.mainEvent.customer.email,
-          subject: intl.formatMessage({
-            id: "invoice-send.default.subject",
-          }),
-          message: intl.formatMessage(
-            {
-              id: "invoice-send.default.message",
-            },
-            {
-              stageName: user.stageName,
-              type: invoice?.mainEvent.title.toLowerCase(),
-              date: new Date(
-                invoice.mainEvent.subEvents[0].date
-              ).toLocaleDateString(),
-            }
-          ),
-        }
-      : initialValues,
-    onSubmit: async (values) => {
-      await sendInvoiceByEmail(values, id!);
-      navigate(`${PATHS.INVOICE}/${id}/details`);
-    },
-    enableReinitialize: true,
-  });
 
   const getProductSubtotal = (product: InvoiceProduct) => {
     const discount =
@@ -95,6 +69,42 @@ export const InvoiceSendMailPage = () => {
     ) || 0;
 
   const total = subtotal + tax;
+
+  const formik = useFormik({
+    initialValues: invoice
+      ? {
+          ...initialValues,
+          to: invoice.mainEvent.customer.email,
+          subject: intl.formatMessage({
+            id: `invoice-send.${type ?? "default"}.subject`,
+          }),
+          message: intl.formatMessage(
+            {
+              id: `invoice-send.${type ?? "default"}.message`,
+            },
+            {
+              stageName: user.stageName,
+              type: invoice?.mainEvent.title.toLowerCase(),
+              date: new Date(
+                invoice.mainEvent.subEvents[0].date
+              ).toLocaleDateString(),
+              emissionDate: new Date(invoice.issuedOn).toLocaleDateString(),
+              invoiceNumber: invoice.number,
+              total: total.toFixed(2),
+              daysLate: differenceInDays(
+                new Date(),
+                new Date(invoice.validUntil)
+              ),
+            }
+          ),
+        }
+      : initialValues,
+    onSubmit: async (values) => {
+      await sendInvoiceByEmail(values, id!);
+      navigate(`${PATHS.INVOICE}/${id}/details`);
+    },
+    enableReinitialize: true,
+  });
 
   useEffect(() => {
     fetchInvoice(id);

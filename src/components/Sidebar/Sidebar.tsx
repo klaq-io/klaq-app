@@ -28,6 +28,7 @@ import { getUser } from "redux/Login/selectors";
 import { Fragment, useEffect } from "react";
 import { Skeleton } from "components/Skeleton";
 import { CardContainer } from "components/Card";
+import { handleClickHelp } from "utils/clickOnCrisp";
 
 type Props = {
   classes?: string;
@@ -92,18 +93,18 @@ export const Sidebar = (props: Props) => {
       icon: ShoppingBagIcon,
       current: currentPage === PATHS.PRODUCTS,
     },
-    {
-      name: "sidebar.marketing",
-      href: "#",
-      icon: PresentationChartLineIcon,
-      current: false,
-    },
-    {
-      name: "sidebar.analytics",
-      href: "#",
-      icon: ChartPieIcon,
-      current: false,
-    },
+    // {
+    //   name: "sidebar.marketing",
+    //   href: "#",
+    //   icon: PresentationChartLineIcon,
+    //   current: false,
+    // },
+    // {
+    //   name: "sidebar.analytics",
+    //   href: "#",
+    //   icon: ChartPieIcon,
+    //   current: false,
+    // },
   ];
 
   const [{ isLoading: isFetchingUser }, fetchUser] = useFetchUser();
@@ -308,7 +309,7 @@ export const Sidebar = (props: Props) => {
               </Menu>
             </CardContainer>
             <a
-              href="help.klaq.io"
+              onClick={handleClickHelp}
               className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
             >
               <LifebuoyIcon

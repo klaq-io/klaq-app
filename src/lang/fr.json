@@ -84,11 +84,11 @@
     },
     "verify": {
       "success": {
-        "header": "klaq.io  a bien confirmé votre e-mail.",
+        "header": "klaq.io a bien confirmé votre e-mail.",
         "description": "Vous pouvez fermer cette fenêtre et vous connecter à votre compte."
       },
       "failed": {
-        "header": "klaq.io n'a pas pu confirmé votre email",
+        "header": "klaq.io n'a pas pu confirmé votre email.",
         "description": "Veuillez réessayer en cliquant sur le lien de réinitilialisation qui vient de vous être envoyé. Vous pouvez fermer cette page."
       }
     }
@@ -346,7 +346,7 @@
     "complete": {
       "header": "Bienvenue <b>{firstName}</b>. Que le voyage Klaq commence ! 👋",
       "description": "Nous avons peaufiné chaque détail pour vous garantir une expérience transparente et adaptée à vos besoins. Maintenant, il est temps pour vous de libérer la puissance de Klaq et d'augmenter votre productivité.",
-      "loom-description": "Prenez un moment pour regarder cette video qui vous guide à travers chaque fonctionnalité. C'est le moyen idéal de vous familiariser avec les outils incroyables qui vous attendent. Explorez les fonctionnalités, découvrez les possibilités et constatez par vous-même comment Klaq transforme votre façon de travailler.",
+      "loom-description": "Prenez un moment pour regarder cette video qui vous guide à travers chaque fonctionnalité. C'est le moyen idéal de vous familiariser avec les outils qui vous attendent. Explorez les fonctionnalités, découvrez les possibilités et constatez comment Klaq transforme votre façon de travailler.",
       "steps": {
         "user": "Création de votre profil utilisateur",
         "company": "Création de votre profil entreprise",
@@ -582,7 +582,7 @@
       "description": "",
       "label": {
         "name": "Nom du produit",
-        "short-description": "Description courte",
+        "short-description": "Description",
         "attach-file": "Ajouter une plaquette explicative",
         "default-vta-rate": "Taux de TVA",
         "default-price": "Prix par défaut (Hors Taxes)",
@@ -895,7 +895,8 @@
       "new": "Créer une nouvelle facture"
     },
     "status": {
-      "draft": "Provisoire",
+      "all": "Toutes",
+      "draft": "Brouillon",
       "paid": "Payée",
       "canceled": "Annulée",
       "late": "En retard",
@@ -952,6 +953,10 @@
     "default": {
       "subject": "Vous avez reçu une facture",
       "message": "Bonjour,\n\nVeuillez trouver ci-joint la facture pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
+    },
+    "reminder": {
+      "subject": "⏰ Relance: Vous avez reçu une facture",
+      "message": "Bonjour,\n\nJe vous écris pour vous rappeler que vous avez omis de régler votre facture numéro {invoiceNumber} pour un total de {total}€. Selon nos dossiers, cette facture est maintenant en retard de {daysLate} jours.\n\nNous espérons que vous avez simplement oublié de la régler et que vous nous ferez parvenir votre paiement dans les prochains jours. Si vous avez des questions concernant votre facture ou si vous avez besoin d’aide pour régler votre paiement, n’hésitez pas à nous contacter.\n\nCordialement,\n{stageName}"
     },
     "download": "Télécharger la facture",
     "send": "Envoyer la facture"

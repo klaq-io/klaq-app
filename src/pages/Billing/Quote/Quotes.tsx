@@ -102,6 +102,22 @@ export const Quotes = () => {
       quotes: filteredQuotes,
     },
     {
+      name: "draft",
+      current: params.get("tab") === QuoteStatus.DRAFT,
+      tab: QuoteStatus.DRAFT,
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.DRAFT
+      ),
+    },
+    {
+      name: "sent",
+      current: params.get("tab") === QuoteStatus.SENT,
+      tab: QuoteStatus.SENT,
+      quotes: filteredQuotes.filter(
+        (quote) => quote.status === QuoteStatus.SENT
+      ),
+    },
+    {
       name: "accepted",
       current: params.get("tab") === QuoteStatus.ACCEPTED,
       tab: QuoteStatus.ACCEPTED,
@@ -115,22 +131,6 @@ export const Quotes = () => {
       tab: QuoteStatus.REJECTED,
       quotes: filteredQuotes.filter(
         (quote) => quote.status === QuoteStatus.REJECTED
-      ),
-    },
-    {
-      name: "sent",
-      current: params.get("tab") === QuoteStatus.SENT,
-      tab: QuoteStatus.SENT,
-      quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.SENT
-      ),
-    },
-    {
-      name: "draft",
-      current: params.get("tab") === QuoteStatus.DRAFT,
-      tab: QuoteStatus.DRAFT,
-      quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.DRAFT
       ),
     },
   ];

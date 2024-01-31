@@ -1,5 +1,6 @@
 import {
   ArrowDownTrayIcon,
+  ExclamationTriangleIcon,
   EyeIcon,
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
@@ -19,6 +20,7 @@ import { PATHS } from "routes";
 import { classNames } from "utils/utils";
 import { QuoteListSkeleton } from "../Quote";
 import { getInvoiceSubtotal, getInvoiceTotal } from "utils/invoice";
+import { isPast } from "date-fns";
 
 export const InvoicesPage = () => {
   const navigate = useNavigate();
@@ -82,46 +84,48 @@ export const InvoicesPage = () => {
     navigate(PATHS.INVOICE + "/" + invoiceId + "/send");
   };
 
+  const handleSendReminder = (invoiceId: string) => {
+    if (!invoiceId) return;
+    navigate(PATHS.INVOICE + "/" + invoiceId + "/send?type=reminder");
+  };
+
   const tabs = [
     {
+      name: "invoices.status.all",
+      tab: "all",
+      current: params.get("tab") === "all",
+      invoices: filteredInvoices,
+    },
+    {
+      name: "invoices.status.late",
+      tab: InvoiceStatus.LATE,
+      current: params.get("tab") === InvoiceStatus.LATE,
+      invoices: filteredInvoices.filter(
+        (invoice) => invoice.status === InvoiceStatus.LATE
+      ),
+    },
+    {
       name: "invoices.status.draft",
-      tab: "draft",
-      current: params.get("tab") === "draft",
+      tab: InvoiceStatus.DRAFT,
+      current: params.get("tab") === InvoiceStatus.DRAFT,
       invoices: filteredInvoices.filter(
         (invoice) => invoice.status === InvoiceStatus.DRAFT
       ),
     },
     {
       name: "invoices.status.paid",
-      tab: "paid",
-      current: params.get("tab") === "paid",
+      tab: InvoiceStatus.PAID,
+      current: params.get("tab") === InvoiceStatus.PAID,
       invoices: filteredInvoices.filter(
         (invoice) => invoice.status === InvoiceStatus.PAID
       ),
     },
     {
       name: "invoices.status.canceled",
-      tab: "canceled",
-      current: params.get("tab") === "canceled",
+      tab: InvoiceStatus.CANCELED,
+      current: params.get("tab") === InvoiceStatus.CANCELED,
       invoices: filteredInvoices.filter(
         (invoice) => invoice.status === InvoiceStatus.CANCELED
-      ),
-    },
-    {
-      name: "invoices.status.late",
-      tab: "late",
-      current: params.get("tab") === "late",
-      invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.LATE
-      ),
-    },
-
-    {
-      name: "invoices.status.sent",
-      tab: "sent",
-      current: params.get("tab") === "sent",
-      invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.SENT
       ),
     },
     {
@@ -303,9 +307,37 @@ export const InvoicesPage = () => {
                         {new Date(invoice.issuedOn).toLocaleDateString()}
                       </div>
                     </td>
-                    <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                      <div className="font-medium text-gray-500">
-                        {new Date(invoice.validUntil).toLocaleDateString()}
+                    <td
+                      className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center"
+                      onClick={() => {
+                        if (invoice.status !== InvoiceStatus.PAID)
+                          handleSendReminder(invoice.id);
+                      }}
+                    >
+                      <div
+                        className={classNames(
+                          isPast(new Date(invoice.validUntil)) &&
+                            invoice.status !== InvoiceStatus.PAID
+                            ? "text-danger-500 font-semibold hover:cursor-pointer hover:text-danger-600"
+                            : "text-gray-500 font-medium"
+                        )}
+                      >
+                        {isPast(new Date(invoice.validUntil)) &&
+                        invoice.status !== InvoiceStatus.PAID ? (
+                          <span className="flex items-center justify-center space-x-4">
+                            <ExclamationTriangleIcon
+                              className="h-6 w-6 text-danger-600"
+                              aria-hidden="true"
+                            />
+                            <span>
+                              {new Date(
+                                invoice.validUntil
+                              ).toLocaleDateString()}
+                            </span>
+                          </span>
+                        ) : (
+                          new Date(invoice.validUntil).toLocaleDateString()
+                        )}
                       </div>
                     </td>
                     <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">

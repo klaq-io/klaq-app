@@ -110,7 +110,7 @@ export const NewProducts = (props: Props) => {
               ) : null}
             </div>
           </div>
-          <div>
+          {/* <div>
             <label
               htmlFor="attachFile"
               className="block text-sm font-medium leading-6 text-gray-900"
@@ -120,10 +120,9 @@ export const NewProducts = (props: Props) => {
               })}
             </label>
             <div className="mt-2">
-              {/** TODO: change by a download input component */}
               <UploadDocumentZone fileList={files} setFiles={setFiles} />
             </div>
-          </div>
+          </div> */}
 
           <div>
             <label
