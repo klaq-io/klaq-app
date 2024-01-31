@@ -245,15 +245,12 @@ export const MainEventDetails = () => {
   };
 
   useEffect(() => {
-    console.log("fetching", id);
     fetchMainEvents();
     setQuery({
       tab: tabs[0].name,
     });
     getEventMapInformations(id!);
   }, []);
-
-  console.log(mainEvent);
   return (
     <PageLayout>
       {!isFetchingMainEvent && mainEvent ? (

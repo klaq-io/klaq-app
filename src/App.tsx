@@ -28,6 +28,7 @@ import {
   NewEventV2,
   OnboardingCompany,
   OnboardingCompanySearch,
+  OnboardingCompletePage,
   OnboardingIntermittent,
   OnboardingLegalFormChoice,
   OnboardingOffice,
@@ -48,31 +49,10 @@ import {
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
-
-const MINIMUM_SCREEN_SIZE = {
-  width: 1000,
-  height: 400,
-};
+import TransitionComponent from "utils/Transitions";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
-
   return (
     <BrowserRouter>
       <Routes>
@@ -112,6 +92,20 @@ function App() {
           <Route
             path={PATHS.ONBOARDING_OFFICE}
             element={<OnboardingOffice />}
+          />
+          <Route
+            path={PATHS.ONBOARDING_DONE}
+            element={<OnboardingCompletePage />}
+          />
+          <Route
+            path={PATHS.ONBOARDING_WELCOME}
+            element={
+              <AnimatePresence mode="wait">
+                <TransitionComponent>
+                  <Dashboard />
+                </TransitionComponent>
+              </AnimatePresence>
+            }
           />
           <Route path={PATHS.CALENDAR} element={<Calendar />} />
           <Route path={PATHS.CUSTOMERS} element={<Customers />} />

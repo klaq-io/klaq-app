@@ -14,6 +14,7 @@ export interface Suggestion {
 }
 
 export enum CompanyLegalForm {
+  "Entrepreneur individuel" = "Entrepreneur individuel / auto-entrepreneur",
   SAS = "SAS, société par actions simplifiée",
   SASU = "SASU, société par actions simplifiée unipersonnelle",
   SARL = "SARL, société à responsabilité limitée",
@@ -21,7 +22,6 @@ export enum CompanyLegalForm {
   SA = "SA à conseil d'administration (s.a.i.)",
   SNC = "Société en nom collectif",
   SCI = "SCI, société civile immobilière",
-  "Entrepreneur individuel" = "Entrepreneur individuel",
   SC = "SC",
   SCA = "SCA",
   ASSOCIATION = "Association déclarée",

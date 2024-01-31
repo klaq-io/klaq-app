@@ -46,7 +46,7 @@ export const Login = () => {
                 id: "login.signup.text",
               })}
               <a
-                href="#"
+                href={PATHS.SIGN_UP}
                 className="font-semibold text-klaq-600 hover:text-klaq-500"
               >
                 {intl.formatMessage({

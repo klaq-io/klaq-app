@@ -1,5 +1,11 @@
 import { Sidebar, Spinner } from "components";
 import { Navbar } from "components/Navbar/Navbar";
+import { useEffect, useState } from "react";
+
+const MINIMUM_SCREEN_SIZE = {
+  width: 1000,
+  height: 400,
+};
 
 type Props = {
   children: any;
@@ -9,7 +15,25 @@ type Props = {
 export const PageLayout = (props: Props) => {
   const { children, isLoading } = props;
 
-  return (
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth,
+  //     });
+  //   }
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // });
+
+  return true ? (
     <>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-64 lg:flex-col">
         <Sidebar />
@@ -32,7 +56,7 @@ export const PageLayout = (props: Props) => {
         </main>
       </div>
     </>
-  );
+  ) : null;
 };
 
 export default PageLayout;

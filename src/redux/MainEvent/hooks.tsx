@@ -29,7 +29,6 @@ export const useCreateEvent = () => {
           { duration: 1500, position: "top-right" }
         );
         dispatch(setMainEvent(data));
-        console.log(data);
         return data;
       } catch (error: any) {
         const code = error.response.data.code

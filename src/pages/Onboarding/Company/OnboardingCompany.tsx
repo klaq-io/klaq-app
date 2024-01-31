@@ -112,11 +112,6 @@ export const OnboardingCompany = () => {
             id: `onboarding.${type}-form.header.${translationKeys[step]}`,
           })}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-gray-500">
-          {intl.formatMessage({
-            id: `onboarding.company-form.description.${translationKeys[step]}`,
-          })}
-        </p>
       </div>
       <div className="mt-8">
         <form className="space-y-6" onSubmit={formik.handleSubmit}>
@@ -228,7 +223,11 @@ export const OnboardingCompany = () => {
                   ) : null}
                 </div>
               </div>
-
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.company-form.description.${translationKeys[step]}`,
+                })}
+              </p>
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
@@ -308,6 +307,11 @@ export const OnboardingCompany = () => {
                   ) : null}
                 </div>
               </div>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.company-form.description.${translationKeys[step]}`,
+                })}
+              </p>
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
@@ -338,7 +342,7 @@ export const OnboardingCompany = () => {
                   onClick={() => handleStep(STEP.ADDRESS)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.next",
+                    id: "onboarding.company-form.button.next-step",
                   })}
                 </Button>
               </div>
@@ -486,6 +490,11 @@ export const OnboardingCompany = () => {
                   ) : null}
                 </div>
               </div>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.company-form.description.${translationKeys[step]}`,
+                })}
+              </p>
 
               <div className="flex flex-row justify-between space-between">
                 <Button

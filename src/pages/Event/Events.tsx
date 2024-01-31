@@ -1,40 +1,27 @@
-import {
-  EyeIcon,
-  FolderIcon,
-  PencilSquareIcon,
-  PlusIcon,
-} from "@heroicons/react/24/outline";
+import { FolderIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Button, EventList, NewEventModal } from "components";
-import { format, parse } from "date-fns";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import {
+  getMainEvents,
+  getMainEventsByStatus,
+} from "redux/MainEvent/selectors";
+import { getQuotePipeValueV2 } from "utils/quote";
 import { PageLayout } from "../../layouts";
-import { useFetchEvents } from "../../redux/Events/hooks";
-import { getAllEvents, getEventsByStatus } from "../../redux/Events/selectors";
-import { Event, EventStatus } from "../../redux/Events/slices";
-import { useFetchProductItems } from "../../redux/Products/hooks";
-import { getAllProducts } from "../../redux/Products/selectors";
+import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
 import {
   classNames,
-  getEventsForPeriod,
-  getPipeValue,
   getSubEventsFromPeriod,
   getSubEventsListFromMainEvents,
   getThisMonthDates,
   getThisWeekDates,
   getThisYearDates,
 } from "../../utils/utils";
-import { getQuotePipeValue, getQuotePipeValueV2 } from "utils/quote";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import {
-  getMainEvents,
-  getMainEventsByStatus,
-} from "redux/MainEvent/selectors";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { SubEvent } from "interface/Event/subevent.interface";
+import { getPipeValue } from "utils/pipe";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -115,6 +102,65 @@ export const Events = () => {
     )
   );
 
+  const EVENTS = {
+    NEW:
+      newEventsList && newEventsList.length
+        ? getSubEventsFromPeriod(
+            newEventsList.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    UPCOMING:
+      upcomingEvents && upcomingEvents.length
+        ? getSubEventsFromPeriod(
+            upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    PENDING:
+      pendingEvents && pendingEvents.length
+        ? getSubEventsFromPeriod(
+            pendingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    PAST:
+      pastEvents && pastEvents.length
+        ? getSubEventsFromPeriod(
+            pastEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    OVERDUE:
+      overdueEvents && overdueEvents.length
+        ? getSubEventsFromPeriod(
+            overdueEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    LOST:
+      lostEvents && lostEvents.length
+        ? getSubEventsFromPeriod(
+            lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+    ALL:
+      mainEvents && mainEvents.length
+        ? getSubEventsFromPeriod(
+            mainEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate
+          )
+        : [],
+  };
+
   const handleFilterChange = (value: string) => {
     switch (value) {
       case FILTER_OPTIONS.THIS_WEEK:
@@ -144,15 +190,8 @@ export const Events = () => {
     {
       name: "new",
       current: "new" === searchParams.get("tab") ? true : false,
-      events:
-        newEventsList && newEventsList.length
-          ? getSubEventsFromPeriod(
-              newEventsList.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate
-            )
-          : [],
-      pipeValue: getQuotePipeValueV2(newEventsList),
+      events: EVENTS.NEW,
+      pipeValue: getQuotePipeValueV2(upcomingEvents),
     },
     {
       name: "upcoming",

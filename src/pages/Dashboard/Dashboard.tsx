@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   Button,
+  GettingStartedModal,
   MiniCalendar,
   NewEventModal,
   NotificationWidget,
@@ -36,6 +37,9 @@ import { NotificationCard } from "components/Notifications/NotificationCard";
 export const Dashboard = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const hasToDisplayLoom = window.location.pathname.includes(
+    PATHS.ONBOARDING_WELCOME
+  );
 
   const [openNewEventModal, setOpenNewEventModal] = useState<boolean>(false);
   const [startOfYear, endOfYear] = getThisYearDates();
@@ -166,7 +170,7 @@ export const Dashboard = () => {
         </dl>
         <div className="flex flex-row justify-between">
           <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight">
-            {`${greetingByTime()} ${user.firstName} !`}
+            {`${greetingByTime()} ${user.firstName ?? ""} !`}
           </h2>
           <Button
             variant="contained"
@@ -184,6 +188,10 @@ export const Dashboard = () => {
         </div>
       </div>
       <NewEventModal open={openNewEventModal} setOpen={setOpenNewEventModal} />
+      <GettingStartedModal
+        firstName={user.firstName}
+        isOpen={hasToDisplayLoom}
+      />
     </PageLayout>
   );
 };

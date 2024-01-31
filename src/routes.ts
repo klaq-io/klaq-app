@@ -31,6 +31,8 @@ export const PATHS = {
   ONBOARDING_PERFORMER: "/onboarding/performer",
   ONBOARDING_OFFICE: "/onboarding/office",
   ONBOARDING_INTERMITTENT: "/onboarding/intermittent",
+  ONBOARDING_DONE: "/onboarding/complete",
+  ONBOARDING_WELCOME: "/dashboard/welcome",
   RESET_PASSWORD: "/reset-password",
   QUOTE: "/quote",
   QUOTE_PDF: "/quote/:id/pdf",

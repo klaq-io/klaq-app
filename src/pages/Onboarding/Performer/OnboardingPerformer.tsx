@@ -33,12 +33,9 @@ type Props = {
 };
 
 enum STEP {
-  STAGE_NAME,
   REAL_NAME,
-  BIRTHDAY,
-  PUBLIC_EMAIL,
-  PUBLIC_PHONE,
   CATEGORY,
+  STAGE_NAME,
 }
 
 export enum selectOptions {
@@ -49,7 +46,7 @@ export enum selectOptions {
 export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const [step, setStep] = useState(STEP.STAGE_NAME);
+  const [step, setStep] = useState(STEP.REAL_NAME);
   const [query, setQuery] = useState("");
   const [selectCategory, setSelectCategory] = useState(undefined);
 
@@ -69,6 +66,8 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
           selectCategory == PerformingCategory.OTHER
             ? values.category
             : selectCategory,
+        publicEmail: user?.email,
+        publicPhone: user?.phone,
       });
       await updateOnboardingStatus(OnboardingStatus.OFFICE);
       navigate(PATHS.ONBOARDING_OFFICE);
@@ -77,11 +76,8 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   });
 
   const translationsKeys = {
-    [STEP.STAGE_NAME]: "stage-name",
     [STEP.REAL_NAME]: "real-name",
-    [STEP.BIRTHDAY]: "birthday",
-    [STEP.PUBLIC_EMAIL]: "public-email",
-    [STEP.PUBLIC_PHONE]: "public-phone",
+    [STEP.STAGE_NAME]: "stage-name",
     [STEP.CATEGORY]: "category",
   };
 
@@ -102,23 +98,18 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
             .includes(query.toLowerCase());
         });
 
-  const handlePublicEmail = () => {
-    if (formik.values.selectPublicMail == selectOptions.YES) {
-      formik.setFieldValue("publicEmail", user.email);
-    }
-    setStep(STEP.PUBLIC_PHONE);
-  };
-
-  const handlePublicPhone = () => {
-    if (formik.values.selectPublicPhone == selectOptions.YES) {
-      formik.setFieldValue("publicPhone", user.phone);
-    }
-    setStep(STEP.CATEGORY);
-  };
+  const resultArray =
+    filteredPerformingCategory.length === 0
+      ? [PerformingCategory.OTHER]
+      : filteredPerformingCategory;
 
   useEffect(() => {
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    formik.setFieldValue("category", query);
+  }, [selectCategory === PerformingCategory.OTHER]);
 
   return (
     <OnboardingLayout backgroundImg="https://images.unsplash.com/photo-1520092792133-42473bd8aeab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80">
@@ -139,63 +130,13 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               firstName: formik.values.firstName,
               email: user?.email,
               phone: user?.phone,
+              br: (chunks: any) => <br />,
             }
           )}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-gray-500">
-          {intl.formatMessage({
-            id: `onboarding.performer.description.${translationsKeys[step]}`,
-          })}
-        </p>
       </div>
       <div className="mt-8">
         <form onSubmit={formik.handleSubmit} className="space-y-6">
-          {step === STEP.STAGE_NAME && (
-            <>
-              <div>
-                <div className="mt-2">
-                  <input
-                    onChange={formik.handleChange}
-                    value={formik.values.stageName}
-                    id="stageName"
-                    name="stageName"
-                    type="text"
-                    required
-                    className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
-                    placeholder={intl.formatMessage({
-                      id: `onboarding.performer.input.stage-name`,
-                    })}
-                  />
-                  {formik.errors.stageName && formik.touched.stageName ? (
-                    <p className="mt-2 text-sm text-danger-600">
-                      {intl.formatMessage({
-                        id: `onboarding.performer.error.stage-name`,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-              <div className="flex flex-row-reverse justify-between space-between">
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  trailingIcon={
-                    <ArrowRightIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.REAL_NAME)}
-                  disabled={!formik.values.stageName}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                </Button>
-              </div>
-            </>
-          )}
           {step === STEP.REAL_NAME && (
             <>
               <div>
@@ -260,46 +201,15 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   ) : null}
                 </div>
               </div>
-              <div className="flex flex-row justify-between space-between">
-                <Button
-                  type="button"
-                  variant="text"
-                  color="secondary"
-                  leadingIcon={
-                    <ArrowLeftIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.STAGE_NAME)}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
-                  })}
-                </Button>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  trailingIcon={
-                    <ArrowRightIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.BIRTHDAY)}
-                  disabled={!formik.values.firstName || !formik.values.lastName}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                </Button>
-              </div>
-            </>
-          )}
-          {step === STEP.BIRTHDAY && (
-            <>
               <div>
+                <label
+                  htmlFor="birthday"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  {intl.formatMessage({
+                    id: `onboarding.performer.label.birthday`,
+                  })}
+                </label>
                 <div className="mt-2">
                   <input
                     onChange={formik.handleChange}
@@ -323,23 +233,12 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   ) : null}
                 </div>
               </div>
-              <div className="flex flex-row justify-between space-between">
-                <Button
-                  type="button"
-                  variant="text"
-                  color="secondary"
-                  leadingIcon={
-                    <ArrowLeftIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.REAL_NAME)}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
-                  })}
-                </Button>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.performer.description.${translationsKeys[step]}`,
+                })}
+              </p>
+              <div className="flex flex-row-reverse justify-between space-between">
                 <Button
                   type="button"
                   variant="contained"
@@ -350,187 +249,11 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                       aria-hidden="true"
                     />
                   }
-                  onClick={() => setStep(STEP.PUBLIC_EMAIL)}
-                  disabled={!formik.values.birthDate}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                </Button>
-              </div>
-            </>
-          )}
-          {step === STEP.PUBLIC_EMAIL && (
-            <>
-              <div>
-                <div className="mt-2">
-                  <select
-                    required
-                    onChange={formik.handleChange}
-                    value={formik.values.selectPublicMail}
-                    name="selectPublicMail"
-                    id="selectPublicMail"
-                    className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
-                  >
-                    <option key={selectOptions.YES} value={selectOptions.YES}>
-                      {intl.formatMessage({
-                        id: `onboarding.performer.select.public-email.yes`,
-                      })}
-                    </option>
-                    <option key={selectOptions.NO} value={selectOptions.NO}>
-                      {intl.formatMessage({
-                        id: `onboarding.performer.select.public-email.no`,
-                      })}
-                    </option>
-                  </select>
-                </div>
-                {formik.values.selectPublicMail == selectOptions.NO && (
-                  <div>
-                    <div className="mt-2">
-                      <input
-                        onChange={formik.handleChange}
-                        value={formik.values.publicEmail}
-                        id="publicEmail"
-                        name="publicEmail"
-                        type="email"
-                        required
-                        className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
-                        placeholder={intl.formatMessage({
-                          id: `onboarding.performer.input.public-email`,
-                        })}
-                      />
-                      {formik.errors.firstName && formik.touched.firstName ? (
-                        <p className="mt-2 text-sm text-danger-600">
-                          {intl.formatMessage({
-                            id: `onboarding.performer.error.public-email`,
-                          })}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-row justify-between space-between">
-                <Button
-                  type="button"
-                  variant="text"
-                  color="secondary"
-                  leadingIcon={
-                    <ArrowLeftIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.BIRTHDAY)}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
-                  })}
-                </Button>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  trailingIcon={
-                    <ArrowRightIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={handlePublicEmail}
+                  onClick={() => setStep(STEP.CATEGORY)}
                   disabled={
-                    !formik.values.publicEmail &&
-                    formik.values.selectPublicMail == selectOptions.NO
-                  }
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
-                  })}
-                </Button>
-              </div>
-            </>
-          )}
-          {step === STEP.PUBLIC_PHONE && (
-            <>
-              <div>
-                <div className="mt-2">
-                  <select
-                    required
-                    onChange={formik.handleChange}
-                    value={formik.values.selectPublicPhone}
-                    name="selectPublicPhone"
-                    id="selectPublicPhone"
-                    className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
-                  >
-                    <option key={selectOptions.YES} value={selectOptions.YES}>
-                      {intl.formatMessage({
-                        id: `onboarding.performer.select.public-phone.yes`,
-                      })}
-                    </option>
-                    <option key={selectOptions.NO} value={selectOptions.NO}>
-                      {intl.formatMessage({
-                        id: `onboarding.performer.select.public-phone.no`,
-                      })}
-                    </option>
-                  </select>
-                </div>
-                {formik.values.selectPublicPhone == selectOptions.NO && (
-                  <div>
-                    <div className="mt-2">
-                      <input
-                        onChange={formik.handleChange}
-                        value={formik.values.publicPhone}
-                        id="publicPhone"
-                        name="publicPhone"
-                        type="text"
-                        required
-                        className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
-                        placeholder={intl.formatMessage({
-                          id: `onboarding.performer.input.public-phone`,
-                        })}
-                      />
-                      {formik.errors.firstName && formik.touched.firstName ? (
-                        <p className="mt-2 text-sm text-danger-600">
-                          {intl.formatMessage({
-                            id: `onboarding.performer.error.public-phone`,
-                          })}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-row justify-between space-between">
-                <Button
-                  type="button"
-                  variant="text"
-                  color="secondary"
-                  leadingIcon={
-                    <ArrowLeftIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={() => setStep(STEP.PUBLIC_EMAIL)}
-                >
-                  {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
-                  })}
-                </Button>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  trailingIcon={
-                    <ArrowRightIcon
-                      className="-ml-0.5 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  }
-                  onClick={handlePublicPhone}
-                  disabled={
-                    !formik.values.publicPhone &&
-                    formik.values.selectPublicPhone == selectOptions.NO
+                    !formik.values.firstName ||
+                    !formik.values.lastName ||
+                    !formik.values.birthDate
                   }
                 >
                   {intl.formatMessage({
@@ -568,7 +291,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                         />
                       </Combobox.Button>
                       <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {filteredPerformingCategory.map((key) => (
+                        {resultArray.map((key) => (
                           <Combobox.Option
                             key={key}
                             value={key}
@@ -619,6 +342,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                       <div className="mt-2">
                         <input
                           onChange={formik.handleChange}
+                          defaultValue={query}
                           value={formik.values.category}
                           id="category"
                           name="category"
@@ -634,6 +358,11 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   )}
                 </div>
               </div>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.performer.description.${translationsKeys[step]}`,
+                })}
+              </p>
               <div className="flex flex-row justify-between space-between">
                 <Button
                   type="button"
@@ -645,7 +374,73 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                       aria-hidden="true"
                     />
                   }
-                  onClick={() => setStep(STEP.PUBLIC_PHONE)}
+                  onClick={() => setStep(STEP.REAL_NAME)}
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.previous",
+                  })}
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  trailingIcon={
+                    <ArrowRightIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.STAGE_NAME)}
+                >
+                  {intl.formatMessage({
+                    id: "onboarding.performer.button.next",
+                  })}
+                </Button>
+              </div>
+            </>
+          )}
+          {step === STEP.STAGE_NAME && (
+            <>
+              <div>
+                <div className="mt-2">
+                  <input
+                    onChange={formik.handleChange}
+                    value={formik.values.stageName}
+                    id="stageName"
+                    name="stageName"
+                    type="text"
+                    required
+                    className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
+                    placeholder={intl.formatMessage({
+                      id: `onboarding.performer.input.stage-name`,
+                    })}
+                  />
+                  {formik.errors.stageName && formik.touched.stageName ? (
+                    <p className="mt-2 text-sm text-danger-600">
+                      {intl.formatMessage({
+                        id: `onboarding.performer.error.stage-name`,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <p className="mt-2 text-sm leading-6 text-gray-500">
+                {intl.formatMessage({
+                  id: `onboarding.performer.description.${translationsKeys[step]}`,
+                })}
+              </p>
+              <div className="flex flex-row justify-between space-between">
+                <Button
+                  type="button"
+                  variant="text"
+                  color="secondary"
+                  leadingIcon={
+                    <ArrowLeftIcon
+                      className="-ml-0.5 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  }
+                  onClick={() => setStep(STEP.CATEGORY)}
                 >
                   {intl.formatMessage({
                     id: "onboarding.performer.button.previous",
@@ -655,8 +450,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  onClick={handlePublicPhone}
-                  disabled={!selectCategory || isLoading}
+                  disabled={isLoading || !formik.values.stageName}
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({

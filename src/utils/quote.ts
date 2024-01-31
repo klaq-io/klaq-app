@@ -1,5 +1,10 @@
 import { MainEvent } from "interface/Event/main-event.interface";
-import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
+import {
+  DiscountType,
+  Quote,
+  QuoteProduct,
+  QuoteStatus,
+} from "interface/Quote/quote.interface";
 import { Customer } from "redux/Customer/slices";
 import { Event } from "redux/Events/slices";
 

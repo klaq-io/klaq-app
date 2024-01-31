@@ -84,8 +84,8 @@
     },
     "verify": {
       "success": {
-        "header": "klaq.io  a bien confirmé votre e-mail",
-        "description": "Vous pouvez désormais fermer cette fenêtre et vous connecter à votre compte."
+        "header": "klaq.io  a bien confirmé votre e-mail.",
+        "description": "Vous pouvez fermer cette fenêtre et vous connecter à votre compte."
       },
       "failed": {
         "header": "klaq.io n'a pas pu confirmé votre email",
@@ -95,8 +95,8 @@
   },
 
   "confirm-sms": {
-    "header": "Votre code de confirmation vous attend sur votre téléphone",
-    "description": "Veuillez saisir le code de confirmation que nous venons de vous envoyer par SMS au numéro <b>{phone}</b> pour continuer.",
+    "header": "Votre code de confirmation vous attend sur votre téléphone.",
+    "description": "Veuillez saisir le code de confirmation que vous avez reçu par SMS au numéro <b>{phone}</b>.",
     "resend": "Envoyer un nouveau code de confirmation",
     "resend-in": "Envoyer un nouveau code de confirmation dans {time} secondes"
   },
@@ -157,9 +157,9 @@
         "address": "Votre adresse de facturation"
       },
       "description": {
-        "company": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats",
-        "vta": "Si vous disposez d'un numéro de TVA, vous pouvez le saisir ici, sinon passez à l'étape suivante",
-        "address": "Ces informations seront utilisées pour générer vos factures, vos devis et vos contrats"
+        "company": "Vérifiez ces informations car elles seront utilisées pour générer vos factures, vos devis et vos contrats.",
+        "vta": "Vérifiez ces informations car elles seront utilisées pour générer vos factures, vos devis et vos contrats.",
+        "address": "Vérifiez ces informations car elles seront utilisées pour générer vos factures, vos devis et vos contrats.."
       },
       "label": {
         "activity-type": "Type d'activité (Code NAF)",
@@ -202,21 +202,22 @@
       },
       "button": {
         "next": "Continuer",
+        "next-step": "Passez à l'étape suivante",
         "previous": "Précédent",
-        "submit": "Ajouter mon entreprise"
+        "submit": "Valider mon adresse"
       }
     },
     "performer": {
       "header": {
-        "stage-name": "Apprenons à se connaître, quel est votre nom de scène ?",
-        "real-name": "Ravi de vous rencontrer <blue>{stageName}</blue>, quel est votre vrai nom ?",
+        "stage-name": "Sous quel pseudonyme vos clients ont-ils l'habitude de vous appeler ?",
+        "real-name": "Nous sommes ravis de vous rencontrer 👋.<br></br> Quel est votre vrai nom ?",
         "birthday": "Quelle est votre date de naissance <blue>{firstName}</blue> ?",
         "public-email": "Juste pour être sure, pouvons nous afficher cette adresse email <blue>{email}</blue> à vos clients ?",
         "public-phone": "Et ce numéro de téléphone <blue>{phone}</blue>, peut-on l'afficher à vos clients ?",
-        "category": "Quel catégorie vous correspond le mieux ?"
+        "category": "<blue>{firstName}</blue>, quel catégorie vous correspond le mieux ?"
       },
       "description": {
-        "stage-name": "Comment voulez-vous que vos clients vous appellent ?",
+        "stage-name": "Cela peut être un nom commercial, nom d'artiste, nom de scène...",
         "real-name": "Aucune inquiétude, nous recueillons ses informations pour des raisons juridiques et de facturation. Nous ne partagerons pas votre vrai nom avec vos clients.",
         "birthday": "Nous ne partagerons pas votre date de naissance avec vos clients.",
         "public-email": "Cette adresse email sera affichée sur vos factures, devis et contrats.",
@@ -235,7 +236,7 @@
         "category": "Catégorie"
       },
       "input": {
-        "stage-name": "Saisissez votre nom de scène",
+        "stage-name": "Saisissez votre pseudonyme",
         "real-name": {
           "first-name": "Saisissez votre prénom",
           "last-name": "Saisissez votre nom"
@@ -272,7 +273,8 @@
           "music_band": "🎹 Groupe de musique",
           "dancer": "💃 Danseur",
           "magician": "🎩 Magicien",
-          "comedian": "🎭 Humoriste",
+          "humorist": "😹 Humoriste",
+          "comedian": "🎭 Comédien",
           "clown": "🤡 Clown",
           "juggler": "🤹 Jongleur",
           "fire_eater": "🔥 Cracheur de feu",
@@ -301,11 +303,11 @@
       "button": {
         "next": "Continuer",
         "previous": "Précédent",
-        "submit": "Ajouter mes informations"
+        "submit": "Passer à l'étape suivante"
       }
     },
     "office": {
-      "header": "Est ce que le <blue>{address}, {zip} {city}</blue> en <blue>{country}</blue> est l’adresse de votre bureau ? ",
+      "header": "Est ce que le <blue>{address}, {zip} {city} ({country})</blue> est l’adresse de votre bureau ? ",
       "description": "Nous utiliserons cette information pour calculer vos frais de déplacement.",
       "label": {
         "address": "Adresse de votre bureau",
@@ -322,10 +324,10 @@
         "country": "Saisissez le pays"
       },
       "select": {
-        "yes": "Exactement",
-        "no": "Mon bureau se situe à une autre adresse"
+        "yes": "Oui, c'est le cas",
+        "no": "Non, mon bureau se situe à une autre adresse"
       },
-      "submit": "Ajouter l'adresse de mon bureau",
+      "submit": "Finalisez votre inscription",
       "error": {
         "address": "Veuillez saisir l'adresse de votre bureau",
         "city": "Veuillez saisir la ville",
@@ -334,12 +336,27 @@
       }
     },
     "intermittent": {
-      "header": "😢 Malheureusement, Klaq.io n’est actuellement pas disponible pour les artistes intermittents.",
-      "description": "Vous pouvez néanmoins, être tenu(e) au courant de la sortie d’une version compatible avec le statut intermittent en saisissant votre email dans le champ suivant.",
+      "header": "Malheureusement, Klaq.io n’est pas encore disponible pour les artistes intermittents 😢.",
+      "description": "Néanmoins, vous pouvez décider d'être tenu(e) au courant dès que Klaq sera compatible avec le statut intermittant. On y travaille !",
       "input": {
         "email": "Saisissez votre adresse e-mail si vous voulez être recontacté"
       },
       "submit": "M'avertir par mail"
+    },
+    "complete": {
+      "header": "Bienvenue <b>{firstName}</b>. Que le voyage Klaq commence ! 👋",
+      "description": "Nous avons peaufiné chaque détail pour vous garantir une expérience transparente et adaptée à vos besoins. Maintenant, il est temps pour vous de libérer la puissance de Klaq et d'augmenter votre productivité.",
+      "loom-description": "Prenez un moment pour regarder cette video qui vous guide à travers chaque fonctionnalité. C'est le moyen idéal de vous familiariser avec les outils incroyables qui vous attendent. Explorez les fonctionnalités, découvrez les possibilités et constatez par vous-même comment Klaq transforme votre façon de travailler.",
+      "steps": {
+        "user": "Création de votre profil utilisateur",
+        "company": "Création de votre profil entreprise",
+        "dashboard": "Génération de votre espace"
+      },
+      "button": {
+        "go": "C'est parti !",
+        "discover": "Découvrir Klaq 🥳",
+        "help": "Besoin d'aide ?"
+      }
     }
   },
 

@@ -30,16 +30,16 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (values.select == SelectOptions.YES) {
         values.officeAddress = company?.address;
         values.officeCity = company?.city;
         values.officeZip = company?.zip;
         values.officeCountry = company?.country;
       }
-      updateCompany(values);
+      await updateCompany(values);
       updateOnboardingStatus(OnboardingStatus.DONE);
-      navigate(PATHS.DASHBOARD);
+      navigate(PATHS.ONBOARDING_DONE);
     },
   });
 
@@ -69,11 +69,6 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
             }
           )}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-gray-500">
-          {intl.formatMessage({
-            id: `onboarding.office.description`,
-          })}
-        </p>
       </div>
       <div className="mt-8">
         <form onSubmit={formik.handleSubmit}>
@@ -229,6 +224,11 @@ export const OnboardingOffice: React.FC<Props> = (props: Props) => {
                 </div>
               </>
             )}
+            <p className="mt-2 text-sm leading-6 text-gray-500">
+              {intl.formatMessage({
+                id: `onboarding.office.description`,
+              })}
+            </p>
             <div className="flex flex-row-reverse justify-between space-between">
               <Button
                 isLoading={isLoading}

@@ -26,6 +26,7 @@ export enum PerformingCategory {
   MUSICIAN = "MUSICIAN",
   MUSIC_BAND = "MUSIC_BAND",
   DANCER = "DANCER",
+  HUMORIST = "HUMORIST",
   COMEDIAN = "COMEDIAN",
   MAGICIAN = "MAGICIAN",
   CLOWN = "CLOWN",
