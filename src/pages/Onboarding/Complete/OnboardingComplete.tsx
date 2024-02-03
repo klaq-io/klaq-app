@@ -12,7 +12,6 @@ import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
-import * as loom from "@loomhq/loom-embed";
 
 type STEP_TYPE = {
   [key: string]: {

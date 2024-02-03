@@ -1820,11 +1820,6 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@loomhq/loom-embed@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@loomhq/loom-embed/-/loom-embed-1.7.0.tgz#dbc82e6d36400948c88c885ec746f40a78e8d7da"
-  integrity sha512-HJE+N/iUWLHpLhdo3afp9I9jbMo00JecaHRdXlhN2JXVbaaRR0Kcf+bN+KvdeQqfSIDI0a2I4UOs3zX2bgUI5g==
-
 "@mantine/hooks@^6.0.17":
   version "6.0.17"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-6.0.17.tgz#dc942c87e6dcfa14a70e4e4a162c22eeb4ff3724"
