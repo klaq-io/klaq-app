@@ -1,10 +1,13 @@
 import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { classNames } from "../../utils/utils";
-import { EventStatus } from "../../redux/Events/slices";
+import { classNames } from "../../../utils/utils";
+import { EventStatus } from "../../../redux/Events/slices";
 import EventBadge from "./EventBadge";
-import { useFetchEvents, useUpdateEventStatus } from "../../redux/Events/hooks";
+import {
+  useFetchEvents,
+  useUpdateEventStatus,
+} from "../../../redux/Events/hooks";
 import {
   useFetchMainEvent,
   useUpdateMainEventStatus,

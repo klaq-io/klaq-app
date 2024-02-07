@@ -837,6 +837,12 @@
   },
 
   "event-details": {
+    "secondary-navigation": {
+      "tasks": "Tâches",
+      "logs": "Logs",
+      "billing": "Facturation",
+      "products": "Produits"
+    },
     "location": {
       "header": "Localisation",
       "label": {
@@ -1473,7 +1479,7 @@
 
   "dashboard": {
     "stats": {
-      "inbox": "Nouveau deal",
+      "inbox": "Nouvelles demandes",
       "total-billed": "Total facturé",
       "estimated-revenue": "Revenu estimé",
       "overdue": "En retard",

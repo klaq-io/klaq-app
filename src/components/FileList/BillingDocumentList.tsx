@@ -1,5 +1,7 @@
 import { DocumentIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { Button } from "components/Button";
+import { InvoiceBadge } from "components/Invoice";
+import { QuoteBadge } from "components/Quote";
 import { Invoice, InvoiceProduct } from "interface/Invoice/invoice.interface";
 import { Quote, QuoteProduct } from "interface/Quote/quote.interface";
 import { FunctionComponent } from "react";
@@ -41,7 +43,7 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
               className="h-5 w-5 flex-shrink-0 text-gray-400"
               aria-hidden="true"
             />
-            <div className="ml-4 flex min-w-0 flex-1 gap-2">
+            <div className="ml-4 flex min-w-0 flex-1 gap-2 items-center">
               <span className="truncate font-medium">{document.number}</span>
               <span className="flex-shrink-0 text-gray-400">
                 {type === "quote"
@@ -51,6 +53,13 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
               </span>
             </div>
             <div className="ml-4 flex-shrink-0">
+              <span className="mr-4">
+                {type === "quote" ? (
+                  <QuoteBadge status={(document as Quote).status} />
+                ) : (
+                  <InvoiceBadge status={(document as Invoice).status} />
+                )}
+              </span>
               <Button
                 type="button"
                 variant="link"

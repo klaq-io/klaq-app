@@ -51,5 +51,6 @@ export const PATHS = {
   QUOTES: "/quotes",
   NEW_EVENT_V2: "/events/new",
   EVENT_DETAILS: "/events/:id/details",
+  EVENT_DETAILS_V2: "/events/:id/details/v2",
   EMBEDDED_FORM: "/embedded-form",
 };

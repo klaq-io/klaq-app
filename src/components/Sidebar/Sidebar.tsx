@@ -126,7 +126,7 @@ export const Sidebar = (props: Props) => {
         <img src={KlaqLogo} className="mt-6 w-4/5" />
       </div>
       <nav className="flex flex-1 flex-col">
-        <ul role="list" className="flex flex-1 flex-col gap-y-7">
+        <ul role="list" className="flex flex-1 flex-col gap-y-6">
           <li key="sidebar">
             <ul role="list" className="-mx-2 space-y-1">
               {navigation.map((item: any) =>
@@ -309,20 +309,11 @@ export const Sidebar = (props: Props) => {
               </Menu>
             </CardContainer>
             <a
-              onClick={handleClickHelp}
-              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
-            >
-              <LifebuoyIcon
-                className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
-                aria-hidden="true"
-              />
-              {intl.formatMessage({
-                id: "sidebar.help",
-              })}
-            </a>
-            <a
               href={PATHS.PROFILE}
-              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white"
+              className={classNames(
+                "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white",
+                currentPage === PATHS.SETTINGS ? "bg-klaq-700 text-white" : ""
+              )}
             >
               <Cog6ToothIcon
                 className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
@@ -332,6 +323,19 @@ export const Sidebar = (props: Props) => {
                 id: "sidebar.settings",
               })}
             </a>
+            <a
+              onClick={handleClickHelp}
+              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white mt-1"
+            >
+              <LifebuoyIcon
+                className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
+                aria-hidden="true"
+              />
+              {intl.formatMessage({
+                id: "sidebar.help",
+              })}
+            </a>
+
             <a
               href={PATHS.LOGIN}
               onClick={handleLogout}

@@ -11,6 +11,7 @@ import {
   HomeIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
+  PhoneIcon,
   UserIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
@@ -32,6 +33,7 @@ import { formatSiret, getPipeValueForCustomer } from "../../utils/utils";
 import EditCustomer from "./EditCustomer";
 import { useFetchQuotesForCustomer } from "redux/Quote/hooks";
 import { useFetchInvoicesForCustomer } from "redux/Invoice/hooks";
+import { formatPhoneNumber } from "utils/customer";
 
 type Props = {};
 
@@ -212,6 +214,16 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
                     }
                   )}
                 </p>
+              </div>
+              <div className="flex flex-row space-x-2 items-center">
+                <PhoneIcon className="h-5 w-5 inline-block mr-2" />
+                <p className="text-sm text-gray-900">
+                  {formatPhoneNumber(customer?.phone) || "N/A"}
+                </p>
+              </div>
+              <div className="flex flex-row space-x-2 items-center">
+                <EnvelopeIcon className="h-5 w-5 inline-block mr-2" />
+                <p className="text-sm text-gray-900">{customer?.email}</p>
               </div>
               <div className="flex flex-row space-x-2 items-center">
                 <HomeIcon className="h-5 w-5 inline-block mr-2" />

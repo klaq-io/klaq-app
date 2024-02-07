@@ -39,7 +39,7 @@ export const PageLayout = (props: Props) => {
         <Sidebar />
       </div>
 
-      <div className="lg:pl-64 min-h-screen">
+      <div className="lg:pl-64 min-h-screen shadow">
         {/* <Navbar /> */}
         <main className="py-8 h-screen">
           {isLoading ? (

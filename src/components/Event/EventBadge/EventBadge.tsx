@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { EventStatus } from "../../redux/Events/slices";
-import { classNames } from "../../utils/utils";
+import { EventStatus } from "../../../redux/Events/slices";
+import { classNames } from "../../../utils/utils";
 import { useIntl } from "react-intl";
 
 type Props = {

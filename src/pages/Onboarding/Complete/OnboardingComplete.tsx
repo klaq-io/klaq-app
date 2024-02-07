@@ -1,17 +1,13 @@
+import { ArrowRightIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Ring } from "@uiball/loaders";
 import { Button } from "components";
 import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
-import { useIntl } from "react-intl";
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  CheckIcon,
-} from "@heroicons/react/24/outline";
-import { classNames } from "utils/utils";
-import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
 import { useEffect, useState } from "react";
+import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
+import { classNames } from "utils/utils";
 
 type STEP_TYPE = {
   [key: string]: {

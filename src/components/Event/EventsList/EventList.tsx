@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useIntl } from "react-intl";
-import { getDayStr, getMonthStr } from "../../utils/utils";
-import { Event, EventStatus } from "../../redux/Events/slices";
+import { getDayStr, getMonthStr } from "../../../utils/utils";
+import { Event, EventStatus } from "../../../redux/Events/slices";
 import { format, parse } from "date-fns";
 import {
   ClockIcon,
@@ -11,9 +11,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { EventBadge, EventBadgeButton } from "../EventBadge";
 import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
-import { DropdownMenu } from "../DropdownMenu";
-import { Skeleton } from "../Skeleton";
+import { PATHS } from "../../../routes";
+import { DropdownMenu } from "../../DropdownMenu";
+import { Skeleton } from "../../Skeleton";
 import { SubEvent } from "interface/Event/subevent.interface";
 import { Customer } from "redux/Customer/slices";
 

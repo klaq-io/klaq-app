@@ -57,3 +57,19 @@ export const SelectField = (props: SelectFieldProps) => {
     </div>
   );
 };
+
+type TextAreaProps = {
+  label?: string;
+} & Omit<React.ComponentPropsWithoutRef<"textarea">, "id">;
+
+export const TextArea = (props: TextAreaProps) => {
+  const { label, className } = props;
+  const id = useId();
+
+  return (
+    <div className={className}>
+      {label && <Label htmlFor={id}>{label}</Label>}
+      <textarea id={id} {...props} className={formClasses["klaq"]} />
+    </div>
+  );
+};

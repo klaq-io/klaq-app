@@ -37,7 +37,7 @@ import { classNames } from "../../utils/utils";
 import { Button } from "../Button";
 import { initialValues, validationSchema } from "./form";
 import { EventStatus } from "../../redux/Events/slices";
-import { EventBadge } from "components/EventBadge";
+import { EventBadge } from "components/Event/EventBadge";
 
 type Props = {
   isCommentingAllowed?: boolean;
@@ -201,7 +201,15 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
               {commentary.type === CommentaryType.COMMENTED ? (
                 <>
                   <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
-                    <ChatBubbleBottomCenterTextIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
+                    {commentary.user.logoUrl ? (
+                      <img
+                        src={commentary.user.logoUrl}
+                        alt="user-logo"
+                        className="w-6 h-6 rounded-full"
+                      />
+                    ) : (
+                      <ChatBubbleBottomCenterTextIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
+                    )}
                   </span>
                   <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
                     <div className="flex justify-between gap-x-4">
