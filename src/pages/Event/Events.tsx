@@ -69,19 +69,15 @@ export const Events = () => {
     getMainEventsByStatus(
       state,
       EventStatus.QUOTE_ACCEPTED,
-      EventStatus.CONTRACT_SENT,
-      EventStatus.CONTRACT_OPENED,
-      EventStatus.DEPOSIT_REQUESTED,
-      EventStatus.DEPOSIT_LATE,
+
       EventStatus.READY
     )
   );
   const pendingEvents = useSelector((state: any) =>
     getMainEventsByStatus(
       state,
-      EventStatus.QUALIFICATION,
       EventStatus.QUOTE_SENT,
-      EventStatus.QUOTE_OPENED
+      EventStatus.INVOICE_SENT
     )
   );
   const pastEvents = useSelector((state: any) =>
@@ -89,17 +85,12 @@ export const Events = () => {
       state,
       EventStatus.DONE,
       EventStatus.INVOICE_SENT,
-      EventStatus.INVOICE_OPENED,
       EventStatus.INVOICE_OVERDUE,
       EventStatus.WIN
     )
   );
   const overdueEvents = useSelector((state: any) =>
-    getMainEventsByStatus(
-      state,
-      EventStatus.INVOICE_OVERDUE,
-      EventStatus.DEPOSIT_LATE
-    )
+    getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
   );
 
   const EVENTS = {

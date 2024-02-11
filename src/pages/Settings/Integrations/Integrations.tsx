@@ -17,6 +17,7 @@ import {
 } from "components";
 import { DocumentDuplicateIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { ReactComponent as GoogleIcon } from "assets/icon-google.svg";
+import { BetaBadge } from "components/Badge/BetaBadge";
 
 export const Integrations = () => {
   const intl = useIntl();
@@ -128,11 +129,14 @@ export const Integrations = () => {
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
           <div className="px-4 sm:px-0">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
-              {intl.formatMessage({
-                id: "settings.social.header",
-              })}
-            </h2>
+            <span className="flex justify-between">
+              <h2 className="text-base font-semibold leading-7 text-gray-900">
+                {intl.formatMessage({
+                  id: "settings.social.header",
+                })}
+              </h2>
+              <BetaBadge />
+            </span>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
                 id: "settings.social.description",

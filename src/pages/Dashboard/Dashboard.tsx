@@ -68,7 +68,6 @@ export const Dashboard = () => {
       EventStatus.QUOTE_ACCEPTED,
       EventStatus.INVOICE_SENT,
       EventStatus.INVOICE_OVERDUE,
-      EventStatus.INVOICE_OPENED,
       EventStatus.DONE,
       EventStatus.READY,
       EventStatus.WIN,

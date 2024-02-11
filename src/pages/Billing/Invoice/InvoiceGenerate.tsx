@@ -50,7 +50,7 @@ export const InvoiceGenerate = () => {
   const intl = useIntl();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const fromQuoteId = searchParams.get("fromQuoteId");
+  const fromQuoteId = searchParams.get("fromQuote");
   const fromEventId = searchParams.get("fromEventId");
   const [query, setQuery] = useState("");
   const [mainEventId, setMainEventId] = useState("");
@@ -72,9 +72,7 @@ export const InvoiceGenerate = () => {
       getMainEventsByStatus(
         state,
         EventStatus.INBOX,
-        EventStatus.QUALIFICATION,
         EventStatus.QUOTE_SENT,
-        EventStatus.QUOTE_OPENED,
         EventStatus.QUOTE_REJECTED
       )
     ) || [].reverse();
@@ -235,8 +233,32 @@ export const InvoiceGenerate = () => {
   }, []);
 
   useEffect(() => {
+    const fetchFromQuote = async () => {
+      if (!fromQuoteId) return;
+      await fetchQuote(fromQuoteId);
+      const mainEvent = mainEvents.find(
+        (mainEvent) => mainEvent.id === quote?.mainEvent.id
+      );
+      formik.setValues({
+        ...formik.values,
+        products:
+          quote?.products.map((product) => ({
+            title: product.title,
+            vtaRate: product.vtaRate,
+            price: product.price,
+            description: product.description ?? "",
+            quantity: product.quantity,
+            discount: product.discount,
+            discountType: product.discountType,
+          })) || [],
+      });
+      if (mainEvent) {
+        handleSetMainEvent(mainEvent);
+      }
+    };
+
     if (fromQuoteId) {
-      fetchQuote(fromQuoteId);
+      fetchFromQuote();
     }
   }, [fromQuoteId]);
 
@@ -250,6 +272,8 @@ export const InvoiceGenerate = () => {
       }
     }
   }, [fromEventId]);
+
+  console.log("formik.values", formik.values);
 
   return (
     <PageLayout>

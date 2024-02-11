@@ -5,6 +5,7 @@ import { SubEvent, SubEventCreator } from "./subevent.interface";
 import { EventStatus } from "redux/Events/slices";
 import { Invoice } from "interface/Invoice/invoice.interface";
 import { Quote } from "interface/Quote/quote.interface";
+import { EventProduct } from "./event-product.interface";
 
 export interface MainEvent {
   id: string;
@@ -20,6 +21,7 @@ export interface MainEvent {
   quotes?: Quote[];
   commentaries?: Commentary[];
   invoices?: Invoice[];
+  products?: EventProduct[];
 }
 
 export interface MainEventCreator {
@@ -35,4 +37,5 @@ export interface MainEventCreator {
   customer: Partial<Customer>;
   quotes?: Quote[];
   commentaries?: Commentary[];
+  products?: EventProduct[];
 }

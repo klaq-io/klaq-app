@@ -421,7 +421,8 @@
       "no-product-specify": "Vous n'avez pas spécifié de produits pour cet évènement",
       "attach-product": "Attacher un produit à cet évènement",
       "add-new-product": "Ajouter un nouveau produit",
-      "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche"
+      "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche",
+      "product-get-started": "Cliquer pour commencer à ajouter un produit"
     },
     "commentaries": {
       "header": "Commentaires & Mise à jour",
@@ -801,7 +802,7 @@
       "INVOICE_SENT": "💸 Facture envoyée",
       "INVOICE_OPENED": "👀 Facture ouverte",
       "INVOICE_OVERDUE": "⏰ Facture en retard",
-      "WIN": "✅ WIN",
+      "WIN": "✅ Facture payée",
       "LOST": "😞 Perdu"
     },
     "types": {

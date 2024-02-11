@@ -52,9 +52,7 @@ export const QuoteGeneratePage = () => {
       getMainEventsByStatus(
         state,
         EventStatus.INBOX,
-        EventStatus.QUALIFICATION,
         EventStatus.QUOTE_SENT,
-        EventStatus.QUOTE_OPENED,
         EventStatus.QUOTE_REJECTED
       )
     ) || [].reverse();
