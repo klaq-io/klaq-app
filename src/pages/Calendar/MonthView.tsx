@@ -74,11 +74,6 @@ export const MonthView = () => {
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
 
-  const formatTime = (time: string) => {
-    const t = parse(time, "HH:mm:ss", new Date());
-    return format(t, "HH:mm");
-  };
-
   const handleGoToEventDetails = (id: string) => {
     navigate(`${PATHS.EVENTS}/${id}/details?tab=Roadmap`);
   };
@@ -427,10 +422,10 @@ export const MonthView = () => {
                             </p>
                             {event.startTime ? (
                               <time
-                                dateTime={formatTime(event.startTime)}
+                                dateTime={event.startTime}
                                 className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
                               >
-                                {formatTime(event.startTime)}
+                                {event.startTime}
                               </time>
                             ) : null}
                           </button>

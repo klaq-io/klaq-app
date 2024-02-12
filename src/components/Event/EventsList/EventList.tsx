@@ -33,11 +33,6 @@ export const EventList: FC<Props> = (props: Props) => {
   const navigate = useNavigate();
   const { isLoading = false, subEvents } = props;
 
-  const formatTime = (time: string) => {
-    const t = parse(time, "HH:mm:ss", new Date());
-    return format(t, "HH:mm");
-  };
-
   const handleEventDetails = (id: string) => {
     navigate(`${PATHS.EVENTS}/${id}/details?tab=Roadmap`);
   };

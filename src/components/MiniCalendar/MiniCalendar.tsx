@@ -78,11 +78,6 @@ export const MiniCalendar = () => {
     events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
   }));
 
-  const formatTime = (time: string) => {
-    const t = parse(time, "HH:mm:ss", new Date());
-    return format(t, "HH:mm");
-  };
-
   const nextMonth = () => {
     const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
@@ -224,19 +219,19 @@ export const MiniCalendar = () => {
                   onClick={() => handleEventDetails(event.mainEventId)}
                 >
                   <div className="flex-auto">
-                    <p className="text-gray-900">{event.customer.name}</p>
+                    <p className="text-gray-900">{event.type}</p>
                     <p className="mt-0.5">
                       {event.startTime ? (
-                        <time dateTime={formatTime(event.startTime)}>
-                          {formatTime(event.startTime)}
+                        <time dateTime={event.startTime}>
+                          {event.startTime}
                         </time>
                       ) : null}{" "}
                       {event.endTime ? (
                         <>
                           -
                           {
-                            <time dateTime={formatTime(event.endTime)}>
-                              {formatTime(event.endTime)}
+                            <time dateTime={event.endTime}>
+                              {event.endTime}
                             </time>
                           }
                         </>

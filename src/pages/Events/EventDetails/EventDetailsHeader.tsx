@@ -23,7 +23,7 @@ import { CustomerType } from "redux/Customer/slices";
 import { PATHS } from "routes";
 import { formatAddress } from "utils/address";
 import { formatPhoneNumber } from "utils/customer";
-import { formatTime, getRemainingTime } from "utils/time";
+import { getRemainingTime } from "utils/time";
 import { getDayStr, getMonthStr } from "utils/utils";
 import { MainEventDetailsPageProps } from "./EventDetailsPage";
 import { useState } from "react";
