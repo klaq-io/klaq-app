@@ -84,6 +84,7 @@ export const useUpdateMainEvent = () => {
   return useAsyncCallback(async (values: Partial<MainEventCreator>) => {
     try {
       const { data } = await webClient.put(`/event/${values.id}`, values);
+      console.log(data);
       dispatch(setMainEvent(data));
       toast.custom(
         <ToastNotification

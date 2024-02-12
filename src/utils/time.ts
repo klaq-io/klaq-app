@@ -26,6 +26,7 @@ export const getRemainingTime = (date: Date | string) => {
 };
 
 export const formatTime = (time: string) => {
-  const t = parse(time, "HH:mm:ss", new Date());
+  console.log(time);
+  const t = parse(time, "HH:mm", new Date());
   return format(t, "HH:mm");
 };

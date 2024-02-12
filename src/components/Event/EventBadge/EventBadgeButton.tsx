@@ -14,6 +14,7 @@ import {
 } from "redux/MainEvent/hooks";
 import { SuperBalls } from "@uiball/loaders";
 import { useFetchCommentaries } from "redux/Commentary/hooks";
+import { Spinner } from "components/Spinner";
 
 type Props = {
   status: EventStatus;
@@ -34,7 +35,7 @@ export const EventBadgeButton: FC<Props> = (props: Props) => {
   };
 
   return isLoading ? (
-    <SuperBalls size={45} speed={1.4} color="#527a75" />
+    <Spinner size="small" color="primary" />
   ) : (
     <Menu as="div" className="relative inline-block text-left">
       <div>

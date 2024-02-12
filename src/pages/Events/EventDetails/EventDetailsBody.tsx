@@ -220,7 +220,6 @@ const ProductsSection = (event: MainEvent) => {
     });
     setProductSearch("");
     setOpenAddProductModal(false);
-    updateEvent(formik.values);
   };
 
   const handleDeleteProduct = (index: number) => {
@@ -336,120 +335,143 @@ const ProductsSection = (event: MainEvent) => {
           prestations/services que vous comptez offrir à votre client. Cela vous
           permettra de générer des devis et des factures plus rapidement.
         </Alert>
-        <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white shadow">
-          <table className="min-w-full divide-y divide-gray-300">
-            <thead>
-              <tr>
-                <th
-                  scope="col"
-                  className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                >
-                  {intl.formatMessage({
-                    id: "products.my-products.title",
-                  })}
-                </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  {intl.formatMessage({
-                    id: "products.my-products.short-description",
-                  })}
-                </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  {intl.formatMessage({
-                    id: "edit-event.my-products.quantity",
-                  })}
-                </th>
-                <th
-                  scope="col"
-                  className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                >
-                  <button
-                    onClick={() => setOpenAddProductModal(true)}
-                    className="ml-auto"
-                  >
-                    <PlusCircleIcon className="h-8 w-8 text-klaq-500 hover:text-klaq-600" />
-                  </button>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {eventProducts && eventProducts.length ? (
-                eventProducts.map((product, idx) => (
-                  <>
-                    <tr key={`product.${idx}`}>
-                      <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-                        <div className="font-semibold text-gray-900">
-                          {
-                            products.find(
-                              (item) => item.id === product.productId
-                            )?.title
-                          }
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                        <div className="font-medium text-gray-500">
-                          {
-                            products.find(
-                              (item) => item.id === product.productId
-                            )?.description
-                          }
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                        <input
-                          name={`products[${idx}].quantity`}
-                          onChange={formik.handleChange}
-                          value={
-                            formik.values.products
-                              ? formik.values.products[idx].quantity
-                              : 0
-                          }
-                          min="1"
-                          type="number"
-                          className="w-2/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                        />
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                        <button onClick={() => handleDeleteProduct(idx)}>
-                          <TrashIcon className="h-6 w-6 text-danger-400" />
-                        </button>
-                      </td>
-                    </tr>
-                  </>
-                ))
-              ) : (
+        {eventProducts && eventProducts.length === 0 ? (
+          <button
+            onClick={() => setOpenAddProductModal(true)}
+            type="button"
+            className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+          >
+            <PlusIcon
+              className="mx-auto h-12 w-12 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            />
+
+            <h3 className="mt-2 text-sm font-semibold text-gray-900">
+              {intl.formatMessage({
+                id: "edit-event.my-products.product-get-started",
+              })}
+            </h3>
+          </button>
+        ) : (
+          <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white shadow border">
+            <table className="min-w-full divide-y divide-gray-300">
+              <thead>
                 <tr>
-                  <td colSpan={4}>
+                  <th
+                    scope="col"
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                  >
+                    {intl.formatMessage({
+                      id: "products.my-products.title",
+                    })}
+                  </th>
+                  <th
+                    scope="col"
+                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                  >
+                    {intl.formatMessage({
+                      id: "products.my-products.short-description",
+                    })}
+                  </th>
+                  <th
+                    scope="col"
+                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                  >
+                    {intl.formatMessage({
+                      id: "edit-event.my-products.quantity",
+                    })}
+                  </th>
+                  <th
+                    scope="col"
+                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                  >
                     <button
                       onClick={() => setOpenAddProductModal(true)}
-                      type="button"
-                      className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+                      className="ml-auto"
                     >
-                      <PlusIcon
-                        className="mx-auto h-12 w-12 text-gray-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      />
-
-                      <h3 className="mt-2 text-sm font-semibold text-gray-900">
-                        {intl.formatMessage({
-                          id: "edit-event.my-products.product-get-started",
-                        })}
-                      </h3>
+                      <PlusCircleIcon className="h-8 w-8 text-klaq-500 hover:text-klaq-600" />
                     </button>
-                  </td>
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {eventProducts && eventProducts.length ? (
+                  eventProducts.map((product, idx) => (
+                    <>
+                      <tr key={`product.${idx}`}>
+                        <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
+                          <div className="font-semibold text-gray-900">
+                            {
+                              products.find(
+                                (item) => item.id === product.productId
+                              )?.title
+                            }
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <div className="font-medium text-gray-500">
+                            {
+                              products.find(
+                                (item) => item.id === product.productId
+                              )?.description
+                            }
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <input
+                            name={`products[${idx}].quantity`}
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.products
+                                ? formik.values.products[idx].quantity
+                                : 0
+                            }
+                            min="1"
+                            type="number"
+                            className="w-2/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                          />
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <button onClick={() => handleDeleteProduct(idx)}>
+                            <TrashIcon className="h-6 w-6 text-danger-400" />
+                          </button>
+                        </td>
+                      </tr>
+                    </>
+                  ))
+                ) : (
+                  <></>
+                  // <tr>
+                  //   <td colSpan={4}>
+                  //     <button
+                  //       onClick={() => setOpenAddProductModal(true)}
+                  //       type="button"
+                  //       className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+                  //     >
+                  //       <PlusIcon
+                  //         className="mx-auto h-12 w-12 text-gray-400"
+                  //         fill="none"
+                  //         viewBox="0 0 24 24"
+                  //         stroke="currentColor"
+                  //         aria-hidden="true"
+                  //       />
+
+                  //       <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                  //         {intl.formatMessage({
+                  //           id: "edit-event.my-products.product-get-started",
+                  //         })}
+                  //       </h3>
+                  //     </button>
+                  //   </td>
+                  // </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
         <div className="ml-auto">
           <Button
             isLoading={isUpdating}

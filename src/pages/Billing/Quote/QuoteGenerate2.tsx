@@ -126,8 +126,29 @@ export const QuoteGeneratePage = () => {
   const VTA_RATE = ["0", "2.1", "5.5", "10", "20"];
 
   const handleSetMainEvent = (mainEvent: MainEvent) => {
-    formik.setFieldValue("customer", mainEvent.customer);
     setMainEventId(mainEvent.id);
+    formik.setFieldValue("customer", mainEvent.customer);
+    if (mainEvent && mainEvent.products && mainEvent.products.length > 0) {
+      formik.setFieldValue(
+        "products",
+        mainEvent.products.map((eventProduct) => {
+          const actualProduct = products.find(
+            (product) => product.id === eventProduct.productId
+          );
+          return actualProduct
+            ? {
+                title: actualProduct.title,
+                vtaRate: actualProduct.vtaRate,
+                price: actualProduct.price,
+                description: actualProduct.description ?? "",
+                quantity: 1,
+                discount: 0,
+                discountType: DiscountType.PERCENT,
+              }
+            : initialValues.products[0];
+        })
+      );
+    }
   };
 
   const handleAddElement = () => {

@@ -44,14 +44,13 @@ export const EventMapV2 = (props: EventMapProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(mapData);
     if (mapData) {
       setWaypoints(mapData.waypoints);
     }
   }, [mapData]);
 
   useEffect(() => {
-    if (waypoints.length > 0) {
+    if (waypoints && waypoints.length > 0) {
       setBound(
         viewport.fitBounds(waypoints.map((waypoint: any) => waypoint.location))
       );
@@ -122,7 +121,7 @@ export const EventMapV2 = (props: EventMapProps) => {
     </div>
   ) : (
     <>
-      <div ref={mapContainerRef} className="w-full h-full">
+      <div className="w-full h-full">
         {/* <Map
           mapboxAccessToken={process.env.REACT_APP_MAPBOX}
           mapLib={import("mapbox-gl")}
