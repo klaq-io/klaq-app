@@ -81,9 +81,9 @@ export const EventList: FC<Props> = (props: Props) => {
                   <ClockIcon className="h-5 w-5" />
                   <span className="ml-2 text-sm text-gray-900 border-r pr-3">
                     {subEvent.startTime
-                      ? formatTime(subEvent.startTime)
+                      ? subEvent.startTime
                       : "Horaires non définies"}
-                    {subEvent.endTime && `- ${formatTime(subEvent.endTime)}`}
+                    {subEvent.endTime && `- ${subEvent.endTime}`}
                   </span>
                 </div>
                 <div className="flex flex-row">
