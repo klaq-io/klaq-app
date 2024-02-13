@@ -4,12 +4,15 @@ import { CardContainer } from "components";
 import { PageLayout } from "layouts";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchInvoicePDF } from "redux/Invoice/hooks";
+import {
+  useFetchInvoiceDocument,
+  useFetchInvoicePDF,
+} from "redux/Invoice/hooks";
 
 export const InvoiceViewPage = () => {
   const { id } = useParams<{ id: string }>();
 
-  const [{ data, isLoading }, fetchInvoicePDF] = useFetchInvoicePDF();
+  const [{ data, isLoading }, fetchInvoicePDF] = useFetchInvoiceDocument();
 
   const displayPDF = async () => {
     const data = await fetchInvoicePDF(id);

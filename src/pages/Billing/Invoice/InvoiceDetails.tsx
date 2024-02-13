@@ -35,6 +35,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
 import {
   useDeleteInvoice,
+  useDownloadInvoiceDocument,
   useDownloadInvoicePDF,
   useFetchInvoice,
   useMarkAsFinal,
@@ -53,7 +54,7 @@ export const InvoiceDetailsPage = () => {
     useUpdateInvoiceStatus();
   const invoice = useSelector((state: any) => getInvoice(state, id));
   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
-    useDownloadInvoicePDF();
+    useDownloadInvoiceDocument();
   const [{ isLoading: isMarkingAsFinal }, markAsFinal] = useMarkAsFinal();
   const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 

@@ -418,7 +418,7 @@ export const MonthView = () => {
                             }
                           >
                             <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
-                              {event.customer.name}
+                              {event.type}
                             </p>
                             {event.startTime ? (
                               <time

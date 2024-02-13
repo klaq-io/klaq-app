@@ -112,38 +112,24 @@ export const Customers = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <div className="md:flex md:items-center md:justify-between">
-        <div className="min-w-0 flex-1">
-          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-            {intl.formatMessage({
-              id: "customers.header",
-            })}
-          </h2>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-            {intl.formatMessage({
-              id: "customers.description",
-            })}
-          </p>
-        </div>
-      </div>
       <div className="flex flex-row ">
-        <div className="flex-1 mt-10 ">
+        <div className="flex-1">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-base font-semibold leading-6 text-gray-900">
+              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                {intl.formatMessage({
+                  id: "customers.header",
+                })}
+              </h2>
+              <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                 {intl.formatMessage(
                   {
-                    id: "customers.my-customers.header",
+                    id: "customers.description",
                   },
                   {
                     nb: customers.length,
                   }
                 )}
-              </h1>
-              <p className="mt-2 text-sm text-gray-500">
-                {intl.formatMessage({
-                  id: "customers.my-customers.description",
-                })}
               </p>
             </div>
             <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">

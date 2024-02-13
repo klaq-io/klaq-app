@@ -624,7 +624,7 @@
 
   "customers": {
     "header": "Clients",
-    "description": "Liste de vos clients",
+    "description": "Liste de vos clients. Vous avez {nb} clients.",
     "no-customers": "Ajouter mon premier client",
     "get-started": "Cliquer pour commencer à ajouter un client",
     "my-customers": {

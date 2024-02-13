@@ -221,3 +221,46 @@ export const useFetchInvoicesForCustomer = () => {
     }
   });
 };
+
+export const useFetchInvoiceDocument = () => {
+  return useAsyncCallback(async (invoiceDocumentId: string | undefined) => {
+    if (!invoiceDocumentId) return;
+    try {
+      const { data } = await webClient.get(
+        `/invoice/${invoiceDocumentId}/document`,
+        {
+          responseType: "blob",
+        }
+      );
+      return data;
+    } catch (error: any) {
+      console.error(error);
+    }
+  });
+};
+
+export const useDownloadInvoiceDocument = () => {
+  return useAsyncCallback(
+    async (invoiceDocumentId: string | undefined, invoiceNumber: string) => {
+      if (!invoiceDocumentId) return;
+      try {
+        const { data } = await webClient.get(
+          `/invoice/${invoiceDocumentId}/document`,
+          {
+            responseType: "blob",
+          }
+        );
+        const blob = new Blob([data], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", invoiceNumber + ".pdf");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (error: any) {
+        console.error(error);
+      }
+    }
+  );
+};
