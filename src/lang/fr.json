@@ -422,7 +422,11 @@
       "attach-product": "Attacher un produit à cet évènement",
       "add-new-product": "Ajouter un nouveau produit",
       "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche",
-      "product-get-started": "Cliquer pour commencer à ajouter un produit"
+      "product-get-started": "Cliquer pour commencer à ajouter un produit",
+      "infobox": {
+        "title": "Pourquoi ajouter des produits ?",
+        "content": "Ajouter un produit à un événement vous permet de savoir quels sont les prestations/services que vous comptez offrir à votre client. Cela vous permettra de générer des devis et des factures plus rapidement. Le budget fixé par votre client s'élève à <b>{budget}€</b>."
+      }
     },
     "commentaries": {
       "header": "Commentaires & Mise à jour",
@@ -840,10 +844,24 @@
 
   "event-details": {
     "secondary-navigation": {
+      "actions": "Actions",
+      "assistant": "Assistant",
       "tasks": "Tâches",
-      "logs": "Logs",
-      "billing": "Facturation",
+      "logs": "Suivi",
+      "billing": "Documents",
       "products": "Produits"
+    },
+    "actions": {
+      "header": "Actions à effectuer"
+    },
+    "assistant": {
+      "header": "Assistant",
+      "location": {
+        "infobox": {
+          "title": "Votre trajet",
+          "content": "La durée prévue pour vous rendre de votre bureau à l'événement est d'environ <b>{duration}</b> (couvrant une distance d'environ <b>{distance}</b> km). Ce calcul est basé sur l'itinéraire le plus court en voiture."
+        }
+      }
     },
     "location": {
       "header": "Localisation",

@@ -12,16 +12,17 @@ import Map, {
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { TruckIcon } from "@heroicons/react/24/outline";
 import { classNames, getTimeStr } from "utils/utils";
+import { MainEvent } from "interface/Event/main-event.interface";
 
 type EventMapProps = {
   eventId: string;
   displayDistance?: boolean;
+  event: MainEvent;
 };
 
 export const EventMapV2 = (props: EventMapProps) => {
-  const { eventId, displayDistance = false } = props;
-  const [{ data: mapData, isLoading }, getEventMapInformations] =
-    useGetEventMapInformations();
+  const { eventId, event } = props;
+  const mapData = event.directions;
 
   const mapContainerRef = useRef<any | null>();
 
@@ -40,10 +41,6 @@ export const EventMapV2 = (props: EventMapProps) => {
   }, []);
 
   useEffect(() => {
-    getEventMapInformations(eventId);
-  }, []);
-
-  useEffect(() => {
     if (mapData) {
       setWaypoints(mapData.waypoints);
     }
@@ -57,7 +54,7 @@ export const EventMapV2 = (props: EventMapProps) => {
     }
   }, [waypoints]);
 
-  return !isLoading && mapData && bound && waypoints ? (
+  return mapData && bound && waypoints ? (
     <div className="flex flex-col w-full h-full space-y-4">
       <div ref={mapContainerRef} className="w-full h-full">
         <Map
@@ -71,7 +68,7 @@ export const EventMapV2 = (props: EventMapProps) => {
           <Source
             id="event-map"
             type="geojson"
-            data={mapData.routes[0].geometry}
+            data={mapData.routes[0].geometry as any}
           >
             <Layer
               id="lineLayer"

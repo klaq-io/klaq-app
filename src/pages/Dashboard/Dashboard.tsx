@@ -93,6 +93,10 @@ export const Dashboard = () => {
       stat: confirmedEvents.length,
       icon: ArrowUpRightIcon,
       animate: false,
+      onClick: () =>
+        navigate(
+          `${PATHS.EVENTS}?filter=THIS_MONTH&tab=upcoming&startDate=${startOfMonth}&endDate=${endOfMonth}`
+        ),
     },
     {
       id: 3,

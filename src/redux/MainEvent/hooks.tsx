@@ -82,6 +82,8 @@ export const useUpdateMainEvent = () => {
   const dispatch = useDispatch();
 
   return useAsyncCallback(async (values: Partial<MainEventCreator>) => {
+    delete values.directions;
+
     try {
       const { data } = await webClient.put(`/event/${values.id}`, values);
       dispatch(setMainEvent(data));

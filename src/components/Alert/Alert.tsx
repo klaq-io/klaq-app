@@ -15,10 +15,11 @@ type AlertProps = {
   title?: React.ReactNode;
   text?: React.ReactNode;
   children?: React.ReactNode;
+  classNames?: string;
 };
 
 export const Alert: FC<AlertProps> = (props: AlertProps) => {
-  const { text, title, status, children } = props;
+  const { text, title, status, children, classNames: classes } = props;
 
   const statusBackgroundClasses: { [key in Status]: string } = {
     success: "bg-green-50",
@@ -66,7 +67,7 @@ export const Alert: FC<AlertProps> = (props: AlertProps) => {
             "aria-hidden": true,
           })}
         </div>
-        <div className="ml-3">
+        <div className={classNames("ml-3")}>
           {title && (
             <h3
               className={classNames(
@@ -78,7 +79,11 @@ export const Alert: FC<AlertProps> = (props: AlertProps) => {
             </h3>
           )}
           <div
-            className={classNames("mt-2 text-sm", statusTextClasses[status])}
+            className={classNames(
+              "mt-2 text-sm",
+              statusTextClasses[status],
+              classes
+            )}
           >
             {text || children}
           </div>

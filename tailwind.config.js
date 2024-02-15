@@ -3,17 +3,17 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
 const klaqColorsV2 = {
-  50: "#f3f7fc",
-  100: "#e7eff7",
-  200: "#c9dcee",
-  300: "#99bfe0",
-  400: "#629ece",
-  500: "#3e82ba",
-  600: "#2d669c",
-  700: "#25527f",
-  800: "#22476a",
-  900: "#213c59",
-  950: "#16273b",
+  50: "#f2f8fd",
+  100: "#e5f1fb",
+  200: "#c1e1f6",
+  300: "#8bc9ee",
+  400: "#4dade3",
+  500: "#2693d1",
+  600: "#1775b2",
+  700: "#145d90",
+  800: "#155077",
+  900: "#174363",
+  950: "#0f2b42",
 };
 
 const klaqColors = {

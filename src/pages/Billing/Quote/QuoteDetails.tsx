@@ -29,7 +29,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomerType } from "redux/Customer/slices";
 import { useDeleteInvoice, useUpdateInvoiceStatus } from "redux/Invoice/hooks";
-import { useDownloadQuotePDF, useFetchQuote } from "redux/Quote/hooks";
+import { useDownloadQuoteDocument, useFetchQuote } from "redux/Quote/hooks";
 import { getQuoteById } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 
@@ -43,7 +43,7 @@ export const QuoteDetailsPage = () => {
     useUpdateInvoiceStatus();
   const quote = useSelector((state: any) => getQuoteById(state, id!));
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
-    useDownloadQuotePDF();
+    useDownloadQuoteDocument();
   const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 
   const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);

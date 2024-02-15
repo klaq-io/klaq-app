@@ -14,7 +14,11 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDownloadInvoicePDF, useFetchInvoices } from "redux/Invoice/hooks";
+import {
+  useDownloadInvoiceDocument,
+  useDownloadInvoicePDF,
+  useFetchInvoices,
+} from "redux/Invoice/hooks";
 import { getInvoices } from "redux/Invoice/selectors";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
@@ -31,7 +35,7 @@ export const InvoicesPage = () => {
 
   const invoices = useSelector(getInvoices);
   const [{ isLoading }, fetchInvoices] = useFetchInvoices();
-  const [, downloadInvoice] = useDownloadInvoicePDF();
+  const [, downloadInvoice] = useDownloadInvoiceDocument();
 
   const filteredInvoices =
     invoices && invoices.length > 0 && query === ""

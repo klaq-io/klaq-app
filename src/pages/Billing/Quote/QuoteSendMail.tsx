@@ -25,7 +25,11 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/24/outline";
 import { getQuoteById } from "redux/Quote/selectors";
-import { useFetchQuote, useSendQuote } from "redux/Quote/hooks";
+import {
+  useDownloadQuoteDocument,
+  useFetchQuote,
+  useSendQuote,
+} from "redux/Quote/hooks";
 import { PATHS } from "routes";
 
 export const QuoteSendMailPage = () => {
@@ -39,8 +43,8 @@ export const QuoteSendMailPage = () => {
   const quote = useSelector((state: any) => getQuoteById(state, id!));
   const user = useSelector(getUser);
 
-  //   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
-  //     useDownloadInvoicePDF();
+  const [{ isLoading: isDownloadingQuote }, downloadQuote] =
+    useDownloadQuoteDocument();
 
   const isCustomerPro =
     quote && quote.mainEvent.customer.type === CustomerType.COMPANY;
@@ -228,12 +232,8 @@ export const QuoteSendMailPage = () => {
                       type="button"
                       variant="outlined"
                       color="primary"
-                      //   onClick={() =>
-                      //     quote
-                      //       ? downloadInvoice(quote.id, quote.number)
-                      //       : null
-                      //   }
-                      //   isLoading={isDownloadingInvoice}
+                      onClick={() => downloadQuote(quote!.id, quote!.number)}
+                      isLoading={isDownloadingQuote}
                     >
                       {intl.formatMessage({
                         id: "quote.send.button.download",

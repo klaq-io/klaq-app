@@ -9,6 +9,7 @@ import { Button, CardContainer, TextField } from "components";
 import { useIntl } from "react-intl";
 import { useEffect } from "react";
 import {
+  useDownloadInvoiceDocument,
   useDownloadInvoicePDF,
   useFetchInvoice,
   useSendInvoiceByEmail,
@@ -42,7 +43,7 @@ export const InvoiceSendMailPage = () => {
   const user = useSelector(getUser);
 
   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
-    useDownloadInvoicePDF();
+    useDownloadInvoiceDocument();
 
   const isCustomerPro =
     invoice && invoice.mainEvent.customer.type === CustomerType.COMPANY;

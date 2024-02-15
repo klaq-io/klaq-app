@@ -273,8 +273,6 @@ export const InvoiceGenerate = () => {
     }
   }, [fromEventId]);
 
-  console.log("formik.values", formik.values);
-
   return (
     <PageLayout>
       <div className="md:flex md:items-center md:justify-between">

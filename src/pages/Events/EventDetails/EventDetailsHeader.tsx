@@ -35,33 +35,33 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
   const [openEditor, setOpenEditor] = useState(false);
 
   const eventDate = new Date(event.subEvents[0].date);
-  const menu = [
-    {
-      name: intl.formatMessage({ id: "Editer" }),
-      icon: PencilSquareIcon,
-      onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-    },
-    {
-      name: intl.formatMessage({ id: "Ajouter une facture" }),
-      icon: PlusSmallIcon,
-      onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-    },
-    {
-      name: intl.formatMessage({ id: "Ajouter un devis" }),
-      icon: PlusSmallIcon,
-      onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-    },
-    {
-      name: intl.formatMessage({ id: "Dupliquer" }),
-      icon: ArrowTopRightOnSquareIcon,
-      onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/duplicate`),
-    },
-    {
-      name: intl.formatMessage({ id: "Supprimer" }),
-      icon: TrashIcon,
-      onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/delete`),
-    },
-  ];
+  // const menu = [
+  //   {
+  //     name: intl.formatMessage({ id: "Editer" }),
+  //     icon: PencilSquareIcon,
+  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
+  //   },
+  //   {
+  //     name: intl.formatMessage({ id: "Ajouter une facture" }),
+  //     icon: PlusSmallIcon,
+  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
+  //   },
+  //   {
+  //     name: intl.formatMessage({ id: "Ajouter un devis" }),
+  //     icon: PlusSmallIcon,
+  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
+  //   },
+  //   {
+  //     name: intl.formatMessage({ id: "Dupliquer" }),
+  //     icon: ArrowTopRightOnSquareIcon,
+  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/duplicate`),
+  //   },
+  //   {
+  //     name: intl.formatMessage({ id: "Supprimer" }),
+  //     icon: TrashIcon,
+  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/delete`),
+  //   },
+  // ];
 
   return (
     <>
@@ -90,7 +90,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
             <span className="text-gray-900 font-semibold">
               {getRemainingTime(eventDate)}
             </span>
-            <KebabMenu items={menu} buttonSize="lg" />
+            {/* <KebabMenu items={menu} buttonSize="lg" /> */}
           </span>
         </CardContainer>
         <div className="flex flex-row space-x-4">
@@ -165,7 +165,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
             </div>
           </CardContainer>
           <CardContainer className="px-4 py-5 sm:p-4 min-h-full w-1/2 flex flex-col space-y-4 flex-grow">
-            <EventMapV2 eventId={event.id} />
+            <EventMapV2 eventId={event.id} event={event} />
           </CardContainer>
         </div>
       </div>

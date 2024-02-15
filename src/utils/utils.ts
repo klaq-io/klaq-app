@@ -237,7 +237,7 @@ export const getTimeStr = (seconds: number): string => {
     timeStr += `${hours}h `;
   }
   if (minutes > 0) {
-    timeStr += `${minutes}mn`;
+    timeStr += `${minutes}${hours ? "" : " "}mn`;
   }
 
   return timeStr.trim();

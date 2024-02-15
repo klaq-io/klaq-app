@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDownloadQuotePDF, useFetchQuotes } from "redux/Quote/hooks";
+import { useDownloadQuoteDocument, useFetchQuotes } from "redux/Quote/hooks";
 import { getQuotes } from "redux/Quote/selectors";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
@@ -30,7 +30,7 @@ export const Quotes = () => {
   const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
 
-  const [, downloadQuote] = useDownloadQuotePDF();
+  const [, downloadQuote] = useDownloadQuoteDocument();
 
   const handleSendByMail = (id: string) => {
     navigate(PATHS.QUOTE + "/" + id + "/send/");

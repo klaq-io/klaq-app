@@ -22,6 +22,7 @@ import {
   getThisYearDates,
 } from "../../utils/utils";
 import { getPipeValue } from "utils/pipe";
+import { HandThumbUpIcon } from "@heroicons/react/24/solid";
 
 enum FILTER_OPTIONS {
   THIS_WEEK = "THIS_WEEK",
@@ -266,10 +267,6 @@ export const Events = () => {
 
   const current = tabs.find((tab) => tab.current) || tabs[0];
 
-  const handleNewEvent = () => {
-    navigate(PATHS.NEW_EVENT);
-  };
-
   useEffect(() => {
     fetchMainEvents();
   }, []);
@@ -383,7 +380,7 @@ export const Events = () => {
                     </select>
                   </div>
                   <div className="flex items-center justify-center ml-4">
-                    <p className="max-w-2xl text-sm leading-6 text-gray-500">
+                    {/* <p className="max-w-2xl text-sm leading-6 text-gray-500">
                       {intl.formatMessage(
                         {
                           id: "events.pipe-value",
@@ -392,7 +389,7 @@ export const Events = () => {
                           pipeValue: current.pipeValue,
                         }
                       )}
-                    </p>
+                    </p> */}
                   </div>
                   <div className="flex ml-auto space-x-3">
                     <div className="flex">
@@ -442,7 +439,7 @@ export const Events = () => {
                   />
                 ) : (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
-                    <FolderIcon
+                    <HandThumbUpIcon
                       className="mx-auto h-6 w-6 text-gray-400"
                       aria-hidden="true"
                     />
@@ -457,7 +454,7 @@ export const Events = () => {
             ) : (
               <div className="mt-6">
                 <button
-                  onClick={handleNewEvent}
+                  onClick={() => setOpenNewEventModal(true)}
                   type="button"
                   className="relative block sm:w-1/2 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
                 >

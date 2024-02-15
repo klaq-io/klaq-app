@@ -157,14 +157,35 @@ export const useUpdateQuoteStatus = () => {
   });
 };
 
-export const useDownloadQuotePDF = () => {
-  return useAsyncCallback(
-    async (id: string | undefined, quoteNumber: string) => {
-      if (!id) return;
-      try {
-        const { data } = await webClient.get(`/quote/render/pdf/${id}/`, {
+export const useFetchQuoteDocument = () => {
+  return useAsyncCallback(async (quoteDocumentId: string | undefined) => {
+    if (!quoteDocumentId) return;
+    try {
+      const { data } = await webClient.get(
+        `/quote/${quoteDocumentId}/document`,
+        {
           responseType: "blob",
-        });
+        }
+      );
+      return data;
+    } catch (error: any) {
+      KlaqToast("danger", "quote-pdf-error");
+      console.error(error);
+    }
+  });
+};
+
+export const useDownloadQuoteDocument = () => {
+  return useAsyncCallback(
+    async (quoteDocumentId: string | undefined, quoteNumber: string) => {
+      if (!quoteDocumentId) return;
+      try {
+        const { data } = await webClient.get(
+          `/quote/${quoteDocumentId}/document`,
+          {
+            responseType: "blob",
+          }
+        );
         const blob = new Blob([data], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -179,21 +200,6 @@ export const useDownloadQuotePDF = () => {
       }
     }
   );
-};
-
-export const useFetchQuotePDF = () => {
-  return useAsyncCallback(async (id: string | undefined) => {
-    if (!id) return;
-    try {
-      const { data } = await webClient.get(`/quote/render/pdf/${id}/`, {
-        responseType: "blob",
-      });
-      return data;
-    } catch (error: any) {
-      KlaqToast("danger", "invoice-pdf-error");
-      console.error(error);
-    }
-  });
 };
 
 export const useFetchQuotesForCustomer = () => {

@@ -7,6 +7,7 @@ import { useFetchMainEvent } from "redux/MainEvent/hooks";
 import { getMainEvent } from "redux/MainEvent/selectors";
 import { EventDetailsBody } from "./EventDetailsBody";
 import { EventDetailsHeader } from "./EventDetailsHeader";
+import { Transition } from "@headlessui/react";
 
 export type MainEventDetailsPageProps = {
   event: MainEvent;
@@ -22,15 +23,25 @@ export const EventDetailsPage = () => {
   }, []);
 
   return (
-    <PageLayout>
+    <PageLayout isLoading={isLoading && !event}>
       {isLoading && !event ? (
-        <div>Loading...</div>
+        <></>
       ) : (
         event && (
-          <div className="flex flex-col space-y-4 flex-grow h-full">
-            <EventDetailsHeader event={event} />
-            <EventDetailsBody event={event} />
-          </div>
+          <Transition
+            show={true}
+            enter="transition ease duration-3500 transform"
+            enterFrom="opacity-0 translate-y-12"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="flex flex-col space-y-4 flex-grow h-full">
+              <EventDetailsHeader event={event} />
+              <EventDetailsBody event={event} />
+            </div>
+          </Transition>
         )
       )}
     </PageLayout>

@@ -6,6 +6,7 @@ import {
   isTomorrow,
   format,
   parse,
+  isYesterday,
 } from "date-fns";
 
 export const getRemainingTime = (date: Date | string) => {
@@ -15,7 +16,7 @@ export const getRemainingTime = (date: Date | string) => {
   date = new Date(date);
   const daysDifference = differenceInCalendarDays(today, date);
   const monthsDifference = differenceInMonths(today, date);
-
+  if (isYesterday(date)) return `Hier`;
   if (isPast(date)) return `Il y a ${daysDifference} jours`;
   if (isToday(date)) return "Aujourd'hui";
   if (isTomorrow(date)) return "Demain";

@@ -113,7 +113,7 @@ function App() {
           <Route path={PATHS.CUSTOMER_DETAILS} element={<CustomerDetails />} />
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route path={PATHS.EVENT_DETAILS_V2} element={<EventDetailsPage />} />
-          <Route path={PATHS.EVENT_DETAILS} element={<MainEventDetails />} />
+          <Route path={PATHS.EVENT_DETAILS} element={<EventDetailsPage />} />
           <Route path={PATHS.NEW_EVENT_V2} element={<NewEventV2 />} />
           <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />

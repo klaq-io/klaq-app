@@ -1,22 +1,25 @@
 import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import {
   ChatBubbleLeftEllipsisIcon,
   ChevronUpDownIcon,
   DocumentCheckIcon,
-  FlagIcon,
   MagnifyingGlassIcon,
   PlusCircleIcon,
   ShoppingBagIcon,
 } from "@heroicons/react/24/solid";
 import {
+  AlertWithLink,
   BillingDocumentList,
   Button,
   CardContainer,
   CommentaryFeed,
 } from "components";
 import { Alert } from "components/Alert/Alert";
+import { Status } from "enum/status.enum";
 import { useFormik } from "formik";
 import { MainEvent } from "interface/Event/main-event.interface";
+import { QuoteStatus } from "interface/Quote/quote.interface";
 import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
@@ -26,29 +29,41 @@ import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
 import { PATHS } from "routes";
-import { classNames } from "utils/utils";
+import { classNames, getTimeStr } from "utils/utils";
 import { MainEventDetailsPageProps } from "./EventDetailsPage";
+import {
+  getStatusForInvoiceAction,
+  getStatusForPreQuoteAction,
+  getStatusForProductsAction,
+  getStatusForQuoteAction,
+} from "./action-status";
 import { initialValues, validationSchema } from "./update-event-form";
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 
 enum SECTION {
-  TASKS = "tasks",
   PRODUCTS = "products",
   BILLING = "billing",
   NOTES = "notes",
   LOGS = "logs",
+  ASSISTANT = "assistant",
+  ACTIONS = "actions",
 }
 
 const Navigation = () => {
   const intl = useIntl();
   const [query, setQuery] = useSearchParams();
-  const selectedSection = query.get("section") || SECTION.TASKS;
+  const selectedSection = query.get("section") || SECTION.ACTIONS;
 
   const secondaryNavigation = [
     {
-      section: SECTION.TASKS,
-      icon: FlagIcon,
-      current: selectedSection === SECTION.TASKS,
+      section: SECTION.ACTIONS,
+      icon: ChevronUpDownIcon,
+      current: selectedSection === SECTION.ACTIONS,
+    },
+    {
+      section: SECTION.ASSISTANT,
+      icon: MagnifyingGlassIcon,
+      current: selectedSection === SECTION.ASSISTANT,
     },
     {
       section: SECTION.PRODUCTS,
@@ -163,16 +178,6 @@ const LogsSection = () => {
   return (
     <CardContainer className="p-4 w-full flex flex-col space-y-4">
       <CommentaryFeed />
-    </CardContainer>
-  );
-};
-
-const TasksSection = (event: MainEvent) => {
-  const intl = useIntl();
-
-  return (
-    <CardContainer className="p-4 w-full flex flex-col space-y-4">
-      tasks
     </CardContainer>
   );
 };
@@ -331,9 +336,19 @@ const ProductsSection = (event: MainEvent) => {
           })}
         </h1>
         <Alert title="Pourquoi ajouter des produits ?" status="info">
-          Ajouter un produit à un événement vous permet de savoir quels sont les
-          prestations/services que vous comptez offrir à votre client. Cela vous
-          permettra de générer des devis et des factures plus rapidement.
+          {intl.formatMessage(
+            {
+              id: "edit-event.my-products.infobox.content",
+            },
+            {
+              budget: (event.budget ?? 0).toFixed(2),
+              b: (chunk: any) => (
+                <span className="text-blue-700 font-semibold">
+                  {chunk.join()}
+                </span>
+              ),
+            }
+          )}
         </Alert>
         {eventProducts && eventProducts.length === 0 ? (
           <button
@@ -444,29 +459,6 @@ const ProductsSection = (event: MainEvent) => {
                   ))
                 ) : (
                   <></>
-                  // <tr>
-                  //   <td colSpan={4}>
-                  //     <button
-                  //       onClick={() => setOpenAddProductModal(true)}
-                  //       type="button"
-                  //       className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
-                  //     >
-                  //       <PlusIcon
-                  //         className="mx-auto h-12 w-12 text-gray-400"
-                  //         fill="none"
-                  //         viewBox="0 0 24 24"
-                  //         stroke="currentColor"
-                  //         aria-hidden="true"
-                  //       />
-
-                  //       <h3 className="mt-2 text-sm font-semibold text-gray-900">
-                  //         {intl.formatMessage({
-                  //           id: "edit-event.my-products.product-get-started",
-                  //         })}
-                  //       </h3>
-                  //     </button>
-                  //   </td>
-                  // </tr>
                 )}
               </tbody>
             </table>
@@ -490,12 +482,213 @@ const ProductsSection = (event: MainEvent) => {
   );
 };
 
+const AssistantSection = (event: MainEvent) => {
+  const intl = useIntl();
+  const directions = event.directions;
+  const distance = Math.floor((directions?.routes[0].distance || 0) / 1000 / 2);
+  const duration = (directions?.routes[0].duration || 0) / 2;
+
+  return (
+    <CardContainer className="p-4 w-full flex flex-col space-y-4">
+      <h1 className="text-gray-900 font-semibold">
+        {intl.formatMessage({
+          id: "event-details.assistant.header",
+        })}
+      </h1>
+      <Alert
+        title={intl.formatMessage({
+          id: "event-details.assistant.location.infobox.title",
+        })}
+        status="info"
+      >
+        <div className="flex flex-col">
+          <p>
+            {intl.formatMessage(
+              {
+                id: "event-details.assistant.location.infobox.content",
+              },
+              {
+                distance: distance,
+                duration: getTimeStr(duration),
+                b: (chunk: any) => (
+                  <span className="text-blue-700 font-semibold">
+                    {chunk.join()}
+                  </span>
+                ),
+              }
+            )}
+          </p>
+        </div>
+      </Alert>
+    </CardContainer>
+  );
+};
+
+const ActionSection = (event: MainEvent) => {
+  const intl = useIntl();
+  const navigate = useNavigate();
+
+  const lastQuote = event.quotes?.at(-1);
+  const isEventOver = new Date(event.subEvents[0].date) < new Date();
+  const hasAtLeastAQuoteAccepted =
+    event.quotes &&
+    event.quotes?.length > 0 &&
+    event.quotes?.some((quote) => quote.status === QuoteStatus.ACCEPTED);
+  const lastQuoteAccepted = event.quotes?.find(
+    (quote) => quote.status === QuoteStatus.ACCEPTED
+  );
+  const hasAtLeastAnInvoice = event.invoices && event.invoices.length > 0;
+  const lastInvoice = event.invoices?.at(-1);
+
+  type Action = {
+    content: string;
+    link: {
+      text: string;
+      onClick?: () => void;
+      active: boolean;
+    };
+    status: Status;
+  };
+
+  const ACTIONS: Action[] = [];
+
+  ACTIONS.push({
+    content: "Ajouter des produits à l'événement",
+    link: {
+      text: "Ajouter",
+      onClick: () => setQuery({ section: SECTION.PRODUCTS }),
+      active: event.products && event.products.length > 0 ? false : true,
+    },
+    status:
+      event.products && event.products.length ? Status.SUCCESS : Status.WARNING,
+  });
+
+  ACTIONS.push({
+    content: "Créer un devis à partir de cet événement",
+    link: {
+      text: "Générer",
+      onClick: () =>
+        navigate(`${PATHS.QUOTE_GENERATE}?fromEventId=${event.id}`),
+      active: event.quotes && event.quotes.length > 0 ? false : true,
+    },
+    status:
+      event.products &&
+      event.products.length &&
+      event.quotes &&
+      event.quotes?.length > 0
+        ? Status.SUCCESS
+        : Status.WARNING,
+  });
+
+  event.quotes &&
+    event.quotes.map((quote) => {
+      if (quote.status === QuoteStatus.DRAFT) {
+        ACTIONS.push({
+          content: `Devis ${quote.number} en attente de validation`,
+          link: {
+            text: "Envoyer par mail",
+            onClick: () => navigate(`${PATHS.QUOTE}/${quote.id}/send`),
+            active: true,
+          },
+          status: Status.WARNING,
+        });
+      }
+      if (quote.status === QuoteStatus.ACCEPTED) {
+        ACTIONS.push({
+          content: `Devis ${quote.number} accepté`,
+          link: {
+            text: "Voir le devis",
+            onClick: () => navigate(`${PATHS.QUOTE}/${quote.id}/details`),
+            active: true,
+          },
+          status: Status.SUCCESS,
+        });
+      }
+      if (quote.status === QuoteStatus.REJECTED) {
+        ACTIONS.push({
+          content: `Devis ${quote.number} refusé`,
+          link: {
+            text: "Créer un nouveau devis",
+            onClick: () =>
+              navigate(`${PATHS.QUOTE_GENERATE}?fromEventId=${event.id}`),
+            active: true,
+          },
+          status: Status.DANGER,
+        });
+      }
+    });
+
+  event.invoices &&
+    event.invoices.map((invoice) => {
+      if (invoice.status === InvoiceStatus.DRAFT) {
+        ACTIONS.push({
+          content: `Facture ${invoice.number} en attente de validation`,
+          link: {
+            text: "Finaliser ma facture",
+            onClick: () => navigate(`${PATHS.INVOICE}/${invoice.id}/details`),
+            active: true,
+          },
+          status: Status.WARNING,
+        });
+      }
+      if (invoice.status === InvoiceStatus.PENDING) {
+        ACTIONS.push({
+          content: `Facture ${invoice.number} en attente de paiement`,
+          link: {
+            text: "Voir la facture",
+            onClick: () => navigate(`${PATHS.INVOICE}/${invoice.id}/details`),
+            active: true,
+          },
+          status: Status.WARNING,
+        });
+      }
+      if (invoice.status === InvoiceStatus.LATE) {
+        ACTIONS.push({
+          content: `Facture ${invoice.number} en retard`,
+          link: {
+            text: "Envoyer un mail de relance",
+            onClick: () =>
+              navigate(`${PATHS.INVOICE}/${invoice.id}/send?type=reminder`),
+            active: true,
+          },
+          status: Status.DANGER,
+        });
+      }
+      if (invoice.status === InvoiceStatus.PAID) {
+        ACTIONS.push({
+          content: `Facture ${invoice.number} payée`,
+          link: {
+            text: "Voir la facture",
+            onClick: () => navigate(`${PATHS.INVOICE}/${invoice.id}/details`),
+            active: true,
+          },
+          status: Status.SUCCESS,
+        });
+      }
+    });
+
+  const [query, setQuery] = useSearchParams();
+
+  return (
+    <CardContainer className="p-4 w-full flex flex-col space-y-4">
+      <h1 className="text-gray-900 font-semibold">
+        {intl.formatMessage({
+          id: "event-details.actions.header",
+        })}
+      </h1>
+      {ACTIONS.map((action) => (
+        <AlertWithLink {...action} />
+      ))}
+    </CardContainer>
+  );
+};
+
 export const EventDetailsBody = (props: MainEventDetailsPageProps) => {
   const { event } = props;
   const intl = useIntl();
 
   const [query] = useSearchParams();
-  const selectedSection = query.get("section") || SECTION.TASKS;
+  const selectedSection = query.get("section") || SECTION.ACTIONS;
 
   return (
     <>
@@ -504,7 +697,8 @@ export const EventDetailsBody = (props: MainEventDetailsPageProps) => {
 
       {selectedSection === SECTION.LOGS && <LogsSection />}
       {selectedSection === SECTION.PRODUCTS && <ProductsSection {...event} />}
-      {selectedSection === SECTION.TASKS && <TasksSection {...event} />}
+      {selectedSection === SECTION.ACTIONS && <ActionSection {...event} />}
+      {selectedSection === SECTION.ASSISTANT && <AssistantSection {...event} />}
     </>
   );
 };

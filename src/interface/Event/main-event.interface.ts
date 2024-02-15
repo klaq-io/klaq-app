@@ -6,6 +6,7 @@ import { EventStatus } from "redux/Events/slices";
 import { Invoice } from "interface/Invoice/invoice.interface";
 import { Quote } from "interface/Quote/quote.interface";
 import { EventProduct } from "./event-product.interface";
+import { Directions } from "interface/Map/directions.interface";
 
 export interface MainEvent {
   id: string;
@@ -22,6 +23,7 @@ export interface MainEvent {
   commentaries?: Commentary[];
   invoices?: Invoice[];
   products?: EventProduct[];
+  directions?: Directions;
 }
 
 export interface MainEventCreator {
@@ -38,4 +40,5 @@ export interface MainEventCreator {
   quotes?: Quote[];
   commentaries?: Commentary[];
   products?: EventProduct[];
+  directions?: Directions;
 }
