@@ -84,7 +84,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
       });
       setOpen(false);
       resetForm();
-      navigate(`${PATHS.EVENT}/${id}/details?tab=Roadmap`);
+      navigate(`${PATHS.EVENT}/${id}/details`);
     },
     enableReinitialize: true,
   });

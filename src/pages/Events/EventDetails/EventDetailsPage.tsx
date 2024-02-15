@@ -3,7 +3,7 @@ import { PageLayout } from "layouts";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useFetchMainEvent } from "redux/MainEvent/hooks";
+import { useFetchMainEvent, useFetchMainEvents } from "redux/MainEvent/hooks";
 import { getMainEvent } from "redux/MainEvent/selectors";
 import { EventDetailsBody } from "./EventDetailsBody";
 import { EventDetailsHeader } from "./EventDetailsHeader";
@@ -15,11 +15,11 @@ export type MainEventDetailsPageProps = {
 
 export const EventDetailsPage = () => {
   const { id } = useParams();
-  const [{ isLoading }, fetchEvent] = useFetchMainEvent();
+  const [{ isLoading }, fetchEvents] = useFetchMainEvents();
   const event = useSelector((state: any) => getMainEvent(state, id!));
 
   useEffect(() => {
-    fetchEvent(id);
+    fetchEvents();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ export const EventDetailsPage = () => {
         event && (
           <Transition
             show={true}
-            enter="transition ease duration-3500 transform"
+            enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
             leave="transition-opacity duration-150"

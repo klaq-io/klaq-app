@@ -18,6 +18,8 @@ export const useCreateEvent = () => {
 
   return useAsyncCallback(
     async (values: Partial<MainEventCreator> & { note?: string }) => {
+      delete values.directions;
+      delete values.customer?.mainEvents;
       try {
         const { data } = await webClient.post("/event", values);
         toast.custom(

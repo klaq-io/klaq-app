@@ -5,7 +5,7 @@ import {
   ChevronRightIcon,
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
-import { Button, NewEventModal } from "components";
+import { Button, EventBadge, NewEventModal } from "components";
 import {
   add,
   eachDayOfInterval,
@@ -32,10 +32,12 @@ import {
   getMonthStr,
   getSubEventsListFromMainEvents,
 } from "../../utils/utils";
+import { EventStatus } from "redux/Events/slices";
 
 type Event = SubEvent & {
   customer: Customer;
   mainEventId: string;
+  status: EventStatus;
 };
 
 export const MonthView = () => {
@@ -239,121 +241,6 @@ export const MonthView = () => {
               })}
             </Button>
           </div>
-          <Menu as="div" className="relative ml-6 md:hidden">
-            <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-              <span className="sr-only">Open menu</span>
-              <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
-            </Menu.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Create event
-                      </a>
-                    )}
-                  </Menu.Item>
-                </div>
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Go to today
-                      </a>
-                    )}
-                  </Menu.Item>
-                </div>
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Day view
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Week view
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Month view
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Year view
-                      </a>
-                    )}
-                  </Menu.Item>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
         </div>
       </header>
       <div className="rounded-md flex-1 flex overflow-hidden">
@@ -390,7 +277,7 @@ export const MonthView = () => {
                     isSameMonth(day.date, firstDayCurrentMonth)
                       ? "bg-white"
                       : "bg-gray-50 text-gray-500",
-                    "relative px-3 py-2 h-32"
+                    "relative px-3 py-2 min-h-32"
                   )}
                   onDoubleClick={() => {
                     setSelectedDate(day.date);
@@ -412,7 +299,7 @@ export const MonthView = () => {
                       {day.events.slice(0, 2).map((event: Event) => (
                         <li key={event.id}>
                           <button
-                            className="group flex"
+                            className="group flex flex-col items-start w-full truncate"
                             onClick={() =>
                               handleGoToEventDetails(event.mainEventId)
                             }
@@ -420,14 +307,24 @@ export const MonthView = () => {
                             <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-klaq-600">
                               {event.type}
                             </p>
-                            {event.startTime ? (
-                              <time
-                                dateTime={event.startTime}
-                                className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
-                              >
-                                {event.startTime}
-                              </time>
-                            ) : null}
+                            <span className="flex flex-row space-x-1">
+                              {event.startTime ? (
+                                <time
+                                  dateTime={event.startTime}
+                                  className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
+                                >
+                                  {event.startTime}
+                                </time>
+                              ) : null}
+                              {event.endTime ? (
+                                <time
+                                  dateTime={event.endTime}
+                                  className="ml-3 hidden flex-none text-gray-500 group-hover:text-klaq-600 xl:block"
+                                >
+                                  - {event.endTime}
+                                </time>
+                              ) : null}
+                            </span>
                           </button>
                         </li>
                       ))}

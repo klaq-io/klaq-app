@@ -238,7 +238,7 @@ const ProductsSection = (event: MainEvent) => {
     fetchProducts();
     formik.setFieldValue(
       "products",
-      eventProducts.filter((product) => product.productId !== null)
+      eventProducts.filter((product) => product.productId !== "")
     );
   }, []);
 
@@ -527,18 +527,6 @@ const AssistantSection = (event: MainEvent) => {
 const ActionSection = (event: MainEvent) => {
   const intl = useIntl();
   const navigate = useNavigate();
-
-  const lastQuote = event.quotes?.at(-1);
-  const isEventOver = new Date(event.subEvents[0].date) < new Date();
-  const hasAtLeastAQuoteAccepted =
-    event.quotes &&
-    event.quotes?.length > 0 &&
-    event.quotes?.some((quote) => quote.status === QuoteStatus.ACCEPTED);
-  const lastQuoteAccepted = event.quotes?.find(
-    (quote) => quote.status === QuoteStatus.ACCEPTED
-  );
-  const hasAtLeastAnInvoice = event.invoices && event.invoices.length > 0;
-  const lastInvoice = event.invoices?.at(-1);
 
   type Action = {
     content: string;
