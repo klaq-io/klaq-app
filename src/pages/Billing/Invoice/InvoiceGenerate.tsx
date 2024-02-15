@@ -16,6 +16,7 @@ import {
   CardContainer,
   Label,
   SelectField,
+  Spinner,
   TextField,
 } from "components";
 import { useFormik } from "formik";
@@ -26,7 +27,10 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { EventStatus } from "redux/Events/slices";
 import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import {
+  getMainEvents,
+  getMainEventsByStatus,
+} from "redux/MainEvent/selectors";
 import { classNames } from "utils/utils";
 import { initialValues, validationSchema } from "./generateInvoiceForm";
 import { Alert } from "components/Alert/Alert";
@@ -44,18 +48,19 @@ import { PATHS } from "routes";
 import { useCreateInvoice } from "redux/Invoice/hooks";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getQuoteById } from "redux/Quote/selectors";
-import { useFetchQuote } from "redux/Quote/hooks";
+import { useFetchQuote, useFetchQuotes } from "redux/Quote/hooks";
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
 
+  const [displaySpinner, setDisplaySpinner] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const fromQuoteId = searchParams.get("fromQuote");
   const fromEventId = searchParams.get("fromEventId");
   const [query, setQuery] = useState("");
   const [mainEventId, setMainEventId] = useState("");
   const [, fetchMainEvents] = useFetchMainEvents();
-  const [, fetchQuote] = useFetchQuote();
+  const [, fetchQuotes] = useFetchQuotes();
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
@@ -67,15 +72,7 @@ export const InvoiceGenerate = () => {
 
   const invoiceNumber = "F-2023-0001";
 
-  const mainEvents =
-    useSelector((state: any) =>
-      getMainEventsByStatus(
-        state,
-        EventStatus.INBOX,
-        EventStatus.QUOTE_SENT,
-        EventStatus.QUOTE_REJECTED
-      )
-    ) || [].reverse();
+  const mainEvents = useSelector(getMainEvents);
 
   const filteredEvents =
     query === ""
@@ -234,8 +231,9 @@ export const InvoiceGenerate = () => {
 
   useEffect(() => {
     const fetchFromQuote = async () => {
+      setDisplaySpinner(true);
       if (!fromQuoteId) return;
-      await fetchQuote(fromQuoteId);
+      await fetchQuotes();
       const mainEvent = mainEvents.find(
         (mainEvent) => mainEvent.id === quote?.mainEvent.id
       );
@@ -255,12 +253,13 @@ export const InvoiceGenerate = () => {
       if (mainEvent) {
         handleSetMainEvent(mainEvent);
       }
+      setDisplaySpinner(false);
     };
 
     if (fromQuoteId) {
       fetchFromQuote();
     }
-  }, [fromQuoteId]);
+  }, [fromQuoteId, mainEvents.length > 0]);
 
   useEffect(() => {
     if (fromEventId) {
@@ -293,171 +292,175 @@ export const InvoiceGenerate = () => {
         <div className="mt-8 flex flex-col">
           <CardContainer className="grow">
             <div className="px-4 py-5 sm:p-6 flex flex-col space-y-8">
-              {!formik.values.customer.name && (
-                <div className="flex flex-col space-y-4">
-                  <h1 className="text-base font-semibold leading-6 text-gray-900">
-                    {intl.formatMessage({
-                      id: "invoice-generate.attach-event.title",
-                    })}
-                  </h1>
-                  <Combobox
-                    as="div"
-                    onChange={(mainEvent: MainEvent) => {
-                      handleSetMainEvent(mainEvent);
-                    }}
-                  >
-                    {({ activeOption }) => (
-                      <>
-                        <div className="relative">
-                          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <MagnifyingGlassIcon
-                              className="pointer-events-none absolute h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <Combobox.Input
-                            className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                            placeholder={intl.formatMessage({
-                              id: "quote.attach-to-event.search",
-                            })}
-                            onChange={(event) => setQuery(event.target.value)}
-                            displayValue={(mainEvent: MainEvent) =>
-                              mainEvent
-                                ? `${new Date(
-                                    mainEvent.subEvents[0].date
-                                  ).toLocaleDateString()} - ${
-                                    mainEvent.customer.name
-                                  } - ${
-                                    mainEvent.subEvents[0].type
-                                  } - ${intl.formatMessage({
-                                    id: `events.status.${mainEvent.status}`,
-                                  })}`
-                                : ""
-                            }
-                          />
-                          <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-                            <ChevronUpDownIcon
-                              className="h-5 w-5 text-gray-400"
-                              aria-hidden="true"
-                            />
-                          </Combobox.Button>
-                        </div>
-                        <Combobox.Options className="flex absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {query === "" || filteredEvents.length > 0 ? (
-                            <div
-                              className={classNames(
-                                "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4"
-                              )}
-                            >
-                              {query === "" && (
-                                <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
-                                  {intl.formatMessage({
-                                    id: "quote.attach-to-event.recent",
-                                  })}
-                                </h2>
-                              )}
-                              <div className="-mx-2 text-sm text-gray-700">
-                                {(query === ""
-                                  ? mainEvents.slice(0, 5)
-                                  : filteredEvents
-                                ).map((mainEvent) => (
-                                  <Combobox.Option
-                                    as="div"
-                                    key={mainEvent.id}
-                                    value={mainEvent}
-                                    className={({ active }) =>
-                                      classNames(
-                                        "relativeflex cursor-default select-none items-center rounded-md p-2",
-                                        active && "bg-gray-100 text-gray-900"
-                                      )
-                                    }
-                                  >
-                                    {({ active, selected }) => (
-                                      <>
-                                        <span className="ml-3 flex-auto truncate">
-                                          {new Date(
-                                            mainEvent.subEvents[0].date
-                                          ).toLocaleDateString()}{" "}
-                                          - {mainEvent.customer.name} -{" "}
-                                          {mainEvent.subEvents[0].type} -{" "}
-                                          {intl.formatMessage({
-                                            id: `events.status.${mainEvent.status}`,
-                                          })}{" "}
-                                        </span>
-                                        {selected && (
-                                          <span
-                                            className={classNames(
-                                              "absolute inset-y-0 right-0 flex items-center pr-4",
-                                              active && "text-klaq-600"
-                                            )}
-                                          >
-                                            <CheckIcon
-                                              className="h-5 w-5"
-                                              aria-hidden="true"
-                                            />
-                                          </span>
-                                        )}
-                                      </>
-                                    )}
-                                  </Combobox.Option>
-                                ))}
-                              </div>
+              {displaySpinner ? (
+                <></>
+              ) : (
+                !formik.values.customer.name && (
+                  <div className="flex flex-col space-y-4">
+                    <h1 className="text-base font-semibold leading-6 text-gray-900">
+                      {intl.formatMessage({
+                        id: "invoice-generate.attach-event.title",
+                      })}
+                    </h1>
+                    <Combobox
+                      as="div"
+                      onChange={(mainEvent: MainEvent) => {
+                        handleSetMainEvent(mainEvent);
+                      }}
+                    >
+                      {({ activeOption }) => (
+                        <>
+                          <div className="relative">
+                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                              <MagnifyingGlassIcon
+                                className="pointer-events-none absolute h-5 w-5 text-gray-400"
+                                aria-hidden="true"
+                              />
                             </div>
-                          ) : (
-                            query !== "" &&
-                            filteredEvents.length === 0 && (
-                              <div className="px-6 py-14 text-center text-sm sm:px-14">
-                                <UsersIcon
-                                  className="mx-auto h-6 w-6 text-gray-400"
-                                  aria-hidden="true"
-                                />
-                                <p className="mt-4 font-semibold text-gray-900">
-                                  {intl.formatMessage({
-                                    id: "quote.attach-to-event.not-found.title",
-                                  })}
-                                </p>
-                                <p className="mt-2 text-gray-500">
-                                  {intl.formatMessage(
-                                    {
-                                      id: "quote.attach-to-event.not-found.description",
-                                    },
-                                    {
-                                      btn: (...chunks: any) => (
-                                        <Button
-                                          type="button"
-                                          variant="link"
-                                          color="primary"
-                                        >
-                                          {chunks.join()}
-                                        </Button>
-                                      ),
-                                    }
-                                  )}
-                                </p>
-                                <p className="mt-2 text-gray-500">
-                                  {intl.formatMessage({
-                                    id: "quote.attach-to-event.not-found.info",
-                                  })}
-                                </p>
+                            <Combobox.Input
+                              className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
+                              placeholder={intl.formatMessage({
+                                id: "quote.attach-to-event.search",
+                              })}
+                              onChange={(event) => setQuery(event.target.value)}
+                              displayValue={(mainEvent: MainEvent) =>
+                                mainEvent
+                                  ? `${new Date(
+                                      mainEvent.subEvents[0].date
+                                    ).toLocaleDateString()} - ${
+                                      mainEvent.customer.name
+                                    } - ${
+                                      mainEvent.subEvents[0].type
+                                    } - ${intl.formatMessage({
+                                      id: `events.status.${mainEvent.status}`,
+                                    })}`
+                                  : ""
+                              }
+                            />
+                            <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                              <ChevronUpDownIcon
+                                className="h-5 w-5 text-gray-400"
+                                aria-hidden="true"
+                              />
+                            </Combobox.Button>
+                          </div>
+                          <Combobox.Options className="flex absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            {query === "" || filteredEvents.length > 0 ? (
+                              <div
+                                className={classNames(
+                                  "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4"
+                                )}
+                              >
+                                {query === "" && (
+                                  <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
+                                    {intl.formatMessage({
+                                      id: "quote.attach-to-event.recent",
+                                    })}
+                                  </h2>
+                                )}
+                                <div className="-mx-2 text-sm text-gray-700">
+                                  {(query === ""
+                                    ? mainEvents.slice(0, 5)
+                                    : filteredEvents
+                                  ).map((mainEvent) => (
+                                    <Combobox.Option
+                                      as="div"
+                                      key={mainEvent.id}
+                                      value={mainEvent}
+                                      className={({ active }) =>
+                                        classNames(
+                                          "relativeflex cursor-default select-none items-center rounded-md p-2",
+                                          active && "bg-gray-100 text-gray-900"
+                                        )
+                                      }
+                                    >
+                                      {({ active, selected }) => (
+                                        <>
+                                          <span className="ml-3 flex-auto truncate">
+                                            {new Date(
+                                              mainEvent.subEvents[0].date
+                                            ).toLocaleDateString()}{" "}
+                                            - {mainEvent.customer.name} -{" "}
+                                            {mainEvent.subEvents[0].type} -{" "}
+                                            {intl.formatMessage({
+                                              id: `events.status.${mainEvent.status}`,
+                                            })}{" "}
+                                          </span>
+                                          {selected && (
+                                            <span
+                                              className={classNames(
+                                                "absolute inset-y-0 right-0 flex items-center pr-4",
+                                                active && "text-klaq-600"
+                                              )}
+                                            >
+                                              <CheckIcon
+                                                className="h-5 w-5"
+                                                aria-hidden="true"
+                                              />
+                                            </span>
+                                          )}
+                                        </>
+                                      )}
+                                    </Combobox.Option>
+                                  ))}
+                                </div>
                               </div>
-                            )
-                          )}
-                        </Combobox.Options>
-                      </>
+                            ) : (
+                              query !== "" &&
+                              filteredEvents.length === 0 && (
+                                <div className="px-6 py-14 text-center text-sm sm:px-14">
+                                  <UsersIcon
+                                    className="mx-auto h-6 w-6 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                  <p className="mt-4 font-semibold text-gray-900">
+                                    {intl.formatMessage({
+                                      id: "quote.attach-to-event.not-found.title",
+                                    })}
+                                  </p>
+                                  <p className="mt-2 text-gray-500">
+                                    {intl.formatMessage(
+                                      {
+                                        id: "quote.attach-to-event.not-found.description",
+                                      },
+                                      {
+                                        btn: (...chunks: any) => (
+                                          <Button
+                                            type="button"
+                                            variant="link"
+                                            color="primary"
+                                          >
+                                            {chunks.join()}
+                                          </Button>
+                                        ),
+                                      }
+                                    )}
+                                  </p>
+                                  <p className="mt-2 text-gray-500">
+                                    {intl.formatMessage({
+                                      id: "quote.attach-to-event.not-found.info",
+                                    })}
+                                  </p>
+                                </div>
+                              )
+                            )}
+                          </Combobox.Options>
+                        </>
+                      )}
+                    </Combobox>
+                    {!formik.values.customer.name && (
+                      <Alert
+                        status="info"
+                        title={intl.formatMessage({
+                          id: "invoice-generate.attach-event.info.title",
+                        })}
+                        text={intl.formatMessage({
+                          id: "invoice-generate.attach-event.info.description",
+                        })}
+                      />
                     )}
-                  </Combobox>
-                  {!formik.values.customer.name && (
-                    <Alert
-                      status="info"
-                      title={intl.formatMessage({
-                        id: "invoice-generate.attach-event.info.title",
-                      })}
-                      text={intl.formatMessage({
-                        id: "invoice-generate.attach-event.info.description",
-                      })}
-                    />
-                  )}
-                </div>
+                  </div>
+                )
               )}
               <Transition
                 show={!!formik.values.customer.name}

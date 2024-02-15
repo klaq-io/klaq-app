@@ -7,6 +7,7 @@ import {
   useVerifyEmail,
 } from "redux/Email/hooks";
 import { Ping } from "@uiball/loaders";
+import { KLAQ_COLORS } from "constants/colors";
 
 const SECONDS = 1000;
 const INITIAL_DELAY = 15 * SECONDS;
@@ -55,7 +56,7 @@ export const ConfirmMail = () => {
           )}
         </p>
         <div className="mt-6 mx-auto">
-          <Ping size={90} speed={3} color="#40615d" />
+          <Ping size={90} speed={3} color={KLAQ_COLORS[500]} />
         </div>
         <div className="mx-auto">
           <h1 className="text-lg leading-6 text-klaq-600">

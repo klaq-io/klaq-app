@@ -15,6 +15,7 @@ import {
   QuoteBadge,
   Tooltip,
 } from "components";
+import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
 import { format } from "date-fns";
 import {
   DiscountType,
@@ -300,7 +301,7 @@ export const QuoteDetailsPage = () => {
                   </div>
                   <div>
                     <Label htmlFor="status">Statut</Label>
-                    <QuoteBadge status={quote.status} />
+                    <QuoteBadgeButton quote={quote} />
                   </div>
                   <div>
                     <Label htmlFor="issuedOn">Délivré le</Label>

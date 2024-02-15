@@ -16,9 +16,11 @@ import {
   CommentaryFeed,
 } from "components";
 import { Alert } from "components/Alert/Alert";
+import { isPast } from "date-fns";
 import { Status } from "enum/status.enum";
 import { useFormik } from "formik";
 import { MainEvent } from "interface/Event/main-event.interface";
+import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 import { QuoteStatus } from "interface/Quote/quote.interface";
 import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -31,14 +33,7 @@ import { ProductItem } from "redux/Products/slices";
 import { PATHS } from "routes";
 import { classNames, getTimeStr } from "utils/utils";
 import { MainEventDetailsPageProps } from "./EventDetailsPage";
-import {
-  getStatusForInvoiceAction,
-  getStatusForPreQuoteAction,
-  getStatusForProductsAction,
-  getStatusForQuoteAction,
-} from "./action-status";
 import { initialValues, validationSchema } from "./update-event-form";
-import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 
 enum SECTION {
   PRODUCTS = "products",
@@ -545,10 +540,17 @@ const ActionSection = (event: MainEvent) => {
     link: {
       text: "Ajouter",
       onClick: () => setQuery({ section: SECTION.PRODUCTS }),
-      active: event.products && event.products.length > 0 ? false : true,
+      active:
+        (event.products && event.products.length) ||
+        (event.quotes && event.quotes.length)
+          ? false
+          : true,
     },
     status:
-      event.products && event.products.length ? Status.SUCCESS : Status.WARNING,
+      (event.products && event.products.length) ||
+      (event.quotes && event.quotes.length)
+        ? Status.SUCCESS
+        : Status.WARNING,
   });
 
   ACTIONS.push({
@@ -557,13 +559,15 @@ const ActionSection = (event: MainEvent) => {
       text: "Générer",
       onClick: () =>
         navigate(`${PATHS.QUOTE_GENERATE}?fromEventId=${event.id}`),
-      active: event.quotes && event.quotes.length > 0 ? false : true,
+      active:
+        (event.products && event.products.length) ||
+        (event.quotes && event.quotes.length)
+          ? false
+          : true,
     },
     status:
-      event.products &&
-      event.products.length &&
-      event.quotes &&
-      event.quotes?.length > 0
+      (event.products && event.products.length) ||
+      (event.quotes && event.quotes.length)
         ? Status.SUCCESS
         : Status.WARNING,
   });
@@ -583,7 +587,7 @@ const ActionSection = (event: MainEvent) => {
       }
       if (quote.status === QuoteStatus.ACCEPTED) {
         ACTIONS.push({
-          content: `Devis ${quote.number} accepté`,
+          content: `Devis ${quote.number} accepté par le client`,
           link: {
             text: "Voir le devis",
             onClick: () => navigate(`${PATHS.QUOTE}/${quote.id}/details`),
@@ -594,7 +598,7 @@ const ActionSection = (event: MainEvent) => {
       }
       if (quote.status === QuoteStatus.REJECTED) {
         ACTIONS.push({
-          content: `Devis ${quote.number} refusé`,
+          content: `Devis ${quote.number} refusé par le client`,
           link: {
             text: "Créer un nouveau devis",
             onClick: () =>
@@ -602,6 +606,43 @@ const ActionSection = (event: MainEvent) => {
             active: true,
           },
           status: Status.DANGER,
+        });
+      }
+    });
+
+  ACTIONS.push(
+    !isPast(new Date(event.subEvents[0].date))
+      ? {
+          content: "L'événement n'a pas encore eu lieu",
+          link: {
+            text: "Générer",
+            active: false,
+          },
+          status: Status.PENDING,
+        }
+      : {
+          content: "L'événement est terminé",
+          link: {
+            text: "Générer",
+            active: false,
+          },
+          status: Status.SUCCESS,
+        }
+  );
+
+  event.quotes &&
+    event.quotes.length > 0 &&
+    event.quotes.map((quote) => {
+      if (quote.status === QuoteStatus.ACCEPTED) {
+        ACTIONS.push({
+          content: `Créer une facture à partir du devis ${quote.number}`,
+          link: {
+            text: "Générer",
+            onClick: () =>
+              navigate(`${PATHS.INVOICE_GENERATE}?fromQuote=${quote.id}`),
+            active: true,
+          },
+          status: Status.WARNING,
         });
       }
     });
