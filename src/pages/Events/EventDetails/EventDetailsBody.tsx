@@ -706,7 +706,7 @@ const ActionSection = (event: MainEvent) => {
         })}
       </h1>
       {ACTIONS.map((action) => (
-        <AlertWithLink {...action} />
+        <AlertWithLink key={action.content} {...action} />
       ))}
     </CardContainer>
   );

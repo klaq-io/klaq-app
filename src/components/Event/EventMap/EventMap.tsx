@@ -86,6 +86,7 @@ export const EventMapV2 = (props: EventMapProps) => {
           </Source>
           {waypoints.map((waypoint: any, idx: number) => (
             <Marker
+              key={`${waypoint.name}.${idx}`}
               longitude={waypoint.location[0]}
               latitude={waypoint.location[1]}
             >

@@ -23,6 +23,10 @@ const store = configureStore({
     notifications: notificationSlice.reducer,
     invoices: invoiceSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
