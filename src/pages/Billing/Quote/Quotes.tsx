@@ -6,6 +6,7 @@ import {
   PaperAirplaneIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
+import { HandThumbUpIcon } from "@heroicons/react/24/solid";
 import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from "components";
 import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
 import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
@@ -284,59 +285,79 @@ export const Quotes = () => {
               </thead>
               <tbody>
                 {currentTab && currentTab.quotes && !isLoading ? (
-                  currentTab.quotes.length > 0 &&
-                  currentTab.quotes.map((quote: Quote) => (
-                    <tr key={quote.id}>
-                      <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
-                        <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">
-                          <button
-                            onClick={() =>
-                              navigate(
-                                PATHS.CUSTOMERS +
-                                  "/" +
-                                  quote.mainEvent.customer.id
+                  currentTab.quotes.length > 0 ? (
+                    currentTab.quotes.map((quote: Quote) => (
+                      <tr key={quote.id}>
+                        <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
+                          <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">
+                            <button
+                              onClick={() =>
+                                navigate(
+                                  PATHS.CUSTOMERS +
+                                    "/" +
+                                    quote.mainEvent.customer.id
+                                )
+                              }
+                            >
+                              {quote.mainEvent.customer.name}
+                            </button>
+                          </div>
+                          <div className="mt-2 font-medium text-gray-500">
+                            {quote.number}
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                          <div className="font-medium text-gray-500">
+                            {new Date(quote.issuedOn).toLocaleDateString()}
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                          <div className="font-medium text-gray-500">
+                            {new Date(quote.validUntil).toLocaleDateString()}
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                          <div className="font-medium text-gray-500">
+                            <QuoteBadgeButton quote={quote} />
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                          <div className="font-medium text-gray-500">
+                            {quote.products
+                              .reduce(
+                                (acc, product) =>
+                                  acc + product.price * product.quantity,
+                                0
                               )
-                            }
-                          >
-                            {quote.mainEvent.customer.name}
-                          </button>
+                              .toFixed(2)}{" "}
+                            €
+                          </div>
+                        </td>
+                        <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
+                          <KebabMenu
+                            items={optionMenu(quote)}
+                            buttonSize="md"
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={6} className="text-center py-4">
+                        <div className="px-6 py-14 text-center text-sm sm:px-14">
+                          <HandThumbUpIcon
+                            className="mx-auto h-6 w-6 text-gray-400"
+                            aria-hidden="true"
+                          />
+                          <h3 className="mt-4 font-semibold text-gray-900">
+                            {intl.formatMessage({
+                              id: "quote.empty",
+                            })}
+                          </h3>
                         </div>
-                        <div className="mt-2 font-medium text-gray-500">
-                          {quote.number}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                        <div className="font-medium text-gray-500">
-                          {new Date(quote.issuedOn).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                        <div className="font-medium text-gray-500">
-                          {new Date(quote.validUntil).toLocaleDateString()}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                        <div className="font-medium text-gray-500">
-                          <QuoteBadgeButton quote={quote} />
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                        <div className="font-medium text-gray-500">
-                          {quote.products
-                            .reduce(
-                              (acc, product) =>
-                                acc + product.price * product.quantity,
-                              0
-                            )
-                            .toFixed(2)}{" "}
-                          €
-                        </div>
-                      </td>
-                      <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <KebabMenu items={optionMenu(quote)} buttonSize="md" />
                       </td>
                     </tr>
-                  ))
+                  )
                 ) : (
                   <QuoteListSkeleton />
                 )}

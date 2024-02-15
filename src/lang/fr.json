@@ -914,6 +914,7 @@
 
   "invoices": {
     "header": "Facture",
+    "empty": "Aucune facture dans cette catégorie",
     "description": "Lorem ipsum",
     "no-invoices": "Ajouter ma première facture",
     "get-started": "Cliquer pour commencer à ajouter une facture",
@@ -1122,6 +1123,7 @@
     "to": "À",
     "order-form-id": "Bon de commande",
     "number": "Numéro",
+    "empty": "Aucun devis dans cette catégorie",
     "table": {
       "products": "Produits",
       "quantity": "Qté",

@@ -1,3 +1,4 @@
+import { HandThumbUpIcon } from "@heroicons/react/20/solid";
 import {
   ArrowDownTrayIcon,
   ExclamationTriangleIcon,
@@ -6,25 +7,23 @@ import {
   PaperAirplaneIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
-import { PDFViewer } from "@react-pdf/renderer";
-import { Button, InvoiceBadge, InvoiceRenderer, KebabMenu } from "components";
+import { Button, InvoiceBadge, KebabMenu } from "components";
+import { isPast } from "date-fns";
 import { Invoice, InvoiceStatus } from "interface/Invoice/invoice.interface";
 import { PageLayout } from "layouts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   useDownloadInvoiceDocument,
-  useDownloadInvoicePDF,
   useFetchInvoices,
 } from "redux/Invoice/hooks";
 import { getInvoices } from "redux/Invoice/selectors";
 import { PATHS } from "routes";
+import { getInvoiceSubtotal } from "utils/invoice";
 import { classNames } from "utils/utils";
 import { QuoteListSkeleton } from "../Quote";
-import { getInvoiceSubtotal, getInvoiceTotal } from "utils/invoice";
-import { isPast } from "date-fns";
 
 export const InvoicesPage = () => {
   const navigate = useNavigate();
@@ -282,80 +281,100 @@ export const InvoicesPage = () => {
             </thead>
             <tbody>
               {!isLoading ? (
-                currentTab.invoices.length > 0 &&
-                currentTab.invoices.map((invoice: Invoice) => (
-                  <tr key={invoice.id}>
-                    <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
-                      <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">
-                        <button
-                          onClick={() =>
-                            navigate(
-                              PATHS.CUSTOMERS +
-                                "/" +
-                                invoice.mainEvent.customer.id
-                            )
-                          }
-                        >
-                          {invoice.mainEvent.customer.name}
-                        </button>
-                      </div>
-                      <div className="mt-2 font-medium text-gray-500">
-                        {invoice.number}
-                      </div>
-                    </td>
-                    <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                      <div className="font-medium text-gray-500">
-                        {new Date(invoice.issuedOn).toLocaleDateString()}
-                      </div>
-                    </td>
-                    <td
-                      className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center"
-                      onClick={() => {
-                        if (invoice.status !== InvoiceStatus.PAID)
-                          handleSendReminder(invoice.id);
-                      }}
-                    >
-                      <div
-                        className={classNames(
-                          isPast(new Date(invoice.validUntil)) &&
-                            invoice.status !== InvoiceStatus.PAID
-                            ? "text-danger-500 font-semibold hover:cursor-pointer hover:text-danger-600"
-                            : "text-gray-500 font-medium"
-                        )}
+                currentTab.invoices.length > 0 ? (
+                  currentTab.invoices.map((invoice: Invoice) => (
+                    <tr key={invoice.id}>
+                      <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6 text-left">
+                        <div className="font-semibold text-gray-900 hover:cursor-pointer hover:text-klaq-600">
+                          <button
+                            onClick={() =>
+                              navigate(
+                                PATHS.CUSTOMERS +
+                                  "/" +
+                                  invoice.mainEvent.customer.id
+                              )
+                            }
+                          >
+                            {invoice.mainEvent.customer.name}
+                          </button>
+                        </div>
+                        <div className="mt-2 font-medium text-gray-500">
+                          {invoice.number}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                        <div className="font-medium text-gray-500">
+                          {new Date(invoice.issuedOn).toLocaleDateString()}
+                        </div>
+                      </td>
+                      <td
+                        className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center"
+                        onClick={() => {
+                          if (invoice.status !== InvoiceStatus.PAID)
+                            handleSendReminder(invoice.id);
+                        }}
                       >
-                        {isPast(new Date(invoice.validUntil)) &&
-                        invoice.status !== InvoiceStatus.PAID ? (
-                          <span className="flex items-center justify-center space-x-4">
-                            <ExclamationTriangleIcon
-                              className="h-6 w-6 text-danger-600"
-                              aria-hidden="true"
-                            />
-                            <span>
-                              {new Date(
-                                invoice.validUntil
-                              ).toLocaleDateString()}
+                        <div
+                          className={classNames(
+                            isPast(new Date(invoice.validUntil)) &&
+                              invoice.status !== InvoiceStatus.PAID
+                              ? "text-danger-500 font-semibold hover:cursor-pointer hover:text-danger-600"
+                              : "text-gray-500 font-medium"
+                          )}
+                        >
+                          {isPast(new Date(invoice.validUntil)) &&
+                          invoice.status !== InvoiceStatus.PAID ? (
+                            <span className="flex items-center justify-center space-x-4">
+                              <ExclamationTriangleIcon
+                                className="h-6 w-6 text-danger-600"
+                                aria-hidden="true"
+                              />
+                              <span>
+                                {new Date(
+                                  invoice.validUntil
+                                ).toLocaleDateString()}
+                              </span>
                             </span>
-                          </span>
-                        ) : (
-                          new Date(invoice.validUntil).toLocaleDateString()
-                        )}
+                          ) : (
+                            new Date(invoice.validUntil).toLocaleDateString()
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                        <div className="font-medium text-gray-500">
+                          <InvoiceBadge status={invoice.status} />
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                        <div className="font-medium text-gray-500">
+                          {getInvoiceSubtotal(invoice).toFixed(2)} €
+                        </div>
+                      </td>
+                      <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
+                        <KebabMenu
+                          items={optionMenu(invoice)}
+                          buttonSize="md"
+                        />
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="text-center py-4">
+                      <div className="px-6 py-14 text-center text-sm sm:px-14">
+                        <HandThumbUpIcon
+                          className="mx-auto h-6 w-6 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        <h3 className="mt-4 font-semibold text-gray-900">
+                          {intl.formatMessage({
+                            id: "invoices.empty",
+                          })}
+                        </h3>
                       </div>
-                    </td>
-                    <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                      <div className="font-medium text-gray-500">
-                        <InvoiceBadge status={invoice.status} />
-                      </div>
-                    </td>
-                    <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
-                      <div className="font-medium text-gray-500">
-                        {getInvoiceSubtotal(invoice).toFixed(2)} €
-                      </div>
-                    </td>
-                    <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
-                      <KebabMenu items={optionMenu(invoice)} buttonSize="md" />
                     </td>
                   </tr>
-                ))
+                )
               ) : (
                 <QuoteListSkeleton />
               )}
