@@ -117,6 +117,10 @@
           "title": "Intermittent",
           "description": "Intermittent du spectacle..."
         }
+      },
+      "no-status": {
+        "header": "Vous n'avez pas de statut juridique ?",
+        "description": "Merci pour votre intérêt pour Klaq. Cependant, nous regrettons de vous informer que vous n'aurez pas accès à la version bêta pour le moment. Cela est dû au fait que notre politique d'accès à la bêta requiert la fourniture d'un numéro de SIRET, témoignant de l'existence légale d'une entreprise. Nous comprenons que cela puisse être décevant pour ceux d'entre vous qui sont en train de créer leur entreprise ou qui n'ont pas encore obtenu de numéro de SIRET. Dans ce cas, nous vous encourageons à revenir vous inscrire sur notre plateforme dès que votre entreprise sera pleinement établie sur le plan juridique. Nous sommes désolés pour ce désagrément et espérons pouvoir vous accueillir bientôt parmi nos utilisateurs.\nSi vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter.\nCordialement.\nL'équipe Klaq"
       }
     },
     "search-company": {

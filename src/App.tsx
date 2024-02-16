@@ -52,6 +52,7 @@ import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
 import TransitionComponent from "utils/Transitions";
 import { AnimatePresence } from "framer-motion";
+import { OnboardingNoLegalFormPage } from "pages/Onboarding/Company/OnboardingNoLegalForm";
 
 function App() {
   return (
@@ -70,6 +71,10 @@ function App() {
         <Route path={PATHS.EMBEDDED_FORM} element={<EnquiryForm />} />
         <Route element={<PrivateRoutes />}>
           <Route path={PATHS.EVENTS} element={<Events />} />
+          <Route
+            path={PATHS.ONBOARDING_NO_LEGAL_FORM}
+            element={<OnboardingNoLegalFormPage />}
+          />
           <Route
             path={PATHS.ONBOARDING_LEGAL_FORM_CHOICE}
             element={<OnboardingLegalFormChoice />}

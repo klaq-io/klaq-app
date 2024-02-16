@@ -26,6 +26,7 @@ export const PATHS = {
   CONFIRM_MAIL_VERIFY: "/confirm-email/verify",
   CONFIRM_SMS: "/confirm-sms",
   ONBOARDING_LEGAL_FORM_CHOICE: "/onboarding/legal-form",
+  ONBOARDING_NO_LEGAL_FORM: "/onboarding/legal-form/no-status",
   ONBOARDING_COMPANY: "/onboarding/company",
   ONBOARDING_COMPANY_SEARCH: "/onboarding/company/search",
   ONBOARDING_PERFORMER: "/onboarding/performer",

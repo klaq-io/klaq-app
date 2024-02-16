@@ -3,6 +3,8 @@ import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLa
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../../routes";
+import { Button } from "components";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 const companyType = {
   association: "association",
@@ -90,6 +92,23 @@ export const OnboardingLegalFormChoice = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="mt-8 flex items-center justify-center">
+        <Button
+          type="button"
+          variant="text"
+          color="secondary"
+          trailingIcon={
+            <ArrowRightIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+          }
+          onClick={() => {
+            navigate(PATHS.ONBOARDING_NO_LEGAL_FORM);
+          }}
+        >
+          {intl.formatMessage({
+            id: "onboarding.legal-form-choice.no-status.header",
+          })}
+        </Button>
       </div>
     </OnboardingLayout>
   );
