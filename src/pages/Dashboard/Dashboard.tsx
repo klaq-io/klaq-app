@@ -193,10 +193,9 @@ export const Dashboard = () => {
           </Button>
         </div>
         <div className="flex flex-row">
-          <div className="w-2/3">
+          <div className="w-full">
             <MiniCalendar />
           </div>
-          <div className="w-1/3"></div>
         </div>
       </div>
       <NewEventModal open={openNewEventModal} setOpen={setOpenNewEventModal} />

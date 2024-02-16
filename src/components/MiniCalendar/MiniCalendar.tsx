@@ -35,10 +35,12 @@ import {
 } from "../../utils/utils";
 import { KebabMenu } from "../KebabMenu";
 import { NewEventModal } from "components/Modal";
+import { EventBadge } from "components/Event";
 
 type Event = SubEvent & {
   customer: Customer;
   mainEventId: string;
+  status: EventStatus;
 };
 
 export const MiniCalendar = () => {
@@ -238,6 +240,7 @@ export const MiniCalendar = () => {
                       ) : null}
                     </p>
                   </div>
+                  <EventBadge status={event.status} />
                   {/* <KebabMenu items={menuItems(event.mainEventId)} /> */}
                 </li>
               ))
