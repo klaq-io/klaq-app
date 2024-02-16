@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { ToastNotification } from "components";
 import { Document } from "interface/document.interface";
+import { MainEvent } from "interface/Event/main-event.interface";
 
 export const useFetchCustomers = () => {
   const dispatch = useDispatch();
@@ -96,9 +97,11 @@ export const useUpdateCustomer = () => {
         type: CustomerType;
         legalVATNumber?: string;
         legalRegistrationNumber?: string;
+        mainEvents?: MainEvent[];
       },
       id: string
     ) => {
+      delete values.mainEvents;
       try {
         const response = await webClient.put(`/customer/${id}`, values);
         toast.custom(
