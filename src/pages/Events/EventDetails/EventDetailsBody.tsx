@@ -16,7 +16,7 @@ import {
   CommentaryFeed,
 } from "components";
 import { Alert } from "components/Alert/Alert";
-import { isPast } from "date-fns";
+import { isPast, isToday } from "date-fns";
 import { Status } from "enum/status.enum";
 import { useFormik } from "formik";
 import { MainEvent } from "interface/Event/main-event.interface";
@@ -522,6 +522,7 @@ const AssistantSection = (event: MainEvent) => {
 const ActionSection = (event: MainEvent) => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const isEventPast = isPast(new Date(event.subEvents[0].date));
 
   type Action = {
     content: string;
@@ -542,13 +543,15 @@ const ActionSection = (event: MainEvent) => {
       onClick: () => setQuery({ section: SECTION.PRODUCTS }),
       active:
         (event.products && event.products.length) ||
-        (event.quotes && event.quotes.length)
+        (event.quotes && event.quotes.length) ||
+        isEventPast
           ? false
           : true,
     },
     status:
       (event.products && event.products.length) ||
-      (event.quotes && event.quotes.length)
+      (event.quotes && event.quotes.length) ||
+      isEventPast
         ? Status.SUCCESS
         : Status.WARNING,
   });
@@ -560,14 +563,20 @@ const ActionSection = (event: MainEvent) => {
       onClick: () =>
         navigate(`${PATHS.QUOTE_GENERATE}?fromEventId=${event.id}`),
       active:
-        (event.products && event.products.length) ||
-        (event.quotes && event.quotes.length)
+        (event.products &&
+          event.products.length &&
+          event.quotes &&
+          event.quotes.length > 0) ||
+        isEventPast
           ? false
           : true,
     },
     status:
-      (event.products && event.products.length) ||
-      (event.quotes && event.quotes.length)
+      (event.products &&
+        event.products.length &&
+        event.quotes &&
+        event.quotes.length > 0) ||
+      isEventPast
         ? Status.SUCCESS
         : Status.WARNING,
   });
@@ -611,7 +620,7 @@ const ActionSection = (event: MainEvent) => {
     });
 
   ACTIONS.push(
-    !isPast(new Date(event.subEvents[0].date))
+    !isEventPast || isToday(new Date(event.subEvents[0].date))
       ? {
           content: "L'événement n'a pas encore eu lieu",
           link: {

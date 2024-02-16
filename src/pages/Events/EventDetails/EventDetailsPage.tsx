@@ -29,7 +29,7 @@ export const EventDetailsPage = () => {
       ) : (
         event && (
           <Transition
-            show={true}
+            show={event.id !== undefined}
             enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
