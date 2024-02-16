@@ -4,3 +4,4 @@ export * from "./Integrations";
 export * from "./Profile";
 export * from "./Security";
 export * from "./Settings";
+export * from "./Subscriptions";

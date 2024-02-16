@@ -46,6 +46,7 @@ import {
   Security,
   Settings,
   SignUp,
+  Subscriptions,
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
@@ -143,6 +144,7 @@ function App() {
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />
           <Route path={PATHS.BANK_ACCOUNT} element={<BankAccount />} />
           <Route path={PATHS.SECURITY} element={<Security />} />
+          <Route path={PATHS.SUBSCRIPTION} element={<Subscriptions />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
           <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />

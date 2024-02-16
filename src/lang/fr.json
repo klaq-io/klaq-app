@@ -1500,6 +1500,22 @@
         "holder": "Veuillez saisir le nom du titulaire du compte",
         "label": "Veuillez saisir l'intitulé du compte"
       }
+    },
+    "subscriptions": {
+      "overview": {
+        "header": "Abonnement",
+        "description": "Vérifiez l'état actuel de votre abonnement, gérez votre méthode de paiement, appliquez des coupons et téléchargez des factures."
+      },
+      "details": {
+        "header": "Détails de votre abonnement",
+        "description": "Surveillez l'utilisation de votre abonnement et ce que vous êtes autorisé à utiliser. Passez à un plan supérieur pour augmenter votre allocation."
+      },
+      "current-plan": {
+        "beta": {
+          "header": "Bêta",
+          "description": "Vous êtes actuellement sur le plan bêta. Vous avez accès à toutes les fonctionnalités de Klaq gratuitement."
+        }
+      }
     }
   },
 
