@@ -26,7 +26,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useUpdateMainEvent } from "redux/MainEvent/hooks";
+import { useFetchMainEvents, useUpdateMainEvent } from "redux/MainEvent/hooks";
 import { useFetchProductItems } from "redux/Products/hooks";
 import { getAllProducts } from "redux/Products/selectors";
 import { ProductItem } from "redux/Products/slices";
@@ -34,6 +34,8 @@ import { PATHS } from "routes";
 import { classNames, getTimeStr } from "utils/utils";
 import { MainEventDetailsPageProps } from "./EventDetailsPage";
 import { initialValues, validationSchema } from "./update-event-form";
+import { CustomerType } from "redux/Customer/slices";
+import EditCustomer from "pages/Customers/EditCustomer";
 
 enum SECTION {
   PRODUCTS = "products",
@@ -523,6 +525,8 @@ const ActionSection = (event: MainEvent) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const isEventPast = isPast(new Date(event.subEvents[0].date));
+  const [openEditCustomer, setOpenEditCustomer] = useState(false);
+  const [, fetchEvents] = useFetchMainEvents();
 
   type Action = {
     content: string;
@@ -535,6 +539,52 @@ const ActionSection = (event: MainEvent) => {
   };
 
   const ACTIONS: Action[] = [];
+
+  if (event.customer.type === CustomerType.COMPANY) {
+    ACTIONS.push(
+      !event.customer.legalRegistrationNumber
+        ? {
+            content: `Remplir les informations de la société`,
+            link: {
+              text: "Remplir",
+              onClick: () => setOpenEditCustomer(true),
+              active: true,
+            },
+            status: Status.WARNING,
+          }
+        : {
+            content: `Informations de la société complétées`,
+            link: {
+              text: "Voir",
+              onClick: () => setOpenEditCustomer(false),
+              active: false,
+            },
+            status: Status.SUCCESS,
+          }
+    );
+  } else {
+    ACTIONS.push(
+      !event.customer.address
+        ? {
+            content: `Remplir les informations de facturation du client (adresse, téléphone, email, etc.)`,
+            link: {
+              text: "Remplir",
+              onClick: () => setOpenEditCustomer(true),
+              active: true,
+            },
+            status: Status.WARNING,
+          }
+        : {
+            content: `Informations du client complétées`,
+            link: {
+              text: "Voir",
+              onClick: () => setOpenEditCustomer(false),
+              active: false,
+            },
+            status: Status.SUCCESS,
+          }
+    );
+  }
 
   ACTIONS.push({
     content: "Ajouter des produits à l'événement",
@@ -583,6 +633,9 @@ const ActionSection = (event: MainEvent) => {
 
   event.quotes &&
     event.quotes.map((quote) => {
+      if (isEventPast) {
+        return;
+      }
       if (quote.status === QuoteStatus.DRAFT) {
         ACTIONS.push({
           content: `Devis ${quote.number} en attente de validation`,
@@ -642,7 +695,11 @@ const ActionSection = (event: MainEvent) => {
   event.quotes &&
     event.quotes.length > 0 &&
     event.quotes.map((quote) => {
-      if (quote.status === QuoteStatus.ACCEPTED) {
+      if (
+        quote.status === QuoteStatus.ACCEPTED &&
+        event.invoices &&
+        event.invoices.length === 0
+      ) {
         ACTIONS.push({
           content: `Créer une facture à partir du devis ${quote.number}`,
           link: {
@@ -707,17 +764,28 @@ const ActionSection = (event: MainEvent) => {
 
   const [query, setQuery] = useSearchParams();
 
+  useEffect(() => {
+    fetchEvents();
+  }, [openEditCustomer]);
+
   return (
-    <CardContainer className="p-4 w-full flex flex-col space-y-4">
-      <h1 className="text-gray-900 font-semibold">
-        {intl.formatMessage({
-          id: "event-details.actions.header",
-        })}
-      </h1>
-      {ACTIONS.map((action) => (
-        <AlertWithLink key={action.content} {...action} />
-      ))}
-    </CardContainer>
+    <>
+      <CardContainer className="p-4 w-full flex flex-col space-y-4">
+        <h1 className="text-gray-900 font-semibold">
+          {intl.formatMessage({
+            id: "event-details.actions.header",
+          })}
+        </h1>
+        {ACTIONS.map((action) => (
+          <AlertWithLink key={action.content} {...action} />
+        ))}
+      </CardContainer>
+      <EditCustomer
+        customer={event.customer}
+        open={openEditCustomer}
+        setOpen={setOpenEditCustomer}
+      />
+    </>
   );
 };
 

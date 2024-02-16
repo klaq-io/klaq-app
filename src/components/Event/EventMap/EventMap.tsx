@@ -54,13 +54,13 @@ export const EventMapV2 = (props: EventMapProps) => {
     }
   }, [waypoints]);
 
-  console.log(process.env.REACT_APP_MAPBOX);
-
   return mapData && bound && waypoints ? (
     <div className="flex flex-col w-full h-full space-y-4">
       <div ref={mapContainerRef} className="w-full h-full">
         <Map
-          mapboxAccessToken={process.env.REACT_APP_MAPBOX}
+          mapboxAccessToken={
+            "pk.eyJ1Ijoia2xhcSIsImEiOiJjbGxlZTZlY2UwNTgzM2VwZjlja3l1dXZ2In0.3srguGfdt3R1Xa0NB8UmDw"
+          }
           mapLib={import("mapbox-gl")}
           style={{ width: "100%", height: "100%" }}
           mapStyle="mapbox://styles/mapbox/streets-v12"
