@@ -277,7 +277,7 @@ export const MonthView = () => {
                     isSameMonth(day.date, firstDayCurrentMonth)
                       ? "bg-white"
                       : "bg-gray-50 text-gray-500",
-                    "relative px-3 py-2 min-h-32"
+                    "relative px-3 py-2 h-32 overflow-y-scroll"
                   )}
                   onDoubleClick={() => {
                     setSelectedDate(day.date);
