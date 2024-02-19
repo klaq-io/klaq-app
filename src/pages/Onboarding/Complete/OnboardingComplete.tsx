@@ -1,11 +1,13 @@
 import { ArrowRightIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Ring } from "@uiball/loaders";
 import { Button } from "components";
+import { OnboardingStatus } from "interface/user.interface";
 import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
 import { useEffect, useState } from "react";
 import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
+import { useUpdateOnboardingStatus } from "redux/User/hooks";
 import { PATHS } from "routes";
 import { classNames } from "utils/utils";
 
@@ -27,6 +29,7 @@ const confettiProps: ConfettiProps = {
 export const OnboardingCompletePage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const [, updateStatus] = useUpdateOnboardingStatus();
   const [displayConfettiComponent, setDisplayConfettiComponent] =
     useState(false);
 
@@ -81,6 +84,7 @@ export const OnboardingCompletePage = () => {
   };
 
   useEffect(() => {
+    updateStatus(OnboardingStatus.DONE);
     const updateStatusesSequentially = async () => {
       for (const stepKey of Object.keys(steps)) {
         await updateStatusAfterDuration(stepKey);
