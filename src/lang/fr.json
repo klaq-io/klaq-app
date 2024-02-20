@@ -1682,6 +1682,10 @@
       }
     },
     "error": {
+      "impersonate": {
+        "title": "Admin",
+        "message": "Vous devez être d'abord connecté en tant qu'administrateur pour se connecter à la place de cet utilisateur"
+      },
       "customer-create-error": {
         "title": "Erreur",
         "message": "Le client n'a pas pu être créé"

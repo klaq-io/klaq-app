@@ -3,7 +3,11 @@ import toast from "react-hot-toast";
 
 type ToastStatus = "success" | "info" | "warning" | "danger";
 
-export const KlaqToast = (status: ToastStatus, code?: string) => {
+export const KlaqToast = (
+  status: ToastStatus,
+  code?: string,
+  duration?: number
+) => {
   toast.custom(
     <ToastNotification
       titleId={`toast.${status === "danger" ? "error" : status}.${
@@ -14,6 +18,6 @@ export const KlaqToast = (status: ToastStatus, code?: string) => {
       }.message`}
       status={status}
     />,
-    { duration: 1500, position: "top-right" }
+    { duration: duration || 1500, position: "top-right" }
   );
 };

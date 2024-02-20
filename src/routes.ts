@@ -54,4 +54,5 @@ export const PATHS = {
   EVENT_DETAILS: "/events/:id/details",
   EVENT_DETAILS_V2: "/events/:id/details/v2",
   EMBEDDED_FORM: "/embedded-form",
+  IMPERSONATE: "/impersonate/:id",
 };

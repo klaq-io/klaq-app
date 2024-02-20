@@ -6,6 +6,44 @@ import { ToastNotification } from "components";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../routes";
+import { KlaqToast } from "utils/KlaqToast";
+
+export const useImpersonate = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  return useAsyncCallback(async (userId?: string) => {
+    try {
+      if (!userId) return;
+      const { data } = await webClient.post("auth/impersonate", { userId });
+      if (data.user) dispatch(setUser(data.user));
+      if (data.redirectURI) navigate(data.redirectURI);
+      localStorage.setItem("impersonate", "true");
+    } catch (error: any) {
+      KlaqToast("danger", "impersonate", 5000);
+      navigate(PATHS.DASHBOARD);
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
+export const useStopImpersonate = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [, signOut] = useSignout();
+
+  return useAsyncCallback(async () => {
+    try {
+      localStorage.removeItem("impersonate");
+      signOut();
+      navigate(PATHS.LOGIN);
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
+};
 
 export const useLogin = () => {
   const dispatch = useDispatch();

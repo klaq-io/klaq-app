@@ -54,6 +54,7 @@ import PrivateRoutes from "./utils/PrivateRoute";
 import TransitionComponent from "utils/Transitions";
 import { AnimatePresence } from "framer-motion";
 import { OnboardingNoLegalFormPage } from "pages/Onboarding/Company/OnboardingNoLegalForm";
+import { ImpersonatePage } from "pages/Impersonate/Impersonate";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
         <Route path={PATHS.FORGET_PASSWORD} element={<ForgetPassword />} />
         <Route path={PATHS.EMBEDDED_FORM} element={<EnquiryForm />} />
         <Route element={<PrivateRoutes />}>
+          <Route element={<ImpersonatePage />} path={PATHS.IMPERSONATE} />
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route
             path={PATHS.ONBOARDING_NO_LEGAL_FORM}

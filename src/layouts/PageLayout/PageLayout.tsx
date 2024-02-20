@@ -1,4 +1,4 @@
-import { Sidebar, Spinner } from "components";
+import { Impersonate, Sidebar, Spinner } from "components";
 import { Navbar } from "components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 
@@ -20,21 +20,9 @@ export const PageLayout = (props: Props) => {
     width: window.innerWidth,
   });
 
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setDimensions({
-  //       height: window.innerHeight,
-  //       width: window.innerWidth,
-  //     });
-  //   }
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // });
-
   return true ? (
     <>
+      <Impersonate />
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:w-64 lg:flex-col">
         <Sidebar />
       </div>
