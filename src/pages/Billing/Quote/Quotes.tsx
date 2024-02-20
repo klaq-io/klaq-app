@@ -156,9 +156,14 @@ export const Quotes = () => {
               })}
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-              {intl.formatMessage({
-                id: "quote.description",
-              })}
+              {intl.formatMessage(
+                {
+                  id: "quote.description",
+                },
+                {
+                  nb: currentTab.quotes.length,
+                }
+              )}
             </p>
           </div>
           <div className="flex flex-1">

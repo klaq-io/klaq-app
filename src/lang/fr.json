@@ -919,7 +919,7 @@
   "invoices": {
     "header": "Facture",
     "empty": "Aucune facture dans cette catégorie",
-    "description": "Lorem ipsum",
+    "description": "Liste de vos factures. Vous avez {nb} factures.",
     "no-invoices": "Ajouter ma première facture",
     "get-started": "Cliquer pour commencer à ajouter une facture",
     "button": {
@@ -957,7 +957,7 @@
       "final": "Facture {number}",
       "provisional": "Facture provisoire"
     },
-    "description": "Lorem ipsum",
+    "description": "Créer une nouvelle facture",
     "informations": {
       "title": "Informations générales"
     },
@@ -995,7 +995,7 @@
 
   "invoice-generate": {
     "header": "Nouvelle facture",
-    "description": "Lorem ipsum",
+    "description": "Créer une nouvelle facture",
     "attach-event": {
       "title": "Attacher un évènement à cette facture",
       "info": {
@@ -1096,7 +1096,7 @@
 
   "quote-generate": {
     "header": "Nouveau devis",
-    "description": "Lorem ipsum",
+    "description": "Créer un nouveau devis",
     "attach-event": {
       "title": "Attacher un évènement à ce devis",
       "info": {
@@ -1120,7 +1120,7 @@
 
   "quote": {
     "header": "Devis",
-    "description": "Lorem ipsum",
+    "description": "Liste de vos devis. Vous avez {nb} devis.",
     "issued-on": "Délivré le",
     "due-on": "Valable jusqu'au",
     "from": "De",
