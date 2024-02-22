@@ -859,11 +859,29 @@
       "header": "Actions à effectuer"
     },
     "assistant": {
-      "header": "Assistant",
+      "header": "Assistant <b>(alimenté par intelligence artificielle)</b>",
       "location": {
         "infobox": {
           "title": "Votre trajet",
           "content": "La durée prévue pour vous rendre de votre bureau à l'événement est d'environ <b>{duration}</b> (couvrant une distance d'environ <b>{distance}</b> km). Ce calcul est basé sur l'itinéraire le plus court en voiture."
+        }
+      },
+      "booked": {
+        "infobox": {
+          "title": "Date déjà réservée",
+          "content": "Vous avez déjà un événement prévu pour cette date. <a>{eventTitle}</a> est prévu. Pensez à vérifier le temps de trajet pour vous rendre à cet évènement."
+        }
+      },
+      "no-booking": {
+        "infobox": {
+          "title": "Aucune réservation",
+          "content": "Vous n'avez pas encore réservé d'autres événements à cette date. Pensez à vérifier votre calendrier."
+        }
+      },
+      "overlap": {
+        "infobox": {
+          "title": "Chevauchement d'événements",
+          "content": "Vous avez déjà un événement prévu pour cette date. <a>{eventTitle}</a> est prévu à {time}."
         }
       }
     },

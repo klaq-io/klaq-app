@@ -11,6 +11,7 @@ import {
 import {
   AlertWithLink,
   BillingDocumentList,
+  BookedDateAlert,
   Button,
   CardContainer,
   CommentaryFeed,
@@ -488,10 +489,18 @@ const AssistantSection = (event: MainEvent) => {
   return (
     <CardContainer className="p-4 w-full flex flex-col space-y-4">
       <h1 className="text-gray-900 font-semibold">
-        {intl.formatMessage({
-          id: "event-details.assistant.header",
-        })}
+        {intl.formatMessage(
+          {
+            id: "event-details.assistant.header",
+          },
+          {
+            b: (chunk: any) => (
+              <span className="text-klaq-500 text-sm">{chunk.join()}</span>
+            ),
+          }
+        )}
       </h1>
+      <BookedDateAlert event={event} />
       <Alert
         title={intl.formatMessage({
           id: "event-details.assistant.location.infobox.title",

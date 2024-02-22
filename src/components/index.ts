@@ -27,3 +27,4 @@ export * from "./StatusIcon";
 export * from "./ToastNotification";
 export * from "./Tooltip";
 export * from "./UploadDocument";
+export * from "./BookedData";

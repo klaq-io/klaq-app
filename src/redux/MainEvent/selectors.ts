@@ -29,3 +29,25 @@ export const getThisMonthMainEvents = (state: RootState): MainEvent[] => {
     });
   });
 };
+
+export const getEventBeforeEvent = (
+  state: RootState,
+  id: string
+): MainEvent | undefined => {
+  const mainEvents = state.mainEvents.mainEvents;
+  const index = mainEvents.findIndex(
+    (mainEvent: MainEvent) => mainEvent.id === id
+  );
+  return index > 0 ? mainEvents[index - 1] : undefined;
+};
+
+export const getEventAfterEvent = (
+  state: RootState,
+  id: string
+): MainEvent | undefined => {
+  const mainEvents = state.mainEvents.mainEvents;
+  const index = mainEvents.findIndex(
+    (mainEvent: MainEvent) => mainEvent.id === id
+  );
+  return index < mainEvents.length - 1 ? mainEvents[index + 1] : undefined;
+};
