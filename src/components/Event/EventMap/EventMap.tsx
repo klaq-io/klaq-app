@@ -1,18 +1,15 @@
+import { MapPinIcon } from "@heroicons/react/24/solid";
 import WebMercatorViewport from "@math.gl/web-mercator";
+import { MainEvent } from "interface/Event/main-event.interface";
 import { useEffect, useRef, useState } from "react";
-import { useGetEventMapInformations } from "redux/MainEvent/hooks";
 import Map, {
   FullscreenControl,
   Layer,
   Marker,
   NavigationControl,
-  Popup,
-  Source,
+  Source
 } from "react-map-gl";
-import { MapPinIcon } from "@heroicons/react/24/solid";
-import { TruckIcon } from "@heroicons/react/24/outline";
-import { classNames, getTimeStr } from "utils/utils";
-import { MainEvent } from "interface/Event/main-event.interface";
+import { classNames } from "utils/utils";
 
 type EventMapProps = {
   eventId: string;
@@ -21,7 +18,7 @@ type EventMapProps = {
 };
 
 export const EventMapV2 = (props: EventMapProps) => {
-  const { eventId, event } = props;
+  const { event } = props;
   const mapData = event.directions;
 
   const mapContainerRef = useRef<any | null>();

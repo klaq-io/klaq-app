@@ -3,14 +3,12 @@ import {
   ArrowDownTrayIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
-  CheckBadgeIcon,
   CheckIcon,
   EnvelopeIcon,
   EyeIcon,
-  PaperAirplaneIcon,
   PencilSquareIcon,
   TrashIcon,
-  UserIcon,
+  UserIcon
 } from "@heroicons/react/24/outline";
 import {
   CardContainer,
@@ -36,10 +34,9 @@ import { CustomerType } from "redux/Customer/slices";
 import {
   useDeleteInvoice,
   useDownloadInvoiceDocument,
-  useDownloadInvoicePDF,
   useFetchInvoice,
   useMarkAsFinal,
-  useUpdateInvoiceStatus,
+  useUpdateInvoiceStatus
 } from "redux/Invoice/hooks";
 import { getInvoice } from "redux/Invoice/selectors";
 import { PATHS } from "routes";
@@ -56,13 +53,13 @@ export const InvoiceDetailsPage = () => {
   const [{ isLoading: isDownloadingInvoice }, downloadInvoice] =
     useDownloadInvoiceDocument();
   const [{ isLoading: isMarkingAsFinal }, markAsFinal] = useMarkAsFinal();
-  const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
+  const [, deleteInvoice] = useDeleteInvoice();
 
-  const [openMarkAsFinalModal, setOpenMarkAsFinalModal] = useState(false);
-  const [openPaidModal, setOpenPaidModal] = useState(false);
-  const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);
+  const [isOpenMarkAsFinalModal, setOpenMarkAsFinalModal] = useState(false);
+  const [isOpenPaidModal, setOpenPaidModal] = useState(false);
+  const [isOpenDeleteInvoice, setOpenDeleteInvoice] = useState(false);
 
-  const [openNewCustomer, setOpenNewCustomer] = useState(false);
+  const [isOpenNewCustomer, setOpenNewCustomer] = useState(false);
 
   const getProductSubtotal = (product: InvoiceProduct) => {
     const discount =
@@ -112,14 +109,14 @@ export const InvoiceDetailsPage = () => {
 
   useEffect(() => {
     fetchInvoice(id);
-  }, [openNewCustomer]);
+  }, [isOpenNewCustomer]);
 
   return (
     <PageLayout>
       {invoice && (
         <div className="flex flex-col space-y-8 h-full">
           <Transition
-            show={!isLoading && !!invoice && !openNewCustomer}
+            show={!isLoading && !!invoice && !isOpenNewCustomer}
             enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
@@ -449,13 +446,13 @@ export const InvoiceDetailsPage = () => {
       {invoice && (
         <EditCustomer
           setOpen={setOpenNewCustomer}
-          open={openNewCustomer}
+          open={isOpenNewCustomer}
           customer={invoice?.mainEvent.customer}
         />
       )}
       {invoice && (
         <InfoModal
-          open={openMarkAsFinalModal}
+          isOpen={isOpenMarkAsFinalModal}
           setOpen={setOpenMarkAsFinalModal}
           title="Vous vous apprêtez à convertir ce projet en une facture officielle"
           message="Une fois cette opération effectuée, la facture recevra un numéro d'identification, pourra être transmise à votre client et ne sera plus modifiable. Veuillez noter que cette action est irréversible. Confirmez-vous cette démarche ?"
@@ -469,7 +466,7 @@ export const InvoiceDetailsPage = () => {
       )}
       {invoice && (
         <InfoModal
-          open={openPaidModal}
+          isOpen={isOpenPaidModal}
           setOpen={setOpenPaidModal}
           title="Vous vous apprêtez à marquer cette facture comme payée"
           message="Confirmez-vous cette démarche ?"
@@ -483,7 +480,7 @@ export const InvoiceDetailsPage = () => {
       )}
       {invoice && (
         <DangerModal
-          open={openDeleteInvoice}
+          isOpen={isOpenDeleteInvoice}
           setOpen={setOpenDeleteInvoice}
           title="Voulez-vous vraiment supprimer cette facture ?"
           message="Confirmez-vous cette démarche ?"

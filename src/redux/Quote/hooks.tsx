@@ -1,12 +1,12 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "utils/webclient";
-import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 import { ToastNotification } from "components";
+import { NewQuote, Quote, QuoteStatus } from "interface/Quote/quote.interface";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "routes";
-import { NewQuote, Quote, QuoteStatus } from "interface/Quote/quote.interface";
 import { KlaqToast } from "utils/KlaqToast";
+import webClient from "utils/webclient";
 import { setQuote, setQuotes } from "./slices";
 
 export const useFetchQuote = () => {
@@ -147,7 +147,7 @@ export const useUpdateQuoteStatus = () => {
     dispatch(setQuote({ ...quote, status }));
 
     try {
-      const { data } = await webClient.put(`/quote/${quote.id}/status`, {
+      await webClient.put(`/quote/${quote.id}/status`, {
         status,
       });
     } catch (error: any) {
@@ -208,9 +208,6 @@ export const useFetchQuotesForCustomer = () => {
       const { data } = await webClient.get(`/quote/customer/${customerId}`);
       return data as Quote[];
     } catch (error: any) {
-      const code = error.response.data.code
-        ? error.response.data.code.toLowerCase()
-        : null;
       KlaqToast("danger", "quote-get-error");
       console.error(error);
     }

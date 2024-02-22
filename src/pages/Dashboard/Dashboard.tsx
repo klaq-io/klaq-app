@@ -197,7 +197,7 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
-      <NewEventModal open={openNewEventModal} setOpen={setOpenNewEventModal} />
+      <NewEventModal isOpen={openNewEventModal} setOpen={setOpenNewEventModal} />
       <GettingStartedModal
         firstName={user.firstName}
         isOpen={hasToDisplayLoom}

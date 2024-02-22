@@ -1,23 +1,22 @@
 import { Menu, Transition } from "@headlessui/react";
 import {
-  BellIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
-  PlusIcon,
+  PlusIcon
 } from "@heroicons/react/24/outline";
-import { Fragment, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
-import { useFetchUser, useSignout } from "../../redux/Login/hooks";
-import { classNames } from "../../utils/utils";
-import { useFetchCompany } from "../../redux/Company/hooks";
-import { useSelector } from "react-redux";
-import { getCompany } from "../../redux/Company/selectors";
-import { getUser } from "../../redux/Login/selectors";
-import { Skeleton } from "../Skeleton";
 import { NewEventModal } from "components/Modal";
 import { NotificationWidget } from "components/Notifications";
+import { Fragment, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useFetchCompany } from "../../redux/Company/hooks";
+import { getCompany } from "../../redux/Company/selectors";
+import { useFetchUser, useSignout } from "../../redux/Login/hooks";
+import { getUser } from "../../redux/Login/selectors";
+import { PATHS } from "../../routes";
+import { classNames } from "../../utils/utils";
+import { Skeleton } from "../Skeleton";
 
 type Props = {
   classes?: string;
@@ -184,7 +183,7 @@ export const Navbar = (props: Props) => {
           </Menu>
         </div>
       </div>
-      <NewEventModal open={isNewEventOpened} setOpen={setNewEventOpen} />
+      <NewEventModal isOpen={isNewEventOpened} setOpen={setNewEventOpen} />
     </div>
   );
 };

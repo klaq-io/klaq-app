@@ -1,16 +1,17 @@
 import { Combobox, Switch, Transition } from "@headlessui/react";
 import {
+  ArrowTopRightOnSquareIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpDownIcon,
+  ChevronUpIcon,
+  DocumentDuplicateIcon,
   MagnifyingGlassIcon,
   PlusIcon,
-  CheckIcon,
-  XMarkIcon,
   UsersIcon,
-  ChevronUpDownIcon,
-  DocumentDuplicateIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-  ArrowTopRightOnSquareIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
+import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
 import {
   Button,
   CardContainer,
@@ -18,38 +19,35 @@ import {
   SelectField,
   TextField,
 } from "components";
+import { add, format, formatISO } from "date-fns";
 import { useFormik } from "formik";
 import { MainEvent } from "interface/Event/main-event.interface";
-import { PageLayout } from "layouts";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { EventStatus } from "redux/Events/slices";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
-import { classNames } from "utils/utils";
-import { initialValues, validationSchema } from "./generateInvoiceForm";
-import { Alert } from "components/Alert/Alert";
-import { add, format, formatISO } from "date-fns";
-import { useFetchProductItems } from "redux/Products/hooks";
-import { getAllProducts } from "redux/Products/selectors";
-import { ProductItem } from "redux/Products/slices";
-import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
 import {
   DiscountType,
   InvoiceStatus,
   PaymentMethod,
 } from "interface/Invoice/invoice.interface";
-import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
-import { PATHS } from "routes";
-import {
-  useCreateInvoice,
-  useFetchInvoice,
-  useUpdateInvoice,
-} from "redux/Invoice/hooks";
+import { PageLayout } from "layouts";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
+import { EventStatus } from "redux/Events/slices";
+import {
+  useFetchInvoice,
+  useUpdateInvoice
+} from "redux/Invoice/hooks";
 import { getInvoice } from "redux/Invoice/selectors";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { getMainEventsByStatus } from "redux/MainEvent/selectors";
+import { useFetchProductItems } from "redux/Products/hooks";
+import { getAllProducts } from "redux/Products/selectors";
+import { ProductItem } from "redux/Products/slices";
+import { PATHS } from "routes";
 import { KlaqToast } from "utils/KlaqToast";
+import { classNames } from "utils/utils";
+import { initialValues, validationSchema } from "./generateInvoiceForm";
 
 export const InvoiceEditionPage = () => {
   const intl = useIntl();
@@ -289,6 +287,7 @@ export const InvoiceEditionPage = () => {
                           handleSetMainEvent(mainEvent);
                         }}
                       >
+                        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
                         {({ activeOption }) => (
                           <>
                             <div className="relative">

@@ -4,8 +4,9 @@ import { Quote } from 'interface/Quote/quote.interface';
 
 export const getQuoteById = (
   state: RootState,
-  id?: string,
+  id?: string | null,
 ): Quote | undefined => {
+  if (!id) return undefined;
   return state.quotes.quotes.find((quote: Quote) => quote.id === id);
 };
 

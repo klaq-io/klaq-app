@@ -1,13 +1,10 @@
 import {
-  UserIcon,
-  BuildingOfficeIcon,
-  UsersIcon,
-  CreditCardIcon,
-  BellAlertIcon,
-  LockClosedIcon,
-  RectangleStackIcon,
   ArrowsPointingInIcon,
   BuildingLibraryIcon,
+  BuildingOfficeIcon,
+  CreditCardIcon,
+  LockClosedIcon,
+  UserIcon
 } from "@heroicons/react/24/outline";
 import { useIntl } from "react-intl";
 import { PATHS } from "routes";

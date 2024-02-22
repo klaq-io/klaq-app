@@ -7,15 +7,15 @@ type InfoModalProps = {
   button2: string;
   title: string;
   message: string;
-  open: boolean;
+  isOpen: boolean;
   onClick: () => void;
-  setOpen: (open: boolean) => void;
+  setOpen: (isOpen: boolean) => void;
 };
 
 export const InfoModal = (props: InfoModalProps) => {
-  const { button1, button2, title, message, open, setOpen, onClick } = props;
+  const { button1, button2, title, message, isOpen, setOpen, onClick } = props;
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}

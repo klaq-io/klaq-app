@@ -1,22 +1,22 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
 
 type Props = {
   children: any;
   leftSideChildren?: any;
-  open: boolean;
+  isOpen: boolean;
   setOpen: React.Dispatch<any>;
   titleId: string;
 };
 
 export const SidePanel = (props: Props) => {
-  const { open, setOpen, children, leftSideChildren, titleId } = props;
+  const { isOpen, setOpen, children, titleId } = props;
   const intl = useIntl();
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-20" onClose={setOpen}>
         <Transition.Child
           as={Fragment}

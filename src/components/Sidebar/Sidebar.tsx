@@ -2,33 +2,27 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   ArrowRightOnRectangleIcon,
   CalendarIcon,
-  ChartPieIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   ClipboardDocumentIcon,
   Cog6ToothIcon,
   DocumentCheckIcon,
-  DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   LifebuoyIcon,
-  MinusSmallIcon,
-  PlusSmallIcon,
-  PresentationChartLineIcon,
-  QuestionMarkCircleIcon,
   ShoppingBagIcon,
-  UsersIcon,
+  UsersIcon
 } from "@heroicons/react/24/outline";
+import { CardContainer } from "components/Card";
+import { Skeleton } from "components/Skeleton";
+import { Fragment, useEffect } from "react";
 import { useIntl } from "react-intl";
-import KlaqLogo from "../../assets/logo-pres.png";
-import { PATHS } from "../../routes";
 import { useSelector } from "react-redux";
 import { useFetchUser, useSignout } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
-import { Fragment, useEffect } from "react";
-import { Skeleton } from "components/Skeleton";
-import { CardContainer } from "components/Card";
 import { handleClickHelp } from "utils/clickOnCrisp";
+import KlaqLogo from "../../assets/logo-pres.png";
+import { PATHS } from "../../routes";
 
 type Props = {
   classes?: string;

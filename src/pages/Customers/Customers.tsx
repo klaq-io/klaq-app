@@ -329,7 +329,7 @@ export const Customers = () => {
         customer={selectedCustomer}
       />
       <DangerModal
-        open={openDeleteCustomerModal}
+        isOpen={openDeleteCustomerModal}
         setOpen={setOpenDeleteCustomerModal}
         onClick={() => handleDeleteCustomer(selectedCustomer)}
         title={intl.formatMessage({

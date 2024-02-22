@@ -1,18 +1,17 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "../../utils/webclient";
+import { ToastNotification } from "components";
+import { MainEvent } from "interface/Event/main-event.interface";
+import { Document } from "interface/document.interface";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import webClient from "../../utils/webclient";
 import {
-  Customer,
   CustomerType,
   deleteCustomer,
   setCustomer,
   setCustomers,
-  updateCustomers,
+  updateCustomers
 } from "./slices";
-import toast from "react-hot-toast";
-import { ToastNotification } from "components";
-import { Document } from "interface/document.interface";
-import { MainEvent } from "interface/Event/main-event.interface";
 
 export const useFetchCustomers = () => {
   const dispatch = useDispatch();
@@ -99,9 +98,10 @@ export const useUpdateCustomer = () => {
         legalRegistrationNumber?: string;
         mainEvents?: MainEvent[];
       },
-      id: string
+      id?: string
     ) => {
       delete values.mainEvents;
+      if (!id) return console.error("No id provided for customer update");
       try {
         const response = await webClient.put(`/customer/${id}`, values);
         toast.custom(

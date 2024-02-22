@@ -4,14 +4,14 @@ import { PageLayout } from "layouts";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetchQuote, useFetchQuoteDocument } from "redux/Quote/hooks";
+import { useFetchQuoteDocument } from "redux/Quote/hooks";
 
 export const QuoteViewPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  const [{ data, isLoading }, fetchQuotePDF] = useFetchQuoteDocument();
+  const [{ isLoading }, fetchQuotePDF] = useFetchQuoteDocument();
 
   const displayPDF = async () => {
     const data = await fetchQuotePDF(id);

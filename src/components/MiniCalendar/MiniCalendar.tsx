@@ -1,5 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { CalendarDaysIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { EventBadge } from "components/Event";
+import { NewEventModal } from "components/Modal";
 import {
   add,
   eachDayOfInterval,
@@ -22,8 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { Customer } from "redux/Customer/slices";
 import { useFetchMainEvents } from "redux/MainEvent/hooks";
 import {
-  getMainEvents,
-  getMainEventsByStatus,
+  getMainEvents
 } from "redux/MainEvent/selectors";
 import { EventStatus } from "../../redux/Events/slices";
 import { PATHS } from "../../routes";
@@ -33,9 +34,6 @@ import {
   getMonthStr,
   getSubEventsListFromMainEvents,
 } from "../../utils/utils";
-import { KebabMenu } from "../KebabMenu";
-import { NewEventModal } from "components/Modal";
-import { EventBadge } from "components/Event";
 
 type Event = SubEvent & {
   customer: Customer;
@@ -48,7 +46,7 @@ export const MiniCalendar = () => {
   const navigate = useNavigate();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
 
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
@@ -94,13 +92,13 @@ export const MiniCalendar = () => {
     navigate(`${PATHS.EVENTS}/${id}/details?tab=Roadmap`);
   };
 
-  const menuItems = (eventId: string) => [
-    {
-      name: "events.button.look",
-      onClick: () => handleEventDetails(eventId),
-      icon: EyeIcon,
-    },
-  ];
+  // const menuItems = (eventId: string) => [
+  //   {
+  //     name: "events.button.look",
+  //     onClick: () => handleEventDetails(eventId),
+  //     icon: EyeIcon,
+  //   },
+  // ];
 
   useEffect(() => {
     fetchMainEvents();
@@ -273,7 +271,7 @@ export const MiniCalendar = () => {
         </section>
       </div>
       <NewEventModal
-        open={openNewEvent}
+        isOpen={shouldOpenNewEvent}
         setOpen={setOpenNewEvent}
         suggestedDate={selectedDate}
       />

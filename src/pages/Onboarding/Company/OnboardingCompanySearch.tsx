@@ -58,7 +58,7 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
           <SearchCompany
             setCustomerCompany={setCustomerCompany}
             customerCompany={customerCompany}
-            onboarding={true}
+            shouldUpdateOnboarding={true}
             placeholder={intl.formatMessage({
               id: `onboarding.search-${type}.input`,
             })}

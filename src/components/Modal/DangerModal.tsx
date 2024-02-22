@@ -4,11 +4,10 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import { useIntl } from "react-intl";
 
 type Props = {
   classes?: string;
-  open: boolean;
+  isOpen: boolean;
   setOpen: (open: boolean) => void;
   title: string;
   message: string;
@@ -18,11 +17,10 @@ type Props = {
 };
 
 export const DangerModal = (props: Props) => {
-  const intl = useIntl();
-  const { open, setOpen, title, message, onClick, button1, button2 } = props;
+  const { isOpen, setOpen, title, message, onClick, button1, button2 } = props;
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}

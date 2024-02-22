@@ -6,13 +6,13 @@ import { FC } from "react";
 
 type NotificationCardProps = {
   notification: Notification;
-  showContent?: boolean;
+  shouldShowContent?: boolean;
 };
 
 export const NotificationCard: FC<NotificationCardProps> = (
   props: NotificationCardProps
 ) => {
-  const { notification, showContent = true } = props;
+  const { notification, shouldShowContent = true } = props;
 
   return (
     <div className="flex space-x-4 w-full  rounded-lg p-2 bg-white shadow-sm">
@@ -28,7 +28,7 @@ export const NotificationCard: FC<NotificationCardProps> = (
         <h4 className="text-sm font-semibold text-gray-900">
           {notification.title}
         </h4>
-        {showContent && (
+        {shouldShowContent && (
           <div className="ring-1 ring-gray-900/5 p-2 shadow-sm rounded-lg">
             <p className="text-sm text-gray-500">{notification.content}</p>
           </div>

@@ -73,7 +73,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
 
   return (
     <SidePanel
-      open={open}
+      isOpen={open}
       setOpen={setOpen}
       titleId={"customers.new-customer.header"}
     >

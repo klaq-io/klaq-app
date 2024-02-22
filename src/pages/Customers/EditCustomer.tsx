@@ -39,7 +39,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
     onSubmit: async (values, { resetForm }) => {
       if (values.type === CustomerType.PRIVATE)
         values.name = `${values.firstName} ${values.lastName}`;
-      await updateCustomer(values, customer?.id!);
+      await updateCustomer(values, customer?.id);
       setOpen(false);
       resetForm();
     },
@@ -52,7 +52,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
 
   return (
     <SidePanel
-      open={open}
+      isOpen={open}
       setOpen={setOpen}
       titleId={"customers.edit-customer.header"}
     >

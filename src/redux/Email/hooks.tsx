@@ -38,7 +38,7 @@ export const useVerifyEmail = () => {
 
   return useAsyncCallback(async (token: string) => {
     try {
-      const res = await webClient.post("email-confirmation/confirm", { token });
+      await webClient.post("email-confirmation/confirm", { token });
       return true;
     } catch (error: any) {
       const code = error.response.data.code

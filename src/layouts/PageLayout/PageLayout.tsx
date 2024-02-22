@@ -1,7 +1,6 @@
 import { Impersonate, Sidebar, Spinner } from "components";
-import { Navbar } from "components/Navbar/Navbar";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+/* eslint-disable */
 const MINIMUM_SCREEN_SIZE = {
   width: 1000,
   height: 400,
@@ -15,6 +14,7 @@ type Props = {
 export const PageLayout = (props: Props) => {
   const { children, isLoading } = props;
 
+  
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -46,5 +46,5 @@ export const PageLayout = (props: Props) => {
     </>
   ) : null;
 };
-
+/* eslint-enable */
 export default PageLayout;

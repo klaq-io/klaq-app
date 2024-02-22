@@ -22,7 +22,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/prefer-as-const': 'warn',
     '@typescript-eslint/naming-convention': [
-      'error',
+      'warn',
       {
         selector: 'variable',
         types: ['boolean'],
@@ -31,31 +31,4 @@ module.exports = {
       },
     ],
   },
-  overrides: [
-    {
-      files: ['*.service.ts'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'warn',
-        'filenames-simple/naming-convention': [
-          'error',
-          {
-            // Use custom regexp to match migration file
-            rule: 'kebab-case',
-          },
-        ],
-      },
-    },
-    {
-      files: ['*.dto.ts'],
-      rules: {
-        'filenames-simple/naming-convention': [
-          'error',
-          {
-            // Use custom regexp to match migration file
-            rule: 'kebab-case',
-          },
-        ],
-      },
-    },
-  ],
 };

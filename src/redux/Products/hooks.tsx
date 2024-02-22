@@ -1,10 +1,8 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "../../utils/webclient";
-import { useDispatch } from "react-redux";
 import { ToastNotification } from "components";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
+import { useDispatch } from "react-redux";
+import webClient from "../../utils/webclient";
 import { deleteProduct, setProducts, updateProducts } from "./slices";
 
 export const useFetchProductItems = () => {
@@ -64,7 +62,7 @@ export const useDeleteProductItem = () => {
   const dispatch = useDispatch();
   return useAsyncCallback(async (id: string) => {
     try {
-      const res = await webClient.delete(`/item/${id}`);
+      await webClient.delete(`/item/${id}`);
       toast.custom(
         <ToastNotification
           status="success"

@@ -3,21 +3,20 @@ import {
   BuildingLibraryIcon,
   CheckIcon,
   ChevronUpDownIcon,
-  FolderIcon,
-  MapPinIcon,
+  MapPinIcon
 } from "@heroicons/react/24/outline";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useIntl } from "react-intl";
-import { classNames } from "../../utils/utils";
-import {
-  useGetAutocompleteSuggestions,
-  useRetrieveAddress,
-} from "../../redux/Map/hooks";
 import {
   AddressSuggestion,
   AddressSuggestions,
 } from "../../interface/address-suggestion.interface";
 import { RetrieveAddress } from "../../interface/retrieve-address.interface";
+import {
+  useGetAutocompleteSuggestions,
+  useRetrieveAddress,
+} from "../../redux/Map/hooks";
+import { classNames } from "../../utils/utils";
 
 type MapAutocompleteInputProps = {
   defaultAddress: string;

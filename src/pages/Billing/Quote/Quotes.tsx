@@ -371,7 +371,7 @@ export const Quotes = () => {
           </div>
         </div>
       </div>
-      <CreateNewQuoteModal open={openNewQuote} setOpen={setOpenNewQuote} />
+      <CreateNewQuoteModal isOpen={openNewQuote} setOpen={setOpenNewQuote} />
     </PageLayout>
   );
 };
