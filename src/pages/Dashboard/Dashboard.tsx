@@ -1,7 +1,6 @@
 import {
   ArrowRightIcon,
   ArrowUpRightIcon,
-  BanknotesIcon,
   BellAlertIcon,
   BellSlashIcon,
   CurrencyEuroIcon,
@@ -10,21 +9,24 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   Button,
+  GamificationCard,
   GettingStartedModal,
   MiniCalendar,
   NewEventModal,
-  NotificationWidget,
   Skeleton,
 } from "components";
+import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "redux/Login/selectors";
 import { useFetchMainEvents } from "redux/MainEvent/hooks";
 import {
   getMainEventsByStatus,
   getThisMonthMainEvents,
 } from "redux/MainEvent/selectors";
+import { greetingByTime } from "utils/greetings";
 import { getQuotePipeValueV2 } from "utils/quote";
 import { PageLayout } from "../../layouts";
 import { EventStatus } from "../../redux/Events/slices";
@@ -34,10 +36,6 @@ import {
   getThisMonthDates,
   getThisYearDates,
 } from "../../utils/utils";
-import { greetingByTime } from "utils/greetings";
-import { getUser } from "redux/Login/selectors";
-import { NotificationCard } from "components/Notifications/NotificationCard";
-import { InvoiceStatus } from "interface/Invoice/invoice.interface";
 
 export const Dashboard = () => {
   const intl = useIntl();
@@ -122,6 +120,7 @@ export const Dashboard = () => {
   return (
     <PageLayout>
       <div className="flex flex-col space-y-8">
+        {/* <GamificationCard /> */}
         <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
           {stats.map((item) => (
             <div

@@ -8,6 +8,7 @@ export * from "./DropdownMenu";
 export * from "./Event";
 export * from "./Fields";
 export * from "./FileList";
+export * from "./Gamification";
 export * from "./Impersonate";
 export * from "./Invoice";
 export * from "./KebabMenu";
