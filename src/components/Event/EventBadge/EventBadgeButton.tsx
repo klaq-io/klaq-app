@@ -1,20 +1,15 @@
-import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { classNames } from "../../../utils/utils";
-import { EventStatus } from "../../../redux/Events/slices";
-import EventBadge from "./EventBadge";
-import {
-  useFetchEvents,
-  useUpdateEventStatus,
-} from "../../../redux/Events/hooks";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { Spinner } from "components/Spinner";
+import { FC, Fragment } from "react";
+import { useFetchCommentaries } from "redux/Commentary/hooks";
 import {
   useFetchMainEvent,
   useUpdateMainEventStatus,
 } from "redux/MainEvent/hooks";
-import { SuperBalls } from "@uiball/loaders";
-import { useFetchCommentaries } from "redux/Commentary/hooks";
-import { Spinner } from "components/Spinner";
+import { EventStatus } from "../../../redux/Events/slices";
+import { classNames } from "../../../utils/utils";
+import EventBadge from "./EventBadge";
 
 type Props = {
   status: EventStatus;

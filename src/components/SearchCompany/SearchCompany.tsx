@@ -1,30 +1,29 @@
 import { Combobox } from "@headlessui/react";
-import { FC, useState } from "react";
-import { useFetchSuggestions } from "../../redux/Company/hooks";
-import {
-  CompanyLegalForm,
-  Suggestion,
-} from "../../interface/suggestion.interface";
-import { classNames } from "../../utils/utils";
 import {
   BuildingLibraryIcon,
   CheckIcon,
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { useIntl } from "react-intl";
+import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  CompanyLegalForm,
+  Suggestion,
+} from "../../interface/suggestion.interface";
+import { useFetchSuggestions } from "../../redux/Company/hooks";
 import { PATHS } from "../../routes";
+import { classNames } from "../../utils/utils";
 
 type Props = {
   customerCompany?: Suggestion;
   setCustomerCompany: (suggestions: Suggestion) => void;
   placeholder: string;
-  onboarding?: boolean;
+  shouldUpdateOnboarding?: boolean;
 };
 
 export const SearchCompany: FC<Props> = (props: Props) => {
-  const { customerCompany, setCustomerCompany, onboarding, placeholder } =
+  const { customerCompany, setCustomerCompany, shouldUpdateOnboarding, placeholder } =
     props;
   const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
@@ -78,7 +77,7 @@ export const SearchCompany: FC<Props> = (props: Props) => {
                     active ? "bg-klaq-600 text-white" : "text-gray-900"
                   )
                 }
-                onClick={() => onboarding && handleOnboarding(suggestion)}
+                onClick={() => shouldUpdateOnboarding && handleOnboarding(suggestion)}
               >
                 {({ active, selected }) => (
                   <>

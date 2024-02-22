@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useIntl } from "react-intl";
 import { StatusIcon } from "../StatusIcon";
 

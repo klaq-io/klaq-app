@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { ImpersonatePage } from "pages/Impersonate/Impersonate";
+import { OnboardingNoLegalFormPage } from "pages/Onboarding/Company/OnboardingNoLegalForm";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import TransitionComponent from "utils/Transitions";
 import "./App.css";
 import {
   BankAccount,
@@ -14,6 +17,7 @@ import {
   Dashboard,
   EnquiryForm,
   EventDetails2,
+  EventDetailsPage,
   Events,
   Integrations,
   InvoiceDetailsPage,
@@ -23,8 +27,6 @@ import {
   InvoiceViewPage,
   InvoicesPage,
   Login,
-  MainEventDetails,
-  EventDetailsPage,
   NewEvent,
   NewEventV2,
   OnboardingCompany,
@@ -46,15 +48,11 @@ import {
   Security,
   Settings,
   SignUp,
-  Subscriptions,
+  Subscriptions
 } from "./pages";
 import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
 import { PATHS } from "./routes";
 import PrivateRoutes from "./utils/PrivateRoute";
-import TransitionComponent from "utils/Transitions";
-import { AnimatePresence } from "framer-motion";
-import { OnboardingNoLegalFormPage } from "pages/Onboarding/Company/OnboardingNoLegalForm";
-import { ImpersonatePage } from "pages/Impersonate/Impersonate";
 
 function App() {
   return (

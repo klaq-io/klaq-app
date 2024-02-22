@@ -21,9 +21,7 @@ import {
 import { initialValues, validationSchema } from "./form";
 import { settingsInitialValues } from "./settings-form";
 
-type Props = {};
-
-export const Profile: FC<Props> = (props: Props) => {
+export const Profile = () => {
   const intl = useIntl();
   const hiddenLogoInput: LegacyRef<HTMLInputElement> = useRef(null);
 

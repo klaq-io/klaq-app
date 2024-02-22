@@ -3,7 +3,6 @@ import { Button } from "components/Button";
 import { Document } from "interface/document.interface";
 import { useIntl } from "react-intl";
 import { useFetchDocumentUrl } from "redux/Document/hooks";
-import { getHumanFileSize } from "utils/utils";
 
 type FileListProps = {
   fileList?: Document[];
@@ -13,7 +12,7 @@ export const FileList = (props: FileListProps) => {
   const { fileList } = props;
   const intl = useIntl();
 
-  const [{ data }, fetchDocumentUrl] = useFetchDocumentUrl();
+  const [, fetchDocumentUrl] = useFetchDocumentUrl();
 
   const getDownloadUrlForDocument = async (id: string) => {
     const url = await fetchDocumentUrl(id);

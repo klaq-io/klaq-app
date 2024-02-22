@@ -12,8 +12,7 @@ import {
   CardContainer,
   DangerModal,
   Label,
-  QuoteBadge,
-  Tooltip,
+  Tooltip
 } from "components";
 import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
 import { format } from "date-fns";
@@ -45,11 +44,10 @@ export const QuoteDetailsPage = () => {
   const quote = useSelector((state: any) => getQuoteById(state, id!));
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
     useDownloadQuoteDocument();
-  const [{ isLoading: isDeletingInvoice }, deleteInvoice] = useDeleteInvoice();
 
-  const [openDeleteInvoice, setOpenDeleteInvoice] = useState(false);
+  const [, setOpenDeleteInvoice] = useState(false);
 
-  const [openNewCustomer, setOpenNewCustomer] = useState(false);
+  const [shouldOpenNewCustomer, setOpenNewCustomer] = useState(false);
 
   const getProductSubtotal = (product: QuoteProduct) => {
     const discount =
@@ -94,7 +92,7 @@ export const QuoteDetailsPage = () => {
 
   useEffect(() => {
     fetchQuote(id);
-  }, [openNewCustomer]);
+  }, [shouldOpenNewCustomer]);
 
   useEffect(() => {
     fetchQuote(id);
@@ -105,7 +103,7 @@ export const QuoteDetailsPage = () => {
       {quote && (
         <div className="flex flex-col space-y-8 h-full">
           <Transition
-            show={!isLoading && !!quote && !openNewCustomer}
+            show={!isLoading && !!quote && !shouldOpenNewCustomer}
             enter="transition ease duration-500 transform"
             enterFrom="opacity-0 translate-y-12"
             enterTo="opacity-100 translate-y-0"
@@ -394,25 +392,25 @@ export const QuoteDetailsPage = () => {
       {quote && (
         <EditCustomer
           setOpen={setOpenNewCustomer}
-          open={openNewCustomer}
+          open={shouldOpenNewCustomer}
           customer={quote?.mainEvent.customer}
         />
       )}
 
-      {quote && (
+      {/* {quote && (
         <DangerModal
-          open={openDeleteInvoice}
+          isOpen={openDeleteInvoice}
           setOpen={setOpenDeleteInvoice}
           title="Voulez-vous vraiment supprimer cette facture ?"
           message="Confirmez-vous cette démarche ?"
           button2={"Annuler"}
           button1={"Supprimer"}
           onClick={() => {
-            deleteInvoice(quote.id);
+            deleteQuote(quote.id);
             setOpenDeleteInvoice(false);
           }}
         />
-      )}
+      )} */}
     </PageLayout>
   );
 };

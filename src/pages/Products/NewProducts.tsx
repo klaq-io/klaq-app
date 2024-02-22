@@ -44,7 +44,7 @@ export const NewProducts = (props: Props) => {
 
   return (
     <SidePanel
-      open={openSidePanel}
+      isOpen={openSidePanel}
       setOpen={setOpenSidePanel}
       titleId={"products.new-product.header"}
     >

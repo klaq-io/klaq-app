@@ -19,14 +19,14 @@ import { PATHS } from "routes";
 import { classNames } from "utils/utils";
 
 type CreateNewQuoteModalProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
 };
 
 export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const { open, setOpen } = props;
+  const { isOpen, setOpen } = props;
 
   const [, fetchMainEvents] = useFetchMainEvents();
   const [query, setQuery] = useState("");
@@ -75,7 +75,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
 
   return (
     <Transition.Root
-      show={open}
+      show={isOpen}
       as={Fragment}
       afterLeave={() => setQuery("")}
       appear

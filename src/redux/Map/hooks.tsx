@@ -1,9 +1,8 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import { Coordinates } from "../Events/slices";
-import webClient from "../../utils/webclient";
-import { DistanceAndDuration } from "../../interface/distance-and-duration.interface";
 import { AddressSuggestions } from "../../interface/address-suggestion.interface";
+import { DistanceAndDuration } from "../../interface/distance-and-duration.interface";
 import { RetrieveAddress } from "../../interface/retrieve-address.interface";
+import webClient from "../../utils/webclient";
 
 export const useGetAutocompleteSuggestions = () => {
   return useAsyncCallback(

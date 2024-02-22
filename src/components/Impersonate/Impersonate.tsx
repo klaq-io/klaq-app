@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useImpersonate, useStopImpersonate } from "redux/Login/hooks";
+import { useStopImpersonate } from "redux/Login/hooks";
 import { getUser } from "redux/Login/selectors";
 
 export const Impersonate = () => {

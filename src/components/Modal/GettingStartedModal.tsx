@@ -17,14 +17,16 @@ export const GettingStartedModal = (props: Props) => {
   const { isOpen, firstName } = props;
   const intl = useIntl();
 
-  const [open, setOpen] = useState<boolean>(isOpen);
+  const [isModalOpen, setOpen] = useState<boolean>(isOpen);
 
   const loomLink =
     "https://www.loom.com/embed/8a7f72f999aa47eeb90d77daf44499e3?sid=d3a366c2-9cbf-4263-bfd1-243a1fec0220";
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-20" onClose={() => {}}>
+    <Transition.Root show={isModalOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-20" onClose={() => {
+        return;
+      }}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"

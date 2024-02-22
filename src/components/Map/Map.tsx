@@ -1,12 +1,10 @@
+import { MapPinIcon } from "@heroicons/react/20/solid";
+import "mapbox-gl/dist/mapbox-gl.css";
 import Map, {
   FullscreenControl,
   Marker,
-  NavigationControl,
-  Popup,
+  NavigationControl
 } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { MapPinIcon } from "@heroicons/react/20/solid";
-import Layer from "react-map-gl/dist/esm/components/layer";
 
 type MapProps = {
   longitude: number;

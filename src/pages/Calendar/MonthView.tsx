@@ -347,7 +347,7 @@ export const MonthView = () => {
         </div>
       </div>
       <NewEventModal
-        open={openNewEvent}
+        isOpen={openNewEvent}
         setOpen={setOpenNewEvent}
         suggestedDate={selectedDate}
       />

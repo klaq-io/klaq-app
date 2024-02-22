@@ -1,8 +1,7 @@
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
-  XCircleIcon,
-  InformationCircleIcon,
+  InformationCircleIcon
 } from "@heroicons/react/24/solid";
 import { Status } from "enum/status.enum";
 import { FC, createElement } from "react";

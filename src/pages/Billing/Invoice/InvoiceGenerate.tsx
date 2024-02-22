@@ -1,59 +1,56 @@
 import { Combobox, Switch, Transition } from "@headlessui/react";
 import {
+  ArrowTopRightOnSquareIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpDownIcon,
+  ChevronUpIcon,
+  DocumentDuplicateIcon,
   MagnifyingGlassIcon,
   PlusIcon,
-  CheckIcon,
-  XMarkIcon,
   UsersIcon,
-  ChevronUpDownIcon,
-  DocumentDuplicateIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-  ArrowTopRightOnSquareIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
+import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
 import {
   Button,
   CardContainer,
   Label,
   SelectField,
-  Spinner,
-  TextField,
+  TextField
 } from "components";
-import { useFormik } from "formik";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { PageLayout } from "layouts";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { EventStatus } from "redux/Events/slices";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import {
-  getMainEvents,
-  getMainEventsByStatus,
-} from "redux/MainEvent/selectors";
-import { classNames } from "utils/utils";
-import { initialValues, validationSchema } from "./generateInvoiceForm";
 import { Alert } from "components/Alert/Alert";
 import { add, format, formatISO } from "date-fns";
-import { useFetchProductItems } from "redux/Products/hooks";
-import { getAllProducts } from "redux/Products/selectors";
-import { ProductItem } from "redux/Products/slices";
-import onlinePaymentMethod from "assets/online-payment/payments-bg-white.png";
+import { useFormik } from "formik";
+import { MainEvent } from "interface/Event/main-event.interface";
 import {
   DiscountType,
   PaymentMethod,
 } from "interface/Invoice/invoice.interface";
+import { PageLayout } from "layouts";
+import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { useFetchBankAccountDetails } from "redux/BankAccountDetails/hooks";
-import { PATHS } from "routes";
 import { useCreateInvoice } from "redux/Invoice/hooks";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import {
+  getMainEvents
+} from "redux/MainEvent/selectors";
+import { useFetchProductItems } from "redux/Products/hooks";
+import { getAllProducts } from "redux/Products/selectors";
+import { ProductItem } from "redux/Products/slices";
+import { useFetchQuotes } from "redux/Quote/hooks";
 import { getQuoteById } from "redux/Quote/selectors";
-import { useFetchQuote, useFetchQuotes } from "redux/Quote/hooks";
+import { PATHS } from "routes";
+import { classNames } from "utils/utils";
+import { initialValues, validationSchema } from "./generateInvoiceForm";
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const fromQuoteId = searchParams.get("fromQuote");
   const fromEventId = searchParams.get("fromEventId");
   const [query, setQuery] = useState("");
@@ -63,7 +60,7 @@ export const InvoiceGenerate = () => {
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
-  const quote = useSelector((state: any) => getQuoteById(state, fromQuoteId!));
+  const quote = useSelector((state: any) => getQuoteById(state, fromQuoteId));
 
   const [{ isLoading: isSubmitting }, createInvoice] = useCreateInvoice();
 
@@ -143,12 +140,12 @@ export const InvoiceGenerate = () => {
     });
   };
 
-  const handleSetValidUntilDate = (date: Date) => {
-    formik.setValues({
-      ...formik.values,
-      validUntil: format(date, "yyyy-MM-dd"),
-    });
-  };
+  // const handleSetValidUntilDate = (date: Date) => {
+  //   formik.setValues({
+  //     ...formik.values,
+  //     validUntil: format(date, "yyyy-MM-dd"),
+  //   });
+  // };
 
   const handleAddElement = () => {
     formik.setValues({
@@ -302,6 +299,7 @@ export const InvoiceGenerate = () => {
                       handleSetMainEvent(mainEvent);
                     }}
                   >
+                    {/** eslint-disable-next-line */}
                     {({ activeOption }) => (
                       <>
                         <div className="relative">

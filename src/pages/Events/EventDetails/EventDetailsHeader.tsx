@@ -169,7 +169,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
           </CardContainer>
         </div>
       </div>
-      <EditEventModal open={openEditor} setOpen={setOpenEditor} event={event} />
+      <EditEventModal isOpen={openEditor} setOpen={setOpenEditor} event={event} />
     </>
   );
 };

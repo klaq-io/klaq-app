@@ -1,20 +1,19 @@
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
+import { Notification } from "interface/Notifications/notification.interface";
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useFetchNotifications } from "redux/Notification/hooks";
 import { getNotifications } from "redux/Notification/selectors";
-import { Notification } from "interface/Notifications/notification.interface";
-import { SuperBalls } from "@uiball/loaders";
 import { NotificationCard } from "./NotificationCard";
 
 export const NotificationWidget = () => {
   const [unreadNotifications, setUnreadNotifications] = useState<number | null>(
     null
   );
-  const [isOpened, setIsOpened] = useState(false);
+  const [, setIsOpened] = useState(false);
 
-  const [{ isLoading }, fetchNotifications] = useFetchNotifications();
+  const [, fetchNotifications] = useFetchNotifications();
   const notifications = useSelector(getNotifications);
 
   const handleInteraction = async () => {
@@ -41,11 +40,12 @@ export const NotificationWidget = () => {
       });
     };
     notificationSource.addEventListener("message", onMessage);
-
+    /* eslint-disable */
     return () => {
       notificationSource!.close();
       notificationSource!.removeEventListener("message", onMessage);
     };
+    /* eslint-enable */
   }, []);
 
   return (
@@ -84,7 +84,7 @@ export const NotificationWidget = () => {
                   <Menu.Item key={notification.id}>
                     <NotificationCard
                       notification={notification}
-                      showContent={!idx}
+                      shouldShowContent={!idx}
                     />
                   </Menu.Item>
                 ))}

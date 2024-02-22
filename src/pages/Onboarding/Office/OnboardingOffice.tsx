@@ -15,9 +15,7 @@ import { PATHS } from "../../../routes";
 import { useUpdateOnboardingStatus } from "../../../redux/User/hooks";
 import { OnboardingStatus } from "../../../interface/user.interface";
 
-type Props = {};
-
-export const OnboardingOffice: React.FC<Props> = (props: Props) => {
+export const OnboardingOffice = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 

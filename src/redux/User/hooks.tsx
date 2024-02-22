@@ -1,12 +1,10 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import webClient from "../../utils/webclient";
-import { setUser } from "../Login/slice";
-import { PATHS } from "../../routes";
 import { ToastNotification } from "components";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { OnboardingStatus, Settings } from "../../interface/user.interface";
+import webClient from "../../utils/webclient";
+import { setUser } from "../Login/slice";
 
 export const useUpdateUser = () => {
   const dispatch = useDispatch();

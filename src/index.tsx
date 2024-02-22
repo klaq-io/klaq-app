@@ -9,8 +9,9 @@ import "./index.css";
 import * as msg_fr from "./lang/fr.json";
 import store from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
-
+/* eslint-disable */
 const language = navigator.language.split(/[-_]/)[0];
+/* eslint-enable */
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,6 +20,7 @@ const root = ReactDOM.createRoot(
 initSentry();
 
 root.render(
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}>
     <IntlProvider
       locale={navigator.language}

@@ -1,12 +1,10 @@
-import { Cog6ToothIcon, DocumentIcon } from "@heroicons/react/24/outline";
-import { DotSpinner, SuperBalls } from "@uiball/loaders";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { CardContainer } from "components";
 import { PageLayout } from "layouts";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  useFetchInvoiceDocument,
-  useFetchInvoicePDF,
+  useFetchInvoiceDocument
 } from "redux/Invoice/hooks";
 
 export const InvoiceViewPage = () => {

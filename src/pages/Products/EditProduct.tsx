@@ -50,7 +50,7 @@ export const EditProduct = (props: Props) => {
 
   return (
     <SidePanel
-      open={openSidePanel}
+      isOpen={openSidePanel}
       setOpen={setOpenSidePanel}
       titleId={"products.edit-product.header"}
     >

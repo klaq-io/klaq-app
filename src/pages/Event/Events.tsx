@@ -482,7 +482,7 @@ export const Events = () => {
           </div>
         </div>
       </div>
-      <NewEventModal open={openNewEvent} setOpen={setOpenNewEventModal} />
+      <NewEventModal isOpen={openNewEvent} setOpen={setOpenNewEventModal} />
     </PageLayout>
   );
 };

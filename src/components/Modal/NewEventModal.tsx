@@ -1,4 +1,3 @@
-import { Fragment, useEffect, useState } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import {
   CheckIcon,
@@ -6,33 +5,34 @@ import {
   MagnifyingGlassIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { useIntl } from "react-intl";
-import { useFormik } from "formik";
-import { initialValues, validationSchema } from "pages/Events/newEventForm";
-import { Label, SelectField, TextField } from "components/Fields";
-import { RetrieveAddress } from "interface/retrieve-address.interface";
-import { MapAutocompleteInput } from "components/Map";
-import { Button } from "components/Button";
-import { useSelector } from "react-redux";
-import { getCustomers } from "redux/Customer/selectors";
-import { useFetchCustomers } from "redux/Customer/hooks";
-import { Customer, CustomerType } from "redux/Customer/slices";
-import { classNames } from "utils/utils";
 import { Alert } from "components/Alert/Alert";
-import { useCreateEvent } from "redux/MainEvent/hooks";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "routes";
+import { Button } from "components/Button";
+import { Label, SelectField, TextField } from "components/Fields";
+import { MapAutocompleteInput } from "components/Map";
 import { format } from "date-fns";
+import { useFormik } from "formik";
+import { RetrieveAddress } from "interface/retrieve-address.interface";
+import { initialValues, validationSchema } from "pages/Events/newEventForm";
+import { Fragment, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useFetchCustomers } from "redux/Customer/hooks";
+import { getCustomers } from "redux/Customer/selectors";
+import { Customer, CustomerType } from "redux/Customer/slices";
+import { useCreateEvent } from "redux/MainEvent/hooks";
+import { PATHS } from "routes";
+import { classNames } from "utils/utils";
 
 type NewEventModalProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
   suggestedDate?: Date | null;
   suggestedCustomer?: Customer | null;
 };
 
 export const NewEventModal = (props: NewEventModalProps) => {
-  const { open, setOpen, suggestedDate, suggestedCustomer } = props;
+  const { isOpen, setOpen, suggestedDate, suggestedCustomer } = props;
   const intl = useIntl();
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
   const [isCustomerAutocompleteEnabled, setCustomerAutocompleteEnabled] =
     useState(true);
 
-  const [{ isLoading }, fetchCustomers] = useFetchCustomers();
+  const [, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
 
   const filteredCustomers =
@@ -51,7 +51,7 @@ export const NewEventModal = (props: NewEventModalProps) => {
           return customer.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const [{ isLoading: isCreatingEvent, data }, createEvent] = useCreateEvent();
+  const [{ isLoading: isCreatingEvent }, createEvent] = useCreateEvent();
 
   const formik = useFormik({
     initialValues: {
@@ -115,15 +115,15 @@ export const NewEventModal = (props: NewEventModalProps) => {
   }, []);
 
   useEffect(() => {
-    if (!open) {
+    if (!isOpen) {
       formik.resetForm();
       setCustomerAutocompleteEnabled(true);
       setMapAutocompleteEnabled(true);
     }
-  }, [open]);
+  }, [isOpen]);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-40" onClose={setOpen}>
         <Transition.Child
           as={Fragment}

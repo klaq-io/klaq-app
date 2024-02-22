@@ -1,18 +1,8 @@
 import {
-  BanknotesIcon,
-  BellAlertIcon,
   BoltIcon,
-  ChatBubbleBottomCenterTextIcon,
-  CheckCircleIcon,
-  CheckIcon,
-  ClockIcon,
-  EyeIcon,
-  InboxArrowDownIcon,
-  InboxIcon,
-  PaperAirplaneIcon,
-  TrophyIcon,
-  XMarkIcon,
+  ChatBubbleBottomCenterTextIcon
 } from "@heroicons/react/24/outline";
+import { EventBadge } from "components/Event/EventBadge";
 import {
   differenceInDays,
   differenceInHours,
@@ -23,7 +13,7 @@ import {
   format,
 } from "date-fns";
 import { useFormik } from "formik";
-import { FC, ReactNode, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -33,11 +23,10 @@ import {
 } from "../../redux/Commentary/hooks";
 import { getCommentaries } from "../../redux/Commentary/selectors";
 import { CommentaryType } from "../../redux/Commentary/slices";
+import { EventStatus } from "../../redux/Events/slices";
 import { classNames } from "../../utils/utils";
 import { Button } from "../Button";
 import { initialValues, validationSchema } from "./form";
-import { EventStatus } from "../../redux/Events/slices";
-import { EventBadge } from "components/Event/EventBadge";
 
 type Props = {
   isCommentingAllowed?: boolean;
@@ -53,6 +42,7 @@ const TIME = {
 };
 
 export const CommentaryFeed: FC<Props> = (props: Props) => {
+  // eslint-disable-next-line
   const { isCommentingAllowed } = props;
   const { id } = useParams<{ id: string }>();
 

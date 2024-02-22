@@ -1,3 +1,5 @@
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import WebMercatorViewport from "@math.gl/web-mercator";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useEffect, useRef, useState } from "react";
 import Map, {
@@ -5,12 +7,8 @@ import Map, {
   Layer,
   Marker,
   NavigationControl,
-  Popup,
-  Source,
+  Source
 } from "react-map-gl";
-import { useGetEventMapInformations } from "redux/MainEvent/hooks";
-import WebMercatorViewport from "@math.gl/web-mercator";
-import { MapPinIcon } from "@heroicons/react/24/solid";
 
 export type MapProps = {
   data: any;
@@ -29,7 +27,6 @@ export const EventMap = (props: MapProps) => {
   const bound = viewport.fitBounds(
     waypoints.map((waypoint: any) => waypoint.location)
   );
-  const { longitude, latitude, zoom } = bound;
 
   useEffect(() => {
     if (mapContainerRef.current) {

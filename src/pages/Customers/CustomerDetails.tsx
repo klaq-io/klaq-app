@@ -35,15 +35,13 @@ import { useFetchQuotesForCustomer } from "redux/Quote/hooks";
 import { useFetchInvoicesForCustomer } from "redux/Invoice/hooks";
 import { formatPhoneNumber } from "utils/customer";
 
-type Props = {};
-
 const DocumentType = {
   INVOICE: "invoice",
   QUOTE: "quote",
   EVENT: "event",
 };
 
-export const CustomerDetails: FC<Props> = (props: Props) => {
+export const CustomerDetails = () => {
   const intl = useIntl();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -386,7 +384,7 @@ export const CustomerDetails: FC<Props> = (props: Props) => {
         customer={customer}
       />
       <NewEventModal
-        open={openNewEvent}
+        isOpen={openNewEvent}
         setOpen={setOpenNewEvent}
         suggestedCustomer={customer}
       />

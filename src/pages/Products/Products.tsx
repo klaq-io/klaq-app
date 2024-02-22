@@ -225,7 +225,7 @@ export const Products = () => {
         </div>
       </div>
       <DangerModal
-        open={openDeleteModal}
+        isOpen={openDeleteModal}
         setOpen={setOpenDeleteModal}
         onClick={() => handleDeleteProduct(productToEdit)}
         title={intl.formatMessage({

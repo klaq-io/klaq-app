@@ -1,12 +1,11 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
+import { ToastNotification } from "components";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastNotification } from "components";
 import { PATHS } from "../../routes";
 import webClient from "../../utils/webclient";
 import { setEvent, setEvents } from "./slices";
-import { format, formatISO } from "date-fns";
 
 export const useFetchEvents = () => {
   const dispatch = useDispatch();
@@ -152,7 +151,6 @@ export const useUpdateEvent = () => {
 };
 
 export const useUpdateEventStatus = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return useAsyncCallback(async (status: string, id: string) => {

@@ -1,12 +1,12 @@
 import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "../../utils/webclient";
-import { useDispatch } from "react-redux";
-import { setUser, resetUser } from "./slice";
 import { ToastNotification } from "components";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
 import { KlaqToast } from "utils/KlaqToast";
+import { PATHS } from "../../routes";
+import webClient from "../../utils/webclient";
+import { resetUser, setUser } from "./slice";
 
 export const useImpersonate = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,6 @@ export const useImpersonate = () => {
 };
 
 export const useStopImpersonate = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [, signOut] = useSignout();
 
@@ -141,8 +140,6 @@ export const useSignUp = () => {
 };
 
 export const useRequestResetPassword = () => {
-  const navigate = useNavigate();
-
   return useAsyncCallback(async (values: { email: string }) => {
     try {
       const res = await webClient.post("auth/request-reset-password", values);
