@@ -68,7 +68,7 @@ export const EventList: FC<Props> = (props: Props) => {
                 <span className="text-md  text-gray-900">{subEvent.type}</span>
                 <span className="text-md text-gray-900">{" <> "}</span>
                 <span className="text-md text-gray-900 font-bold">
-                  {subEvent.customer.name}
+                  {subEvent.customer.name || "Client non défini"}
                 </span>
               </div>
               <div className="flex flex-row space-x-3">
