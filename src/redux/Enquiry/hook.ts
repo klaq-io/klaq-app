@@ -1,5 +1,5 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "utils/webclient";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import webClient from 'utils/webclient';
 
 export const useCreateEnquiry = () => {
   return useAsyncCallback(async (data: any, token?: string | null) => {

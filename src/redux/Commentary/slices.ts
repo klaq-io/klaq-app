@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "../states";
-import { User } from "../../interface/user.interface";
+import { createSlice } from '@reduxjs/toolkit';
+import { initialState } from '../states';
+import { User } from '../../interface/user.interface';
 
 export interface Commentary {
   id: string;
@@ -12,12 +12,12 @@ export interface Commentary {
 }
 
 export enum CommentaryType {
-  COMMENTED = "COMMENTED",
-  EVENT_STATUS_UPDATED = "EVENT_STATUS_UPDATED",
+  COMMENTED = 'COMMENTED',
+  EVENT_STATUS_UPDATED = 'EVENT_STATUS_UPDATED',
 }
 
 export const commentarySlice = createSlice({
-  name: "commentary",
+  name: 'commentary',
   initialState,
   reducers: {
     setCommentaries: (state, action) => {

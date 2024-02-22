@@ -1,16 +1,12 @@
-import { MainEvent } from "interface/Event/main-event.interface";
-import {
-  Invoice,
-  InvoiceProduct,
-  InvoiceStatus,
-} from "interface/Invoice/invoice.interface";
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { InvoiceStatus } from 'interface/Invoice/invoice.interface';
 import {
   DiscountType,
   Quote,
   QuoteProduct,
   QuoteStatus,
-} from "interface/Quote/quote.interface";
-import { getInvoiceSubtotal } from "./invoice";
+} from 'interface/Quote/quote.interface';
+import { getInvoiceSubtotal } from './invoice';
 
 const getQuoteProductSubtotal = (product: QuoteProduct) => {
   const discount =
@@ -30,7 +26,7 @@ export const getQuotePipeValueForEvent = (mainEvent: MainEvent) => {
   if (!mainEvent.quotes || !mainEvent.quotes.length) return 0;
 
   const acceptedQuotes = mainEvent.quotes.filter(
-    (quote) => quote.status === QuoteStatus.ACCEPTED
+    (quote) => quote.status === QuoteStatus.ACCEPTED,
   );
 
   if (acceptedQuotes.length)
@@ -43,7 +39,7 @@ export const getInvoicePipeValueForEvent = (mainEvent: MainEvent) => {
   if (!mainEvent.invoices || !mainEvent.invoices.length) return 0;
 
   const acceptedInvoices = mainEvent.invoices.filter(
-    (invoice) => invoice.status === InvoiceStatus.PAID
+    (invoice) => invoice.status === InvoiceStatus.PAID,
   );
 
   if (acceptedInvoices.length)

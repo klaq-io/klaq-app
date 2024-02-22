@@ -1,9 +1,9 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export const initialValues = {
-  text: "",
+  text: '',
 };
 
 export const validationSchema = Yup.object({
-  text: Yup.string().required("Required"),
+  text: Yup.string().required('Required'),
 });

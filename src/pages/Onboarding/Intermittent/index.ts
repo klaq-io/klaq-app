@@ -1,1 +1,1 @@
-export * from "./OnboardingIntermittent";
+export * from './OnboardingIntermittent';

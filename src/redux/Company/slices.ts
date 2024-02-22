@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CompanyLegalForm } from "../../interface/suggestion.interface";
-import { initialState } from "../states";
+import { createSlice } from '@reduxjs/toolkit';
+import { CompanyLegalForm } from '../../interface/suggestion.interface';
+import { initialState } from '../states';
 
 export interface Company {
   id: string;
@@ -29,7 +29,7 @@ export interface Coordinates {
 }
 
 export const companySlice = createSlice({
-  name: "company",
+  name: 'company',
   initialState,
   reducers: {
     setCompany: (state, action) => {

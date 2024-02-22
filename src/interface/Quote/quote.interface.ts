@@ -1,17 +1,17 @@
-import { MainEvent } from "interface/Event/main-event.interface";
+import { MainEvent } from 'interface/Event/main-event.interface';
 
-export type NewQuoteProduct = Omit<QuoteProduct, "id">;
+export type NewQuoteProduct = Omit<QuoteProduct, 'id'>;
 
 export type NewQuote = Omit<
   Quote,
-  | "id"
-  | "status"
-  | "documentId"
-  | "number"
-  | "mainEvent"
-  | "products"
-  | "createdAt"
-  | "updatedAt"
+  | 'id'
+  | 'status'
+  | 'documentId'
+  | 'number'
+  | 'mainEvent'
+  | 'products'
+  | 'createdAt'
+  | 'updatedAt'
 > & {
   products: NewQuoteProduct[];
 };
@@ -43,13 +43,13 @@ export interface QuoteProduct {
 }
 
 export enum DiscountType {
-  PERCENT = "percent",
-  FIXED = "fixed",
+  PERCENT = 'percent',
+  FIXED = 'fixed',
 }
 
 export enum QuoteStatus {
-  DRAFT = "draft",
-  SENT = "sent",
-  ACCEPTED = "accepted",
-  REJECTED = "rejected",
+  DRAFT = 'draft',
+  SENT = 'sent',
+  ACCEPTED = 'accepted',
+  REJECTED = 'rejected',
 }

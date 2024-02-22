@@ -1,1 +1,1 @@
-export * from "./QuoteBadge";
+export * from './QuoteBadge';

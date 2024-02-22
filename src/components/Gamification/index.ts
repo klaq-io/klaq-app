@@ -1,1 +1,1 @@
-export * from "./Gamification";
+export * from './Gamification';

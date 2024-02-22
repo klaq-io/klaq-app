@@ -1,2 +1,2 @@
-export * from "./ConfirmMail";
-export * from "./ConfirmMailVerify";
+export * from './ConfirmMail';
+export * from './ConfirmMailVerify';

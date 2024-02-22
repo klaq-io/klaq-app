@@ -1,14 +1,14 @@
-import * as Sentry from "@sentry/react";
+import * as Sentry from '@sentry/react';
 
 export const initSentry = () => {
-  if (process.env.REACT_APP_MODE === "DEV") return;
+  if (process.env.REACT_APP_MODE === 'DEV') return;
 
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     integrations: [
       new Sentry.BrowserTracing({
         // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-        tracePropagationTargets: ["localhost", /^https:\/\/klaq\.io\/api/],
+        tracePropagationTargets: ['localhost', /^https:\/\/klaq\.io\/api/],
       }),
       new Sentry.Replay(),
     ],

@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export enum SelectOptions {
   YES,
@@ -6,10 +6,10 @@ export enum SelectOptions {
 }
 
 export const initialValues = {
-  officeAddress: "",
-  officeCity: "",
-  officeZip: "",
-  officeCountry: "",
+  officeAddress: '',
+  officeCity: '',
+  officeZip: '',
+  officeCountry: '',
   select: SelectOptions.YES,
 };
 

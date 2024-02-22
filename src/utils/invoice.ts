@@ -2,7 +2,7 @@ import {
   DiscountType,
   Invoice,
   InvoiceProduct,
-} from "interface/Invoice/invoice.interface";
+} from 'interface/Invoice/invoice.interface';
 
 export const getInvoiceProductSubtotal = (product: InvoiceProduct) => {
   const discount =
@@ -15,7 +15,7 @@ export const getInvoiceProductSubtotal = (product: InvoiceProduct) => {
 export const getInvoiceSubtotal = (invoice: Invoice) =>
   invoice?.products.reduce(
     (acc, product) => acc + getInvoiceProductSubtotal(product),
-    0
+    0,
   ) || 0;
 
 export const getInvoiceTaxes = (invoice: Invoice) =>
@@ -23,7 +23,7 @@ export const getInvoiceTaxes = (invoice: Invoice) =>
     (acc, product) =>
       acc +
       getInvoiceProductSubtotal(product) * (Number(product.vtaRate) / 100),
-    0
+    0,
   ) || 0;
 
 export const getInvoiceTotal = (invoice: Invoice) =>

@@ -1,1 +1,1 @@
-export * from "./CreateNewQuote";
+export * from './CreateNewQuote';

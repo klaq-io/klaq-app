@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "../states";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { initialState } from '../states';
 export interface ProductItem {
   id: string;
   title: string;
@@ -13,7 +13,7 @@ export type ProductItemSliceType = [];
 export type ItemSliceType = ProductItem;
 
 export const productItemSlice = createSlice({
-  name: "productItem",
+  name: 'productItem',
   initialState,
   reducers: {
     setProducts: (state, action: PayloadAction<ProductItemSliceType>) => {
@@ -21,12 +21,12 @@ export const productItemSlice = createSlice({
     },
     updateProducts: (state, action: PayloadAction<ItemSliceType>) => {
       state.productItems = state.productItems.map((item: ProductItem) =>
-        item.id === action.payload.id ? action.payload : item
+        item.id === action.payload.id ? action.payload : item,
       );
     },
     deleteProduct: (state, action: PayloadAction<string>) => {
       state.productItems = state.productItems.filter(
-        (item: ProductItem) => item.id !== action.payload
+        (item: ProductItem) => item.id !== action.payload,
       );
     },
   },

@@ -1,14 +1,14 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Quote } from "interface/Quote/quote.interface";
-import { initialState } from "redux/states";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Quote } from 'interface/Quote/quote.interface';
+import { initialState } from 'redux/states';
 
 export const quoteSlice = createSlice({
-  name: "quoteSlice",
+  name: 'quoteSlice',
   initialState,
   reducers: {
     setQuote: (state, action: PayloadAction<Quote>) => {
       const existingQuoteIndex = state.quotes.findIndex(
-        (quote: Quote) => quote.id === action.payload.id
+        (quote: Quote) => quote.id === action.payload.id,
       );
 
       if (existingQuoteIndex !== -1) {

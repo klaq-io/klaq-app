@@ -1,1 +1,1 @@
-export * from "./CompanySkeleton";
+export * from './CompanySkeleton';

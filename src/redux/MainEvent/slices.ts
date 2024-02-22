@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { initialState } from "redux/states";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { initialState } from 'redux/states';
 
 export const mainEventSlice = createSlice({
-  name: "mainEvent",
+  name: 'mainEvent',
   initialState,
   reducers: {
     setMainEvent: (state, action: PayloadAction<MainEvent>) => {

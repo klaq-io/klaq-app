@@ -1,1 +1,1 @@
-export * from "./MiniCalendar";
+export * from './MiniCalendar';

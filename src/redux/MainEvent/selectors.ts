@@ -1,10 +1,10 @@
-import { MainEvent } from "interface/Event/main-event.interface";
-import { EventStatus } from "redux/Events/slices";
-import { RootState } from "redux/store";
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { EventStatus } from 'redux/Events/slices';
+import { RootState } from 'redux/store';
 
 export const getMainEvent = (state: RootState, id: string): MainEvent =>
   state.mainEvents.mainEvents.find(
-    (mainEvent: MainEvent) => mainEvent.id === id
+    (mainEvent: MainEvent) => mainEvent.id === id,
   );
 
 export const getMainEvents = (state: RootState): MainEvent[] =>
@@ -15,7 +15,7 @@ export const getMainEventsByStatus = (
   ...status: EventStatus[]
 ): MainEvent[] =>
   state.mainEvents.mainEvents.filter((event: MainEvent) =>
-    status.includes(event.status)
+    status.includes(event.status),
   );
 
 export const getThisMonthMainEvents = (state: RootState): MainEvent[] => {
@@ -32,22 +32,22 @@ export const getThisMonthMainEvents = (state: RootState): MainEvent[] => {
 
 export const getEventBeforeEvent = (
   state: RootState,
-  id: string
+  id: string,
 ): MainEvent | undefined => {
   const mainEvents = state.mainEvents.mainEvents;
   const index = mainEvents.findIndex(
-    (mainEvent: MainEvent) => mainEvent.id === id
+    (mainEvent: MainEvent) => mainEvent.id === id,
   );
   return index > 0 ? mainEvents[index - 1] : undefined;
 };
 
 export const getEventAfterEvent = (
   state: RootState,
-  id: string
+  id: string,
 ): MainEvent | undefined => {
   const mainEvents = state.mainEvents.mainEvents;
   const index = mainEvents.findIndex(
-    (mainEvent: MainEvent) => mainEvent.id === id
+    (mainEvent: MainEvent) => mainEvent.id === id,
   );
   return index < mainEvents.length - 1 ? mainEvents[index + 1] : undefined;
 };

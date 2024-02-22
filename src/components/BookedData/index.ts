@@ -1,1 +1,1 @@
-export * from "./BookedDateAlert";
+export * from './BookedDateAlert';

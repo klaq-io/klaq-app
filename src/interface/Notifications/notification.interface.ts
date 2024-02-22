@@ -1,7 +1,7 @@
-import { User } from "interface/user.interface";
+import { User } from 'interface/user.interface';
 
 export enum NotificationEvents {
-  ENQUIRY = "ENQUIRY",
+  ENQUIRY = 'ENQUIRY',
 }
 
 export interface Notification {
@@ -17,5 +17,5 @@ export interface Notification {
 
 export type NewNotification = Omit<
   Notification,
-  "id" | "createdAt" | "updatedAt"
+  'id' | 'createdAt' | 'updatedAt'
 >;

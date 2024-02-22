@@ -1,17 +1,17 @@
-import { MainEvent } from "interface/Event/main-event.interface";
+import { MainEvent } from 'interface/Event/main-event.interface';
 
-export type NewInvoiceProduct = Omit<InvoiceProduct, "id">;
+export type NewInvoiceProduct = Omit<InvoiceProduct, 'id'>;
 
 export type NewInvoice = Omit<
   Invoice,
-  | "id"
-  | "status"
-  | "documentId"
-  | "number"
-  | "mainEvent"
-  | "products"
-  | "createdAt"
-  | "updatedAt"
+  | 'id'
+  | 'status'
+  | 'documentId'
+  | 'number'
+  | 'mainEvent'
+  | 'products'
+  | 'createdAt'
+  | 'updatedAt'
 > & {
   products: NewInvoiceProduct[];
 };
@@ -46,25 +46,25 @@ export interface InvoiceProduct {
 }
 
 export enum DiscountType {
-  PERCENT = "percent",
-  FIXED = "fixed",
+  PERCENT = 'percent',
+  FIXED = 'fixed',
 }
 
 export enum InvoiceStatus {
-  DRAFT = "draft",
-  SENT = "sent",
-  LATE = "late",
-  PAID = "paid",
-  CANCELED = "canceled",
-  PENDING = "pending",
+  DRAFT = 'draft',
+  SENT = 'sent',
+  LATE = 'late',
+  PAID = 'paid',
+  CANCELED = 'canceled',
+  PENDING = 'pending',
 }
 
 export enum PaymentMethod {
-  CASH = "CASH",
-  CREDIT_CARD = "CREDIT_CARD",
-  DEBIT_CARD = "DEBIT_CARD",
-  PAYPAL = "PAYPAL",
-  TRANSFER = "TRANSFER",
-  CHECK = "CHECK",
-  OTHER = "OTHER",
+  CASH = 'CASH',
+  CREDIT_CARD = 'CREDIT_CARD',
+  DEBIT_CARD = 'DEBIT_CARD',
+  PAYPAL = 'PAYPAL',
+  TRANSFER = 'TRANSFER',
+  CHECK = 'CHECK',
+  OTHER = 'OTHER',
 }

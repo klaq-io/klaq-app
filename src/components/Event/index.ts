@@ -1,3 +1,3 @@
-export * from "./EventBadge";
-export * from "./EventsList";
-export * from "./EventMap";
+export * from './EventBadge';
+export * from './EventsList';
+export * from './EventMap';

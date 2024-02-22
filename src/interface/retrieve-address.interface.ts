@@ -1,4 +1,4 @@
-import { Coordinates } from "./coordinates.interface";
+import { Coordinates } from './coordinates.interface';
 
 export interface RetrieveAddress {
   coordinates: Coordinates;

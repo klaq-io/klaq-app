@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useCheckAuth } from "../redux/Login/hooks";
-import { PATHS } from "../routes";
+import { useEffect, useState } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useCheckAuth } from '../redux/Login/hooks';
+import { PATHS } from '../routes';
 
 const PrivateRoutes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);

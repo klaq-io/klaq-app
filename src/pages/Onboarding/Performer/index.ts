@@ -1,1 +1,1 @@
-export * from "./OnboardingPerformer";
+export * from './OnboardingPerformer';

@@ -1,10 +1,9 @@
-import { stat } from "fs";
-import { Invoice } from "interface/Invoice/invoice.interface";
-import { RootState } from "redux/store";
+import { Invoice } from 'interface/Invoice/invoice.interface';
+import { RootState } from 'redux/store';
 
 export const getInvoice = (
   state: RootState,
-  id?: string
+  id?: string,
 ): Invoice | undefined => {
   return state.invoices.invoices.find((invoice: Invoice) => invoice.id === id);
 };

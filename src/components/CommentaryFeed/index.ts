@@ -1,1 +1,1 @@
-export * from "./CommentaryFeed";
+export * from './CommentaryFeed';

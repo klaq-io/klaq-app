@@ -1,1 +1,1 @@
-export * from "./EventDetailsSkeleton";
+export * from './EventDetailsSkeleton';

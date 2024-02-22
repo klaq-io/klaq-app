@@ -1,5 +1,5 @@
-import { RootState } from "../store";
-import { Event, EventStatus } from "./slices";
+import { RootState } from '../store';
+import { Event, EventStatus } from './slices';
 
 export const getAllEvents = (state: RootState): Event[] => state.events.events;
 
@@ -11,7 +11,7 @@ export const getEventsByStatus = (
   ...status: EventStatus[]
 ): Event[] => {
   const events = state.events.events.filter((event: Event) =>
-    status.includes(event.status)
+    status.includes(event.status),
   );
   return events || [];
 };

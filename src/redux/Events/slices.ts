@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "../states";
-import { Customer } from "../Customer/slices";
-import { Quote } from "interface/Quote/quote.interface";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { initialState } from '../states';
+import { Customer } from '../Customer/slices';
+import { Quote } from 'interface/Quote/quote.interface';
 
 export interface Event {
   id: string;
@@ -35,25 +35,25 @@ export interface Coordinates {
 }
 
 export enum EventStatus {
-  INBOX = "INBOX",
+  INBOX = 'INBOX',
   // QUALIFICATION = "QUALIFICATION",
-  QUOTE_SENT = "QUOTE_SENT",
+  QUOTE_SENT = 'QUOTE_SENT',
   // QUOTE_OPENED = "QUOTE_OPENED",
-  QUOTE_ACCEPTED = "QUOTE_ACCEPTED",
-  QUOTE_REJECTED = "QUOTE_REJECTED",
+  QUOTE_ACCEPTED = 'QUOTE_ACCEPTED',
+  QUOTE_REJECTED = 'QUOTE_REJECTED',
   // CONTRACT_SENT = "CONTRACT_SENT",
   // CONTRACT_OPENED = "CONTRACT_OPENED",
   // CONTRACT_ACCEPTED = "CONTRACT_ACCEPTED",
   // CONTRACT_REJECTED = "CONTRACT_REJECTED",
   // DEPOSIT_REQUESTED = "DEPOSIT_REQUESTED",
   // DEPOSIT_LATE = "DEPOSIT_LATE",
-  READY = "READY",
-  DONE = "DONE",
-  INVOICE_SENT = "INVOICE_SENT",
+  READY = 'READY',
+  DONE = 'DONE',
+  INVOICE_SENT = 'INVOICE_SENT',
   // INVOICE_OPENED = "INVOICE_OPENED",
-  INVOICE_OVERDUE = "INVOICE_OVERDUE",
-  WIN = "WIN",
-  LOST = "LOST",
+  INVOICE_OVERDUE = 'INVOICE_OVERDUE',
+  WIN = 'WIN',
+  LOST = 'LOST',
 }
 
 export interface EventProduct {
@@ -66,7 +66,7 @@ export interface EventProduct {
 type EventsSliceType = [];
 
 export const eventsSlice = createSlice({
-  name: "events",
+  name: 'events',
   initialState,
   reducers: {
     setEvents: (state, action: PayloadAction<EventsSliceType>) => {

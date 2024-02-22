@@ -1,33 +1,33 @@
-import * as Yup from "yup";
-import { CustomerType } from "../../redux/Customer/slices";
+import * as Yup from 'yup';
+import { CustomerType } from '../../redux/Customer/slices';
 
 export const initialValues = {
-  date: "",
-  startDate: "",
-  endDate: "",
-  startTime: "",
-  endTime: "",
-  eventType: "wedding",
+  date: '',
+  startDate: '',
+  endDate: '',
+  startTime: '',
+  endTime: '',
+  eventType: 'wedding',
   numberOfGuests: 0,
-  publicEvent: "yes",
-  address: "",
-  city: "",
-  state: "",
-  zipcode: "",
-  country: "",
+  publicEvent: 'yes',
+  address: '',
+  city: '',
+  state: '',
+  zipcode: '',
+  country: '',
   coordinates: { longitude: 0, latitude: 0 },
   customer: {
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@gmail.com",
-    phone: "0606060606",
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'johndoe@gmail.com',
+    phone: '0606060606',
     type: CustomerType.PRIVATE,
   },
   products: [
     {
-      id: "",
+      id: '',
       quantity: 0,
-      productId: "",
+      productId: '',
     },
   ],
 };

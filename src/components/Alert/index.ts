@@ -1,2 +1,2 @@
-export * from "./Alert";
-export * from "./AlertWithLink";
+export * from './Alert';
+export * from './AlertWithLink';

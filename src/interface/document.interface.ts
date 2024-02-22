@@ -1,4 +1,4 @@
-import { User } from "./user.interface";
+import { User } from './user.interface';
 
 export interface Document {
   id: string;
@@ -10,10 +10,10 @@ export interface Document {
 }
 
 export enum DocumentTag {
-  INVOICE = "INVOICE",
-  QUOTE = "QUOTE",
-  LOGO = "LOGO",
-  MOODBOARD = "MOODBOARD",
-  BROCHURE = "brochure",
-  OTHER = "other",
+  INVOICE = 'INVOICE',
+  QUOTE = 'QUOTE',
+  LOGO = 'LOGO',
+  MOODBOARD = 'MOODBOARD',
+  BROCHURE = 'brochure',
+  OTHER = 'other',
 }

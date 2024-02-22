@@ -1,5 +1,3 @@
-import { useIntl } from "react-intl";
-
 export const formatAddress = (info: {
   address?: string;
   zip?: string;
@@ -8,6 +6,6 @@ export const formatAddress = (info: {
 }) => {
   const { address, zip, city, country } = info;
 
-  if (!address || !zip || !city || !country) return "Aucune adresse renseignée";
+  if (!address || !zip || !city || !country) return 'Aucune adresse renseignée';
   return `${address}, ${zip} ${city}, ${country}`;
 };

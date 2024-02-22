@@ -1,6 +1,6 @@
 export const initialValues = {
-  to: "",
-  subject: "",
-  message: "",
+  to: '',
+  subject: '',
+  message: '',
   cc: true,
 };

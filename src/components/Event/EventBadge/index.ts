@@ -1,2 +1,2 @@
-export * from "./EventBadge";
-export * from "./EventBadgeButton";
+export * from './EventBadge';
+export * from './EventBadgeButton';
