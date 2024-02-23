@@ -1,10 +1,10 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import webClient from "../../utils/webclient";
-import { ToastNotification } from "components";
-import toast from "react-hot-toast";
-import { useInitiateSMSVerification } from "../SMS/hooks";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import webClient from '../../utils/webclient';
+import { ToastNotification } from 'components';
+import toast from 'react-hot-toast';
+import { useInitiateSMSVerification } from '../SMS/hooks';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../routes';
 
 export const useCheckEmailVerifyingStatus = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const useCheckEmailVerifyingStatus = () => {
 
   return useAsyncCallback(async (interval?: NodeJS.Timer) => {
     try {
-      const { data } = await webClient.get("email-confirmation/status");
+      const { data } = await webClient.get('email-confirmation/status');
 
       const { isMailVerified } = data;
 
@@ -24,7 +24,7 @@ export const useCheckEmailVerifyingStatus = () => {
             titleId={`toast.success.confirmed-email.title`}
             messageId={`toast.success.confirmed-email.message`}
           />,
-          { duration: 2000, position: "top-right" }
+          { duration: 2000, position: 'top-right' },
         );
         initiateSMSVerification();
         navigate(PATHS.CONFIRM_SMS);
@@ -38,19 +38,19 @@ export const useVerifyEmail = () => {
 
   return useAsyncCallback(async (token: string) => {
     try {
-      await webClient.post("email-confirmation/confirm", { token });
+      await webClient.post('email-confirmation/confirm', { token });
       return true;
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
-        : "default";
+        : 'default';
       toast.custom(
         <ToastNotification
           status="danger"
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
       resendVerificationEmail();
@@ -62,26 +62,26 @@ export const useVerifyEmail = () => {
 export const useResendVerificationEmail = () => {
   return useAsyncCallback(async () => {
     try {
-      await webClient.post("email-confirmation/resend-confirmation-link");
+      await webClient.post('email-confirmation/resend-confirmation-link');
       toast.custom(
         <ToastNotification
           status="success"
           titleId={`toast.success.resend-verify-email.title`}
           messageId={`toast.success.resend-verify-email.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
-        : "default";
+        : 'default';
       toast.custom(
         <ToastNotification
           status="danger"
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
       return error.response;

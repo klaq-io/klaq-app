@@ -1,17 +1,17 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import { ToastNotification } from "components";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../routes";
-import webClient from "../../utils/webclient";
-import { setEvent, setEvents } from "./slices";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import { ToastNotification } from 'components';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../routes';
+import webClient from '../../utils/webclient';
+import { setEvent, setEvents } from './slices';
 
 export const useFetchEvents = () => {
   const dispatch = useDispatch();
   return useAsyncCallback(async () => {
     try {
-      const res = await webClient.get("/events");
+      const res = await webClient.get('/events');
       dispatch(setEvents(res.data));
     } catch (error: any) {
       console.error(error);
@@ -63,32 +63,32 @@ export const useAddEvent = () => {
       };
     }) => {
       try {
-        const res = await webClient.post("/events", values);
+        const res = await webClient.post('/events', values);
         toast.custom(
           <ToastNotification
             status="success"
             titleId="toast.success.add-event.title"
             messageId="toast.success.add-event.message"
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         navigate(`${PATHS.EVENTS}/${res.data.id}`);
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
-          : "default";
+          : 'default';
         toast.custom(
           <ToastNotification
             status="danger"
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };
 
@@ -117,7 +117,7 @@ export const useUpdateEvent = () => {
         };
         products?: any;
       },
-      id
+      id,
     ) => {
       try {
         const { data } = await webClient.put(`/events/${id}`, values);
@@ -127,26 +127,26 @@ export const useUpdateEvent = () => {
             titleId="toast.success.edit-event.title"
             messageId="toast.success.edit-event.message"
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         dispatch(setEvent(data));
         navigate(`${PATHS.EVENTS}/${id}?from=edit`);
       } catch (error: any) {
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
-          : "default";
+          : 'default';
         toast.custom(
           <ToastNotification
             status="danger"
             titleId={`toast.error.${code}.title`}
             messageId={`toast.error.${code}.message`}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };
 
@@ -161,14 +161,14 @@ export const useUpdateEventStatus = () => {
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
-        : "default";
+        : 'default';
       toast.custom(
         <ToastNotification
           status="danger"
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
       return error.response;

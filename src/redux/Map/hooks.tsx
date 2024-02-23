@@ -1,8 +1,8 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import { AddressSuggestions } from "../../interface/address-suggestion.interface";
-import { DistanceAndDuration } from "../../interface/distance-and-duration.interface";
-import { RetrieveAddress } from "../../interface/retrieve-address.interface";
-import webClient from "../../utils/webclient";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import { AddressSuggestions } from '../../interface/address-suggestion.interface';
+import { DistanceAndDuration } from '../../interface/distance-and-duration.interface';
+import { RetrieveAddress } from '../../interface/retrieve-address.interface';
+import webClient from '../../utils/webclient';
 
 export const useGetAutocompleteSuggestions = () => {
   return useAsyncCallback(
@@ -14,7 +14,7 @@ export const useGetAutocompleteSuggestions = () => {
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };
 
@@ -28,7 +28,7 @@ export const useRetrieveAddress = () => {
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };
 
@@ -37,13 +37,13 @@ export const useGetDistanceAndDuration = () => {
     async (from: string, to: string): Promise<DistanceAndDuration> => {
       try {
         const { data } = await webClient.get(
-          `map/distance-and-duration?from=${from}&to=${to}`
+          `map/distance-and-duration?from=${from}&to=${to}`,
         );
         return data;
       } catch (error: any) {
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };

@@ -1,21 +1,21 @@
-import { FC, useEffect } from "react";
-import { PageLayout } from "../../../layouts";
-import { useIntl } from "react-intl";
-import { initialValues } from "./form";
-import { useFormik } from "formik";
-import { Button, MapAutocompleteInput, SettingsNavbar } from "components";
+import { FC, useEffect } from 'react';
+import { PageLayout } from '../../../layouts';
+import { useIntl } from 'react-intl';
+import { initialValues } from './form';
+import { useFormik } from 'formik';
+import { Button, MapAutocompleteInput, SettingsNavbar } from 'components';
 import {
   useFetchCompany,
   useUpdateCompany,
-} from "../../../redux/Company/hooks";
-import { useSelector } from "react-redux";
-import { getCompany } from "../../../redux/Company/selectors";
-import { CompanyLegalForm } from "../../../interface/suggestion.interface";
-import { PATHS } from "../../../routes";
-import { useNavigate } from "react-router-dom";
-import { Alert } from "components/Alert/Alert";
-import { LegalInformationSkeleton, OfficeSkeleton } from "./Skeleton";
-import { RetrieveAddress } from "interface/retrieve-address.interface";
+} from '../../../redux/Company/hooks';
+import { useSelector } from 'react-redux';
+import { getCompany } from '../../../redux/Company/selectors';
+import { CompanyLegalForm } from '../../../interface/suggestion.interface';
+import { PATHS } from '../../../routes';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from 'components/Alert/Alert';
+import { LegalInformationSkeleton, OfficeSkeleton } from './Skeleton';
+import { RetrieveAddress } from 'interface/retrieve-address.interface';
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -61,7 +61,7 @@ export const Company: FC = () => {
       country: company.country,
       zip: company.zip,
       legalRegistrationNumber: company.legalRegistrationNumber,
-      legalVATNumber: company.legalVATNumber || "",
+      legalVATNumber: company.legalVATNumber || '',
       legalForm: company.legalForm,
       legalName: company.legalName,
     });
@@ -75,7 +75,7 @@ export const Company: FC = () => {
       officeCountry: retrieveAddress.country,
       officeZip: retrieveAddress.zipcode,
     });
-    formik.setFieldValue("officeCoordinates", retrieveAddress.coordinates);
+    formik.setFieldValue('officeCoordinates', retrieveAddress.coordinates);
   };
 
   useEffect(() => {
@@ -90,12 +90,12 @@ export const Company: FC = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.company.header",
+                id: 'settings.company.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.company.description",
+                id: 'settings.company.description',
               })}
             </p>
           </div>
@@ -111,7 +111,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.legal-name",
+                        id: 'settings.company.label.legal-name',
                       })}
                     </label>
                     <div className="mt-2">
@@ -122,7 +122,7 @@ export const Company: FC = () => {
                         name="legalName"
                         id="legalName"
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.legal-name",
+                          id: 'settings.company.input.legal-name',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -139,7 +139,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.legal-form",
+                        id: 'settings.company.label.legal-form',
                       })}
                     </label>
                     <div className="mt-2">
@@ -149,13 +149,13 @@ export const Company: FC = () => {
                         name="legalForm"
                         id="legalForm"
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.legal-form",
+                          id: 'settings.company.input.legal-form',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       >
                         {(
                           Object.keys(
-                            CompanyLegalForm
+                            CompanyLegalForm,
                           ) as Array<CompanyLegalFormType>
                         ).map((key) => (
                           <option key={key} value={CompanyLegalForm[key]}>
@@ -176,7 +176,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.legal-registration-number",
+                        id: 'settings.company.label.legal-registration-number',
                       })}
                     </label>
                     <div className="mt-2">
@@ -187,7 +187,7 @@ export const Company: FC = () => {
                         name="legalRegistrationNumber"
                         id="legalRegistrationNumber"
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.legal-registration-number",
+                          id: 'settings.company.input.legal-registration-number',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -205,7 +205,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.legal-vat-number",
+                        id: 'settings.company.label.legal-vat-number',
                       })}
                     </label>
                     <div className="mt-2">
@@ -216,7 +216,7 @@ export const Company: FC = () => {
                         name="legalVATNumber"
                         id="legalVATNumber"
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.legal-vat-number",
+                          id: 'settings.company.input.legal-vat-number',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -234,7 +234,7 @@ export const Company: FC = () => {
                   <div className="col-span-full">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.address",
+                        id: 'settings.company.label.address',
                       })}
                     </label>
                     <div className="mt-2">
@@ -245,7 +245,7 @@ export const Company: FC = () => {
                         value={formik.values.address}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.address",
+                          id: 'settings.company.input.address',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -265,7 +265,7 @@ export const Company: FC = () => {
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       {intl.formatMessage({
-                        id: "settings.company.label.city",
+                        id: 'settings.company.label.city',
                       })}
                     </label>
                     <div className="mt-2">
@@ -276,7 +276,7 @@ export const Company: FC = () => {
                         value={formik.values.city}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.city",
+                          id: 'settings.company.input.city',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -293,7 +293,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.zip",
+                        id: 'settings.company.label.zip',
                       })}
                     </label>
                     <div className="mt-2">
@@ -304,7 +304,7 @@ export const Company: FC = () => {
                         value={formik.values.zip}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.zip",
+                          id: 'settings.company.input.zip',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -320,7 +320,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.company.label.country",
+                        id: 'settings.company.label.country',
                       })}
                     </label>
                     <div className="mt-2">
@@ -331,7 +331,7 @@ export const Company: FC = () => {
                         value={formik.values.country}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.company.input.country",
+                          id: 'settings.company.input.country',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -354,7 +354,7 @@ export const Company: FC = () => {
                   onClick={handleResetCompany}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -365,7 +365,7 @@ export const Company: FC = () => {
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>
@@ -377,12 +377,12 @@ export const Company: FC = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.office.header",
+                id: 'settings.office.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.office.description",
+                id: 'settings.office.description',
               })}
             </p>
           </div>
@@ -398,7 +398,7 @@ export const Company: FC = () => {
                   <div className="col-span-full">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.office.label.autocomplete",
+                        id: 'settings.office.label.autocomplete',
                       })}
                     </label>
                     <MapAutocompleteInput
@@ -417,7 +417,7 @@ export const Company: FC = () => {
                       <div className="relative flex justify-center">
                         <span className="bg-white px-2 text-sm text-gray-500">
                           {intl.formatMessage({
-                            id: "settings.office.label.manual",
+                            id: 'settings.office.label.manual',
                           })}
                         </span>
                       </div>
@@ -426,7 +426,7 @@ export const Company: FC = () => {
                   <div className="col-span-full">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.office.label.address",
+                        id: 'settings.office.label.address',
                       })}
                     </label>
                     <div className="mt-2">
@@ -437,7 +437,7 @@ export const Company: FC = () => {
                         name="officeAddress"
                         id="officeAddress"
                         placeholder={intl.formatMessage({
-                          id: "settings.office.input.address",
+                          id: 'settings.office.input.address',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -455,7 +455,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.office.label.city",
+                        id: 'settings.office.label.city',
                       })}
                     </label>
                     <div className="mt-2">
@@ -466,7 +466,7 @@ export const Company: FC = () => {
                         value={formik.values.officeCity}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.office.input.city",
+                          id: 'settings.office.input.city',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -483,7 +483,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.office.label.zip",
+                        id: 'settings.office.label.zip',
                       })}
                     </label>
                     <div className="mt-2">
@@ -494,7 +494,7 @@ export const Company: FC = () => {
                         value={formik.values.officeZip}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.office.input.country",
+                          id: 'settings.office.input.country',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -511,7 +511,7 @@ export const Company: FC = () => {
                   <div className="sm:col-span-2">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.office.label.country",
+                        id: 'settings.office.label.country',
                       })}
                     </label>
                     <div className="mt-2">
@@ -522,7 +522,7 @@ export const Company: FC = () => {
                         value={formik.values.officeCountry}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.office.input.country",
+                          id: 'settings.office.input.country',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -537,14 +537,14 @@ export const Company: FC = () => {
                   </div>
                   <div className="sm:col-span-full">
                     <Alert
-                      title={"Frais de déplacement"}
+                      title={'Frais de déplacement'}
                       status="info"
                       text={intl.formatMessage(
                         {
-                          id: "settings.office.moving-fees",
+                          id: 'settings.office.moving-fees',
                         },
                         {
-                          fee: "0.5",
+                          fee: '0.5',
                           b: (chunk: any) => (
                             <span className="text-blue-600 font-semibold">
                               {chunk.join()}
@@ -553,13 +553,13 @@ export const Company: FC = () => {
                           a: (chunk: any) => (
                             <button
                               className="text-blue-600 font-semibold"
-                              type={"button"}
+                              type={'button'}
                               onClick={handleGoToSettings}
                             >
                               {chunk}
                             </button>
                           ),
-                        }
+                        },
                       )}
                     />
                   </div>
@@ -573,7 +573,7 @@ export const Company: FC = () => {
                   onClick={handleResetOffice}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -584,7 +584,7 @@ export const Company: FC = () => {
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>

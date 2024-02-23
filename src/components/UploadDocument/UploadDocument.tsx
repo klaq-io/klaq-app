@@ -1,7 +1,7 @@
-import { CloudArrowUpIcon, PaperClipIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { classNames, getHumanFileSize } from "../../utils/utils";
-import { useIntl } from "react-intl";
+import { CloudArrowUpIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
+import { classNames, getHumanFileSize } from '../../utils/utils';
+import { useIntl } from 'react-intl';
 
 type UploadDocumentZoneProps = {
   fileList: File[];
@@ -27,8 +27,8 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
     <>
       <div
         className={classNames(
-          "flex justify-center rounded-lg border-dashed border-gray-900/25 px-6 py-10 flex flex-col",
-          shouldHighlight ? "border-2 bg-gray-50" : "border-2"
+          'flex justify-center rounded-lg border-dashed border-gray-900/25 px-6 py-10 flex flex-col',
+          shouldHighlight ? 'border-2 bg-gray-50' : 'border-2',
         )}
         onDragOver={(e) => {
           preventDefaultHandler(e);
@@ -61,7 +61,7 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
             >
               <span>
                 {intl.formatMessage({
-                  id: "documents.header.input",
+                  id: 'documents.header.input',
                 })}
               </span>
               <input
@@ -78,13 +78,13 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
             </label>
             <p className="pl-1">
               {intl.formatMessage({
-                id: "documents.header.drag-and-drop",
+                id: 'documents.header.drag-and-drop',
               })}
             </p>
           </div>
           <p className="text-xs leading-5 text-gray-600">
             {intl.formatMessage({
-              id: "documents.description",
+              id: 'documents.description',
             })}
           </p>
         </div>
@@ -96,9 +96,9 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
           <label className="mt-4 block text-sm font-medium leading-6 text-gray-900">
             {intl.formatMessage(
               {
-                id: "documents.label",
+                id: 'documents.label',
               },
-              { s: fileList.length > 1 ? "s" : "" }
+              { s: fileList.length > 1 ? 's' : '' },
             )}
           </label>
           <ul
@@ -128,7 +128,7 @@ export const UploadDocumentZone = (props: UploadDocumentZoneProps) => {
                       onClick={() => handleRemoveFile(file.name)}
                     >
                       {intl.formatMessage({
-                        id: "documents.button.remove",
+                        id: 'documents.button.remove',
                       })}
                     </button>
                   </div>

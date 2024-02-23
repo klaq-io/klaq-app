@@ -1,4 +1,4 @@
-import { CardContainer } from "components/Card";
+import { CardContainer } from 'components/Card';
 
 export const GamificationCard = () => {
   return (

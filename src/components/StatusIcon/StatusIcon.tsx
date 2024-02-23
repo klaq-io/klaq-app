@@ -3,7 +3,7 @@ import {
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 
 interface StatusHandler {
   [key: string]: {
@@ -15,19 +15,19 @@ interface StatusHandler {
 const statusHandler: StatusHandler = {
   success: {
     icon: CheckCircleIcon,
-    classes: "text-success-400",
+    classes: 'text-success-400',
   },
   danger: {
     icon: ExclamationCircleIcon,
-    classes: "text-danger-400",
+    classes: 'text-danger-400',
   },
   warning: {
     icon: ExclamationTriangleIcon,
-    classes: "text-warning-400",
+    classes: 'text-warning-400',
   },
   info: {
     icon: InformationCircleIcon,
-    classes: "text-blue-400",
+    classes: 'text-blue-400',
   },
 };
 
@@ -47,7 +47,7 @@ export const StatusIcon: React.FC<StatusIconProps> = ({ status }) => {
 
   return (
     <div>
-      <IconComponent className={iconClasses + " h-6 w-6"} />
+      <IconComponent className={iconClasses + ' h-6 w-6'} />
     </div>
   );
 };

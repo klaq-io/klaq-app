@@ -1,16 +1,16 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import { ToastNotification } from "components";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import webClient from "../../utils/webclient";
-import { deleteProduct, setProducts, updateProducts } from "./slices";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import { ToastNotification } from 'components';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import webClient from '../../utils/webclient';
+import { deleteProduct, setProducts, updateProducts } from './slices';
 
 export const useFetchProductItems = () => {
   const dispatch = useDispatch();
 
   return useAsyncCallback(async () => {
     try {
-      const res = await webClient.get("item");
+      const res = await webClient.get('item');
       dispatch(setProducts(res.data));
     } catch (error: any) {
       console.error(error);
@@ -29,14 +29,14 @@ export const useAddProductItem = () => {
       vtaRate: string;
     }) => {
       try {
-        const res = await webClient.post("item", values);
+        const res = await webClient.post('item', values);
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"toast.success.add-product.title"}
-            messageId={"toast.success.add-product.message"}
+            titleId={'toast.success.add-product.title'}
+            messageId={'toast.success.add-product.message'}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         dispatch(updateProducts(res.data));
       } catch (error: any) {
@@ -46,15 +46,15 @@ export const useAddProductItem = () => {
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`toast.error.${code ? code : "default"}.title`}
-            messageId={`toast.error.${code ? code : "default"}.message`}
+            titleId={`toast.error.${code ? code : 'default'}.title`}
+            messageId={`toast.error.${code ? code : 'default'}.message`}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };
 
@@ -66,10 +66,10 @@ export const useDeleteProductItem = () => {
       toast.custom(
         <ToastNotification
           status="success"
-          titleId={"toast.success.delete-product.title"}
-          messageId={"toast.success.delete-product.message"}
+          titleId={'toast.success.delete-product.title'}
+          messageId={'toast.success.delete-product.message'}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       dispatch(deleteProduct(id));
     } catch (error: any) {
@@ -79,10 +79,10 @@ export const useDeleteProductItem = () => {
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`toast.error.${code ? code : "default"}.title`}
-          messageId={`toast.error.${code ? code : "default"}.message`}
+          titleId={`toast.error.${code ? code : 'default'}.title`}
+          messageId={`toast.error.${code ? code : 'default'}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
       return error.response;
@@ -100,7 +100,7 @@ export const useEditProductItem = () => {
         price?: number;
         vtaRate?: string;
       },
-      id: string
+      id: string,
     ) => {
       try {
         const res = await webClient.put(`/item/${id}`, values);
@@ -108,10 +108,10 @@ export const useEditProductItem = () => {
         toast.custom(
           <ToastNotification
             status="success"
-            titleId={"toast.success.edit-product.title"}
-            messageId={"toast.success.edit-product.message"}
+            titleId={'toast.success.edit-product.title'}
+            messageId={'toast.success.edit-product.message'}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
       } catch (error: any) {
         const code = error.response.data.code
@@ -120,14 +120,14 @@ export const useEditProductItem = () => {
         toast.custom(
           <ToastNotification
             status="danger"
-            titleId={`toast.error.${code ? code : "default"}.title`}
-            messageId={`toast.error.${code ? code : "default"}.message`}
+            titleId={`toast.error.${code ? code : 'default'}.title`}
+            messageId={`toast.error.${code ? code : 'default'}.message`}
           />,
-          { duration: 1500, position: "top-right" }
+          { duration: 1500, position: 'top-right' },
         );
         console.error(error);
         return error.response;
       }
-    }
+    },
   );
 };

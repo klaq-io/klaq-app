@@ -1,10 +1,10 @@
-import { MapPinIcon } from "@heroicons/react/20/solid";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { MapPinIcon } from '@heroicons/react/20/solid';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, {
   FullscreenControl,
   Marker,
-  NavigationControl
-} from "react-map-gl";
+  NavigationControl,
+} from 'react-map-gl';
 
 type MapProps = {
   longitude: number;
@@ -17,7 +17,7 @@ export const Mapbox = (props: MapProps) => {
   return (
     <Map
       mapboxAccessToken={process.env.REACT_APP_MAPBOX}
-      mapLib={import("mapbox-gl")}
+      mapLib={import('mapbox-gl')}
       initialViewState={{
         latitude,
         longitude,
@@ -25,7 +25,7 @@ export const Mapbox = (props: MapProps) => {
       }}
       longitude={longitude}
       latitude={latitude}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: '100%', height: '100%' }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
       <NavigationControl />

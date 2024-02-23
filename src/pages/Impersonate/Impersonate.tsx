@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useImpersonate } from "redux/Login/hooks";
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useImpersonate } from 'redux/Login/hooks';
 
 export const ImpersonatePage = () => {
   const [, impersonate] = useImpersonate();

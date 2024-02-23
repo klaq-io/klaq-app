@@ -1,11 +1,11 @@
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { LoginLayout } from "../../layouts";
-import { PATHS } from "../../routes";
-import { Button } from "components";
-import { useFormik } from "formik";
-import { initialValues, validationSchema } from "./form";
-import { useRequestResetPassword } from "../../redux/Login/hooks";
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { LoginLayout } from '../../layouts';
+import { PATHS } from '../../routes';
+import { Button } from 'components';
+import { useFormik } from 'formik';
+import { initialValues, validationSchema } from './form';
+import { useRequestResetPassword } from '../../redux/Login/hooks';
 
 export const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -34,12 +34,12 @@ export const ForgetPassword = () => {
             </h1>
             <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
               {intl.formatMessage({
-                id: "forget-password.header",
+                id: 'forget-password.header',
               })}
             </h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">
               {intl.formatMessage({
-                id: "forget-password.text",
+                id: 'forget-password.text',
               })}
             </p>
           </div>
@@ -53,7 +53,7 @@ export const ForgetPassword = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     {intl.formatMessage({
-                      id: "forget-password.label.email",
+                      id: 'forget-password.label.email',
                     })}
                   </label>
                   <div className="mt-2">
@@ -67,7 +67,7 @@ export const ForgetPassword = () => {
                       required
                       className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
-                        id: "forget-password.input.email",
+                        id: 'forget-password.input.email',
                       })}
                     />
                   </div>
@@ -76,7 +76,7 @@ export const ForgetPassword = () => {
                 <div>
                   <Button type="submit" color="primary" variant="contained">
                     {intl.formatMessage({
-                      id: "forget-password.submit",
+                      id: 'forget-password.submit',
                     })}
                   </Button>
                 </div>
@@ -95,14 +95,14 @@ export const ForgetPassword = () => {
                 <div>
                   <p className="mt-2 text-sm leading-6 text-gray-500">
                     {intl.formatMessage({
-                      id: "forget-password.login.text",
-                    })}{" "}
+                      id: 'forget-password.login.text',
+                    })}{' '}
                     <a
                       onClick={handleLogin}
                       className="font-semibold text-klaq-600 hover:text-klaq-500 cursor-pointer"
                     >
                       {intl.formatMessage({
-                        id: "forget-password.login.link",
+                        id: 'forget-password.login.link',
                       })}
                     </a>
                   </p>

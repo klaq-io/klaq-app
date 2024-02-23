@@ -1,18 +1,15 @@
-import {
-  ClockIcon,
-  MapPinIcon
-} from "@heroicons/react/24/outline";
-import { format } from "date-fns";
-import { SubEvent } from "interface/Event/subevent.interface";
-import { FC } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { Customer } from "redux/Customer/slices";
-import { EventStatus } from "../../../redux/Events/slices";
-import { PATHS } from "../../../routes";
-import { getDayStr, getMonthStr } from "../../../utils/utils";
-import { Skeleton } from "../../Skeleton";
-import { EventBadge } from "../EventBadge";
+import { ClockIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { format } from 'date-fns';
+import { SubEvent } from 'interface/Event/subevent.interface';
+import { FC } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { Customer } from 'redux/Customer/slices';
+import { EventStatus } from '../../../redux/Events/slices';
+import { PATHS } from '../../../routes';
+import { getDayStr, getMonthStr } from '../../../utils/utils';
+import { Skeleton } from '../../Skeleton';
+import { EventBadge } from '../EventBadge';
 
 type Item = SubEvent & {
   customer: Customer;
@@ -52,7 +49,7 @@ export const EventList: FC<Props> = (props: Props) => {
                 })}
               </span>
               <span className="text-xl font-bold">
-                {format(new Date(subEvent.date), "dd")}
+                {format(new Date(subEvent.date), 'dd')}
               </span>
               <span className="text-md">
                 {intl.formatMessage({
@@ -63,9 +60,9 @@ export const EventList: FC<Props> = (props: Props) => {
             <div className="ml-4 flex flex-col justify-between w-3/5">
               <div className="flex flex-row space-x-2 text-left">
                 <span className="text-md  text-gray-900">{subEvent.type}</span>
-                <span className="text-md text-gray-900">{" <> "}</span>
+                <span className="text-md text-gray-900">{' <> '}</span>
                 <span className="text-md text-gray-900 font-bold">
-                  {subEvent.customer.name || "Client non défini"}
+                  {subEvent.customer.name || 'Client non défini'}
                 </span>
               </div>
               <div className="flex flex-row space-x-3">
@@ -74,7 +71,7 @@ export const EventList: FC<Props> = (props: Props) => {
                   <span className="ml-2 text-sm text-gray-900 border-r pr-3">
                     {subEvent.startTime
                       ? subEvent.startTime
-                      : "Horaires non définies"}
+                      : 'Horaires non définies'}
                     {subEvent.endTime && `- ${subEvent.endTime}`}
                   </span>
                 </div>
@@ -117,8 +114,8 @@ export const EventListSkeletonCard = () => {
             <Skeleton variant="rounded" width={24} height={16} />
           </div>
           <div className="ml-4 flex flex-col space-y-4 w-2/5">
-            <Skeleton variant="rounded" width={"full"} height={8} />
-            <Skeleton variant="rounded" width={"40"} height={8} />
+            <Skeleton variant="rounded" width={'full'} height={8} />
+            <Skeleton variant="rounded" width={'40'} height={8} />
           </div>
         </div>
       ))}

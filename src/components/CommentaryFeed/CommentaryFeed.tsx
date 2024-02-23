@@ -1,8 +1,8 @@
 import {
   BoltIcon,
-  ChatBubbleBottomCenterTextIcon
-} from "@heroicons/react/24/outline";
-import { EventBadge } from "components/Event/EventBadge";
+  ChatBubbleBottomCenterTextIcon,
+} from '@heroicons/react/24/outline';
+import { EventBadge } from 'components/Event/EventBadge';
 import {
   differenceInDays,
   differenceInHours,
@@ -11,22 +11,22 @@ import {
   differenceInWeeks,
   differenceInYears,
   format,
-} from "date-fns";
-import { useFormik } from "formik";
-import { FC, useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+} from 'date-fns';
+import { useFormik } from 'formik';
+import { FC, useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   useAddCommentary,
   useFetchCommentaries,
-} from "../../redux/Commentary/hooks";
-import { getCommentaries } from "../../redux/Commentary/selectors";
-import { CommentaryType } from "../../redux/Commentary/slices";
-import { EventStatus } from "../../redux/Events/slices";
-import { classNames } from "../../utils/utils";
-import { Button } from "../Button";
-import { initialValues, validationSchema } from "./form";
+} from '../../redux/Commentary/hooks';
+import { getCommentaries } from '../../redux/Commentary/selectors';
+import { CommentaryType } from '../../redux/Commentary/slices';
+import { EventStatus } from '../../redux/Events/slices';
+import { classNames } from '../../utils/utils';
+import { Button } from '../Button';
+import { initialValues, validationSchema } from './form';
 
 type Props = {
   isCommentingAllowed?: boolean;
@@ -70,41 +70,41 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
       {
         threshold: TIME.LESS_THAN_A_MINUTE * 2,
         fn: differenceInMinutes,
-        message: "just-now",
+        message: 'just-now',
       },
       {
         threshold: TIME.LESS_THAN_AN_HOUR,
         fn: differenceInMinutes,
-        message: "minutes-ago",
+        message: 'minutes-ago',
       },
       {
         threshold: TIME.LESS_THAN_A_DAY,
         fn: differenceInHours,
-        message: "hours-ago",
+        message: 'hours-ago',
       },
       {
         threshold: TIME.LESS_THAN_A_WEEK,
         fn: differenceInDays,
-        message: "days-ago",
+        message: 'days-ago',
       },
       {
         threshold: TIME.LESS_THAN_A_MONTH,
         fn: differenceInWeeks,
-        message: "weeks-ago",
+        message: 'weeks-ago',
       },
       {
         threshold: TIME.LESS_THAN_A_YEAR,
         fn: differenceInMonths,
-        message: "months-ago",
+        message: 'months-ago',
       },
-      { threshold: Infinity, fn: differenceInYears, message: "years-ago" },
+      { threshold: Infinity, fn: differenceInYears, message: 'years-ago' },
     ];
 
     const { message, fn } = timeMessages.find(
-      ({ threshold }) => elapsedMinutes < threshold
+      ({ threshold }) => elapsedMinutes < threshold,
     ) || {
       time: elapsedMinutes,
-      message: "minutes-ago",
+      message: 'minutes-ago',
       fn: differenceInMinutes,
     };
 
@@ -123,8 +123,8 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
             <li key={commentary.id} className="relative flex gap-x-4">
               <div
                 className={classNames(
-                  idx === commentaries.length - 1 ? "h-6" : "-bottom-6",
-                  "absolute left-0 top-0 flex w-6 justify-center"
+                  idx === commentaries.length - 1 ? 'h-6' : '-bottom-6',
+                  'absolute left-0 top-0 flex w-6 justify-center',
                 )}
               >
                 <div className="w-px bg-gray-200" />
@@ -145,15 +145,15 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                   <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
                     <div className="flex justify-between gap-x-4">
                       <div className="py-0.5 text-xs leading-5 text-gray-500">
-                        <span className="font-medium text-gray-900">{`${commentary.user.firstName} ${commentary.user.lastName}`}</span>{" "}
+                        <span className="font-medium text-gray-900">{`${commentary.user.firstName} ${commentary.user.lastName}`}</span>{' '}
                         {intl.formatMessage({
-                          id: "edit-event.commentaries.commented",
+                          id: 'edit-event.commentaries.commented',
                         })}
                       </div>
                       <time
                         dateTime={format(
                           new Date(commentary.createdAt),
-                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
                         )}
                         className="flex-none py-0.5 text-xs leading-5 text-gray-500"
                       >
@@ -167,7 +167,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                           {
                             time: publicatedTime(new Date(commentary.createdAt))
                               .time,
-                          }
+                          },
                         )}
                       </time>
                     </div>
@@ -184,15 +184,15 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                   <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
                     <div className="flex justify-between gap-x-4">
                       <div className="py-0.5 text-xs leading-5 text-gray-500">
-                        <span className="font-medium text-gray-900">{`KlaqBOT`}</span>{" "}
+                        <span className="font-medium text-gray-900">{`KlaqBOT`}</span>{' '}
                         {intl.formatMessage({
-                          id: "edit-event.commentaries.commented",
+                          id: 'edit-event.commentaries.commented',
                         })}
                       </div>
                       <time
                         dateTime={format(
                           new Date(commentary.createdAt),
-                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
                         )}
                         className="flex-none py-0.5 text-xs leading-5 text-gray-500"
                       >
@@ -206,15 +206,15 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                           {
                             time: publicatedTime(new Date(commentary.createdAt))
                               .time,
-                          }
+                          },
                         )}
                       </time>
                     </div>
                     <p className="text-sm leading-6 text-gray-500">
                       {/* //todo: intl */}
-                      Changement du status en{" "}
+                      Changement du status en{' '}
                       {Object.values(EventStatus).includes(
-                        commentary.text as EventStatus
+                        commentary.text as EventStatus,
                       ) ? (
                         <EventBadge status={commentary.text as EventStatus} />
                       ) : (
@@ -248,7 +248,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
               id="text"
               className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
               placeholder={intl.formatMessage({
-                id: "edit-event.commentaries.add-commentary",
+                id: 'edit-event.commentaries.add-commentary',
               })}
             />
           </div>
@@ -263,7 +263,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                 isLoading={isLoading}
               >
                 {intl.formatMessage({
-                  id: "edit-event.commentaries.submit",
+                  id: 'edit-event.commentaries.submit',
                 })}
               </Button>
             </div>

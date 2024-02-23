@@ -1,7 +1,7 @@
-import { SettingsNavbar } from "components";
-import { BetaBadge } from "components/Badge/BetaBadge";
-import { PageLayout } from "layouts";
-import { useIntl } from "react-intl";
+import { SettingsNavbar } from 'components';
+import { BetaBadge } from 'components/Badge/BetaBadge';
+import { PageLayout } from 'layouts';
+import { useIntl } from 'react-intl';
 
 export const Subscriptions = () => {
   const intl = useIntl();
@@ -14,12 +14,12 @@ export const Subscriptions = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.subscriptions.overview.header",
+                id: 'settings.subscriptions.overview.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.subscriptions.overview.description",
+                id: 'settings.subscriptions.overview.description',
               })}
             </p>
           </div>
@@ -30,7 +30,7 @@ export const Subscriptions = () => {
                   <BetaBadge />
                   <p className="mt-2 text-sm leading-6 text-gray-600">
                     {intl.formatMessage({
-                      id: "settings.subscriptions.current-plan.beta.description",
+                      id: 'settings.subscriptions.current-plan.beta.description',
                     })}
                   </p>
                 </div>
@@ -44,12 +44,12 @@ export const Subscriptions = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.subscriptions.details.header",
+                id: 'settings.subscriptions.details.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.subscriptions.details.description",
+                id: 'settings.subscriptions.details.description',
               })}
             </p>
           </div>
@@ -59,7 +59,7 @@ export const Subscriptions = () => {
                 <div className="sm:col-span-3">
                   <p className="mt-1 text-sm leading-6 text-gray-600">
                     {intl.formatMessage({
-                      id: "settings.subscriptions.current-plan.beta.description",
+                      id: 'settings.subscriptions.current-plan.beta.description',
                     })}
                   </p>
                 </div>

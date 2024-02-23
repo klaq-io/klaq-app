@@ -1,14 +1,14 @@
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { FC, Fragment } from "react";
-import { useIntl } from "react-intl";
-import { classNames } from "../../utils/utils";
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { FC, Fragment } from 'react';
+import { useIntl } from 'react-intl';
+import { classNames } from '../../utils/utils';
 
 interface Item {
   name: string;
   onClick: () => void;
   icon?: React.ForwardRefExoticComponent<
-    Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
       title?: string | undefined;
       titleId?: string | undefined;
     } & React.RefAttributes<SVGSVGElement>
@@ -53,17 +53,17 @@ export const DropdownMenu: FC<Props> = (props: Props) => {
                   <a
                     onClick={item.onClick}
                     className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "group flex items-center px-4 py-2 text-sm"
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'group flex items-center px-4 py-2 text-sm',
                     )}
                   >
                     {item.icon && (
                       <item.icon
                         className={classNames(
-                          "mr-3 h-5 w-5",
+                          'mr-3 h-5 w-5',
                           item.iconColor
                             ? item.iconColor
-                            : "text-gray-400 group-hover:text-gray-500"
+                            : 'text-gray-400 group-hover:text-gray-500',
                         )}
                       />
                     )}

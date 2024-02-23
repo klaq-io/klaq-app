@@ -1,6 +1,6 @@
-import backgroundOnboarding from "assets/background-onboarding.jpeg";
-import { Spinner } from "components";
-import Klaq from "../../assets/Klaq-2.png";
+import backgroundOnboarding from 'assets/background-onboarding.jpeg';
+import { Spinner } from 'components';
+import Klaq from '../../assets/Klaq-2.png';
 
 type Props = {
   children: any;

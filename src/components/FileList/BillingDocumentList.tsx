@@ -1,16 +1,16 @@
-import { DocumentIcon, PaperClipIcon } from "@heroicons/react/24/outline";
-import { Button } from "components/Button";
-import { InvoiceBadge } from "components/Invoice";
-import { QuoteBadge } from "components/Quote";
-import { Invoice } from "interface/Invoice/invoice.interface";
-import { Quote } from "interface/Quote/quote.interface";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "routes";
-import { getInvoiceSubtotal } from "utils/invoice";
-import { getSubtotalForQuote } from "utils/quote";
+import { DocumentIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import { Button } from 'components/Button';
+import { InvoiceBadge } from 'components/Invoice';
+import { QuoteBadge } from 'components/Quote';
+import { Invoice } from 'interface/Invoice/invoice.interface';
+import { Quote } from 'interface/Quote/quote.interface';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from 'routes';
+import { getInvoiceSubtotal } from 'utils/invoice';
+import { getSubtotalForQuote } from 'utils/quote';
 
-type DocumentType = "quote" | "invoice";
+type DocumentType = 'quote' | 'invoice';
 
 type BillingDocumentProps = {
   documents?: Invoice[] | Quote[];
@@ -23,7 +23,7 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
   const navigate = useNavigate();
 
   const handleDocumentDetails = (document: Invoice | Quote) => {
-    const documentType = type === "quote" ? PATHS.QUOTE : PATHS.INVOICE;
+    const documentType = type === 'quote' ? PATHS.QUOTE : PATHS.INVOICE;
     navigate(`${documentType}/${document.id}/details`);
   };
 
@@ -45,15 +45,15 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
             <div className="ml-4 flex min-w-0 flex-1 gap-2 items-center">
               <span className="truncate font-medium">{document.number}</span>
               <span className="flex-shrink-0 text-gray-400">
-                {type === "quote"
+                {type === 'quote'
                   ? getSubtotalForQuote(document as Quote).toFixed(2)
-                  : getInvoiceSubtotal(document as Invoice).toFixed(2)}{" "}
+                  : getInvoiceSubtotal(document as Invoice).toFixed(2)}{' '}
                 €
               </span>
             </div>
             <div className="ml-4 flex-shrink-0">
               <span className="mr-4">
-                {type === "quote" ? (
+                {type === 'quote' ? (
                   <QuoteBadge status={(document as Quote).status} />
                 ) : (
                   <InvoiceBadge status={(document as Invoice).status} />
@@ -94,12 +94,12 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
 
       <h3 className="mt-2 text-sm font-semibold text-gray-900">
         {intl.formatMessage({
-          id: "customers.customer-details.no-documents-found.header",
+          id: 'customers.customer-details.no-documents-found.header',
         })}
       </h3>
       <p className="mt-1 text-sm text-gray-500">
         {intl.formatMessage({
-          id: "customers.customer-details.no-documents-found.description",
+          id: 'customers.customer-details.no-documents-found.description',
         })}
       </p>
     </div>
