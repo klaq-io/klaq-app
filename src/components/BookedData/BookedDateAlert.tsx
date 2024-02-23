@@ -38,12 +38,12 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
       eventBefore && new Date(eventBefore.subEvents[0].date);
     const eventAfterDate = eventAfter && new Date(eventAfter.subEvents[0].date);
 
-    if (eventBeforeDate && isSameDay(eventDate, eventBeforeDate)) {
-      return eventBefore;
-    }
-
     if (eventAfterDate && isSameDay(eventDate, eventAfterDate)) {
       return eventAfter;
+    }
+
+    if (eventBeforeDate && isSameDay(eventDate, eventBeforeDate)) {
+      return eventBefore;
     }
 
     return event;

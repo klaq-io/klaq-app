@@ -5,28 +5,28 @@ import {
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
-} from "@heroicons/react/24/outline";
-import { HandThumbUpIcon } from "@heroicons/react/24/solid";
-import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from "components";
-import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
-import { Quote, QuoteStatus } from "interface/Quote/quote.interface";
-import { PageLayout } from "layouts";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDownloadQuoteDocument, useFetchQuotes } from "redux/Quote/hooks";
-import { getQuotes } from "redux/Quote/selectors";
-import { PATHS } from "routes";
-import { classNames } from "utils/utils";
+} from '@heroicons/react/24/outline';
+import { HandThumbUpIcon } from '@heroicons/react/24/solid';
+import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from 'components';
+import { QuoteBadgeButton } from 'components/Quote/QuoteBadgeButton';
+import { Quote, QuoteStatus } from 'interface/Quote/quote.interface';
+import { PageLayout } from 'layouts';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDownloadQuoteDocument, useFetchQuotes } from 'redux/Quote/hooks';
+import { getQuotes } from 'redux/Quote/selectors';
+import { PATHS } from 'routes';
+import { classNames } from 'utils/utils';
 
 export const Quotes = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
-  const [openNewQuote, setOpenNewQuote] = useState(false);
+  const [shouldOpenNewQuote, setOpenNewQuote] = useState(false);
   const [params, setParams] = useSearchParams();
-  const query = params.get("q") || "";
+  const query = params.get('q') || '';
 
   const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quotes = useSelector(getQuotes) || [];
@@ -34,7 +34,7 @@ export const Quotes = () => {
   const [, downloadQuote] = useDownloadQuoteDocument();
 
   const handleSendByMail = (id: string) => {
-    navigate(PATHS.QUOTE + "/" + id + "/send/");
+    navigate(PATHS.QUOTE + '/' + id + '/send/');
   };
 
   const handleNewQuote = () => {
@@ -42,36 +42,36 @@ export const Quotes = () => {
   };
 
   const handleEdit = (id: string, eventId: string) => {
-    navigate(PATHS.QUOTE + "/edit/" + id + "/" + eventId);
+    navigate(PATHS.QUOTE + '/edit/' + id + '/' + eventId);
   };
 
   const handleView = (id: string) => {
-    navigate(PATHS.QUOTE + "/" + id + "/details");
+    navigate(PATHS.QUOTE + '/' + id + '/details');
   };
 
   const optionMenu = (quote: Quote) => [
     {
-      name: "quote.list.menu.view",
+      name: 'quote.list.menu.view',
       icon: EyeIcon,
       onClick: () => handleView(quote.id),
     },
     {
-      name: "quote.list.menu.edit",
+      name: 'quote.list.menu.edit',
       icon: PencilSquareIcon,
       onClick: () => handleEdit(quote.id, quote.mainEvent.id),
     },
     {
-      name: "quote.list.menu.send",
+      name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
       onClick: () => handleSendByMail(quote.id),
     },
     {
-      name: "quote.list.menu.download",
+      name: 'quote.list.menu.download',
       icon: ArrowDownTrayIcon,
       onClick: () => downloadQuote(quote.id, quote.number),
     },
     {
-      name: "quote.list.menu.transform-to-invoice",
+      name: 'quote.list.menu.transform-to-invoice',
       icon: DocumentDuplicateIcon,
       onClick: () =>
         navigate(`${PATHS.INVOICE_GENERATE}?fromQuote=${quote.id}`),
@@ -84,7 +84,7 @@ export const Quotes = () => {
   ];
 
   const filteredQuotes =
-    quotes && quotes.length > 0 && query === ""
+    quotes && quotes.length > 0 && query === ''
       ? quotes
       : quotes.filter((quote) => {
           return (
@@ -97,41 +97,41 @@ export const Quotes = () => {
 
   const tabs = [
     {
-      name: "all",
-      tab: "all",
-      current: params.get("tab") === "all",
+      name: 'all',
+      tab: 'all',
+      current: params.get('tab') === 'all',
       quotes: filteredQuotes,
     },
     {
-      name: "draft",
-      current: params.get("tab") === QuoteStatus.DRAFT,
+      name: 'draft',
+      current: params.get('tab') === QuoteStatus.DRAFT,
       tab: QuoteStatus.DRAFT,
       quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.DRAFT
+        (quote) => quote.status === QuoteStatus.DRAFT,
       ),
     },
     {
-      name: "sent",
-      current: params.get("tab") === QuoteStatus.SENT,
+      name: 'sent',
+      current: params.get('tab') === QuoteStatus.SENT,
       tab: QuoteStatus.SENT,
       quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.SENT
+        (quote) => quote.status === QuoteStatus.SENT,
       ),
     },
     {
-      name: "accepted",
-      current: params.get("tab") === QuoteStatus.ACCEPTED,
+      name: 'accepted',
+      current: params.get('tab') === QuoteStatus.ACCEPTED,
       tab: QuoteStatus.ACCEPTED,
       quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.ACCEPTED
+        (quote) => quote.status === QuoteStatus.ACCEPTED,
       ),
     },
     {
-      name: "rejected",
-      current: params.get("tab") === QuoteStatus.REJECTED,
+      name: 'rejected',
+      current: params.get('tab') === QuoteStatus.REJECTED,
       tab: QuoteStatus.REJECTED,
       quotes: filteredQuotes.filter(
-        (quote) => quote.status === QuoteStatus.REJECTED
+        (quote) => quote.status === QuoteStatus.REJECTED,
       ),
     },
   ];
@@ -141,7 +141,7 @@ export const Quotes = () => {
   useEffect(() => {
     fetchQuotes();
     setParams({
-      tab: "all",
+      tab: 'all',
     });
   }, []);
 
@@ -152,17 +152,17 @@ export const Quotes = () => {
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               {intl.formatMessage({
-                id: "quote.header",
+                id: 'quote.header',
               })}
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
               {intl.formatMessage(
                 {
-                  id: "quote.description",
+                  id: 'quote.description',
                 },
                 {
                   nb: currentTab.quotes.length,
-                }
+                },
               )}
             </p>
           </div>
@@ -175,7 +175,7 @@ export const Quotes = () => {
                 onClick={handleNewQuote}
               >
                 {intl.formatMessage({
-                  id: "quote.button.generate",
+                  id: 'quote.button.generate',
                 })}
               </Button>
             </div>
@@ -189,9 +189,9 @@ export const Quotes = () => {
                   key={tab.name}
                   className={classNames(
                     tab.current
-                      ? "border-klaq-500 text-klaq-600"
-                      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                    "group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer"
+                      ? 'border-klaq-500 text-klaq-600'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                    'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer',
                   )}
                   onClick={() =>
                     setParams({
@@ -199,7 +199,7 @@ export const Quotes = () => {
                       tab: tab.tab,
                     })
                   }
-                  aria-current={tab.current ? "page" : undefined}
+                  aria-current={tab.current ? 'page' : undefined}
                 >
                   <span>
                     {intl.formatMessage({
@@ -229,7 +229,7 @@ export const Quotes = () => {
                 type="text"
                 className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
                 placeholder={intl.formatMessage({
-                  id: "quote.search",
+                  id: 'quote.search',
                 })}
               />
             </div>
@@ -245,7 +245,7 @@ export const Quotes = () => {
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                   >
                     {intl.formatMessage({
-                      id: "quote.list.table.customer",
+                      id: 'quote.list.table.customer',
                     })}
                   </th>
                   <th
@@ -253,7 +253,7 @@ export const Quotes = () => {
                     className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                   >
                     {intl.formatMessage({
-                      id: "quote.list.table.issued-on",
+                      id: 'quote.list.table.issued-on',
                     })}
                   </th>
                   <th
@@ -261,7 +261,7 @@ export const Quotes = () => {
                     className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                   >
                     {intl.formatMessage({
-                      id: "quote.list.table.valid-until",
+                      id: 'quote.list.table.valid-until',
                     })}
                   </th>
                   <th
@@ -269,7 +269,7 @@ export const Quotes = () => {
                     className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                   >
                     {intl.formatMessage({
-                      id: "quote.list.table.status",
+                      id: 'quote.list.table.status',
                     })}
                   </th>
                   <th
@@ -277,7 +277,7 @@ export const Quotes = () => {
                     className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                   >
                     {intl.formatMessage({
-                      id: "quote.list.table.total",
+                      id: 'quote.list.table.total',
                     })}
                   </th>
                   <th
@@ -299,8 +299,8 @@ export const Quotes = () => {
                               onClick={() =>
                                 navigate(
                                   PATHS.CUSTOMERS +
-                                    "/" +
-                                    quote.mainEvent.customer.id
+                                    '/' +
+                                    quote.mainEvent.customer.id,
                                 )
                               }
                             >
@@ -332,9 +332,9 @@ export const Quotes = () => {
                               .reduce(
                                 (acc, product) =>
                                   acc + product.price * product.quantity,
-                                0
+                                0,
                               )
-                              .toFixed(2)}{" "}
+                              .toFixed(2)}{' '}
                             €
                           </div>
                         </td>
@@ -356,7 +356,7 @@ export const Quotes = () => {
                           />
                           <h3 className="mt-4 font-semibold text-gray-900">
                             {intl.formatMessage({
-                              id: "quote.empty",
+                              id: 'quote.empty',
                             })}
                           </h3>
                         </div>
@@ -371,7 +371,10 @@ export const Quotes = () => {
           </div>
         </div>
       </div>
-      <CreateNewQuoteModal isOpen={openNewQuote} setOpen={setOpenNewQuote} />
+      <CreateNewQuoteModal
+        isOpen={shouldOpenNewQuote}
+        setOpen={setOpenNewQuote}
+      />
     </PageLayout>
   );
 };
@@ -383,27 +386,27 @@ export const QuoteListSkeleton = () => {
         <tr className="animate-pulse" key={`quote-item-${index}`}>
           <td className="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
             <div>
-              <Skeleton variant="rounded" width={"40"} height={12} />
+              <Skeleton variant="rounded" width={'40'} height={12} />
             </div>
           </td>
           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
             <div className="font-medium text-gray-500">
-              <Skeleton variant="rounded" width={"full"} height={8} />
+              <Skeleton variant="rounded" width={'full'} height={8} />
             </div>
           </td>
           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
             <div className="font-medium text-gray-500">
-              <Skeleton variant="rounded" width={"full"} height={8} />
+              <Skeleton variant="rounded" width={'full'} height={8} />
             </div>
           </td>
           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
             <div className="font-medium text-gray-500">
-              <Skeleton variant="rounded" width={"full"} height={8} />
+              <Skeleton variant="rounded" width={'full'} height={8} />
             </div>
           </td>
           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
             <div className="font-medium text-gray-500">
-              <Skeleton variant="rounded" width={"full"} height={8} />
+              <Skeleton variant="rounded" width={'full'} height={8} />
             </div>
           </td>
         </tr>

@@ -1,13 +1,13 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import { ToastNotification } from "components";
-import { NewQuote, Quote, QuoteStatus } from "interface/Quote/quote.interface";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "routes";
-import { KlaqToast } from "utils/KlaqToast";
-import webClient from "utils/webclient";
-import { setQuote, setQuotes } from "./slices";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import { ToastNotification } from 'components';
+import { NewQuote, Quote, QuoteStatus } from 'interface/Quote/quote.interface';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from 'routes';
+import { KlaqToast } from 'utils/KlaqToast';
+import webClient from 'utils/webclient';
+import { setQuote, setQuotes } from './slices';
 
 export const useFetchQuote = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const useFetchQuote = () => {
       const { data } = await webClient.get(`/quote/${id}`);
       dispatch(setQuote(data));
     } catch (error: any) {
-      KlaqToast("danger", "quote-get-error");
+      KlaqToast('danger', 'quote-get-error');
       console.error(error);
       navigate(PATHS.QUOTES);
     }
@@ -34,7 +34,7 @@ export const useFetchQuotes = () => {
       const { data } = await webClient.get(`/quote`);
       dispatch(setQuotes(data));
     } catch (error: any) {
-      KlaqToast("danger", "quote-get-error");
+      KlaqToast('danger', 'quote-get-error');
       console.error(error);
       navigate(PATHS.QUOTES);
     }
@@ -56,7 +56,7 @@ export const useCreateQuote = () => {
           titleId="toast.success.quote-created.title"
           messageId="toast.success.quote-created.message"
         />,
-        { duration: 2, position: "top-right" }
+        { duration: 2, position: 'top-right' },
       );
       navigate(`${PATHS.QUOTE}/${data.id}/details`);
     } catch (error: any) {
@@ -66,10 +66,10 @@ export const useCreateQuote = () => {
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`toast.error.${code ? code : "default"}.title`}
-          messageId={`toast.error.${code ? code : "default"}.message`}
+          titleId={`toast.error.${code ? code : 'default'}.title`}
+          messageId={`toast.error.${code ? code : 'default'}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
     }
@@ -82,17 +82,17 @@ export const useEditQuote = () => {
 
   return useAsyncCallback(async (quote: NewQuote, id: string) => {
     try {
-      if (quote.orderFormId === "") delete quote.orderFormId;
+      if (quote.orderFormId === '') delete quote.orderFormId;
       const { data } = await webClient.put(`/quote/${id}`, quote);
       dispatch(setQuote(data));
-      navigate(PATHS.QUOTE + "/" + id + "/details");
+      navigate(PATHS.QUOTE + '/' + id + '/details');
       toast.custom(
         <ToastNotification
           status="success"
           titleId="toast.success.quote-edited.title"
           messageId="toast.success.quote-edited.message"
         />,
-        { duration: 2, position: "top-right" }
+        { duration: 2, position: 'top-right' },
       );
     } catch (error: any) {
       const code = error.response.data.code
@@ -101,10 +101,10 @@ export const useEditQuote = () => {
       toast.custom(
         <ToastNotification
           status="danger"
-          titleId={`toast.error.${code ? code : "default"}.title`}
-          messageId={`toast.error.${code ? code : "default"}.message`}
+          titleId={`toast.error.${code ? code : 'default'}.title`}
+          messageId={`toast.error.${code ? code : 'default'}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
     }
@@ -122,20 +122,20 @@ export const useSendQuote = () => {
         to: string;
         cc: boolean;
       },
-      id: string
+      id: string,
     ) => {
       try {
         const { data } = await webClient.post(`/quote/${id}/send`, values);
         dispatch(setQuote(data));
-        KlaqToast("success", "quote-send");
+        KlaqToast('success', 'quote-send');
       } catch (error: any) {
         console.error(error);
         const code = error.response.data.code
           ? error.response.data.code.toLowerCase()
           : null;
-        KlaqToast("danger", code);
+        KlaqToast('danger', code);
       }
-    }
+    },
   );
 };
 
@@ -164,12 +164,12 @@ export const useFetchQuoteDocument = () => {
       const { data } = await webClient.get(
         `/quote/${quoteDocumentId}/document`,
         {
-          responseType: "blob",
-        }
+          responseType: 'blob',
+        },
       );
       return data;
     } catch (error: any) {
-      KlaqToast("danger", "quote-pdf-error");
+      KlaqToast('danger', 'quote-pdf-error');
       console.error(error);
     }
   });
@@ -183,32 +183,33 @@ export const useDownloadQuoteDocument = () => {
         const { data } = await webClient.get(
           `/quote/${quoteDocumentId}/document`,
           {
-            responseType: "blob",
-          }
+            responseType: 'blob',
+          },
         );
-        const blob = new Blob([data], { type: "application/pdf" });
+        const blob = new Blob([data], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
+        const link = document.createElement('a');
         link.href = url;
-        link.setAttribute("download", quoteNumber + ".pdf");
+        link.setAttribute('download', quoteNumber + '.pdf');
         document.body.appendChild(link);
         link.click();
         link.remove();
       } catch (error: any) {
-        KlaqToast("danger", "quote-pdf-error");
+        KlaqToast('danger', 'quote-pdf-error');
         console.error(error);
       }
-    }
+    },
   );
 };
 
 export const useFetchQuotesForCustomer = () => {
-  return useAsyncCallback(async (customerId: string) => {
+  return useAsyncCallback(async (customerId?: string) => {
+    if (!customerId) return;
     try {
       const { data } = await webClient.get(`/quote/customer/${customerId}`);
       return data as Quote[];
     } catch (error: any) {
-      KlaqToast("danger", "quote-get-error");
+      KlaqToast('danger', 'quote-get-error');
       console.error(error);
     }
   });

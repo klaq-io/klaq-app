@@ -1,23 +1,22 @@
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { CardContainer } from "components";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import {
-  useFetchInvoiceDocument
-} from "redux/Invoice/hooks";
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { CardContainer } from 'components';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useFetchInvoiceDocument } from 'redux/Invoice/hooks';
 
 export const InvoiceViewPage = () => {
   const { id } = useParams<{ id: string }>();
 
-  const [{ data, isLoading }, fetchInvoicePDF] = useFetchInvoiceDocument();
+  const [{ isLoading }, fetchInvoicePDF] = useFetchInvoiceDocument();
 
   const displayPDF = async () => {
     const data = await fetchInvoicePDF(id);
-    const blob = new Blob([data], { type: "application/pdf" });
+    const blob = new Blob([data], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
-    const iframe = document.querySelector("iframe");
-    iframe!.src = url;
+    const iframe = document.querySelector('iframe');
+    if (!iframe) return;
+    iframe.src = url;
   };
 
   useEffect(() => {

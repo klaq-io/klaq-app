@@ -1,29 +1,29 @@
-import { useFormik } from "formik";
-import { PageLayout } from "layouts";
-import { useIntl } from "react-intl";
-import { initialValues, validationSchema } from "../Profile/form";
-import { useFetchUser, useGoogleGenerateOAuthUrl } from "redux/Login/hooks";
-import { useEffect } from "react";
-import { useUpdateUser } from "redux/User/hooks";
-import { useSelector } from "react-redux";
-import { getUser } from "redux/Login/selectors";
-import { format } from "date-fns";
-import toast from "react-hot-toast";
+import { useFormik } from 'formik';
+import { PageLayout } from 'layouts';
+import { useIntl } from 'react-intl';
+import { initialValues, validationSchema } from '../Profile/form';
+import { useFetchUser, useGoogleGenerateOAuthUrl } from 'redux/Login/hooks';
+import { useEffect } from 'react';
+import { useUpdateUser } from 'redux/User/hooks';
+import { useSelector } from 'react-redux';
+import { getUser } from 'redux/Login/selectors';
+import { format } from 'date-fns';
+import toast from 'react-hot-toast';
 import {
   Button,
   SettingsNavbar,
   Skeleton,
   ToastNotification,
-} from "components";
-import { DocumentDuplicateIcon, LinkIcon } from "@heroicons/react/24/outline";
-import { ReactComponent as GoogleIcon } from "assets/icon-google.svg";
-import { BetaBadge } from "components/Badge/BetaBadge";
+} from 'components';
+import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { ReactComponent as GoogleIcon } from 'assets/icon-google.svg';
+import { BetaBadge } from 'components/Badge/BetaBadge';
 
 export const Integrations = () => {
   const intl = useIntl();
 
   const [{ isLoading: isFetchingUser }, fetchUser] = useFetchUser();
-  const [{ isLoading }, updateUser] = useUpdateUser();
+  const [, updateUser] = useUpdateUser();
   const user = useSelector(getUser);
 
   const [, getGoogleOAuthUrl] = useGoogleGenerateOAuthUrl();
@@ -33,8 +33,8 @@ export const Integrations = () => {
       ...initialValues,
       ...user,
       birthDate: user.birthDate
-        ? format(new Date(user.birthDate), "yyyy-MM-dd")
-        : "",
+        ? format(new Date(user.birthDate), 'yyyy-MM-dd')
+        : '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -58,7 +58,7 @@ export const Integrations = () => {
         titleId="toast.info.copy-clipboard.title"
         status="info"
       />,
-      { duration: 1500, position: "top-right" }
+      { duration: 1500, position: 'top-right' },
     );
   };
 
@@ -74,12 +74,12 @@ export const Integrations = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.enquiry.header",
+                id: 'settings.enquiry.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.enquiry.description",
+                id: 'settings.enquiry.description',
               })}
             </p>
           </div>
@@ -93,12 +93,12 @@ export const Integrations = () => {
                 <div className="sm:col-span-full">
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "settings.enquiry.form.header",
+                      id: 'settings.enquiry.form.header',
                     })}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">
                     {intl.formatMessage({
-                      id: "settings.enquiry.form.description",
+                      id: 'settings.enquiry.form.description',
                     })}
                   </p>
                 </div>
@@ -132,14 +132,14 @@ export const Integrations = () => {
             <span className="flex justify-between">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
                 {intl.formatMessage({
-                  id: "settings.social.header",
+                  id: 'settings.social.header',
                 })}
               </h2>
               <BetaBadge />
             </span>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.social.description",
+                id: 'settings.social.description',
               })}
             </p>
           </div>
@@ -154,15 +154,15 @@ export const Integrations = () => {
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {user.isGoogleOAuthActivated
                       ? intl.formatMessage({
-                          id: "settings.social.social-login.header",
+                          id: 'settings.social.social-login.header',
                         })
                       : intl.formatMessage({
-                          id: "settings.social.no-social-login.header",
+                          id: 'settings.social.no-social-login.header',
                         })}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">
                     {intl.formatMessage({
-                      id: "settings.social.no-social-login.description",
+                      id: 'settings.social.no-social-login.description',
                     })}
                   </p>
                 </div>
@@ -188,12 +188,12 @@ export const Integrations = () => {
                         onClick={handleGoToGoogleOAuth}
                       >
                         {intl.formatMessage({
-                          id: "settings.social.no-social-login.button",
+                          id: 'settings.social.no-social-login.button',
                         })}
                       </Button>
                     )
                   ) : (
-                    <Skeleton variant={"rounded"} width={"full"} height={"8"} />
+                    <Skeleton variant={'rounded'} width={'full'} height={'8'} />
                   )}
                 </div>
               </div>

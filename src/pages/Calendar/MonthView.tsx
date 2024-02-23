@@ -1,11 +1,10 @@
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from '@headlessui/react';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  EllipsisHorizontalIcon,
-} from "@heroicons/react/24/outline";
-import { Button, EventBadge, NewEventModal } from "components";
+} from '@heroicons/react/24/outline';
+import { Button, NewEventModal } from 'components';
 import {
   add,
   eachDayOfInterval,
@@ -17,22 +16,22 @@ import {
   parse,
   startOfToday,
   startOfWeek,
-} from "date-fns";
-import { SubEvent } from "interface/Event/subevent.interface";
-import { Fragment, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Customer } from "redux/Customer/slices";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEvents } from "redux/MainEvent/selectors";
-import { PATHS } from "../../routes";
+} from 'date-fns';
+import { SubEvent } from 'interface/Event/subevent.interface';
+import { Fragment, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Customer } from 'redux/Customer/slices';
+import { EventStatus } from 'redux/Events/slices';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
+import { getMainEvents } from 'redux/MainEvent/selectors';
+import { PATHS } from '../../routes';
 import {
   classNames,
   getMonthStr,
   getSubEventsListFromMainEvents,
-} from "../../utils/utils";
-import { EventStatus } from "redux/Events/slices";
+} from '../../utils/utils';
 
 type Event = SubEvent & {
   customer: Customer;
@@ -44,27 +43,30 @@ export const MonthView = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
-  const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const today = startOfToday();
-  const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
-  const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+  const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
+  const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
 
   const [, fetchMainEvents] = useFetchMainEvents();
   const mainEvents = useSelector(getMainEvents);
 
   const subEventsList = mainEvents.flatMap((e) =>
-    getSubEventsListFromMainEvents(e)
+    getSubEventsListFromMainEvents(e),
   );
 
-  const subEventsByDay = subEventsList.reduce((subEventsByDay, event) => {
-    const date = format(new Date(event.date), "yyyy-MM-dd");
-    return {
-      ...subEventsByDay,
-      [date]: (subEventsByDay[date] || []).concat(event),
-    };
-  }, {} as { [key: string]: Event[] });
+  const subEventsByDay = subEventsList.reduce(
+    (subEventsByDay, event) => {
+      const date = format(new Date(event.date), 'yyyy-MM-dd');
+      return {
+        ...subEventsByDay,
+        [date]: (subEventsByDay[date] || []).concat(event),
+      };
+    },
+    {} as { [key: string]: Event[] },
+  );
 
   const days = eachDayOfInterval({
     start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),
@@ -73,7 +75,7 @@ export const MonthView = () => {
 
   const newDays = days.map((day) => ({
     date: day,
-    events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
+    events: subEventsByDay[format(day, 'yyyy-MM-dd')] || [],
   }));
 
   const handleGoToEventDetails = (id: string) => {
@@ -86,12 +88,12 @@ export const MonthView = () => {
 
   const nextMonth = () => {
     const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
-    setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
+    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
   };
 
   const prevMonth = () => {
     const firstDayPrevMonth = add(firstDayCurrentMonth, { months: -1 });
-    setCurrentMonth(format(firstDayPrevMonth, "MMM-yyyy"));
+    setCurrentMonth(format(firstDayPrevMonth, 'MMM-yyyy'));
   };
 
   useEffect(() => {
@@ -104,7 +106,7 @@ export const MonthView = () => {
         <h1 className="text-base font-semibold leading-6 text-gray-900">
           <time>
             {intl.formatMessage({ id: getMonthStr(firstDayCurrentMonth) })}
-            {format(firstDayCurrentMonth, " yyyy")}
+            {format(firstDayCurrentMonth, ' yyyy')}
           </time>
         </h1>
         <div className="flex items-center">
@@ -137,7 +139,7 @@ export const MonthView = () => {
                 className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
                 {intl.formatMessage({
-                  id: "calendar.select-view.month",
+                  id: 'calendar.select-view.month',
                 })}
                 <ChevronDownIcon
                   className="-mr-1 h-5 w-5 text-gray-400"
@@ -162,13 +164,13 @@ export const MonthView = () => {
                           href="#"
                           className={classNames(
                             active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
                           )}
                         >
                           {intl.formatMessage({
-                            id: "calendar.select-view.day",
+                            id: 'calendar.select-view.day',
                           })}
                         </a>
                       )}
@@ -179,13 +181,13 @@ export const MonthView = () => {
                           href="#"
                           className={classNames(
                             active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
                           )}
                         >
                           {intl.formatMessage({
-                            id: "calendar.select-view.week",
+                            id: 'calendar.select-view.week',
                           })}
                         </a>
                       )}
@@ -196,13 +198,13 @@ export const MonthView = () => {
                           href="#"
                           className={classNames(
                             active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
                           )}
                         >
                           {intl.formatMessage({
-                            id: "calendar.select-view.month",
+                            id: 'calendar.select-view.month',
                           })}
                         </a>
                       )}
@@ -213,13 +215,13 @@ export const MonthView = () => {
                           href="#"
                           className={classNames(
                             active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm"
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
                           )}
                         >
                           {intl.formatMessage({
-                            id: "calendar.select-view.year",
+                            id: 'calendar.select-view.year',
                           })}
                         </a>
                       )}
@@ -237,7 +239,7 @@ export const MonthView = () => {
               color="primary"
             >
               {intl.formatMessage({
-                id: "calendar.button.add-event",
+                id: 'calendar.button.add-event',
               })}
             </Button>
           </div>
@@ -247,25 +249,25 @@ export const MonthView = () => {
         <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
           <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.monday" })}
+              {intl.formatMessage({ id: 'events.day.monday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.tuesday" })}
+              {intl.formatMessage({ id: 'events.day.tuesday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.wednesday" })}
+              {intl.formatMessage({ id: 'events.day.wednesday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.thursday" })}
+              {intl.formatMessage({ id: 'events.day.thursday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.friday" })}
+              {intl.formatMessage({ id: 'events.day.friday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.saturday" })}
+              {intl.formatMessage({ id: 'events.day.saturday' })}
             </div>
             <div className="bg-white py-2">
-              {intl.formatMessage({ id: "events.day.sunday" })}
+              {intl.formatMessage({ id: 'events.day.sunday' })}
             </div>
           </div>
           <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
@@ -275,9 +277,9 @@ export const MonthView = () => {
                   key={day.date.toString()}
                   className={classNames(
                     isSameMonth(day.date, firstDayCurrentMonth)
-                      ? "bg-white"
-                      : "bg-gray-50 text-gray-500",
-                    "relative px-3 py-2 h-32 overflow-y-scroll"
+                      ? 'bg-white'
+                      : 'bg-gray-50 text-gray-500',
+                    'relative px-3 py-2 h-32 overflow-y-scroll',
                   )}
                   onDoubleClick={() => {
                     setSelectedDate(day.date);
@@ -285,14 +287,14 @@ export const MonthView = () => {
                   }}
                 >
                   <time
-                    dateTime={format(day.date, "yyyy-MM-dd")}
+                    dateTime={format(day.date, 'yyyy-MM-dd')}
                     className={
                       isToday(day.date)
-                        ? "flex h-6 w-6 items-center justify-center rounded-full bg-klaq-600 font-semibold text-white"
+                        ? 'flex h-6 w-6 items-center justify-center rounded-full bg-klaq-600 font-semibold text-white'
                         : undefined
                     }
                   >
-                    {format(day.date, "d")}
+                    {format(day.date, 'd')}
                   </time>
                   {day.events.length > 0 && (
                     <ol className="mt-2">
@@ -331,10 +333,10 @@ export const MonthView = () => {
                       {day.events.length > 2 && (
                         <li className="text-gray-500">
                           {intl.formatMessage(
-                            { id: "calendar.x-more-events" },
+                            { id: 'calendar.x-more-events' },
                             {
                               number: day.events.length - 2,
-                            }
+                            },
                           )}
                         </li>
                       )}
@@ -347,7 +349,7 @@ export const MonthView = () => {
         </div>
       </div>
       <NewEventModal
-        isOpen={openNewEvent}
+        isOpen={shouldOpenNewEvent}
         setOpen={setOpenNewEvent}
         suggestedDate={selectedDate}
       />

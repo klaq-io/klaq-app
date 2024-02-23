@@ -1,28 +1,22 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { SearchCompany } from "components";
-import { Button } from "components";
-import { Suggestion } from "../../../interface/suggestion.interface";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { useFetchSuggestions } from "../../../redux/Company/hooks";
-import { PATHS } from "../../../routes";
-
-type Props = {
-  classes?: string;
-};
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { Button, SearchCompany } from 'components';
+import { useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { Suggestion } from '../../../interface/suggestion.interface';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
+import { PATHS } from '../../../routes';
 
 const companyType = {
-  association: "association",
-  company: "company",
+  association: 'association',
+  company: 'company',
 };
 
-export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
+export const OnboardingCompanySearch = () => {
   const intl = useIntl();
   const params = new URLSearchParams(document.location.search);
   const type =
-    params.get("companyType") === companyType.association
+    params.get('companyType') === companyType.association
       ? companyType.association
       : companyType.company;
 
@@ -74,7 +68,7 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
             <div className="relative flex justify-center">
               <span className="bg-white px-2 text-sm text-gray-500">
                 {intl.formatMessage({
-                  id: "onboarding.search-company.divider",
+                  id: 'onboarding.search-company.divider',
                 })}
               </span>
             </div>
@@ -90,7 +84,7 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
               onClick={handlePrevious}
             >
               {intl.formatMessage({
-                id: "onboarding.company-form.button.previous",
+                id: 'onboarding.company-form.button.previous',
               })}
             </Button>
             <Button
@@ -100,7 +94,7 @@ export const OnboardingCompanySearch: React.FC<Props> = (props: Props) => {
               color="primary"
             >
               {intl.formatMessage({
-                id: "onboarding.search-company.goto-next",
+                id: 'onboarding.search-company.goto-next',
               })}
             </Button>
           </div>

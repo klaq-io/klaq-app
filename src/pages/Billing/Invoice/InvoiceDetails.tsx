@@ -1,4 +1,4 @@
-import { Transition } from "@headlessui/react";
+import { Transition } from '@headlessui/react';
 import {
   ArrowDownTrayIcon,
   BanknotesIcon,
@@ -8,8 +8,8 @@ import {
   EyeIcon,
   PencilSquareIcon,
   TrashIcon,
-  UserIcon
-} from "@heroicons/react/24/outline";
+  UserIcon,
+} from '@heroicons/react/24/outline';
 import {
   CardContainer,
   DangerModal,
@@ -17,29 +17,29 @@ import {
   InvoiceBadge,
   Label,
   Tooltip,
-} from "components";
-import { format } from "date-fns";
+} from 'components';
+import { format } from 'date-fns';
 import {
   DiscountType,
   InvoiceProduct,
   InvoiceStatus,
-} from "interface/Invoice/invoice.interface";
-import { PageLayout } from "layouts";
-import EditCustomer from "pages/Customers/EditCustomer";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { CustomerType } from "redux/Customer/slices";
+} from 'interface/Invoice/invoice.interface';
+import { PageLayout } from 'layouts';
+import EditCustomer from 'pages/Customers/EditCustomer';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
 import {
   useDeleteInvoice,
   useDownloadInvoiceDocument,
   useFetchInvoice,
   useMarkAsFinal,
-  useUpdateInvoiceStatus
-} from "redux/Invoice/hooks";
-import { getInvoice } from "redux/Invoice/selectors";
-import { PATHS } from "routes";
+  useUpdateInvoiceStatus,
+} from 'redux/Invoice/hooks';
+import { getInvoice } from 'redux/Invoice/selectors';
+import { PATHS } from 'routes';
 
 export const InvoiceDetailsPage = () => {
   const intl = useIntl();
@@ -72,14 +72,14 @@ export const InvoiceDetailsPage = () => {
   const subtotal =
     invoice?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
-      0
+      0,
     ) || 0;
 
   const tax =
     invoice?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
-      0
+      0,
     ) || 0;
 
   const total = subtotal + tax;
@@ -202,10 +202,10 @@ export const InvoiceDetailsPage = () => {
                           </td>
                           {hasAtLeastOneDiscount && (
                             <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                              {product.discount}{" "}
+                              {product.discount}{' '}
                               {product.discountType === DiscountType.PERCENT
-                                ? "%"
-                                : "€"}
+                                ? '%'
+                                : '€'}
                             </td>
                           )}
                           <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
@@ -220,7 +220,7 @@ export const InvoiceDetailsPage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.subtotal",
+                            id: 'invoice-generate.total.label.subtotal',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -230,7 +230,7 @@ export const InvoiceDetailsPage = () => {
                       <div className="flex space-x-12">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.tax",
+                            id: 'invoice-generate.total.label.tax',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -240,7 +240,7 @@ export const InvoiceDetailsPage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.total",
+                            id: 'invoice-generate.total.label.total',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -335,7 +335,7 @@ export const InvoiceDetailsPage = () => {
                   <div className="flex justify-between">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "invoice.informations.title",
+                        id: 'invoice.informations.title',
                       })}
                     </h1>
                   </div>
@@ -346,28 +346,28 @@ export const InvoiceDetailsPage = () => {
                   <div>
                     <Label htmlFor="issuedOn">Délivré le</Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(invoice.issuedOn), "dd/MM/yyyy")}
+                      {format(new Date(invoice.issuedOn), 'dd/MM/yyyy')}
                     </span>
                   </div>
                   <div>
                     <Label htmlFor="object">
                       {intl.formatMessage({
-                        id: "invoice-generate.informations.object.label",
+                        id: 'invoice-generate.informations.object.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {invoice.object || "N/A"}
+                      {invoice.object || 'N/A'}
                     </span>
                   </div>
 
                   <div>
                     <Label htmlFor="orderFormId">
                       {intl.formatMessage({
-                        id: "invoice-generate.informations.order-form-id.label",
+                        id: 'invoice-generate.informations.order-form-id.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {invoice.orderFormId || "N/A"}
+                      {invoice.orderFormId || 'N/A'}
                     </span>
                   </div>
                 </CardContainer>
@@ -376,7 +376,7 @@ export const InvoiceDetailsPage = () => {
                     <div className="flex justify-between">
                       <h1 className="text-base font-semibold leading-6 text-gray-900">
                         {intl.formatMessage({
-                          id: "invoice.recipient.title",
+                          id: 'invoice.recipient.title',
                         })}
                       </h1>
                       <button onClick={() => setOpenNewCustomer(true)}>
@@ -401,7 +401,7 @@ export const InvoiceDetailsPage = () => {
                       <div className="flex flex-col">
                         <h2 className="text-lg leading-7 text-gray-900 sm:truncate sm:tracking-tight">
                           {invoice.mainEvent.customer.name}
-                        </h2>{" "}
+                        </h2>{' '}
                         <p className="text-sm text-gray-500">
                           {invoice.mainEvent.customer.email}
                         </p>
@@ -412,23 +412,23 @@ export const InvoiceDetailsPage = () => {
                 <CardContainer className="flex flex-col space-y-4 px-4 py-5 sm:p-6 h-full">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "invoice.payment-conditions.title",
+                      id: 'invoice.payment-conditions.title',
                     })}
                   </h1>
                   <div>
                     <Label htmlFor="validUntil">
                       {intl.formatMessage({
-                        id: "invoice-generate.payment-condition.valid-until.label",
+                        id: 'invoice-generate.payment-condition.valid-until.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(invoice.validUntil), "dd/MM/yyyy")}
+                      {format(new Date(invoice.validUntil), 'dd/MM/yyyy')}
                     </span>
                   </div>
                   <div>
                     <Label htmlFor="Payment">
                       {intl.formatMessage({
-                        id: "invoice-generate.payment-condition.payment-method.label",
+                        id: 'invoice-generate.payment-condition.payment-method.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
@@ -446,7 +446,7 @@ export const InvoiceDetailsPage = () => {
       {invoice && (
         <EditCustomer
           setOpen={setOpenNewCustomer}
-          open={isOpenNewCustomer}
+          isOpen={isOpenNewCustomer}
           customer={invoice?.mainEvent.customer}
         />
       )}
@@ -456,8 +456,8 @@ export const InvoiceDetailsPage = () => {
           setOpen={setOpenMarkAsFinalModal}
           title="Vous vous apprêtez à convertir ce projet en une facture officielle"
           message="Une fois cette opération effectuée, la facture recevra un numéro d'identification, pourra être transmise à votre client et ne sera plus modifiable. Veuillez noter que cette action est irréversible. Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Marqué comme finalisée"}
+          button2={'Annuler'}
+          button1={'Marqué comme finalisée'}
           onClick={() => {
             markAsFinal(invoice.id);
             setOpenMarkAsFinalModal(false);
@@ -470,8 +470,8 @@ export const InvoiceDetailsPage = () => {
           setOpen={setOpenPaidModal}
           title="Vous vous apprêtez à marquer cette facture comme payée"
           message="Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Marqué comme payée"}
+          button2={'Annuler'}
+          button1={'Marqué comme payée'}
           onClick={() => {
             updateInvoiceStatus(InvoiceStatus.PAID, invoice.id);
             setOpenPaidModal(false);
@@ -484,8 +484,8 @@ export const InvoiceDetailsPage = () => {
           setOpen={setOpenDeleteInvoice}
           title="Voulez-vous vraiment supprimer cette facture ?"
           message="Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Supprimer"}
+          button2={'Annuler'}
+          button1={'Supprimer'}
           onClick={() => {
             deleteInvoice(invoice.id);
             setOpenDeleteInvoice(false);

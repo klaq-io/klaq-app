@@ -1,10 +1,10 @@
-import { ArrowLeftIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { Button, CardContainer } from "components";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFetchQuoteDocument } from "redux/Quote/hooks";
+import { ArrowLeftIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { Button, CardContainer } from 'components';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFetchQuoteDocument } from 'redux/Quote/hooks';
 
 export const QuoteViewPage = () => {
   const intl = useIntl();
@@ -15,10 +15,11 @@ export const QuoteViewPage = () => {
 
   const displayPDF = async () => {
     const data = await fetchQuotePDF(id);
-    const blob = new Blob([data], { type: "application/pdf" });
+    const blob = new Blob([data], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
-    const iframe = document.querySelector("iframe");
-    iframe!.src = url;
+    const iframe = document.querySelector('iframe');
+    if (!iframe) return;
+    iframe.src = url;
   };
 
   const handlePrevious = () => {
@@ -54,7 +55,7 @@ export const QuoteViewPage = () => {
             onClick={handlePrevious}
           >
             {intl.formatMessage({
-              id: "customers.customer-details.button.previous",
+              id: 'customers.customer-details.button.previous',
             })}
           </Button>
         </div>

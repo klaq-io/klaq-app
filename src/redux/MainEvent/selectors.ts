@@ -2,7 +2,8 @@ import { MainEvent } from 'interface/Event/main-event.interface';
 import { EventStatus } from 'redux/Events/slices';
 import { RootState } from 'redux/store';
 
-export const getMainEvent = (state: RootState, id: string): MainEvent =>
+export const getMainEvent = (state: RootState, id?: string): MainEvent =>
+  id &&
   state.mainEvents.mainEvents.find(
     (mainEvent: MainEvent) => mainEvent.id === id,
   );

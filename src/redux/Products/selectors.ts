@@ -6,8 +6,11 @@ export const getAllProducts = (state: RootState): ProductItem[] =>
 
 export const getProductById = (
   state: RootState,
-  id: string,
+  id?: string,
 ): ProductItem | undefined => {
+  if (!id) {
+    return undefined;
+  }
   return state.productItems.productItems.find(
     (productItem: ProductItem) => productItem.id === id,
   );

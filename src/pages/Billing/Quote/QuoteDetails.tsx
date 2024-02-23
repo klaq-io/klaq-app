@@ -1,4 +1,4 @@
-import { Transition } from "@headlessui/react";
+import { Transition } from '@headlessui/react';
 import {
   ArrowDownTrayIcon,
   BuildingLibraryIcon,
@@ -7,31 +7,25 @@ import {
   PencilSquareIcon,
   TrashIcon,
   UserIcon,
-} from "@heroicons/react/24/outline";
-import {
-  CardContainer,
-  DangerModal,
-  Label,
-  Tooltip
-} from "components";
-import { QuoteBadgeButton } from "components/Quote/QuoteBadgeButton";
-import { format } from "date-fns";
+} from '@heroicons/react/24/outline';
+import { CardContainer, Label, Tooltip } from 'components';
+import { QuoteBadgeButton } from 'components/Quote/QuoteBadgeButton';
+import { format } from 'date-fns';
 import {
   DiscountType,
   InvoiceProduct,
-} from "interface/Invoice/invoice.interface";
-import { QuoteProduct, QuoteStatus } from "interface/Quote/quote.interface";
-import { PageLayout } from "layouts";
-import EditCustomer from "pages/Customers/EditCustomer";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { CustomerType } from "redux/Customer/slices";
-import { useDeleteInvoice, useUpdateInvoiceStatus } from "redux/Invoice/hooks";
-import { useDownloadQuoteDocument, useFetchQuote } from "redux/Quote/hooks";
-import { getQuoteById } from "redux/Quote/selectors";
-import { PATHS } from "routes";
+} from 'interface/Invoice/invoice.interface';
+import { QuoteProduct, QuoteStatus } from 'interface/Quote/quote.interface';
+import { PageLayout } from 'layouts';
+import EditCustomer from 'pages/Customers/EditCustomer';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
+import { useDownloadQuoteDocument, useFetchQuote } from 'redux/Quote/hooks';
+import { getQuoteById } from 'redux/Quote/selectors';
+import { PATHS } from 'routes';
 
 export const QuoteDetailsPage = () => {
   const intl = useIntl();
@@ -39,9 +33,7 @@ export const QuoteDetailsPage = () => {
   const { id } = useParams();
 
   const [{ isLoading }, fetchQuote] = useFetchQuote();
-  const [{ isLoading: isUpdatingStatus }, updateInvoiceStatus] =
-    useUpdateInvoiceStatus();
-  const quote = useSelector((state: any) => getQuoteById(state, id!));
+  const quote = useSelector((state: any) => getQuoteById(state, id));
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
     useDownloadQuoteDocument();
 
@@ -60,14 +52,14 @@ export const QuoteDetailsPage = () => {
   const subtotal =
     quote?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
-      0
+      0,
     ) || 0;
 
   const tax =
     quote?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
-      0
+      0,
     ) || 0;
 
   const total = subtotal + tax;
@@ -189,10 +181,10 @@ export const QuoteDetailsPage = () => {
                           </td>
                           {hasAtLeastOneDiscount && (
                             <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                              {product.discount}{" "}
+                              {product.discount}{' '}
                               {product.discountType === DiscountType.PERCENT
-                                ? "%"
-                                : "€"}
+                                ? '%'
+                                : '€'}
                             </td>
                           )}
                           <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
@@ -207,7 +199,7 @@ export const QuoteDetailsPage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.subtotal",
+                            id: 'invoice-generate.total.label.subtotal',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -217,7 +209,7 @@ export const QuoteDetailsPage = () => {
                       <div className="flex space-x-12">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.tax",
+                            id: 'invoice-generate.total.label.tax',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -227,7 +219,7 @@ export const QuoteDetailsPage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.total",
+                            id: 'invoice-generate.total.label.total',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -242,7 +234,6 @@ export const QuoteDetailsPage = () => {
                 <div className="flex justify-between">
                   <Tooltip text="Editer" position="bottom">
                     <button
-                      disabled={isUpdatingStatus}
                       className="bg-warning-500 text-white rounded-full p-3 hover:bg-wrning-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
                       onClick={handleGoToEdit}
                     >
@@ -293,7 +284,7 @@ export const QuoteDetailsPage = () => {
                   <div className="flex justify-between">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "invoice.informations.title",
+                        id: 'invoice.informations.title',
                       })}
                     </h1>
                   </div>
@@ -304,28 +295,28 @@ export const QuoteDetailsPage = () => {
                   <div>
                     <Label htmlFor="issuedOn">Délivré le</Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(quote.issuedOn), "dd/MM/yyyy")}
+                      {format(new Date(quote.issuedOn), 'dd/MM/yyyy')}
                     </span>
                   </div>
                   <div>
                     <Label htmlFor="object">
                       {intl.formatMessage({
-                        id: "quote-generate.informations.object.label",
+                        id: 'quote-generate.informations.object.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {quote.object || "N/A"}
+                      {quote.object || 'N/A'}
                     </span>
                   </div>
 
                   <div>
                     <Label htmlFor="orderFormId">
                       {intl.formatMessage({
-                        id: "invoice-generate.informations.order-form-id.label",
+                        id: 'invoice-generate.informations.order-form-id.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {quote.orderFormId || "N/A"}
+                      {quote.orderFormId || 'N/A'}
                     </span>
                   </div>
                 </CardContainer>
@@ -334,7 +325,7 @@ export const QuoteDetailsPage = () => {
                     <div className="flex justify-between">
                       <h1 className="text-base font-semibold leading-6 text-gray-900">
                         {intl.formatMessage({
-                          id: "invoice.recipient.title",
+                          id: 'invoice.recipient.title',
                         })}
                       </h1>
                       <button onClick={() => setOpenNewCustomer(true)}>
@@ -359,7 +350,7 @@ export const QuoteDetailsPage = () => {
                       <div className="flex flex-col">
                         <h2 className="text-lg leading-7 text-gray-900 sm:truncate sm:tracking-tight">
                           {quote.mainEvent.customer.name}
-                        </h2>{" "}
+                        </h2>{' '}
                         <p className="text-sm text-gray-500">
                           {quote.mainEvent.customer.email}
                         </p>
@@ -370,17 +361,17 @@ export const QuoteDetailsPage = () => {
                 <CardContainer className="flex flex-col space-y-4 px-4 py-5 sm:p-6 h-full">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "invoice.payment-conditions.title",
+                      id: 'invoice.payment-conditions.title',
                     })}
                   </h1>
                   <div>
                     <Label htmlFor="validUntil">
                       {intl.formatMessage({
-                        id: "invoice-generate.payment-condition.valid-until.label",
+                        id: 'invoice-generate.payment-condition.valid-until.label',
                       })}
                     </Label>
                     <span className="text-sm text-gray-500">
-                      {format(new Date(quote.validUntil), "dd/MM/yyyy")}
+                      {format(new Date(quote.validUntil), 'dd/MM/yyyy')}
                     </span>
                   </div>
                 </CardContainer>
@@ -392,7 +383,7 @@ export const QuoteDetailsPage = () => {
       {quote && (
         <EditCustomer
           setOpen={setOpenNewCustomer}
-          open={shouldOpenNewCustomer}
+          isOpen={shouldOpenNewCustomer}
           customer={quote?.mainEvent.customer}
         />
       )}

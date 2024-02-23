@@ -1,22 +1,19 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { Button } from "components";
-import {
-  CompanyLegalForm,
-  Suggestion,
-} from "../../../interface/suggestion.interface";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Button } from 'components';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { CompanyLegalForm } from '../../../interface/suggestion.interface';
+import { OnboardingStatus } from '../../../interface/user.interface';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
 import {
   useCreateCompany,
   useFetchCompanyInformation,
-} from "../../../redux/Company/hooks";
-import { PATHS } from "../../../routes";
-import { companyFormSchema, initialCompanyFormValues } from "./form";
-import { useUpdateOnboardingStatus } from "../../../redux/User/hooks";
-import { OnboardingStatus } from "../../../interface/user.interface";
+} from '../../../redux/Company/hooks';
+import { useUpdateOnboardingStatus } from '../../../redux/User/hooks';
+import { PATHS } from '../../../routes';
+import { companyFormSchema, initialCompanyFormValues } from './form';
 
 type CompanyLegalFormType = keyof typeof CompanyLegalForm;
 
@@ -27,8 +24,8 @@ const STEP = {
 };
 
 const companyType = {
-  association: "association",
-  company: "company",
+  association: 'association',
+  company: 'company',
 };
 
 export const OnboardingCompany = () => {
@@ -43,25 +40,26 @@ export const OnboardingCompany = () => {
     useFetchCompanyInformation();
 
   const intl = useIntl();
+  /* eslint-disable */
   const formik = useFormik({
     initialValues:
       {
-        activityType: params.get("activityType")!,
-        inseeLegalFormCode: params.get("inseeLegalFormCode")!,
-        legalForm: params.get("legalForm")!,
-        legalName: params.get("legalName")!,
-        legalRegistrationNumber: params.get("legalRegistrationNumber")!,
+        activityType: params.get('activityType')!,
+        inseeLegalFormCode: params.get('inseeLegalFormCode')!,
+        legalForm: params.get('legalForm')!,
+        legalName: params.get('legalName')!,
+        legalRegistrationNumber: params.get('legalRegistrationNumber')!,
         legalVATNumber:
-          params.get("legalVATNumber") === "null" ||
-          !!params.get("legalVATNumber")
+          params.get('legalVATNumber') === 'null' ||
+          !!params.get('legalVATNumber')
             ? company.legalVATNumber
-            : params.get("legalVATNumber") || "",
-        registrationDate: params.get("registrationDate")!,
-        address: params.get("address")!,
-        city: params.get("city")!,
-        zip: params.get("zip")!,
-        tradeName: params.get("tradeName")!,
-        country: params.get("country")!,
+            : params.get('legalVATNumber') || '',
+        registrationDate: params.get('registrationDate')!,
+        address: params.get('address')!,
+        city: params.get('city')!,
+        zip: params.get('zip')!,
+        tradeName: params.get('tradeName')!,
+        country: params.get('country')!,
       } || initialCompanyFormValues,
     validationSchema: companyFormSchema,
     onSubmit: (values) => {
@@ -71,6 +69,7 @@ export const OnboardingCompany = () => {
     },
     enableReinitialize: true,
   });
+  /* eslint-enable */
 
   const handleBackToLastPage = () => {
     navigate(PATHS.ONBOARDING_LEGAL_FORM_CHOICE);
@@ -81,13 +80,13 @@ export const OnboardingCompany = () => {
   };
 
   const translationKeys = {
-    [STEP.COMPANY_INFORMATION]: "company",
-    [STEP.VTA]: "vta",
-    [STEP.ADDRESS]: "address",
+    [STEP.COMPANY_INFORMATION]: 'company',
+    [STEP.VTA]: 'vta',
+    [STEP.ADDRESS]: 'address',
   };
 
   const type =
-    params.get("companyType") === companyType.association
+    params.get('companyType') === companyType.association
       ? companyType.association
       : companyType.company;
 
@@ -95,7 +94,7 @@ export const OnboardingCompany = () => {
     const fetchCompany = async () => {
       if (type !== companyType.association)
         setCompany(
-          await fetchCompanyInformation(formik.values.legalRegistrationNumber)
+          await fetchCompanyInformation(formik.values.legalRegistrationNumber),
         );
     };
     fetchCompany();
@@ -137,13 +136,13 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.legal-name",
+                      id: 'onboarding.company-form.input.legal-name',
                     })}
                   />
                   {formik.errors.legalName && formik.touched.legalName ? (
                     <p className="mt-2 text-sm text-danger-600">
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.legal-name",
+                        id: 'onboarding.company-form.error.legal-name',
                       })}
                     </p>
                   ) : null}
@@ -173,7 +172,7 @@ export const OnboardingCompany = () => {
                   >
                     {(
                       Object.keys(
-                        CompanyLegalForm
+                        CompanyLegalForm,
                       ) as Array<CompanyLegalFormType>
                     ).map((key) => (
                       <option key={key} value={CompanyLegalForm[key]}>
@@ -184,7 +183,7 @@ export const OnboardingCompany = () => {
                   {formik.errors.legalForm && formik.touched.legalForm ? (
                     <p className="mt-2 text-sm text-danger-600">
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.legal-form",
+                        id: 'onboarding.company-form.error.legal-form',
                       })}
                     </p>
                   ) : null}
@@ -197,7 +196,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.legal-registration-number",
+                    id: 'onboarding.company-form.label.legal-registration-number',
                   })}
                 </label>
                 <div className="mt-2">
@@ -210,14 +209,14 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.legal-registration-number",
+                      id: 'onboarding.company-form.input.legal-registration-number',
                     })}
                   />
                   {formik.errors.legalRegistrationNumber &&
                   formik.touched.legalRegistrationNumber ? (
                     <p className="mt-2 text-sm text-danger-600">
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.legal-registration-number",
+                        id: 'onboarding.company-form.error.legal-registration-number',
                       })}
                     </p>
                   ) : null}
@@ -242,7 +241,7 @@ export const OnboardingCompany = () => {
                   onClick={handleBackToLastPage}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.previous",
+                    id: 'onboarding.company-form.button.previous',
                   })}
                 </Button>
                 <Button
@@ -264,7 +263,7 @@ export const OnboardingCompany = () => {
                   }
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.next",
+                    id: 'onboarding.company-form.button.next',
                   })}
                 </Button>
               </div>
@@ -279,7 +278,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.legal-vat-number",
+                    id: 'onboarding.company-form.label.legal-vat-number',
                   })}
                 </label>
                 <div className="mt-2">
@@ -291,7 +290,7 @@ export const OnboardingCompany = () => {
                     type="text"
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.legal-vat-number",
+                      id: 'onboarding.company-form.input.legal-vat-number',
                     })}
                   />
                   {formik.errors.legalVATNumber &&
@@ -301,7 +300,7 @@ export const OnboardingCompany = () => {
                       id="email-error"
                     >
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.legal-vat-number",
+                        id: 'onboarding.company-form.error.legal-vat-number',
                       })}
                     </p>
                   ) : null}
@@ -326,7 +325,7 @@ export const OnboardingCompany = () => {
                   onClick={() => handleStep(STEP.COMPANY_INFORMATION)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.previous",
+                    id: 'onboarding.company-form.button.previous',
                   })}
                 </Button>
                 <Button
@@ -342,7 +341,7 @@ export const OnboardingCompany = () => {
                   onClick={() => handleStep(STEP.ADDRESS)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.next-step",
+                    id: 'onboarding.company-form.button.next-step',
                   })}
                 </Button>
               </div>
@@ -357,7 +356,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.address",
+                    id: 'onboarding.company-form.label.address',
                   })}
                 </label>
                 <div className="mt-2">
@@ -370,7 +369,7 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.address",
+                      id: 'onboarding.company-form.input.address',
                     })}
                   />
                   {formik.errors.address && formik.touched.address ? (
@@ -379,7 +378,7 @@ export const OnboardingCompany = () => {
                       id="email-error"
                     >
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.address",
+                        id: 'onboarding.company-form.error.address',
                       })}
                     </p>
                   ) : null}
@@ -392,7 +391,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.city",
+                    id: 'onboarding.company-form.label.city',
                   })}
                 </label>
                 <div className="mt-2">
@@ -405,7 +404,7 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.city",
+                      id: 'onboarding.company-form.input.city',
                     })}
                   />
                   {formik.errors.city && formik.touched.city ? (
@@ -414,7 +413,7 @@ export const OnboardingCompany = () => {
                       id="email-error"
                     >
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.city",
+                        id: 'onboarding.company-form.error.city',
                       })}
                     </p>
                   ) : null}
@@ -427,7 +426,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.zip",
+                    id: 'onboarding.company-form.label.zip',
                   })}
                 </label>
                 <div className="mt-2">
@@ -440,7 +439,7 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.zip",
+                      id: 'onboarding.company-form.input.zip',
                     })}
                   />
                   {formik.errors.zip && formik.touched.zip ? (
@@ -449,7 +448,7 @@ export const OnboardingCompany = () => {
                       id="email-error"
                     >
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.zip",
+                        id: 'onboarding.company-form.error.zip',
                       })}
                     </p>
                   ) : null}
@@ -462,7 +461,7 @@ export const OnboardingCompany = () => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.label.country",
+                    id: 'onboarding.company-form.label.country',
                   })}
                 </label>
                 <div className="mt-2">
@@ -475,7 +474,7 @@ export const OnboardingCompany = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
-                      id: "onboarding.company-form.input.country",
+                      id: 'onboarding.company-form.input.country',
                     })}
                   />
                   {formik.errors.country && formik.touched.country ? (
@@ -484,7 +483,7 @@ export const OnboardingCompany = () => {
                       id="email-error"
                     >
                       {intl.formatMessage({
-                        id: "onboarding.company-form.error.country",
+                        id: 'onboarding.company-form.error.country',
                       })}
                     </p>
                   ) : null}
@@ -510,7 +509,7 @@ export const OnboardingCompany = () => {
                   onClick={() => handleStep(STEP.VTA)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.previous",
+                    id: 'onboarding.company-form.button.previous',
                   })}
                 </Button>
                 <Button
@@ -521,7 +520,7 @@ export const OnboardingCompany = () => {
                   onClick={() => handleStep(STEP.ADDRESS)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.company-form.button.submit",
+                    id: 'onboarding.company-form.button.submit',
                   })}
                 </Button>
               </div>

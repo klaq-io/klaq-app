@@ -1,27 +1,27 @@
-import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Transition } from '@headlessui/react';
 import {
   CheckIcon,
   ChevronUpDownIcon,
   MagnifyingGlassIcon,
   UsersIcon,
-} from "@heroicons/react/24/outline";
-import { Alert } from "components/Alert/Alert";
-import { Button } from "components/Button";
-import { Label, SelectField, TextField } from "components/Fields";
-import { MapAutocompleteInput } from "components/Map";
-import { format } from "date-fns";
-import { useFormik } from "formik";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { RetrieveAddress } from "interface/retrieve-address.interface";
-import { initialValues, validationSchema } from "pages/Events/newEventForm";
-import { Fragment, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useFetchCustomers } from "redux/Customer/hooks";
-import { getCustomers } from "redux/Customer/selectors";
-import { Customer, CustomerType } from "redux/Customer/slices";
-import { useUpdateMainEvent } from "redux/MainEvent/hooks";
-import { classNames } from "utils/utils";
+} from '@heroicons/react/24/outline';
+import { Alert } from 'components/Alert/Alert';
+import { Button } from 'components/Button';
+import { Label, SelectField, TextField } from 'components/Fields';
+import { MapAutocompleteInput } from 'components/Map';
+import { format } from 'date-fns';
+import { useFormik } from 'formik';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { RetrieveAddress } from 'interface/retrieve-address.interface';
+import { initialValues, validationSchema } from 'pages/Events/newEventForm';
+import { Fragment, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useFetchCustomers } from 'redux/Customer/hooks';
+import { getCustomers } from 'redux/Customer/selectors';
+import { Customer, CustomerType } from 'redux/Customer/slices';
+import { useUpdateMainEvent } from 'redux/MainEvent/hooks';
+import { classNames } from 'utils/utils';
 
 type EditEventModalProps = {
   isOpen: boolean;
@@ -35,7 +35,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
   const { isOpen, setOpen, event } = props;
   const intl = useIntl();
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [isMapAutocompleteEnabled, setMapAutocompleteEnabled] = useState(false);
   const [isCustomerAutocompleteEnabled, setCustomerAutocompleteEnabled] =
     useState(true);
@@ -44,13 +44,13 @@ export const EditEventModal = (props: EditEventModalProps) => {
   const customers = useSelector(getCustomers);
 
   const filteredCustomers =
-    query === ""
+    query === ''
       ? customers
       : customers.filter((customer) => {
           return customer.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const [{ isLoading: isUpdating, data }, updateEvent] = useUpdateMainEvent();
+  const [{ isLoading: isUpdating }, updateEvent] = useUpdateMainEvent();
 
   const formik = useFormik({
     initialValues: {
@@ -68,7 +68,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
 
   const handleRetrieveAddress = (
     retrievedAddress: RetrieveAddress,
-    eventIndex: number
+    eventIndex: number,
   ) => {
     formik.setValues({
       ...formik.values,
@@ -133,12 +133,12 @@ export const EditEventModal = (props: EditEventModalProps) => {
                   >
                     {intl.formatMessage(
                       {
-                        id: "edit-event.header",
+                        id: 'edit-event.header',
                       },
                       {
                         customerName: event.customer.name,
                         date: event.subEvents[0].date.toLocaleString(),
-                      }
+                      },
                     )}
                   </Dialog.Title>
                   <form onSubmit={formik.handleSubmit}>
@@ -174,7 +174,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                       <div className="col-span-1">
                         <TextField
                           label={intl.formatMessage({
-                            id: "new-event.date.label.number-of-guest",
+                            id: 'new-event.date.label.number-of-guest',
                           })}
                           min={0}
                           type="number"
@@ -187,13 +187,13 @@ export const EditEventModal = (props: EditEventModalProps) => {
                         <TextField
                           type="date"
                           label={intl.formatMessage({
-                            id: "new-event.date.label.date",
+                            id: 'new-event.date.label.date',
                           })}
                           name={`subEvents.${0}.date`}
                           onChange={formik.handleChange}
                           value={format(
                             new Date(formik.values.subEvents[0].date),
-                            "yyyy-MM-dd"
+                            'yyyy-MM-dd',
                           )}
                         />
                       </div>
@@ -201,7 +201,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                         <TextField
                           type="time"
                           label={intl.formatMessage({
-                            id: "new-event.date.label.start-time",
+                            id: 'new-event.date.label.start-time',
                           })}
                           name={`subEvents.${0}.startTime`}
                           onChange={formik.handleChange}
@@ -212,7 +212,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                         <TextField
                           type="time"
                           label={intl.formatMessage({
-                            id: "new-event.date.label.end-time",
+                            id: 'new-event.date.label.end-time',
                           })}
                           name={`subEvents.${0}.endTime`}
                           onChange={formik.handleChange}
@@ -231,7 +231,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           id="text"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                           placeholder={intl.formatMessage({
-                            id: "edit-event.commentaries.add-commentary",
+                            id: 'edit-event.commentaries.add-commentary',
                           })}
                         />
                       </div>
@@ -239,7 +239,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                       {isMapAutocompleteEnabled ? (
                         <div className="col-span-full">
                           <Label htmlFor="address">
-                            Lieu de l'évènement principal*{" "}
+                            Lieu de l'évènement principal*{' '}
                             <Button
                               variant="link"
                               color="primary"
@@ -261,8 +261,8 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-full">
                             <Label htmlFor="address">
                               {intl.formatMessage({
-                                id: "new-event.location.label.address",
-                              })}{" "}
+                                id: 'new-event.location.label.address',
+                              })}{' '}
                               <Button
                                 variant="link"
                                 color="primary"
@@ -274,7 +274,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                             </Label>
                             <TextField
                               placeholder={intl.formatMessage({
-                                id: "new-event.location.input.address",
+                                id: 'new-event.location.input.address',
                               })}
                               name={`subEvents.${0}.address`}
                               onChange={formik.handleChange}
@@ -284,10 +284,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.location.label.zipcode",
+                                id: 'new-event.location.label.zipcode',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.location.input.zipcode",
+                                id: 'new-event.location.input.zipcode',
                               })}
                               name={`subEvents.${0}.zipcode`}
                               onChange={formik.handleChange}
@@ -297,10 +297,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.location.label.city",
+                                id: 'new-event.location.label.city',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.location.input.city",
+                                id: 'new-event.location.input.city',
                               })}
                               name={`subEvents.${0}.city`}
                               onChange={formik.handleChange}
@@ -310,10 +310,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.location.label.country",
+                                id: 'new-event.location.label.country',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.location.input.country",
+                                id: 'new-event.location.input.country',
                               })}
                               name={`subEvents.${0}.country`}
                               onChange={formik.handleChange}
@@ -328,8 +328,8 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <Combobox as="div" value={formik.values.customer}>
                             <Combobox.Label className="block text-sm font-medium leading-6 text-gray-900">
                               {intl.formatMessage({
-                                id: "new-event.customer.label.attach-customer",
-                              })}{" "}
+                                id: 'new-event.customer.label.attach-customer',
+                              })}{' '}
                               <Button
                                 variant="link"
                                 color="primary"
@@ -337,8 +337,8 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                 onClick={() => {
                                   setCustomerAutocompleteEnabled(false);
                                   formik.setFieldValue(
-                                    "customer",
-                                    initialValues.customer
+                                    'customer',
+                                    initialValues.customer,
                                   );
                                 }}
                               >
@@ -358,7 +358,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                   setQuery(event.target.value)
                                 }
                                 displayValue={(customer: Customer) =>
-                                  customer ? customer.name : ""
+                                  customer ? customer.name : ''
                                 }
                               />
                               <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -380,16 +380,16 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                         value={customer}
                                         className={({ active }) =>
                                           classNames(
-                                            "relative cursor-default select-none py-2 pl-3 pr-9",
+                                            'relative cursor-default select-none py-2 pl-3 pr-9',
                                             active
-                                              ? "bg-klaq-600 text-white"
-                                              : "text-gray-900"
+                                              ? 'bg-klaq-600 text-white'
+                                              : 'text-gray-900',
                                           )
                                         }
                                         onClick={() =>
                                           formik.setFieldValue(
-                                            "customer",
-                                            customer
+                                            'customer',
+                                            customer,
                                           )
                                         }
                                       >
@@ -397,8 +397,8 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                           <>
                                             <span
                                               className={classNames(
-                                                "block truncate",
-                                                selected && "font-semibold"
+                                                'block truncate',
+                                                selected && 'font-semibold',
                                               )}
                                             >
                                               {customer.name}
@@ -407,10 +407,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                             {selected && (
                                               <span
                                                 className={classNames(
-                                                  "absolute inset-y-0 right-0 flex items-center pr-4",
+                                                  'absolute inset-y-0 right-0 flex items-center pr-4',
                                                   active
-                                                    ? "text-white"
-                                                    : "text-klaq-600"
+                                                    ? 'text-white'
+                                                    : 'text-klaq-600',
                                                 )}
                                               >
                                                 <CheckIcon
@@ -423,7 +423,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                         )}
                                       </Combobox.Option>
                                     ))}
-                                {query !== "" &&
+                                {query !== '' &&
                                   filteredCustomers.length === 0 && (
                                     <div className="px-4 py-8 text-center sm:px-8">
                                       {/* //todo: intl */}
@@ -448,7 +448,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <SelectField
                               label={intl.formatMessage({
-                                id: "new-event.customer.label.type",
+                                id: 'new-event.customer.label.type',
                               })}
                               name="customer.type"
                               onChange={formik.handleChange}
@@ -459,7 +459,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                 value={CustomerType.PRIVATE}
                               >
                                 {intl.formatMessage({
-                                  id: "new-event.customer.type.private",
+                                  id: 'new-event.customer.type.private',
                                 })}
                               </option>
                               <option
@@ -467,7 +467,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                                 value={CustomerType.COMPANY}
                               >
                                 {intl.formatMessage({
-                                  id: "new-event.customer.type.company",
+                                  id: 'new-event.customer.type.company',
                                 })}
                               </option>
                             </SelectField>
@@ -475,10 +475,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.customer.label.first-name",
+                                id: 'new-event.customer.label.first-name',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.customer.input.first-name",
+                                id: 'new-event.customer.input.first-name',
                               })}
                               name="customer.firstName"
                               onChange={formik.handleChange}
@@ -488,10 +488,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.customer.label.last-name",
+                                id: 'new-event.customer.label.last-name',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.customer.input.last-name",
+                                id: 'new-event.customer.input.last-name',
                               })}
                               name="customer.lastName"
                               onChange={formik.handleChange}
@@ -501,10 +501,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-1">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.customer.label.phone-number",
+                                id: 'new-event.customer.label.phone-number',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.customer.input.phone-number",
+                                id: 'new-event.customer.input.phone-number',
                               })}
                               name="customer.phone"
                               onChange={formik.handleChange}
@@ -514,10 +514,10 @@ export const EditEventModal = (props: EditEventModalProps) => {
                           <div className="col-span-2">
                             <TextField
                               label={intl.formatMessage({
-                                id: "new-event.customer.label.email",
+                                id: 'new-event.customer.label.email',
                               })}
                               placeholder={intl.formatMessage({
-                                id: "new-event.customer.input.email",
+                                id: 'new-event.customer.input.email',
                               })}
                               name="customer.email"
                               onChange={formik.handleChange}
@@ -542,7 +542,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                             min={0}
                             step={10}
                             className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
-                            placeholder={"Saississez le budget du client"}
+                            placeholder={'Saississez le budget du client'}
                             aria-describedby="price-currency"
                           />
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -558,24 +558,24 @@ export const EditEventModal = (props: EditEventModalProps) => {
                       <div className="col-span-1">
                         <SelectField
                           label={intl.formatMessage({
-                            id: "new-event.date.label.public-event",
+                            id: 'new-event.date.label.public-event',
                           })}
                           onChange={formik.handleChange}
                           value={
                             formik.values.subEvents[0].publicEvent
-                              ? "true"
-                              : "false"
+                              ? 'true'
+                              : 'false'
                           }
                           name={`subEvents.${0}.publicEvent`}
                         >
-                          <option value={"true"}>
+                          <option value={'true'}>
                             {intl.formatMessage({
-                              id: "new-event.date.input.public-event.yes",
+                              id: 'new-event.date.input.public-event.yes',
                             })}
                           </option>
-                          <option value={"false"}>
+                          <option value={'false'}>
                             {intl.formatMessage({
-                              id: "new-event.date.input.public-event.no",
+                              id: 'new-event.date.input.public-event.no',
                             })}
                           </option>
                         </SelectField>
@@ -592,7 +592,7 @@ export const EditEventModal = (props: EditEventModalProps) => {
                     onClick={formik.submitForm}
                   >
                     {intl.formatMessage({
-                      id: "new-event.submit",
+                      id: 'new-event.submit',
                     })}
                   </Button>
                 </div>

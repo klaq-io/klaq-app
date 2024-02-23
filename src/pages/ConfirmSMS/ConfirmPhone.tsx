@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
-import OtpInput from "react-otp-input";
-import { useSelector } from "react-redux";
-import { OnboardingLayout } from "../../layouts/OnboardingLayout/OnboardingLayout";
-import { useFetchUser } from "../../redux/Login/hooks";
-import { getUser } from "../../redux/Login/selectors";
+import { useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
+import OtpInput from 'react-otp-input';
+import { useSelector } from 'react-redux';
+import { OnboardingLayout } from '../../layouts/OnboardingLayout/OnboardingLayout';
+import { useFetchUser } from '../../redux/Login/hooks';
+import { getUser } from '../../redux/Login/selectors';
 import {
   useInitiateSMSVerification,
   useVerifySMS,
-} from "../../redux/SMS/hooks";
+} from '../../redux/SMS/hooks';
 
-import { ReactComponent as OTPIcon } from "assets/icons/otp.svg";
-import { Button } from "components";
-import Countdown from "react-countdown";
+import { ReactComponent as OTPIcon } from 'assets/icons/otp.svg';
+import { Button } from 'components';
+import Countdown from 'react-countdown';
 
 const OTP_LENGTH = 6;
 const DELAY = 60;
@@ -25,7 +25,7 @@ export const ConfirmPhone = () => {
   const [, fetchUser] = useFetchUser();
   const [, initiateSMSVerification] = useInitiateSMSVerification();
   const user = useSelector(getUser);
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState('');
   const [time, setTime] = useState(Date.now() + DELAY_IN_MILLISECONDS);
 
   const [, verifySMS] = useVerifySMS();
@@ -42,7 +42,7 @@ export const ConfirmPhone = () => {
     }
   };
 
-  const resendVerificationCode = (api: any) => {
+  const resendVerificationCode = () => {
     setTime(Date.now() + DELAY_IN_MILLISECONDS);
     initSms();
   };
@@ -51,17 +51,17 @@ export const ConfirmPhone = () => {
     fetchUser();
   }, []);
 
-  const renderer = ({ hours, minutes, seconds, completed, api }: any) => {
+  const renderer = ({ minutes, seconds, completed }: any) => {
     if (completed) {
       return (
         <Button
-          onClick={() => resendVerificationCode(api)}
+          onClick={() => resendVerificationCode()}
           type="button"
           variant="link"
           color="primary"
         >
           {intl.formatMessage({
-            id: "confirm-sms.resend",
+            id: 'confirm-sms.resend',
           })}
         </Button>
       );
@@ -70,13 +70,13 @@ export const ConfirmPhone = () => {
         <Button disabled={true} type="button" variant="link" color="primary">
           {intl.formatMessage(
             {
-              id: "confirm-sms.resend-in",
+              id: 'confirm-sms.resend-in',
             },
             {
               time: `${minutes > 9 ? minutes : `0${minutes}`}:${
                 seconds > 9 ? seconds : `0${seconds}`
               }`,
-            }
+            },
           )}
         </Button>
       );
@@ -95,18 +95,18 @@ export const ConfirmPhone = () => {
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {intl.formatMessage({
-            id: "confirm-sms.header",
+            id: 'confirm-sms.header',
           })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage(
             {
-              id: "confirm-sms.description",
+              id: 'confirm-sms.description',
             },
             {
               b: (chunks: any) => <b>{chunks}</b>,
               phone: `+${user.phone}`,
-            }
+            },
           )}
         </p>
       </div>

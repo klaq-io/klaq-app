@@ -1,38 +1,34 @@
 import {
-  PencilSquareIcon,
-  PlusSmallIcon,
-  ArrowTopRightOnSquareIcon,
-  TrashIcon,
-  ClockIcon,
-  UserCircleIcon,
   BuildingLibraryIcon,
+  ClockIcon,
   MapPinIcon,
+  PencilSquareIcon,
+  UserCircleIcon,
   UserGroupIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 import {
   CardContainer,
-  EventBadgeButton,
-  KebabMenu,
-  EventMapV2,
   EditEventModal,
-} from "components";
-import { format } from "date-fns";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { CustomerType } from "redux/Customer/slices";
-import { PATHS } from "routes";
-import { formatAddress } from "utils/address";
-import { formatPhoneNumber } from "utils/customer";
-import { getRemainingTime } from "utils/time";
-import { getDayStr, getMonthStr } from "utils/utils";
-import { MainEventDetailsPageProps } from "./EventDetailsPage";
-import { useState } from "react";
+  EventBadgeButton,
+  EventMapV2,
+} from 'components';
+import { format } from 'date-fns';
+import { useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
+import { PATHS } from 'routes';
+import { formatAddress } from 'utils/address';
+import { formatPhoneNumber } from 'utils/customer';
+import { getRemainingTime } from 'utils/time';
+import { getDayStr, getMonthStr } from 'utils/utils';
+import { MainEventDetailsPageProps } from './EventDetailsPage';
 
 export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
   const { event } = props;
   const intl = useIntl();
   const navigate = useNavigate();
-  const [openEditor, setOpenEditor] = useState(false);
+  const [shouldOpenEditor, setOpenEditor] = useState(false);
 
   const eventDate = new Date(event.subEvents[0].date);
   // const menu = [
@@ -75,14 +71,14 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
                 })}
               </span>
               <span className="text-xl font-bold">
-                {format(eventDate, "dd")}
+                {format(eventDate, 'dd')}
               </span>
               <span className="text-md">
                 {intl.formatMessage({
                   id: getMonthStr(new Date(eventDate)),
                 })}
               </span>
-              <span className="text-md">{format(eventDate, "yyyy")}</span>
+              <span className="text-md">{format(eventDate, 'yyyy')}</span>
             </div>
             <EventBadgeButton status={event.status} eventId={event.id} />
           </div>
@@ -108,11 +104,11 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
                 <span className="text-sm font-semibold leading-6 text-gray-900">
                   {event.subEvents[0].startTime
                     ? event.subEvents[0].startTime
-                    : "Aucune heure de début renseignée"}{" "}
-                  -{" "}
+                    : 'Aucune heure de début renseignée'}{' '}
+                  -{' '}
                   {event.subEvents[0].endTime
                     ? event.subEvents[0].endTime
-                    : "Aucune heure de fin renseignée"}
+                    : 'Aucune heure de fin renseignée'}
                 </span>
               </span>
 
@@ -159,7 +155,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
                 <UserGroupIcon className="h-5 w-5  text-gray-400" />
                 <span className="text-sm font-semibold leading-6 text-gray-900">
                   {event.subEvents[0].guests} personnes attendues (évènement
-                  public: {event.subEvents[0].publicEvent ? "oui" : "non"})
+                  public: {event.subEvents[0].publicEvent ? 'oui' : 'non'})
                 </span>
               </span>
             </div>
@@ -169,7 +165,11 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
           </CardContainer>
         </div>
       </div>
-      <EditEventModal isOpen={openEditor} setOpen={setOpenEditor} event={event} />
+      <EditEventModal
+        isOpen={shouldOpenEditor}
+        setOpen={setOpenEditor}
+        event={event}
+      />
     </>
   );
 };

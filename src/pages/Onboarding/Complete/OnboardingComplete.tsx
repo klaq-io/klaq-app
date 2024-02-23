@@ -1,15 +1,15 @@
-import { ArrowRightIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { Ring } from "@uiball/loaders";
-import { Button } from "components";
-import { OnboardingStatus } from "interface/user.interface";
-import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
-import { useEffect, useState } from "react";
-import ConfettiExplosion, { ConfettiProps } from "react-confetti-explosion";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { useUpdateOnboardingStatus } from "redux/User/hooks";
-import { PATHS } from "routes";
-import { classNames } from "utils/utils";
+import { ArrowRightIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { Ring } from '@uiball/loaders';
+import { Button } from 'components';
+import { OnboardingStatus } from 'interface/user.interface';
+import { OnboardingLayout } from 'layouts/OnboardingLayout/OnboardingLayout';
+import { useEffect, useState } from 'react';
+import ConfettiExplosion, { ConfettiProps } from 'react-confetti-explosion';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useUpdateOnboardingStatus } from 'redux/User/hooks';
+import { PATHS } from 'routes';
+import { classNames } from 'utils/utils';
 
 type STEP_TYPE = {
   [key: string]: {
@@ -30,35 +30,35 @@ export const OnboardingCompletePage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const [, updateStatus] = useUpdateOnboardingStatus();
-  const [displayConfettiComponent, setDisplayConfettiComponent] =
+  const [shouldDisplayConfettiComponent, setDisplayConfettiComponent] =
     useState(false);
 
   const STATUS = {
-    NOT_STARTED: "NOT_STARTED",
-    IN_PROGRESS: "IN_PROGRESS",
-    DONE: "DONE",
+    NOT_STARTED: 'NOT_STARTED',
+    IN_PROGRESS: 'IN_PROGRESS',
+    DONE: 'DONE',
   };
 
   const [steps, setSteps] = useState<STEP_TYPE>({
     USER_CREATION: {
       status: STATUS.IN_PROGRESS,
-      title: "user",
+      title: 'user',
       animationDuration: 2000,
     },
     COMPANY_CREATION: {
       status: STATUS.IN_PROGRESS,
-      title: "company",
+      title: 'company',
       animationDuration: 3000,
     },
     SPACE_GENERATION: {
       status: STATUS.IN_PROGRESS,
-      title: "dashboard",
+      title: 'dashboard',
       animationDuration: 3500,
     },
   });
 
   const isComplete = Object.values(steps).every(
-    (step) => step.status === STATUS.DONE
+    (step) => step.status === STATUS.DONE,
   );
 
   const handleComplete = () => {
@@ -101,7 +101,7 @@ export const OnboardingCompletePage = () => {
 
   return (
     <OnboardingLayout isLoading={false}>
-      {displayConfettiComponent && (
+      {shouldDisplayConfettiComponent && (
         <div className="fixed top-0 left-0 h-screen flex items-center justify-center z-999 w-2/3">
           {isComplete && (
             <ConfettiExplosion
@@ -121,11 +121,11 @@ export const OnboardingCompletePage = () => {
         {Object.keys(steps).map((key) => (
           <div
             className={classNames(
-              "flex flex-row space-x-2 items-center",
+              'flex flex-row space-x-2 items-center',
               steps[key].status === STATUS.IN_PROGRESS &&
-                "animate-pulse font-bold text-gray-900",
-              steps[key].status === STATUS.DONE && "font-bold text-gray-900",
-              steps[key].status === STATUS.NOT_STARTED && "text-gray-500"
+                'animate-pulse font-bold text-gray-900',
+              steps[key].status === STATUS.DONE && 'font-bold text-gray-900',
+              steps[key].status === STATUS.NOT_STARTED && 'text-gray-500',
             )}
           >
             <span className="w-8">
@@ -158,7 +158,7 @@ export const OnboardingCompletePage = () => {
               trailingIcon={<ArrowRightIcon className="h-5 w-5" />}
             >
               {intl.formatMessage({
-                id: "onboarding.complete.button.discover",
+                id: 'onboarding.complete.button.discover',
               })}
             </Button>
             <span className="absolute right-0 top-0 block h-2 w-2 rounded-full bg-klaq-400 ring-2 ring-white animate-ping"></span>

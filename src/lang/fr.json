@@ -1572,6 +1572,11 @@
     }
   },
 
+  "resolution-too-low": {
+    "title": "La résolution de votre écran est trop basse",
+    "description": "Nous vous recommandons d'utiliser Klaq sur ordinateur. L'application mobile est en cours de développement 😉"
+  },
+
   "toast": {
     "success": {
       "create-customer": {

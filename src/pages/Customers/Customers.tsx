@@ -6,43 +6,43 @@ import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
-} from "@heroicons/react/24/outline";
-import { Button, CustomerStatus, DangerModal, KebabMenu } from "components";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { generatePath, useNavigate } from "react-router-dom";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEvents } from "redux/MainEvent/selectors";
-import { PageLayout } from "../../layouts";
+} from '@heroicons/react/24/outline';
+import { Button, CustomerStatus, DangerModal, KebabMenu } from 'components';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { PageLayout } from '../../layouts';
 import {
   useDeleteCustomer,
   useFetchCustomers,
-} from "../../redux/Customer/hooks";
-import { getCustomers } from "../../redux/Customer/selectors";
-import { Customer } from "../../redux/Customer/slices";
-import { EventStatus } from "../../redux/Events/slices";
-import { PATHS } from "../../routes";
-import { getPipeValueForCustomer } from "../../utils/utils";
-import EditCustomer from "./EditCustomer";
-import { NewCustomer } from "./NewCustomer";
+} from '../../redux/Customer/hooks';
+import { getCustomers } from '../../redux/Customer/selectors';
+import { Customer } from '../../redux/Customer/slices';
+import { EventStatus } from '../../redux/Events/slices';
+import { PATHS } from '../../routes';
+import { getPipeValueForCustomer } from '../../utils/utils';
+import EditCustomer from './EditCustomer';
+import { NewCustomer } from './NewCustomer';
 
 export const Customers = () => {
   const intl = useIntl();
   const navigate = useNavigate();
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState<Customer>();
-  const [openNewCustomerPanel, setOpenNewCustomerPanel] = useState(false);
-  const [openEditCustomerPanel, setOpenEditCustomerPanel] = useState(false);
-  const [openDeleteCustomerModal, setOpenDeleteCustomerModal] = useState(false);
+  const [shouldOpenNewCustomerPanel, setOpenNewCustomerPanel] = useState(false);
+  const [shouldOpenEditCustomerPanel, setOpenEditCustomerPanel] =
+    useState(false);
+  const [shouldOpenDeleteCustomerModal, setOpenDeleteCustomerModal] =
+    useState(false);
 
   const [, deleteCustomer] = useDeleteCustomer();
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
   const filteredCustomers =
-    query === ""
+    query === ''
       ? customers
       : customers.filter(
           (customer) =>
@@ -50,20 +50,20 @@ export const Customers = () => {
             customer.firstName.toLowerCase().includes(query.toLowerCase()) ||
             customer.lastName.toLowerCase().includes(query.toLowerCase()) ||
             customer.email.toLowerCase().includes(query.toLowerCase()) ||
-            customer.phone.includes(query)
+            customer.phone.includes(query),
         );
 
   const getCustomerStatus = (customer: Customer) => {
     // TODO: change it to a better logic
-    if (!customer.mainEvents || customer.mainEvents.length === 0) return "new";
+    if (!customer.mainEvents || customer.mainEvents.length === 0) return 'new';
     const eventsStatus = customer.mainEvents.flatMap((event) => event.status);
-    if (!customer.mainEvents.length) return "new";
-    if (eventsStatus.includes(EventStatus.INBOX)) return "in-deal";
+    if (!customer.mainEvents.length) return 'new';
+    if (eventsStatus.includes(EventStatus.INBOX)) return 'in-deal';
 
     if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
-      return "recurring";
-    if (eventsStatus.includes(EventStatus.LOST)) return "lost";
-    return "none";
+      return 'recurring';
+    if (eventsStatus.includes(EventStatus.LOST)) return 'lost';
+    return 'none';
   };
 
   const handleOpenDeleteCustomerModal = (customer: Customer) => {
@@ -89,20 +89,20 @@ export const Customers = () => {
 
   const optionsMenuItems = (customer: Customer) => [
     {
-      name: "customers.my-customers.button.edit",
+      name: 'customers.my-customers.button.edit',
       icon: PencilSquareIcon,
       onClick: () => handleEditCustomer(customer),
     },
     {
-      name: "customers.my-customers.button.look",
+      name: 'customers.my-customers.button.look',
       icon: EyeIcon,
       onClick: () => handleCustomerDetails(customer.id),
     },
     {
-      name: "customers.my-customers.button.delete",
+      name: 'customers.my-customers.button.delete',
       icon: TrashIcon,
       onClick: () => handleOpenDeleteCustomerModal(customer),
-      iconColor: "text-danger-500 group-hover:text-danger-500",
+      iconColor: 'text-danger-500 group-hover:text-danger-500',
     },
   ];
 
@@ -118,17 +118,17 @@ export const Customers = () => {
             <div className="sm:flex-auto">
               <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
                 {intl.formatMessage({
-                  id: "customers.header",
+                  id: 'customers.header',
                 })}
               </h2>
               <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                 {intl.formatMessage(
                   {
-                    id: "customers.description",
+                    id: 'customers.description',
                   },
                   {
                     nb: customers.length,
-                  }
+                  },
                 )}
               </p>
             </div>
@@ -140,7 +140,7 @@ export const Customers = () => {
                 onClick={() => setOpenNewCustomerPanel(true)}
               >
                 {intl.formatMessage({
-                  id: "customers.my-customers.submit",
+                  id: 'customers.my-customers.submit',
                 })}
               </Button>
             </div>
@@ -161,7 +161,7 @@ export const Customers = () => {
                     type="text"
                     className="hidden w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
                     placeholder={intl.formatMessage({
-                      id: "customers.input.search",
+                      id: 'customers.input.search',
                     })}
                   />
                 </div>
@@ -174,7 +174,7 @@ export const Customers = () => {
                     aria-hidden="true"
                   />
                   {intl.formatMessage({
-                    id: "customers.my-customers.button.sort",
+                    id: 'customers.my-customers.button.sort',
                   })}
                   <ChevronDownIcon
                     className="-mr-1 h-5 w-5 text-gray-400"
@@ -192,7 +192,7 @@ export const Customers = () => {
                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                       >
                         {intl.formatMessage({
-                          id: "customers.my-customers.name",
+                          id: 'customers.my-customers.name',
                         })}
                       </th>
                       <th
@@ -200,7 +200,7 @@ export const Customers = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "customers.my-customers.contact",
+                          id: 'customers.my-customers.contact',
                         })}
                       </th>
                       <th
@@ -208,7 +208,7 @@ export const Customers = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "customers.my-customers.location",
+                          id: 'customers.my-customers.location',
                         })}
                       </th>
                       <th
@@ -216,7 +216,7 @@ export const Customers = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "customers.my-customers.status",
+                          id: 'customers.my-customers.status',
                         })}
                       </th>
                       <th
@@ -224,7 +224,7 @@ export const Customers = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "customers.my-customers.value",
+                          id: 'customers.my-customers.value',
                         })}
                       </th>
                       <th
@@ -306,12 +306,12 @@ export const Customers = () => {
 
                 <h3 className="mt-2 text-sm font-semibold text-gray-900">
                   {intl.formatMessage({
-                    id: "customers.no-customers",
+                    id: 'customers.no-customers',
                   })}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
                   {intl.formatMessage({
-                    id: "customers.get-started",
+                    id: 'customers.get-started',
                   })}
                 </p>
               </button>
@@ -320,32 +320,32 @@ export const Customers = () => {
         </div>
       </div>
       <NewCustomer
-        open={openNewCustomerPanel}
+        isOpen={shouldOpenNewCustomerPanel}
         setOpen={setOpenNewCustomerPanel}
       />
       <EditCustomer
-        open={openEditCustomerPanel}
+        isOpen={shouldOpenEditCustomerPanel}
         setOpen={setOpenEditCustomerPanel}
         customer={selectedCustomer}
       />
       <DangerModal
-        isOpen={openDeleteCustomerModal}
+        isOpen={shouldOpenDeleteCustomerModal}
         setOpen={setOpenDeleteCustomerModal}
         onClick={() => handleDeleteCustomer(selectedCustomer)}
         title={intl.formatMessage({
-          id: "customers.delete-customer.modal.title",
+          id: 'customers.delete-customer.modal.title',
         })}
         message={intl.formatMessage(
           {
-            id: "customers.delete-customer.modal.message",
+            id: 'customers.delete-customer.modal.message',
           },
-          { customerName: selectedCustomer?.name }
+          { customerName: selectedCustomer?.name },
         )}
         button1={intl.formatMessage({
-          id: "customers.delete-customer.modal.button.delete",
+          id: 'customers.delete-customer.modal.button.delete',
         })}
         button2={intl.formatMessage({
-          id: "customers.delete-customer.modal.button.cancel",
+          id: 'customers.delete-customer.modal.button.cancel',
         })}
       />
     </PageLayout>

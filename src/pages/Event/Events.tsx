@@ -1,18 +1,18 @@
-import { FolderIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { Button, EventList, NewEventModal } from "components";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { HandThumbUpIcon } from '@heroicons/react/24/solid';
+import { Button, EventList, NewEventModal } from 'components';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
 import {
   getMainEvents,
   getMainEventsByStatus,
-} from "redux/MainEvent/selectors";
-import { getQuotePipeValueV2 } from "utils/quote";
-import { PageLayout } from "../../layouts";
-import { EventStatus } from "../../redux/Events/slices";
-import { PATHS } from "../../routes";
+} from 'redux/MainEvent/selectors';
+import { getQuotePipeValueV2 } from 'utils/quote';
+import { PageLayout } from '../../layouts';
+import { EventStatus } from '../../redux/Events/slices';
 import {
   classNames,
   getSubEventsFromPeriod,
@@ -20,37 +20,34 @@ import {
   getThisMonthDates,
   getThisWeekDates,
   getThisYearDates,
-} from "../../utils/utils";
-import { getPipeValue } from "utils/pipe";
-import { HandThumbUpIcon } from "@heroicons/react/24/solid";
+} from '../../utils/utils';
 
 enum FILTER_OPTIONS {
-  THIS_WEEK = "THIS_WEEK",
-  THIS_MONTH = "THIS_MONTH",
-  THIS_YEAR = "THIS_YEAR",
-  CUSTOM = "CUSTOM",
+  THIS_WEEK = 'THIS_WEEK',
+  THIS_MONTH = 'THIS_MONTH',
+  THIS_YEAR = 'THIS_YEAR',
+  CUSTOM = 'CUSTOM',
 }
 
 export const Events = () => {
   const intl = useIntl();
-  const navigate = useNavigate();
 
-  const [openNewEvent, setOpenNewEventModal] = useState<boolean>(false);
+  const [shouldOpenNewEvent, setOpenNewEventModal] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filterParam =
-    FILTER_OPTIONS[searchParams.get("filter") as FILTER_OPTIONS];
-  const startDateParam = searchParams.get("startDate");
-  const endDateParam = searchParams.get("endDate");
+    FILTER_OPTIONS[searchParams.get('filter') as FILTER_OPTIONS];
+  const startDateParam = searchParams.get('startDate');
+  const endDateParam = searchParams.get('endDate');
 
   const [startDate, setStartDate] = useState<string>(
-    startDateParam || getThisYearDates()[0].toString()
+    startDateParam || getThisYearDates()[0].toString(),
   );
   const [endDate, setEndDate] = useState<string>(
-    endDateParam || getThisYearDates()[1].toString()
+    endDateParam || getThisYearDates()[1].toString(),
   );
   const [selectedFilter, setSelectedFilter] = useState<string>(
-    filterParam || FILTER_OPTIONS.THIS_YEAR
+    filterParam || FILTER_OPTIONS.THIS_YEAR,
   );
 
   const [{ isLoading: isLoadingEvents }, fetchMainEvents] =
@@ -59,11 +56,11 @@ export const Events = () => {
   const mainEvents = useSelector(getMainEvents);
 
   const newEventsList = useSelector((state: any) =>
-    getMainEventsByStatus(state, EventStatus.INBOX)
+    getMainEventsByStatus(state, EventStatus.INBOX),
   );
 
   const lostEvents = useSelector((state: any) =>
-    getMainEventsByStatus(state, EventStatus.LOST)
+    getMainEventsByStatus(state, EventStatus.LOST),
   );
 
   const upcomingEvents = useSelector((state: any) =>
@@ -71,15 +68,15 @@ export const Events = () => {
       state,
       EventStatus.QUOTE_ACCEPTED,
 
-      EventStatus.READY
-    )
+      EventStatus.READY,
+    ),
   );
   const pendingEvents = useSelector((state: any) =>
     getMainEventsByStatus(
       state,
       EventStatus.QUOTE_SENT,
-      EventStatus.INVOICE_SENT
-    )
+      EventStatus.INVOICE_SENT,
+    ),
   );
   const pastEvents = useSelector((state: any) =>
     getMainEventsByStatus(
@@ -87,11 +84,11 @@ export const Events = () => {
       EventStatus.DONE,
       EventStatus.INVOICE_SENT,
       EventStatus.INVOICE_OVERDUE,
-      EventStatus.WIN
-    )
+      EventStatus.WIN,
+    ),
   );
   const overdueEvents = useSelector((state: any) =>
-    getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE)
+    getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE),
   );
 
   const EVENTS = {
@@ -100,7 +97,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             newEventsList.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     UPCOMING:
@@ -108,7 +105,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     PENDING:
@@ -116,7 +113,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             pendingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     PAST:
@@ -124,7 +121,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             pastEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     OVERDUE:
@@ -132,7 +129,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             overdueEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     LOST:
@@ -140,7 +137,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
     ALL:
@@ -148,7 +145,7 @@ export const Events = () => {
         ? getSubEventsFromPeriod(
             mainEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
-            endDate
+            endDate,
           )
         : [],
   };
@@ -180,85 +177,85 @@ export const Events = () => {
 
   const tabs = [
     {
-      name: "new",
-      current: "new" === searchParams.get("tab") ? true : false,
+      name: 'new',
+      current: 'new' === searchParams.get('tab') ? true : false,
       events: EVENTS.NEW,
       pipeValue: getQuotePipeValueV2(upcomingEvents),
     },
     {
-      name: "upcoming",
-      current: "upcoming" === searchParams.get("tab") ? true : false,
+      name: 'upcoming',
+      current: 'upcoming' === searchParams.get('tab') ? true : false,
       events:
         upcomingEvents && upcomingEvents.length
           ? getSubEventsFromPeriod(
               upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(upcomingEvents),
     },
     {
-      name: "pending",
-      current: "pending" === searchParams.get("tab") ? true : false,
+      name: 'pending',
+      current: 'pending' === searchParams.get('tab') ? true : false,
       events:
         pendingEvents && pendingEvents.length
           ? getSubEventsFromPeriod(
               pendingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(pendingEvents),
     },
     {
-      name: "overdue",
-      current: "overdue" === searchParams.get("tab") ? true : false,
+      name: 'overdue',
+      current: 'overdue' === searchParams.get('tab') ? true : false,
       events:
         overdueEvents && overdueEvents.length
           ? getSubEventsFromPeriod(
               overdueEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(overdueEvents),
     },
     {
-      name: "past",
-      current: "past" === searchParams.get("tab") ? true : false,
+      name: 'past',
+      current: 'past' === searchParams.get('tab') ? true : false,
       events:
         pastEvents && pastEvents.length
           ? getSubEventsFromPeriod(
               pastEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(pastEvents),
     },
     {
-      name: "lost",
-      current: "lost" === searchParams.get("tab") ? true : false,
+      name: 'lost',
+      current: 'lost' === searchParams.get('tab') ? true : false,
       events:
         lostEvents && lostEvents.length
           ? getSubEventsFromPeriod(
               lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(lostEvents),
     },
     {
-      name: "all",
-      current: "all" === searchParams.get("tab") ? true : false,
+      name: 'all',
+      current: 'all' === searchParams.get('tab') ? true : false,
       events:
         mainEvents && mainEvents.length
           ? getSubEventsFromPeriod(
               mainEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
               startDate,
-              endDate
+              endDate,
             )
           : [],
       pipeValue: getQuotePipeValueV2(mainEvents),
@@ -289,12 +286,12 @@ export const Events = () => {
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               {intl.formatMessage({
-                id: "events.header",
+                id: 'events.header',
               })}
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
               {intl.formatMessage({
-                id: "events.description",
+                id: 'events.description',
               })}
             </p>
           </div>
@@ -319,9 +316,9 @@ export const Events = () => {
                   key={tab.name}
                   className={classNames(
                     tab.current
-                      ? "border-klaq-500 text-klaq-600"
-                      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                    "group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer"
+                      ? 'border-klaq-500 text-klaq-600'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                    'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer',
                   )}
                   onClick={() =>
                     setSearchParams({
@@ -331,7 +328,7 @@ export const Events = () => {
                       endDate: endDate,
                     })
                   }
-                  aria-current={tab.current ? "page" : undefined}
+                  aria-current={tab.current ? 'page' : undefined}
                 >
                   <span>
                     {intl.formatMessage({
@@ -468,12 +465,12 @@ export const Events = () => {
 
                   <h3 className="mt-2 text-sm font-semibold text-gray-900">
                     {intl.formatMessage({
-                      id: "events.no-events",
+                      id: 'events.no-events',
                     })}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
                     {intl.formatMessage({
-                      id: "events.get-started",
+                      id: 'events.get-started',
                     })}
                   </p>
                 </button>
@@ -482,7 +479,10 @@ export const Events = () => {
           </div>
         </div>
       </div>
-      <NewEventModal isOpen={openNewEvent} setOpen={setOpenNewEventModal} />
+      <NewEventModal
+        isOpen={shouldOpenNewEvent}
+        setOpen={setOpenNewEventModal}
+      />
     </PageLayout>
   );
 };

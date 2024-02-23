@@ -1,10 +1,10 @@
-import { AnimatePresence } from "framer-motion";
-import { ImpersonatePage } from "pages/Impersonate/Impersonate";
-import { OnboardingNoLegalFormPage } from "pages/Onboarding/Company/OnboardingNoLegalForm";
-import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import TransitionComponent from "utils/Transitions";
-import "./App.css";
+import { AnimatePresence } from 'framer-motion';
+import { ImpersonatePage } from 'pages/Impersonate/Impersonate';
+import { OnboardingNoLegalFormPage } from 'pages/Onboarding/Company/OnboardingNoLegalForm';
+import { Toaster } from 'react-hot-toast';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import TransitionComponent from 'utils/Transitions';
+import './App.css';
 import {
   BankAccount,
   Calendar,
@@ -16,7 +16,6 @@ import {
   Customers,
   Dashboard,
   EnquiryForm,
-  EventDetails2,
   EventDetailsPage,
   Events,
   Integrations,
@@ -27,8 +26,6 @@ import {
   InvoiceViewPage,
   InvoicesPage,
   Login,
-  NewEvent,
-  NewEventV2,
   OnboardingCompany,
   OnboardingCompanySearch,
   OnboardingCompletePage,
@@ -48,11 +45,11 @@ import {
   Security,
   Settings,
   SignUp,
-  Subscriptions
-} from "./pages";
-import { ForgetPassword } from "./pages/ForgetPassword/ForgetPassword";
-import { PATHS } from "./routes";
-import PrivateRoutes from "./utils/PrivateRoute";
+  Subscriptions,
+} from './pages';
+import { ForgetPassword } from './pages/ForgetPassword/ForgetPassword';
+import { PATHS } from './routes';
+import PrivateRoutes from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -120,8 +117,6 @@ function App() {
           <Route path={PATHS.EVENTS} element={<Events />} />
           <Route path={PATHS.EVENT_DETAILS_V2} element={<EventDetailsPage />} />
           <Route path={PATHS.EVENT_DETAILS} element={<EventDetailsPage />} />
-          <Route path={PATHS.NEW_EVENT_V2} element={<NewEventV2 />} />
-          <Route path={PATHS.NEW_EVENT} element={<NewEvent />} />
           <Route path={PATHS.PRODUCTS} element={<Products />} />
           <Route path={PATHS.DASHBOARD} element={<Dashboard />} />
           <Route path={PATHS.QUOTE_GENERATE} element={<QuoteGeneratePage />} />
@@ -146,7 +141,6 @@ function App() {
           <Route path={PATHS.SECURITY} element={<Security />} />
           <Route path={PATHS.SUBSCRIPTION} element={<Subscriptions />} />
           <Route path={PATHS.SETTINGS} element={<Settings />} />
-          <Route path={PATHS.EVENT_V2} element={<EventDetails2 />} />
           <Route path="*" element={<Navigate to={PATHS.DASHBOARD} />} />
         </Route>
       </Routes>

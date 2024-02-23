@@ -1,25 +1,24 @@
-import { useEffect } from "react";
-import { useIntl } from "react-intl";
-import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
+import { Ping } from '@uiball/loaders';
+import { KLAQ_COLORS } from 'constants/colors';
+import { OnboardingLayout } from 'layouts/OnboardingLayout/OnboardingLayout';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import {
   useCheckEmailVerifyingStatus,
   useResendVerificationEmail,
-  useVerifyEmail,
-} from "redux/Email/hooks";
-import { Ping } from "@uiball/loaders";
-import { KLAQ_COLORS } from "constants/colors";
+} from 'redux/Email/hooks';
 
 const SECONDS = 1000;
 const INITIAL_DELAY = 15 * SECONDS;
 
 export const ConfirmMail = () => {
   const params = new URLSearchParams(document.location.search);
-  const email = params.get("email");
+  const email = params.get('email');
 
   const intl = useIntl();
 
   const [, resendVerificationEmail] = useResendVerificationEmail();
-  const [{ data }, checkEmailVerifyingStatus] = useCheckEmailVerifyingStatus();
+  const [, checkEmailVerifyingStatus] = useCheckEmailVerifyingStatus();
 
   useEffect(() => {
     setTimeout(() => {
@@ -41,18 +40,18 @@ export const ConfirmMail = () => {
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {intl.formatMessage({
-            id: "confirm-mail.header",
+            id: 'confirm-mail.header',
           })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage(
             {
-              id: "confirm-mail.description",
+              id: 'confirm-mail.description',
             },
             {
               b: (chunks: any) => <b>{chunks}</b>,
               email,
-            }
+            },
           )}
         </p>
         <div className="mt-6 mx-auto">
@@ -61,7 +60,7 @@ export const ConfirmMail = () => {
         <div className="mx-auto">
           <h1 className="text-lg leading-6 text-klaq-600">
             {intl.formatMessage({
-              id: "confirm-mail.waiting-reception",
+              id: 'confirm-mail.waiting-reception',
             })}
           </h1>
         </div>
@@ -70,14 +69,14 @@ export const ConfirmMail = () => {
       <div className="mt-8">
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage({
-            id: "confirm-mail.resend.text",
-          })}{" "}
+            id: 'confirm-mail.resend.text',
+          })}{' '}
           <button
             onClick={() => resendVerificationEmail()}
             className="font-semibold text-klaq-600 hover:text-klaq-500"
           >
             {intl.formatMessage({
-              id: "confirm-mail.resend.link",
+              id: 'confirm-mail.resend.link',
             })}
           </button>
         </p>
