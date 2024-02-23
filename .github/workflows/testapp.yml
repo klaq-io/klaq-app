@@ -50,3 +50,7 @@ jobs:
         name: Set up Node.js
         with:
           node-version: 18.0.0
+      - name: Install dependencies
+        run: yarn --prefer-offline
+      - name: Build
+        run: yarn build
