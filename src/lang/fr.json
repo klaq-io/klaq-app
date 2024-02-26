@@ -1399,7 +1399,7 @@
       }
     },
     "social": {
-      "header": "Authentification social",
+      "header": "Authentification sociale",
       "description": "Connectez-vous avec vos réseaux sociaux préférés.",
       "no-social-login": {
         "header": "Aucun réseau social connecté.",
