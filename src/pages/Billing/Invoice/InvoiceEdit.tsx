@@ -24,7 +24,6 @@ import { useFormik } from 'formik';
 import { MainEvent } from 'interface/Event/main-event.interface';
 import {
   DiscountType,
-  InvoiceStatus,
   PaymentMethod,
 } from 'interface/Invoice/invoice.interface';
 import { PageLayout } from 'layouts';
