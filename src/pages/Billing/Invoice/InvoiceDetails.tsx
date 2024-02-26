@@ -253,7 +253,7 @@ export const InvoiceDetailsPage = () => {
               </CardContainer>
               <div className="sm:flex flex-col space-y-4 min-h-fit w-full sm:w-1/4 h-full">
                 <div className="flex justify-between">
-                  {invoice.status === InvoiceStatus.DRAFT ? (
+                  {!invoice.isFinal ? (
                     <>
                       <Tooltip text="Finaliser ma facture" position="bottom">
                         <button

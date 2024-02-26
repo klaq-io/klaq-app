@@ -315,7 +315,10 @@ export const InvoicesPage = () => {
                       <td
                         className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center"
                         onClick={() => {
-                          if (invoice.status !== InvoiceStatus.PAID)
+                          if (
+                            isPast(new Date(invoice.validUntil)) &&
+                            invoice.status !== InvoiceStatus.PAID
+                          )
                             handleSendReminder(invoice.id);
                         }}
                       >

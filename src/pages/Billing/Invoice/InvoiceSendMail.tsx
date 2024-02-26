@@ -102,7 +102,7 @@ export const InvoiceSendMailPage = () => {
     onSubmit: async (values) => {
       if (id === undefined) return;
       await sendInvoiceByEmail(values, id);
-      navigate(`${PATHS.INVOICE}/${id}/details`);
+      navigate(`${PATHS.INVOICES}`);
     },
     enableReinitialize: true,
   });

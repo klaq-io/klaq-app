@@ -41,7 +41,9 @@ export const QuoteSendMailPage = () => {
     useDownloadQuoteDocument();
 
   const isCustomerPro =
-    quote && quote.mainEvent.customer.type === CustomerType.COMPANY;
+    quote &&
+    quote.mainEvent.customer &&
+    quote.mainEvent.customer.type === CustomerType.COMPANY;
 
   const formik = useFormik({
     initialValues: quote
@@ -70,7 +72,7 @@ export const QuoteSendMailPage = () => {
     onSubmit: async (values) => {
       if (!id) return;
       await sendQuoteByEmail(values, id);
-      navigate(PATHS.QUOTE + '/' + id + '/details');
+      navigate(PATHS.QUOTES);
     },
     enableReinitialize: true,
   });

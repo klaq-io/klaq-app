@@ -239,7 +239,7 @@ export const InvoiceEditionPage = () => {
 
   useEffect(() => {
     if (!invoice) return;
-    if (invoice.status !== InvoiceStatus.DRAFT) {
+    if (invoice.isFinal) {
       navigate(`${PATHS.INVOICE}/${invoice.id}/details`);
       KlaqToast('warning', 'invoice-already-finalized');
     }

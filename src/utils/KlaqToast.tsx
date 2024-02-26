@@ -8,6 +8,9 @@ export const KlaqToast = (
   code?: string,
   duration?: number,
 ) => {
+  if (!duration) {
+    return;
+  }
   toast.custom(
     <ToastNotification
       titleId={`toast.${status === 'danger' ? 'error' : status}.${
@@ -18,6 +21,6 @@ export const KlaqToast = (
       }.message`}
       status={status}
     />,
-    { duration: duration || 1500, position: 'top-right' },
+    { duration: 1500, position: 'top-right' },
   );
 };
