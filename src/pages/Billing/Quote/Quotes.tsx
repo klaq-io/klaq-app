@@ -42,7 +42,7 @@ export const Quotes = () => {
   };
 
   const handleEdit = (id: string, eventId: string) => {
-    navigate(PATHS.QUOTE + '/edit/' + id + '/' + eventId);
+    navigate(PATHS.QUOTE + '/' + id + '/edit');
   };
 
   const handleView = (id: string) => {
