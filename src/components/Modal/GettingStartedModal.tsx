@@ -20,7 +20,7 @@ export const GettingStartedModal = (props: Props) => {
   const [isModalOpen, setOpen] = useState<boolean>(isOpen);
 
   const loomLink =
-    'https://www.loom.com/embed/8a7f72f999aa47eeb90d77daf44499e3?sid=d3a366c2-9cbf-4263-bfd1-243a1fec0220';
+    'https://www.loom.com/share/7abc9163a6db40e9be1905d3d7e09506?sid=de32b506-5bc0-4df5-9880-0874f7f6d37d';
 
   return (
     <Transition.Root show={isModalOpen} as={Fragment}>
