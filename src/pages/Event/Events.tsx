@@ -60,7 +60,7 @@ export const Events = () => {
   );
 
   const lostEvents = useSelector((state: any) =>
-    getMainEventsByStatus(state, EventStatus.LOST),
+    getMainEventsByStatus(state, EventStatus.LOST, EventStatus.QUOTE_REJECTED),
   );
 
   const upcomingEvents = useSelector((state: any) =>
