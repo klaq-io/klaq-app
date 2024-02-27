@@ -41,7 +41,7 @@ export const Quotes = () => {
     navigate(PATHS.QUOTE_GENERATE);
   };
 
-  const handleEdit = (id: string, eventId: string) => {
+  const handleEdit = (id: string) => {
     navigate(PATHS.QUOTE + '/' + id + '/edit');
   };
 
@@ -58,7 +58,7 @@ export const Quotes = () => {
     {
       name: 'quote.list.menu.edit',
       icon: PencilSquareIcon,
-      onClick: () => handleEdit(quote.id, quote.mainEvent.id),
+      onClick: () => handleEdit(quote.id),
     },
     {
       name: 'quote.list.menu.send',
