@@ -1,14 +1,14 @@
-import { Menu, Transition } from "@headlessui/react";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { FC, Fragment } from "react";
-import { classNames } from "../../utils/utils";
-import { useIntl } from "react-intl";
+import { Menu, Transition } from '@headlessui/react';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { FC, Fragment } from 'react';
+import { classNames } from '../../utils/utils';
+import { useIntl } from 'react-intl';
 
 interface Item {
   name: string;
   onClick: () => void;
   icon?: React.ForwardRefExoticComponent<
-    Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
+    Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
       title?: string | undefined;
       titleId?: string | undefined;
     } & React.RefAttributes<SVGSVGElement>
@@ -17,7 +17,7 @@ interface Item {
 
 type Props = {
   items: Item[];
-  buttonSize?: "sm" | "md" | "lg";
+  buttonSize?: 'sm' | 'md' | 'lg';
 };
 
 export const KebabMenu: FC<Props> = (props: Props) => {
@@ -31,13 +31,13 @@ export const KebabMenu: FC<Props> = (props: Props) => {
           <span className="sr-only">Open options</span>
           <EllipsisVerticalIcon
             className={
-              buttonSize === "sm"
-                ? "h-5 w-5"
-                : buttonSize === "md"
-                ? "h-6 w-6"
-                : buttonSize === "lg"
-                ? "h-7 w-7"
-                : "h-5 w-5"
+              buttonSize === 'sm'
+                ? 'h-5 w-5'
+                : buttonSize === 'md'
+                  ? 'h-6 w-6'
+                  : buttonSize === 'lg'
+                    ? 'h-7 w-7'
+                    : 'h-5 w-5'
             }
             aria-hidden="true"
           />
@@ -61,8 +61,8 @@ export const KebabMenu: FC<Props> = (props: Props) => {
                   <span
                     onClick={item.onClick}
                     className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "group flex items-center px-4 py-2 text-sm hover:cursor-pointer"
+                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'group flex items-center px-4 py-2 text-sm hover:cursor-pointer',
                     )}
                   >
                     {item.icon && (

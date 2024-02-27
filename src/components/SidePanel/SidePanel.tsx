@@ -1,7 +1,7 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
-import { useIntl } from "react-intl";
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Fragment } from 'react';
+import { useIntl } from 'react-intl';
 
 type Props = {
   children: any;

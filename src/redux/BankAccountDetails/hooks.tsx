@@ -1,9 +1,9 @@
-import { useAsyncCallback } from "@react-hooks-library/core";
-import { ToastNotification } from "components";
-import { BankAccountDetails } from "interface/User/bank-account-details.interface";
-import toast from "react-hot-toast";
-import webClient from "utils/webclient";
-import * as ibantools from "ibantools";
+import { useAsyncCallback } from '@react-hooks-library/core';
+import { ToastNotification } from 'components';
+import { BankAccountDetails } from 'interface/User/bank-account-details.interface';
+import toast from 'react-hot-toast';
+import webClient from 'utils/webclient';
+import * as ibantools from 'ibantools';
 
 export const useFetchBankAccountDetails = () => {
   return useAsyncCallback(async () => {
@@ -27,7 +27,7 @@ export const useAddBankAccountDetails = () => {
           titleId={`toast.error.invalid-iban.title`}
           messageId={`toast.error.invalid-iban.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       return;
     }
@@ -41,14 +41,14 @@ export const useAddBankAccountDetails = () => {
           titleId={`toast.error.invalid-bic.title`}
           messageId={`toast.error.invalid-bic.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       return;
     }
     try {
       const res = await webClient.put(
         `/bank-account-details`,
-        bankAccountDetails
+        bankAccountDetails,
       );
       toast.custom(
         <ToastNotification
@@ -58,21 +58,21 @@ export const useAddBankAccountDetails = () => {
         />,
         {
           duration: 1500,
-          position: "top-right",
-        }
+          position: 'top-right',
+        },
       );
       return res.data;
     } catch (error: any) {
       const code = error.response.data.code
         ? error.response.data.code.toLowerCase()
-        : "default";
+        : 'default';
       toast.custom(
         <ToastNotification
           status="danger"
           titleId={`toast.error.${code}.title`}
           messageId={`toast.error.${code}.message`}
         />,
-        { duration: 1500, position: "top-right" }
+        { duration: 1500, position: 'top-right' },
       );
       console.error(error);
       return error.data;

@@ -1,12 +1,12 @@
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from '@headlessui/react';
 import {
   ArrowRightIcon,
   QuestionMarkCircleIcon,
-} from "@heroicons/react/24/outline";
-import { Button } from "components/Button";
-import { Fragment, useState } from "react";
-import { useIntl } from "react-intl";
-import { handleClickHelp } from "utils/clickOnCrisp";
+} from '@heroicons/react/24/outline';
+import { Button } from 'components/Button';
+import { Fragment, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { handleClickHelp } from 'utils/clickOnCrisp';
 
 type Props = {
   isOpen: boolean;
@@ -20,13 +20,17 @@ export const GettingStartedModal = (props: Props) => {
   const [isModalOpen, setOpen] = useState<boolean>(isOpen);
 
   const loomLink =
-    "https://www.loom.com/embed/8a7f72f999aa47eeb90d77daf44499e3?sid=d3a366c2-9cbf-4263-bfd1-243a1fec0220";
+    'https://www.loom.com/share/7abc9163a6db40e9be1905d3d7e09506?sid=de32b506-5bc0-4df5-9880-0874f7f6d37d';
 
   return (
     <Transition.Root show={isModalOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-20" onClose={() => {
-        return;
-      }}>
+      <Dialog
+        as="div"
+        className="relative z-20"
+        onClose={() => {
+          return;
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -65,14 +69,14 @@ export const GettingStartedModal = (props: Props) => {
                           <span className="text-klaq-600">{chunks}</span>
                         ),
                         firstName,
-                      }
+                      },
                     )}
                   </Dialog.Title>
 
                   <div
                     style={{
-                      position: "relative",
-                      paddingBottom: "55.833333333333336%",
+                      position: 'relative',
+                      paddingBottom: '55.833333333333336%',
                       height: 0,
                     }}
                   >
@@ -81,11 +85,11 @@ export const GettingStartedModal = (props: Props) => {
                       frameBorder="0"
                       allowFullScreen
                       style={{
-                        position: "absolute",
+                        position: 'absolute',
                         top: 0,
                         left: 0,
-                        width: "100%",
-                        height: "100%",
+                        width: '100%',
+                        height: '100%',
                       }}
                     ></iframe>
                   </div>
@@ -104,7 +108,7 @@ export const GettingStartedModal = (props: Props) => {
                       }
                     >
                       {intl.formatMessage({
-                        id: "onboarding.complete.button.help",
+                        id: 'onboarding.complete.button.help',
                       })}
                     </Button>
                     <Button
@@ -114,7 +118,7 @@ export const GettingStartedModal = (props: Props) => {
                       trailingIcon={<ArrowRightIcon className="w-5 h-5" />}
                     >
                       {intl.formatMessage({
-                        id: "onboarding.complete.button.go",
+                        id: 'onboarding.complete.button.go',
                       })}
                     </Button>
                   </div>

@@ -1,4 +1,4 @@
-import { HandThumbUpIcon } from "@heroicons/react/20/solid";
+import { HandThumbUpIcon } from '@heroicons/react/20/solid';
 import {
   ArrowDownTrayIcon,
   ExclamationTriangleIcon,
@@ -6,38 +6,38 @@ import {
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
-} from "@heroicons/react/24/outline";
-import { Button, InvoiceBadge, KebabMenu } from "components";
-import { isPast } from "date-fns";
-import { Invoice, InvoiceStatus } from "interface/Invoice/invoice.interface";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+} from '@heroicons/react/24/outline';
+import { Button, InvoiceBadge, KebabMenu } from 'components';
+import { isPast } from 'date-fns';
+import { Invoice, InvoiceStatus } from 'interface/Invoice/invoice.interface';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   useDownloadInvoiceDocument,
   useFetchInvoices,
-} from "redux/Invoice/hooks";
-import { getInvoices } from "redux/Invoice/selectors";
-import { PATHS } from "routes";
-import { getInvoiceSubtotal } from "utils/invoice";
-import { classNames } from "utils/utils";
-import { QuoteListSkeleton } from "../Quote";
+} from 'redux/Invoice/hooks';
+import { getInvoices } from 'redux/Invoice/selectors';
+import { PATHS } from 'routes';
+import { getInvoiceSubtotal } from 'utils/invoice';
+import { classNames } from 'utils/utils';
+import { QuoteListSkeleton } from '../Quote';
 
 export const InvoicesPage = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
   const [params, setParams] = useSearchParams();
-  const query = params.get("q") || "";
+  const query = params.get('q') || '';
 
   const invoices = useSelector(getInvoices);
   const [{ isLoading }, fetchInvoices] = useFetchInvoices();
   const [, downloadInvoice] = useDownloadInvoiceDocument();
 
   const filteredInvoices =
-    invoices && invoices.length > 0 && query === ""
+    invoices && invoices.length > 0 && query === ''
       ? invoices
       : invoices.filter((invoices) => {
           return (
@@ -50,22 +50,22 @@ export const InvoicesPage = () => {
 
   const optionMenu = (invoice: Invoice) => [
     {
-      name: "quote.list.menu.view",
+      name: 'quote.list.menu.view',
       icon: EyeIcon,
       onClick: () => handleView(invoice.id),
     },
     {
-      name: "quote.list.menu.edit",
+      name: 'quote.list.menu.edit',
       icon: PencilSquareIcon,
       onClick: () => handleEdit(invoice.id),
     },
     {
-      name: "quote.list.menu.send",
+      name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
       onClick: () => handleSendByMail(invoice.id),
     },
     {
-      name: "quote.list.menu.download",
+      name: 'quote.list.menu.download',
       icon: ArrowDownTrayIcon,
       onClick: () => downloadInvoice(invoice.id, invoice.number),
     },
@@ -76,67 +76,67 @@ export const InvoicesPage = () => {
   };
 
   const handleView = (invoiceId: string) => {
-    navigate(PATHS.INVOICE + "/" + invoiceId + "/details");
+    navigate(PATHS.INVOICE + '/' + invoiceId + '/details');
   };
 
   const handleEdit = (invoiceId: string) => {
-    navigate(PATHS.INVOICE + "/" + invoiceId + "/edit");
+    navigate(PATHS.INVOICE + '/' + invoiceId + '/edit');
   };
 
   const handleSendByMail = (invoiceId: string) => {
-    navigate(PATHS.INVOICE + "/" + invoiceId + "/send");
+    navigate(PATHS.INVOICE + '/' + invoiceId + '/send');
   };
 
   const handleSendReminder = (invoiceId: string) => {
     if (!invoiceId) return;
-    navigate(PATHS.INVOICE + "/" + invoiceId + "/send?type=reminder");
+    navigate(PATHS.INVOICE + '/' + invoiceId + '/send?type=reminder');
   };
 
   const tabs = [
     {
-      name: "invoices.status.all",
-      tab: "all",
-      current: params.get("tab") === "all",
+      name: 'invoices.status.all',
+      tab: 'all',
+      current: params.get('tab') === 'all',
       invoices: filteredInvoices,
     },
     {
-      name: "invoices.status.late",
+      name: 'invoices.status.late',
       tab: InvoiceStatus.LATE,
-      current: params.get("tab") === InvoiceStatus.LATE,
+      current: params.get('tab') === InvoiceStatus.LATE,
       invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.LATE
+        (invoice) => invoice.status === InvoiceStatus.LATE,
       ),
     },
     {
-      name: "invoices.status.pending",
-      tab: "pending",
-      current: params.get("tab") === "pending",
+      name: 'invoices.status.pending',
+      tab: 'pending',
+      current: params.get('tab') === 'pending',
       invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.PENDING
+        (invoice) => invoice.status === InvoiceStatus.PENDING,
       ),
     },
     {
-      name: "invoices.status.draft",
+      name: 'invoices.status.draft',
       tab: InvoiceStatus.DRAFT,
-      current: params.get("tab") === InvoiceStatus.DRAFT,
+      current: params.get('tab') === InvoiceStatus.DRAFT,
       invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.DRAFT
+        (invoice) => invoice.status === InvoiceStatus.DRAFT,
       ),
     },
     {
-      name: "invoices.status.paid",
+      name: 'invoices.status.paid',
       tab: InvoiceStatus.PAID,
-      current: params.get("tab") === InvoiceStatus.PAID,
+      current: params.get('tab') === InvoiceStatus.PAID,
       invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.PAID
+        (invoice) => invoice.status === InvoiceStatus.PAID,
       ),
     },
     {
-      name: "invoices.status.canceled",
+      name: 'invoices.status.canceled',
       tab: InvoiceStatus.CANCELED,
-      current: params.get("tab") === InvoiceStatus.CANCELED,
+      current: params.get('tab') === InvoiceStatus.CANCELED,
       invoices: filteredInvoices.filter(
-        (invoice) => invoice.status === InvoiceStatus.CANCELED
+        (invoice) => invoice.status === InvoiceStatus.CANCELED,
       ),
     },
   ];
@@ -153,17 +153,17 @@ export const InvoicesPage = () => {
           <div className="min-w-0 flex-1">
             <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               {intl.formatMessage({
-                id: "invoices.header",
+                id: 'invoices.header',
               })}
             </h2>
             <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
               {intl.formatMessage(
                 {
-                  id: "invoices.description",
+                  id: 'invoices.description',
                 },
                 {
                   nb: currentTab.invoices.length,
-                }
+                },
               )}
             </p>
           </div>
@@ -176,7 +176,7 @@ export const InvoicesPage = () => {
                 onClick={handleNewInvoice}
               >
                 {intl.formatMessage({
-                  id: "invoices.button.new",
+                  id: 'invoices.button.new',
                 })}
               </Button>
             </div>
@@ -190,9 +190,9 @@ export const InvoicesPage = () => {
                   key={tab.name}
                   className={classNames(
                     tab.current
-                      ? "border-klaq-500 text-klaq-600"
-                      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                    "group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer"
+                      ? 'border-klaq-500 text-klaq-600'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                    'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium hover:cursor-pointer',
                   )}
                   onClick={() =>
                     setParams({
@@ -200,7 +200,7 @@ export const InvoicesPage = () => {
                       tab: tab.tab,
                     })
                   }
-                  aria-current={tab.current ? "page" : undefined}
+                  aria-current={tab.current ? 'page' : undefined}
                 >
                   <span>{intl.formatMessage({ id: tab.name })}</span>
                 </span>
@@ -226,7 +226,7 @@ export const InvoicesPage = () => {
                 type="text"
                 className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
                 placeholder={intl.formatMessage({
-                  id: "invoices.search",
+                  id: 'invoices.search',
                 })}
               />
             </div>
@@ -241,7 +241,7 @@ export const InvoicesPage = () => {
                   className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                 >
                   {intl.formatMessage({
-                    id: "invoices.table.customer",
+                    id: 'invoices.table.customer',
                   })}
                 </th>
                 <th
@@ -249,7 +249,7 @@ export const InvoicesPage = () => {
                   className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                 >
                   {intl.formatMessage({
-                    id: "invoices.table.issued-on",
+                    id: 'invoices.table.issued-on',
                   })}
                 </th>
                 <th
@@ -257,7 +257,7 @@ export const InvoicesPage = () => {
                   className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                 >
                   {intl.formatMessage({
-                    id: "invoices.table.valid-until",
+                    id: 'invoices.table.valid-until',
                   })}
                 </th>
                 <th
@@ -265,7 +265,7 @@ export const InvoicesPage = () => {
                   className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                 >
                   {intl.formatMessage({
-                    id: "invoices.table.status",
+                    id: 'invoices.table.status',
                   })}
                 </th>
                 <th
@@ -273,7 +273,7 @@ export const InvoicesPage = () => {
                   className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                 >
                   {intl.formatMessage({
-                    id: "invoices.table.total",
+                    id: 'invoices.table.total',
                   })}
                 </th>
                 <th
@@ -295,8 +295,8 @@ export const InvoicesPage = () => {
                             onClick={() =>
                               navigate(
                                 PATHS.CUSTOMERS +
-                                  "/" +
-                                  invoice.mainEvent.customer.id
+                                  '/' +
+                                  invoice.mainEvent.customer.id,
                               )
                             }
                           >
@@ -315,7 +315,10 @@ export const InvoicesPage = () => {
                       <td
                         className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center"
                         onClick={() => {
-                          if (invoice.status !== InvoiceStatus.PAID)
+                          if (
+                            isPast(new Date(invoice.validUntil)) &&
+                            invoice.status !== InvoiceStatus.PAID
+                          )
                             handleSendReminder(invoice.id);
                         }}
                       >
@@ -323,8 +326,8 @@ export const InvoicesPage = () => {
                           className={classNames(
                             isPast(new Date(invoice.validUntil)) &&
                               invoice.status !== InvoiceStatus.PAID
-                              ? "text-danger-500 font-semibold hover:cursor-pointer hover:text-danger-600"
-                              : "text-gray-500 font-medium"
+                              ? 'text-danger-500 font-semibold hover:cursor-pointer hover:text-danger-600'
+                              : 'text-gray-500 font-medium',
                           )}
                         >
                           {isPast(new Date(invoice.validUntil)) &&
@@ -336,7 +339,7 @@ export const InvoicesPage = () => {
                               />
                               <span>
                                 {new Date(
-                                  invoice.validUntil
+                                  invoice.validUntil,
                                 ).toLocaleDateString()}
                               </span>
                             </span>
@@ -373,7 +376,7 @@ export const InvoicesPage = () => {
                         />
                         <h3 className="mt-4 font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoices.empty",
+                            id: 'invoices.empty',
                           })}
                         </h3>
                       </div>

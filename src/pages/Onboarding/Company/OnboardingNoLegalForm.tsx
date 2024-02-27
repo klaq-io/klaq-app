@@ -1,8 +1,8 @@
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { Button } from "components";
-import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { Button } from 'components';
+import { OnboardingLayout } from 'layouts/OnboardingLayout/OnboardingLayout';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 
 export const OnboardingNoLegalFormPage = () => {
   const intl = useIntl();
@@ -15,12 +15,12 @@ export const OnboardingNoLegalFormPage = () => {
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {intl.formatMessage({
-            id: "onboarding.legal-form-choice.no-status.header",
+            id: 'onboarding.legal-form-choice.no-status.header',
           })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage({
-            id: "onboarding.legal-form-choice.no-status.description",
+            id: 'onboarding.legal-form-choice.no-status.description',
           })}
         </p>
         <div className="mt-8">
@@ -34,7 +34,7 @@ export const OnboardingNoLegalFormPage = () => {
             onClick={() => navigate(-1)}
           >
             {intl.formatMessage({
-              id: "onboarding.company-form.button.previous",
+              id: 'onboarding.company-form.button.previous',
             })}
           </Button>
         </div>

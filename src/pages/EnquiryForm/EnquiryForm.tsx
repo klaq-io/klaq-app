@@ -1,50 +1,50 @@
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { SuperBalls } from "@uiball/loaders";
-import KlaqIcon from "assets/klaq.png";
-import { Label, MapAutocompleteInput, TextField } from "components";
-import { Alert } from "components/Alert/Alert";
-import { useFormik } from "formik";
-import { RetrieveAddress } from "interface/retrieve-address.interface";
-import { createRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useSearchParams } from "react-router-dom";
-import { useCreateEnquiry } from "redux/Enquiry/hook";
-import * as Yup from "yup";
+import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import { SuperBalls } from '@uiball/loaders';
+import KlaqIcon from 'assets/klaq.png';
+import { Label, MapAutocompleteInput, TextField } from 'components';
+import { Alert } from 'components/Alert/Alert';
+import { useFormik } from 'formik';
+import { RetrieveAddress } from 'interface/retrieve-address.interface';
+import { createRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useSearchParams } from 'react-router-dom';
+import { useCreateEnquiry } from 'redux/Enquiry/hook';
+import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
-  type: Yup.string().required("Ce champ est requis"),
-  firstName: Yup.string().required("Ce champ est requis"),
-  lastName: Yup.string().required("Ce champ est requis"),
-  phone: Yup.string().required("Ce champ est requis"),
-  email: Yup.string().email().required("Ce champ est requis"),
-  date: Yup.string().required("Ce champ est requis"),
-  address: Yup.string().required("Ce champ est requis"),
+  type: Yup.string().required('Ce champ est requis'),
+  firstName: Yup.string().required('Ce champ est requis'),
+  lastName: Yup.string().required('Ce champ est requis'),
+  phone: Yup.string().required('Ce champ est requis'),
+  email: Yup.string().email().required('Ce champ est requis'),
+  date: Yup.string().required('Ce champ est requis'),
+  address: Yup.string().required('Ce champ est requis'),
   note: Yup.string(),
   guests: Yup.number().min(0),
 });
 
 export const EnquiryForm = () => {
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const recaptchaRef = createRef<ReCAPTCHA>();
   const [isSent, setIsSent] = useState(false);
-  const token = params.get("token");
+  const token = params.get('token');
 
   const [{ isLoading }, createEnquiry] = useCreateEnquiry();
 
   const formik = useFormik({
     initialValues: {
-      type: "",
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      date: "",
-      address: "",
-      note: "",
+      type: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      date: '',
+      address: '',
+      note: '',
       guests: 0,
-      city: "",
-      zipcode: "",
-      country: "",
+      city: '',
+      zipcode: '',
+      country: '',
     },
     onSubmit: async (values) => {
       await recaptchaRef.current?.executeAsync();
@@ -61,16 +61,16 @@ export const EnquiryForm = () => {
   const handleRetrieveAddress = (retrieveAddress: RetrieveAddress) => {
     const { address, city, zipcode, country } = retrieveAddress;
 
-    formik.setFieldValue("address", address);
-    formik.setFieldValue("city", city);
-    formik.setFieldValue("zipcode", zipcode);
-    formik.setFieldValue("country", country);
+    formik.setFieldValue('address', address);
+    formik.setFieldValue('city', city);
+    formik.setFieldValue('zipcode', zipcode);
+    formik.setFieldValue('country', country);
   };
 
   return (
     <>
       {!token && (
-        <Alert status="danger" title={"Erreur propriétaire"}>
+        <Alert status="danger" title={'Erreur propriétaire'}>
           Token d'authentification invalide, veuillez contacter le support.
         </Alert>
       )}
@@ -167,7 +167,7 @@ export const EnquiryForm = () => {
                 label="Date de l'évènement*"
                 value={formik.values.date}
                 onChange={formik.handleChange}
-                min={new Date().toISOString().split("T")[0]}
+                min={new Date().toISOString().split('T')[0]}
               />
               {formik.errors.date && formik.touched.date ? (
                 <p className="mt-2 text-sm text-danger-600" id="date-error">

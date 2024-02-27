@@ -1,11 +1,11 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { Button, SettingsNavbar } from "components";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useFetchUser, useRequestResetPassword } from "redux/Login/hooks";
-import { getUser } from "redux/Login/selectors";
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { Button, SettingsNavbar } from 'components';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useFetchUser, useRequestResetPassword } from 'redux/Login/hooks';
+import { getUser } from 'redux/Login/selectors';
 
 export const Security = () => {
   const intl = useIntl();
@@ -33,12 +33,12 @@ export const Security = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.change-password.header",
+                id: 'settings.change-password.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.change-password.description",
+                id: 'settings.change-password.description',
               })}
             </p>
           </div>
@@ -49,15 +49,18 @@ export const Security = () => {
                 <div className="sm:col-span-full">
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "settings.change-password.send-mail.header",
+                      id: 'settings.change-password.send-mail.header',
                     })}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">
                     {intl.formatMessage(
                       {
-                        id: "settings.change-password.send-mail.description",
+                        id: 'settings.change-password.send-mail.description',
                       },
-                      { b: (chunks: any) => <b>{chunks}</b>, mail: user?.email }
+                      {
+                        b: (chunks: any) => <b>{chunks}</b>,
+                        mail: user?.email,
+                      },
                     )}
                   </p>
                 </div>
@@ -75,7 +78,7 @@ export const Security = () => {
                     isLoading={isSendingRequest}
                   >
                     {intl.formatMessage({
-                      id: "settings.change-password.send-mail.button",
+                      id: 'settings.change-password.send-mail.button',
                     })}
                   </Button>
                 </div>

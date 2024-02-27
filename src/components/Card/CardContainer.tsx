@@ -1,5 +1,5 @@
-import { useId } from "react";
-import { classNames } from "utils/utils";
+import { useId } from 'react';
+import { classNames } from 'utils/utils';
 
 type CardContainerProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export const CardContainer = (props: CardContainerProps) => {
   const id = useId();
   return (
     <div
-      className={classNames("bg-white shadow-sm sm:rounded-xl", className)}
+      className={classNames('bg-white shadow-sm sm:rounded-xl', className)}
       key={id}
     >
       {children}

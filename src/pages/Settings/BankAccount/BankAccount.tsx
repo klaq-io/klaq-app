@@ -1,14 +1,14 @@
-import { Button, SettingsNavbar, TextField } from "components";
-import { useFormik } from "formik";
-import { PageLayout } from "layouts";
-import { useIntl } from "react-intl";
-import { initialValues, validationSchema } from "./form";
-import { PublicInformationSkeleton } from "../Profile/Skeleton";
+import { Button, SettingsNavbar, TextField } from 'components';
+import { useFormik } from 'formik';
+import { PageLayout } from 'layouts';
+import { useIntl } from 'react-intl';
+import { initialValues, validationSchema } from './form';
+import { PublicInformationSkeleton } from '../Profile/Skeleton';
 import {
   useAddBankAccountDetails,
   useFetchBankAccountDetails,
-} from "redux/BankAccountDetails/hooks";
-import { useEffect } from "react";
+} from 'redux/BankAccountDetails/hooks';
+import { useEffect } from 'react';
 
 export const BankAccount = () => {
   const intl = useIntl();
@@ -42,12 +42,12 @@ export const BankAccount = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.bank-account.header",
+                id: 'settings.bank-account.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.bank-account.description",
+                id: 'settings.bank-account.description',
               })}
             </p>
           </div>
@@ -64,7 +64,7 @@ export const BankAccount = () => {
                   <div className="sm:col-span-6">
                     <TextField
                       label={intl.formatMessage({
-                        id: "settings.bank-account.label.iban",
+                        id: 'settings.bank-account.label.iban',
                       })}
                       placeholder="DE89 3704 0044 0532 0130 00"
                       name="accountIBAN"
@@ -82,7 +82,7 @@ export const BankAccount = () => {
                   <div className="sm:col-span-2">
                     <TextField
                       label={intl.formatMessage({
-                        id: "settings.bank-account.label.bic-swift",
+                        id: 'settings.bank-account.label.bic-swift',
                       })}
                       placeholder="COBADEFFXXX"
                       name="accountBicSwift"
@@ -101,7 +101,7 @@ export const BankAccount = () => {
                   <div className="sm:col-span-2">
                     <TextField
                       label={intl.formatMessage({
-                        id: "settings.bank-account.label.holder",
+                        id: 'settings.bank-account.label.holder',
                       })}
                       placeholder="John Doe"
                       name="accountHolder"
@@ -120,7 +120,7 @@ export const BankAccount = () => {
                   <div className="sm:col-span-2">
                     <TextField
                       label={intl.formatMessage({
-                        id: "settings.bank-account.label.label",
+                        id: 'settings.bank-account.label.label',
                       })}
                       placeholder="Professionel"
                       name="label"
@@ -141,7 +141,7 @@ export const BankAccount = () => {
               <div className="bg-gray-50 flex items-center justify-end gap-x-6 border-t border-gray-900/10 rounded-b-xl px-4 py-4 sm:px-8">
                 <Button type="button" variant="text" color="secondary">
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -152,7 +152,7 @@ export const BankAccount = () => {
                   isLoading={isSubmitting}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>

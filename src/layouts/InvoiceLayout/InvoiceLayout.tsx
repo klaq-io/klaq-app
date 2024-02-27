@@ -1,11 +1,11 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode } from 'react';
 
 type InvoiceLayoutProps = {
   children: ReactNode;
 };
 
 export const InvoiceLayout: FC<InvoiceLayoutProps> = (
-  props: InvoiceLayoutProps
+  props: InvoiceLayoutProps,
 ) => {
   const { children } = props;
   return (

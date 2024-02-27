@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "../states";
-import { Event } from "../Events/slices";
-import { MainEvent } from "interface/Event/main-event.interface";
+import { createSlice } from '@reduxjs/toolkit';
+import { initialState } from '../states';
+import { Event } from '../Events/slices';
+import { MainEvent } from 'interface/Event/main-event.interface';
 
 export interface Customer {
   id: string;
@@ -25,12 +25,12 @@ export interface Customer {
 }
 
 export enum CustomerType {
-  PRIVATE = "PRIVATE",
-  COMPANY = "COMPANY",
+  PRIVATE = 'PRIVATE',
+  COMPANY = 'COMPANY',
 }
 
 export const customerSlice = createSlice({
-  name: "customer",
+  name: 'customer',
   initialState,
   reducers: {
     setCustomers: (state, action) => {

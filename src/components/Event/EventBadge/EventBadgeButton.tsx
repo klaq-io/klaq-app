@@ -1,15 +1,15 @@
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { Spinner } from "components/Spinner";
-import { FC, Fragment } from "react";
-import { useFetchCommentaries } from "redux/Commentary/hooks";
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Spinner } from 'components/Spinner';
+import { FC, Fragment } from 'react';
+import { useFetchCommentaries } from 'redux/Commentary/hooks';
 import {
   useFetchMainEvent,
   useUpdateMainEventStatus,
-} from "redux/MainEvent/hooks";
-import { EventStatus } from "../../../redux/Events/slices";
-import { classNames } from "../../../utils/utils";
-import EventBadge from "./EventBadge";
+} from 'redux/MainEvent/hooks';
+import { EventStatus } from '../../../redux/Events/slices';
+import { classNames } from '../../../utils/utils';
+import EventBadge from './EventBadge';
 
 type Props = {
   status: EventStatus;
@@ -64,9 +64,9 @@ export const EventBadgeButton: FC<Props> = (props: Props) => {
                         onClick={() => handleUpdateEventStatus(status)}
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                            ? 'bg-gray-100 text-gray-900'
+                            : 'text-gray-700',
+                          'block px-4 py-2 text-sm',
                         )}
                       >
                         <EventBadge status={status} />
@@ -74,7 +74,7 @@ export const EventBadgeButton: FC<Props> = (props: Props) => {
                     )}
                   </Menu.Item>
                 );
-              }
+              },
             )}
           </div>
         </Menu.Items>

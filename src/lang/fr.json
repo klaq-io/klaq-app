@@ -1399,7 +1399,7 @@
       }
     },
     "social": {
-      "header": "Authentification social",
+      "header": "Authentification sociale",
       "description": "Connectez-vous avec vos réseaux sociaux préférés.",
       "no-social-login": {
         "header": "Aucun réseau social connecté.",
@@ -1570,6 +1570,11 @@
       "header": "Aucun évènement planifié",
       "description": "Vous n'avez aucun évènement planifié le {date}."
     }
+  },
+
+  "resolution-too-low": {
+    "title": "La résolution de votre écran est trop basse",
+    "description": "Nous vous recommandons d'utiliser Klaq sur ordinateur. L'application mobile est en cours de développement 😉"
   },
 
   "toast": {

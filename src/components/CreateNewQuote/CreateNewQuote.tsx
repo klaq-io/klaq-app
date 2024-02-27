@@ -1,22 +1,22 @@
-import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { Combobox, Dialog, Transition } from '@headlessui/react';
 import {
   CheckIcon,
   ChevronRightIcon,
   MagnifyingGlassIcon,
   UsersIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Button } from "components/Button";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { Fragment, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { EventStatus } from "redux/Events/slices";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
-import { PATHS } from "routes";
-import { classNames } from "utils/utils";
+} from '@heroicons/react/24/outline';
+import { Button } from 'components/Button';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { Fragment, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { EventStatus } from 'redux/Events/slices';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
+import { getMainEventsByStatus } from 'redux/MainEvent/selectors';
+import { PATHS } from 'routes';
+import { classNames } from 'utils/utils';
 
 type CreateNewQuoteModalProps = {
   isOpen: boolean;
@@ -29,19 +29,19 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
   const { isOpen, setOpen } = props;
 
   const [, fetchMainEvents] = useFetchMainEvents();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   const mainEvents = useSelector((state: any) =>
     getMainEventsByStatus(
       state,
       EventStatus.INBOX,
       EventStatus.QUOTE_SENT,
-      EventStatus.QUOTE_REJECTED
-    )
+      EventStatus.QUOTE_REJECTED,
+    ),
   ).reverse();
 
   const filteredEvents =
-    query === ""
+    query === ''
       ? []
       : mainEvents.filter((event) => {
           return (
@@ -77,7 +77,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
     <Transition.Root
       show={isOpen}
       as={Fragment}
-      afterLeave={() => setQuery("")}
+      afterLeave={() => setQuery('')}
       appear
     >
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -118,12 +118,12 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                       <Combobox.Input
                         className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                         placeholder={intl.formatMessage({
-                          id: "quote.attach-to-event.search",
+                          id: 'quote.attach-to-event.search',
                         })}
                         onChange={(event) => setQuery(event.target.value)}
                       />
                     </div>
-                    {(query === "" || filteredEvents.length > 0) && (
+                    {(query === '' || filteredEvents.length > 0) && (
                       <Combobox.Options
                         as="div"
                         static
@@ -132,19 +132,19 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                       >
                         <div
                           className={classNames(
-                            "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4",
-                            activeOption && "sm:h-96"
+                            'max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4',
+                            activeOption && 'sm:h-96',
                           )}
                         >
-                          {query === "" && (
+                          {query === '' && (
                             <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
                               {intl.formatMessage({
-                                id: "quote.attach-to-event.recent",
+                                id: 'quote.attach-to-event.recent',
                               })}
                             </h2>
                           )}
                           <div className="-mx-2 text-sm text-gray-700">
-                            {(query === ""
+                            {(query === ''
                               ? mainEvents.slice(0, 5)
                               : filteredEvents
                             ).map((mainEvent) => (
@@ -154,8 +154,8 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                 value={mainEvent}
                                 className={({ active }) =>
                                   classNames(
-                                    "flex cursor-default select-none items-center rounded-md p-2",
-                                    active && "bg-gray-100 text-gray-900"
+                                    'flex cursor-default select-none items-center rounded-md p-2',
+                                    active && 'bg-gray-100 text-gray-900',
                                   )
                                 }
                               >
@@ -163,9 +163,9 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   <>
                                     <span className="ml-3 flex-auto truncate">
                                       {new Date(
-                                        mainEvent.subEvents[0].date
-                                      ).toLocaleDateString()}{" "}
-                                      - {mainEvent.customer.name} -{" "}
+                                        mainEvent.subEvents[0].date,
+                                      ).toLocaleDateString()}{' '}
+                                      - {mainEvent.customer.name} -{' '}
                                       {intl.formatMessage({
                                         id: `events.status.${mainEvent.status}`,
                                       })}
@@ -188,17 +188,17 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                               <h2 className="mt-3 font-semibold text-gray-900">
                                 {intl.formatMessage(
                                   {
-                                    id: "quote.attach-to-event.information.title",
+                                    id: 'quote.attach-to-event.information.title',
                                   },
                                   {
                                     eventType: intl.formatMessage({
                                       id: activeOption.subEvents[0].type,
                                     }),
                                     date: new Date(
-                                      activeOption.subEvents[0].date
+                                      activeOption.subEvents[0].date,
                                     ).toLocaleDateString(),
                                     customerName: activeOption.customer.name,
-                                  }
+                                  },
                                 )}
                               </h2>
                               <p className="text-sm leading-6 text-gray-500">
@@ -211,7 +211,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   }
                                 >
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.button.look-event",
+                                    id: 'quote.attach-to-event.button.look-event',
                                   })}
                                 </Button>
                               </p>
@@ -220,13 +220,13 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                               <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm text-gray-700">
                                 <dt className="col-end-1 font-semibold text-gray-900">
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.information.phone",
+                                    id: 'quote.attach-to-event.information.phone',
                                   })}
                                 </dt>
                                 <dd>{activeOption.customer.phone}</dd>
                                 <dt className="col-end-1 font-semibold text-gray-900">
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.information.number-of-guests",
+                                    id: 'quote.attach-to-event.information.number-of-guests',
                                   })}
                                 </dt>
                                 <dd className="truncate">
@@ -234,12 +234,12 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                 </dd>
                                 <dt className="col-end-1 font-semibold text-gray-900">
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.information.public-event",
+                                    id: 'quote.attach-to-event.information.public-event',
                                   })}
                                 </dt>
                                 <dd>
                                   {activeOption.subEvents[0].publicEvent ===
-                                  "yes" ? (
+                                  'yes' ? (
                                     <CheckIcon className="h-5 w-5" />
                                   ) : (
                                     <XMarkIcon className="h-5 w-5" />
@@ -247,7 +247,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                 </dd>
                                 <dt className="col-end-1 font-semibold text-gray-900">
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.information.location",
+                                    id: 'quote.attach-to-event.information.location',
                                   })}
                                 </dt>
                                 <dd className="truncate">
@@ -264,7 +264,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   }
                                 >
                                   {intl.formatMessage({
-                                    id: "quote.attach-to-event.button.generate",
+                                    id: 'quote.attach-to-event.button.generate',
                                   })}
                                 </Button>
                               </div>
@@ -273,7 +273,7 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                         )}
                       </Combobox.Options>
                     )}
-                    {query !== "" && filteredEvents.length === 0 && (
+                    {query !== '' && filteredEvents.length === 0 && (
                       <div className="px-6 py-14 text-center text-sm sm:px-14">
                         <UsersIcon
                           className="mx-auto h-6 w-6 text-gray-400"
@@ -281,13 +281,13 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                         />
                         <p className="mt-4 font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "quote.attach-to-event.not-found.title",
+                            id: 'quote.attach-to-event.not-found.title',
                           })}
                         </p>
                         <p className="mt-2 text-gray-500">
                           {intl.formatMessage(
                             {
-                              id: "quote.attach-to-event.not-found.description",
+                              id: 'quote.attach-to-event.not-found.description',
                             },
                             {
                               btn: (...chunks: any) => (
@@ -300,12 +300,12 @@ export const CreateNewQuoteModal = (props: CreateNewQuoteModalProps) => {
                                   {chunks.join()}
                                 </Button>
                               ),
-                            }
+                            },
                           )}
                         </p>
                         <p className="mt-2 text-gray-500">
                           {intl.formatMessage({
-                            id: "quote.attach-to-event.not-found.info",
+                            id: 'quote.attach-to-event.not-found.info',
                           })}
                         </p>
                       </div>

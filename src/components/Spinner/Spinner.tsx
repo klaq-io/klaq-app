@@ -1,31 +1,31 @@
-import { classNames } from "../../utils/utils";
+import { classNames } from '../../utils/utils';
 
 type Props = {
-  size: "small" | "medium" | "large" | "xl";
-  color: "primary" | "secondary";
+  size: 'small' | 'medium' | 'large' | 'xl';
+  color: 'primary' | 'secondary';
 };
 
 export const Spinner: React.FC<Props> = (props: Props) => {
   const { size, color } = props;
   const sizeClasses =
-    size === "small"
-      ? "w-4 h-4"
-      : size === "medium"
-      ? "w-14 h-14"
-      : size === "large"
-      ? "w-20 h-20"
-      : "w-40 h-40";
+    size === 'small'
+      ? 'w-4 h-4'
+      : size === 'medium'
+        ? 'w-14 h-14'
+        : size === 'large'
+          ? 'w-20 h-20'
+          : 'w-40 h-40';
 
-  const colorClasses = color === "primary" ? "fill-klaq-600" : "fill-gray-600";
+  const colorClasses = color === 'primary' ? 'fill-klaq-600' : 'fill-gray-600';
 
   return (
     <div role="status">
       <svg
         aria-hidden="true"
         className={classNames(
-          "inline  mr-2 text-gray-200 animate-spin dark:text-gray-600",
+          'inline  mr-2 text-gray-200 animate-spin dark:text-gray-600',
           sizeClasses,
-          colorClasses
+          colorClasses,
         )}
         viewBox="0 0 100 101"
         fill="none"

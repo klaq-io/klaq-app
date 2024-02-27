@@ -37,6 +37,8 @@
     "ibantools": "^4.3.8",
     "mapbox-gl": "^2.15.0",
     "math.gl": "^4.0.0",
+    "prettier-eslint": "^16.3.0",
+    "prettier-eslint-cli": "^8.0.1",
     "react": "^18.2.0",
     "react-confetti-explosion": "^2.1.2",
     "react-countdown": "^2.3.5",
@@ -64,7 +66,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings 0"
+    "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "format-prettier": "prettier-eslint --write \"{src,apps,libs,test}/**/**/*.{ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [

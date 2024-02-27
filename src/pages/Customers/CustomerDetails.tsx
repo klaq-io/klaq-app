@@ -3,7 +3,6 @@ import {
   BanknotesIcon,
   BuildingLibraryIcon,
   CalendarDaysIcon,
-  ClipboardDocumentCheckIcon,
   ClipboardDocumentIcon,
   DocumentCheckIcon,
   EnvelopeIcon,
@@ -14,31 +13,31 @@ import {
   PhoneIcon,
   UserIcon,
   UserPlusIcon,
-} from "@heroicons/react/24/outline";
+} from '@heroicons/react/24/outline';
 import {
   BillingDocumentList,
   Button,
   KebabMenu,
   NewEventModal,
-} from "components";
-import { FC, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { PageLayout } from "../../layouts";
-import { useFetchCustomers } from "../../redux/Customer/hooks";
-import { getCustomer } from "../../redux/Customer/selectors";
-import { CustomerType } from "../../redux/Customer/slices";
-import { formatSiret, getPipeValueForCustomer } from "../../utils/utils";
-import EditCustomer from "./EditCustomer";
-import { useFetchQuotesForCustomer } from "redux/Quote/hooks";
-import { useFetchInvoicesForCustomer } from "redux/Invoice/hooks";
-import { formatPhoneNumber } from "utils/customer";
+} from 'components';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFetchInvoicesForCustomer } from 'redux/Invoice/hooks';
+import { useFetchQuotesForCustomer } from 'redux/Quote/hooks';
+import { formatPhoneNumber } from 'utils/customer';
+import { PageLayout } from '../../layouts';
+import { useFetchCustomers } from '../../redux/Customer/hooks';
+import { getCustomer } from '../../redux/Customer/selectors';
+import { CustomerType } from '../../redux/Customer/slices';
+import { formatSiret, getPipeValueForCustomer } from '../../utils/utils';
+import EditCustomer from './EditCustomer';
 
 const DocumentType = {
-  INVOICE: "invoice",
-  QUOTE: "quote",
-  EVENT: "event",
+  INVOICE: 'invoice',
+  QUOTE: 'quote',
+  EVENT: 'event',
 };
 
 export const CustomerDetails = () => {
@@ -46,15 +45,16 @@ export const CustomerDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [openNewEvent, setOpenNewEvent] = useState(false);
+  const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
 
   const [selectedDocumentType, setSelectedDucomentType] = useState(
-    DocumentType.INVOICE
+    DocumentType.INVOICE,
   );
-  const [openEditCustomerPanel, setOpenEditCustomerPanel] = useState(false);
+  const [shouldOpenEditCustomerPanel, setOpenEditCustomerPanel] =
+    useState(false);
 
-  const [{ isLoading, isSuccess }, fetchCustomers] = useFetchCustomers();
-  const customer = useSelector((state: any) => getCustomer(state, id!));
+  const [{ isLoading }, fetchCustomers] = useFetchCustomers();
+  const customer = useSelector((state: any) => getCustomer(state, id));
 
   const [{ data: quotes }, fetchCustomerQuotes] = useFetchQuotesForCustomer();
   const [{ data: invoices }, fetchCustomerInvoice] =
@@ -68,33 +68,33 @@ export const CustomerDetails = () => {
     address?: string,
     zip?: string,
     city?: string,
-    country?: string
+    country?: string,
   ) => {
     if (!address || !zip || !city || !country)
       return intl.formatMessage({
-        id: "customers.customer-details.no-address",
+        id: 'customers.customer-details.no-address',
       });
     return intl.formatMessage(
       {
-        id: "customers.customer-details.address",
+        id: 'customers.customer-details.address',
       },
       {
         address,
         zip,
         city,
         country,
-      }
+      },
     );
   };
 
   const menuItems = [
     {
-      name: "customers.customer-details.button.edit",
+      name: 'customers.customer-details.button.edit',
       onClick: () => setOpenEditCustomerPanel(true),
       icon: PencilSquareIcon,
     },
     {
-      name: "customers.customer-details.button.send-mail",
+      name: 'customers.customer-details.button.send-mail',
       onClick: () => {
         window.location.href = `mailto:${customer?.email}`;
       },
@@ -104,8 +104,8 @@ export const CustomerDetails = () => {
 
   useEffect(() => {
     fetchCustomers();
-    fetchCustomerQuotes(id!);
-    fetchCustomerInvoice(id!);
+    fetchCustomerQuotes(id);
+    fetchCustomerInvoice(id);
   }, []);
 
   return (
@@ -123,7 +123,7 @@ export const CustomerDetails = () => {
               onClick={handlePrevious}
             >
               {intl.formatMessage({
-                id: "customers.customer-details.button.previous",
+                id: 'customers.customer-details.button.previous',
               })}
             </Button>
           </div>
@@ -148,23 +148,23 @@ export const CustomerDetails = () => {
                   <p className="text-sm text-gray-500">
                     {intl.formatMessage(
                       {
-                        id: "customers.customer-details.siret",
+                        id: 'customers.customer-details.siret',
                       },
                       {
                         siret: formatSiret(customer.legalRegistrationNumber),
-                      }
+                      },
                     )}
                   </p>
                   <p className="text-sm text-gray-500">
                     {intl.formatMessage(
                       {
                         id: customer.legalVATNumber
-                          ? "customers.customer-details.vat-number"
-                          : "customers.customer-details.no-vat-number",
+                          ? 'customers.customer-details.vat-number'
+                          : 'customers.customer-details.no-vat-number',
                       },
                       {
                         vatNumber: customer.legalVATNumber,
-                      }
+                      },
                     )}
                   </p>
                 </>
@@ -175,13 +175,13 @@ export const CustomerDetails = () => {
                   <p className="text-sm text-gray-900">
                     {intl.formatMessage(
                       {
-                        id: "customers.customer-details.first-interact",
+                        id: 'customers.customer-details.first-interact',
                       },
                       {
                         date: new Date(
-                          customer?.createdAt
+                          customer?.createdAt,
                         ).toLocaleDateString(),
-                      }
+                      },
                     )}
                   </p>
                 </div>
@@ -192,11 +192,11 @@ export const CustomerDetails = () => {
                 <p className="text-sm text-gray-900">
                   {intl.formatMessage(
                     {
-                      id: "customers.customer-details.deals-count",
+                      id: 'customers.customer-details.deals-count',
                     },
                     {
                       count: customer?.mainEvents?.length || 0,
-                    }
+                    },
                   )}
                 </p>
               </div>
@@ -205,18 +205,18 @@ export const CustomerDetails = () => {
                 <p className="text-sm text-gray-900">
                   {intl.formatMessage(
                     {
-                      id: "customers.customer-details.deals-amount",
+                      id: 'customers.customer-details.deals-amount',
                     },
                     {
                       amount: getPipeValueForCustomer(customer),
-                    }
+                    },
                   )}
                 </p>
               </div>
               <div className="flex flex-row space-x-2 items-center">
                 <PhoneIcon className="h-5 w-5 inline-block mr-2" />
                 <p className="text-sm text-gray-900">
-                  {formatPhoneNumber(customer?.phone) || "N/A"}
+                  {formatPhoneNumber(customer?.phone) || 'N/A'}
                 </p>
               </div>
               <div className="flex flex-row space-x-2 items-center">
@@ -230,7 +230,7 @@ export const CustomerDetails = () => {
                     customer?.address,
                     customer?.zipcode,
                     customer?.city,
-                    customer?.country
+                    customer?.country,
                   )}
                 </p>
               </div>
@@ -252,8 +252,8 @@ export const CustomerDetails = () => {
               <Button
                 variant={
                   DocumentType.INVOICE === selectedDocumentType
-                    ? "outlined"
-                    : "contained"
+                    ? 'outlined'
+                    : 'contained'
                 }
                 color="secondary"
                 type="button"
@@ -266,7 +266,7 @@ export const CustomerDetails = () => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.customer-details.button.invoices",
+                  id: 'customers.customer-details.button.invoices',
                 })}
               </Button>
             </div>
@@ -274,8 +274,8 @@ export const CustomerDetails = () => {
               <Button
                 variant={
                   DocumentType.QUOTE === selectedDocumentType
-                    ? "outlined"
-                    : "contained"
+                    ? 'outlined'
+                    : 'contained'
                 }
                 color="secondary"
                 type="button"
@@ -288,7 +288,7 @@ export const CustomerDetails = () => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.customer-details.button.quotes",
+                  id: 'customers.customer-details.button.quotes',
                 })}
               </Button>
             </div>
@@ -296,8 +296,8 @@ export const CustomerDetails = () => {
               <Button
                 variant={
                   DocumentType.EVENT === selectedDocumentType
-                    ? "outlined"
-                    : "contained"
+                    ? 'outlined'
+                    : 'contained'
                 }
                 color="secondary"
                 type="button"
@@ -307,7 +307,7 @@ export const CustomerDetails = () => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.customer-details.button.events",
+                  id: 'customers.customer-details.button.events',
                 })}
               </Button>
             </div>
@@ -319,7 +319,7 @@ export const CustomerDetails = () => {
                 type="button"
               >
                 {intl.formatMessage({
-                  id: "customers.customer-details.button.new-event",
+                  id: 'customers.customer-details.button.new-event',
                 })}
               </Button>
             </div>
@@ -355,7 +355,7 @@ export const CustomerDetails = () => {
                         <span className="flex-shrink-0 text-gray-400">
                           {event.subEvents[0]
                             ? new Date(
-                                event.subEvents[0].date
+                                event.subEvents[0].date,
                               ).toLocaleDateString()
                             : null}
                         </span>
@@ -379,12 +379,12 @@ export const CustomerDetails = () => {
         </div>
       </div>
       <EditCustomer
-        open={openEditCustomerPanel}
+        isOpen={shouldOpenEditCustomerPanel}
         setOpen={setOpenEditCustomerPanel}
         customer={customer}
       />
       <NewEventModal
-        isOpen={openNewEvent}
+        isOpen={shouldOpenNewEvent}
         setOpen={setOpenNewEvent}
         suggestedCustomer={customer}
       />

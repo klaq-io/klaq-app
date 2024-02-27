@@ -1,39 +1,38 @@
-import { useFormik } from "formik";
-import { initialValues } from "./sendInvoiceForm";
-import { PageLayout } from "layouts";
-import { Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
-import { getInvoice } from "redux/Invoice/selectors";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Button, CardContainer, TextField } from "components";
-import { useIntl } from "react-intl";
-import { useEffect } from "react";
-import {
-  useDownloadInvoiceDocument,
-  useDownloadInvoicePDF,
-  useFetchInvoice,
-  useSendInvoiceByEmail,
-} from "redux/Invoice/hooks";
-import { useFetchUser } from "redux/Login/hooks";
-import { getUser } from "redux/Login/selectors";
-import { CustomerType } from "redux/Customer/slices";
-import {
-  DiscountType,
-  InvoiceProduct,
-} from "interface/Invoice/invoice.interface";
+import { Transition } from '@headlessui/react';
 import {
   ArrowDownTrayIcon,
   PaperAirplaneIcon,
-} from "@heroicons/react/24/outline";
-import { PATHS } from "routes";
-import { differenceInDays } from "date-fns";
+} from '@heroicons/react/24/outline';
+import { Button, CardContainer, TextField } from 'components';
+import { differenceInDays } from 'date-fns';
+import { useFormik } from 'formik';
+import {
+  DiscountType,
+  InvoiceProduct,
+} from 'interface/Invoice/invoice.interface';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
+import {
+  useDownloadInvoiceDocument,
+  useFetchInvoice,
+  useSendInvoiceByEmail,
+} from 'redux/Invoice/hooks';
+import { getInvoice } from 'redux/Invoice/selectors';
+import { useFetchUser } from 'redux/Login/hooks';
+import { getUser } from 'redux/Login/selectors';
+import { PATHS } from 'routes';
+import { initialValues } from './sendInvoiceForm';
 
 export const InvoiceSendMailPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { id } = useParams();
   const [search] = useSearchParams();
-  const type = search.get("type");
+  const type = search.get('type');
   const [{ isLoading }, fetchInvoice] = useFetchInvoice();
   const [{ isLoading: isSendingEmail }, sendInvoiceByEmail] =
     useSendInvoiceByEmail();
@@ -59,14 +58,14 @@ export const InvoiceSendMailPage = () => {
   const subtotal =
     invoice?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
-      0
+      0,
     ) || 0;
 
   const tax =
     invoice?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
-      0
+      0,
     ) || 0;
 
   const total = subtotal + tax;
@@ -77,32 +76,33 @@ export const InvoiceSendMailPage = () => {
           ...initialValues,
           to: invoice.mainEvent.customer.email,
           subject: intl.formatMessage({
-            id: `invoice-send.${type ?? "default"}.subject`,
+            id: `invoice-send.${type ?? 'default'}.subject`,
           }),
           message: intl.formatMessage(
             {
-              id: `invoice-send.${type ?? "default"}.message`,
+              id: `invoice-send.${type ?? 'default'}.message`,
             },
             {
               stageName: user.stageName,
               type: invoice?.mainEvent.title.toLowerCase(),
               date: new Date(
-                invoice.mainEvent.subEvents[0].date
+                invoice.mainEvent.subEvents[0].date,
               ).toLocaleDateString(),
               emissionDate: new Date(invoice.issuedOn).toLocaleDateString(),
               invoiceNumber: invoice.number,
               total: total.toFixed(2),
               daysLate: differenceInDays(
                 new Date(),
-                new Date(invoice.validUntil)
+                new Date(invoice.validUntil),
               ),
-            }
+            },
           ),
         }
       : initialValues,
     onSubmit: async (values) => {
-      await sendInvoiceByEmail(values, id!);
-      navigate(`${PATHS.INVOICE}/${id}/details`);
+      if (id === undefined) return;
+      await sendInvoiceByEmail(values, id);
+      navigate(`${PATHS.INVOICES}`);
     },
     enableReinitialize: true,
   });
@@ -145,7 +145,7 @@ export const InvoiceSendMailPage = () => {
                     <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm text-gray-700">
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
-                          id: "quote.send.content.quote-number",
+                          id: 'quote.send.content.quote-number',
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
@@ -153,7 +153,7 @@ export const InvoiceSendMailPage = () => {
                       </dd>
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
-                          id: "quote.send.content.valid-until",
+                          id: 'quote.send.content.valid-until',
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
@@ -163,7 +163,7 @@ export const InvoiceSendMailPage = () => {
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
                           id: `quote.send.content.total.${
-                            isCustomerPro ? "tax-excluded" : "tax-included"
+                            isCustomerPro ? 'tax-excluded' : 'tax-included'
                           }`,
                         })}
                       </dt>
@@ -176,7 +176,7 @@ export const InvoiceSendMailPage = () => {
                 <CardContainer className="flex flex-col space-y-4 px-4 py-5 sm:p-6 w-full h-full sm:w-1/2">
                   <TextField
                     label={intl.formatMessage({
-                      id: "quote.send.label.to",
+                      id: 'quote.send.label.to',
                     })}
                     name="to"
                     value={formik.values.to}
@@ -185,7 +185,7 @@ export const InvoiceSendMailPage = () => {
                   />
                   <TextField
                     label={intl.formatMessage({
-                      id: "quote.send.label.object",
+                      id: 'quote.send.label.object',
                     })}
                     name="subject"
                     value={formik.values.subject}
@@ -194,7 +194,7 @@ export const InvoiceSendMailPage = () => {
                   <>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "quote.send.label.message",
+                        id: 'quote.send.label.message',
                       })}
                     </label>
                     <div className="mt-2">
@@ -222,11 +222,11 @@ export const InvoiceSendMailPage = () => {
                       <label className="font-medium text-gray-900">
                         {intl.formatMessage(
                           {
-                            id: "quote.send.label.cc",
+                            id: 'quote.send.label.cc',
                           },
                           {
                             email: user.email,
-                          }
+                          },
                         )}
                       </label>
                     </div>
@@ -245,7 +245,7 @@ export const InvoiceSendMailPage = () => {
                       isLoading={isDownloadingInvoice}
                     >
                       {intl.formatMessage({
-                        id: "invoice-send.download",
+                        id: 'invoice-send.download',
                       })}
                     </Button>
                     <Button
@@ -257,7 +257,7 @@ export const InvoiceSendMailPage = () => {
                       isLoading={isSendingEmail}
                     >
                       {intl.formatMessage({
-                        id: "invoice-send.send",
+                        id: 'invoice-send.send',
                       })}
                     </Button>
                   </div>

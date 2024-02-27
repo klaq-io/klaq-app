@@ -1,25 +1,18 @@
-import { Transition, Dialog } from "@headlessui/react";
 import {
   CheckIcon,
   ExclamationTriangleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { OnboardingLayout } from "layouts/OnboardingLayout/OnboardingLayout";
-import { Fragment, useEffect } from "react";
-import { useIntl } from "react-intl";
-import {
-  useCheckEmailVerifyingStatus,
-  useResendVerificationEmail,
-  useVerifyEmail,
-} from "redux/Email/hooks";
+} from '@heroicons/react/24/outline';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useVerifyEmail } from 'redux/Email/hooks';
 
 export const ConfirmMailVerify = () => {
   const intl = useIntl();
   const params = new URLSearchParams(document.location.search);
-  const token = params.get("token");
+  const token = params.get('token');
 
-  const [{ data, isLoading }, verifyEmail] = useVerifyEmail();
-  const status = data || true ? "success" : "failed";
+  const [{ data: isSuccess }, verifyEmail] = useVerifyEmail();
+  const status = isSuccess || true ? 'success' : 'failed';
 
   useEffect(() => {
     if (token) {
@@ -33,7 +26,7 @@ export const ConfirmMailVerify = () => {
         <div className="flex min-h-full items-end justify-center p-4 text-center items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
             <div className="sm:flex sm:items-start">
-              {status === "success" ? (
+              {status === 'success' ? (
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                   <CheckIcon
                     className="h-6 w-6 text-green-600"
@@ -75,7 +68,7 @@ export const ConfirmMailVerify = () => {
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             <div>
-              {status === "success" ? (
+              {status === 'success' ? (
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                   <CheckIcon
                     className="h-6 w-6 text-green-600"

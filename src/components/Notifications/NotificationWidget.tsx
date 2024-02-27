@@ -1,15 +1,15 @@
-import { Menu, Transition } from "@headlessui/react";
-import { BellIcon } from "@heroicons/react/24/outline";
-import { Notification } from "interface/Notifications/notification.interface";
-import { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useFetchNotifications } from "redux/Notification/hooks";
-import { getNotifications } from "redux/Notification/selectors";
-import { NotificationCard } from "./NotificationCard";
+import { Menu, Transition } from '@headlessui/react';
+import { BellIcon } from '@heroicons/react/24/outline';
+import { Notification } from 'interface/Notifications/notification.interface';
+import { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useFetchNotifications } from 'redux/Notification/hooks';
+import { getNotifications } from 'redux/Notification/selectors';
+import { NotificationCard } from './NotificationCard';
 
 export const NotificationWidget = () => {
   const [unreadNotifications, setUnreadNotifications] = useState<number | null>(
-    null
+    null,
   );
   const [, setIsOpened] = useState(false);
 
@@ -28,7 +28,7 @@ export const NotificationWidget = () => {
   useEffect(() => {
     const notificationSource = new EventSource(
       `${process.env.REACT_APP_API_URL}/notification/count`,
-      { withCredentials: true }
+      { withCredentials: true },
     );
 
     const onMessage = (event: MessageEvent) => {
@@ -39,11 +39,11 @@ export const NotificationWidget = () => {
         return !nextCount ? null : data.unreadCount;
       });
     };
-    notificationSource.addEventListener("message", onMessage);
+    notificationSource.addEventListener('message', onMessage);
     /* eslint-disable */
     return () => {
       notificationSource!.close();
-      notificationSource!.removeEventListener("message", onMessage);
+      notificationSource!.removeEventListener('message', onMessage);
     };
     /* eslint-enable */
   }, []);

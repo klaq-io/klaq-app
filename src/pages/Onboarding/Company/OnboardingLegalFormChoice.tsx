@@ -1,14 +1,14 @@
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../../routes";
-import { Button } from "components";
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../../routes';
+import { Button } from 'components';
+import { ArrowRightIcon } from '@heroicons/react/24/solid';
 
 const companyType = {
-  association: "association",
-  company: "company",
+  association: 'association',
+  company: 'company',
 };
 
 export const OnboardingLegalFormChoice = () => {
@@ -18,28 +18,28 @@ export const OnboardingLegalFormChoice = () => {
   const legalForm = [
     {
       id: 1,
-      title: "company.title",
-      description: "company.description",
+      title: 'company.title',
+      description: 'company.description',
       onClick: () => {
         navigate(
-          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.company}`
+          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.company}`,
         );
       },
     },
     {
       id: 2,
-      title: "association.title",
-      description: "association.description",
+      title: 'association.title',
+      description: 'association.description',
       onClick: () => {
         navigate(
-          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.association}`
+          `${PATHS.ONBOARDING_COMPANY_SEARCH}?companyType=${companyType.association}`,
         );
       },
     },
     {
       id: 3,
-      title: "intermittent.title",
-      description: "intermittent.description",
+      title: 'intermittent.title',
+      description: 'intermittent.description',
       onClick: () => {
         navigate(PATHS.ONBOARDING_INTERMITTENT);
       },
@@ -54,7 +54,7 @@ export const OnboardingLegalFormChoice = () => {
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {intl.formatMessage({
-            id: "onboarding.legal-form-choice.header",
+            id: 'onboarding.legal-form-choice.header',
           })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500"></p>
@@ -106,7 +106,7 @@ export const OnboardingLegalFormChoice = () => {
           }}
         >
           {intl.formatMessage({
-            id: "onboarding.legal-form-choice.no-status.header",
+            id: 'onboarding.legal-form-choice.no-status.header',
           })}
         </Button>
       </div>

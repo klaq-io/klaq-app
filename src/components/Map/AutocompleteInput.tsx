@@ -1,22 +1,22 @@
-import { Combobox } from "@headlessui/react";
+import { Combobox } from '@headlessui/react';
 import {
   BuildingLibraryIcon,
   CheckIcon,
   ChevronUpDownIcon,
-  MapPinIcon
-} from "@heroicons/react/24/outline";
-import { FC, useState } from "react";
-import { useIntl } from "react-intl";
+  MapPinIcon,
+} from '@heroicons/react/24/outline';
+import { FC, useState } from 'react';
+import { useIntl } from 'react-intl';
 import {
   AddressSuggestion,
   AddressSuggestions,
-} from "../../interface/address-suggestion.interface";
-import { RetrieveAddress } from "../../interface/retrieve-address.interface";
+} from '../../interface/address-suggestion.interface';
+import { RetrieveAddress } from '../../interface/retrieve-address.interface';
 import {
   useGetAutocompleteSuggestions,
   useRetrieveAddress,
-} from "../../redux/Map/hooks";
-import { classNames } from "../../utils/utils";
+} from '../../redux/Map/hooks';
+import { classNames } from '../../utils/utils';
 
 type MapAutocompleteInputProps = {
   defaultAddress: string;
@@ -24,7 +24,7 @@ type MapAutocompleteInputProps = {
 };
 
 export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
-  props: MapAutocompleteInputProps
+  props: MapAutocompleteInputProps,
 ) => {
   const intl = useIntl();
   const { setAddress, defaultAddress } = props;
@@ -70,8 +70,8 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
                   value={suggestion}
                   className={({ active }) =>
                     classNames(
-                      "relative cursor-default select-none py-2 pl-3 pr-9",
-                      active ? "bg-klaq-600 text-white" : "text-gray-900"
+                      'relative cursor-default select-none py-2 pl-3 pr-9',
+                      active ? 'bg-klaq-600 text-white' : 'text-gray-900',
                     )
                   }
                 >
@@ -85,8 +85,8 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
                     <>
                       <span
                         className={classNames(
-                          "flex flex-row truncate space-x-2",
-                          selected && "font-semibold"
+                          'flex flex-row truncate space-x-2',
+                          selected && 'font-semibold',
                         )}
                       >
                         <BuildingLibraryIcon className="w-5 h-5" />
@@ -95,8 +95,8 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
                       {selected && (
                         <span
                           className={classNames(
-                            "absolute inset-y-0 right-0 flex items-center pr-4",
-                            active ? "text-white" : "text-klaq-600"
+                            'absolute inset-y-0 right-0 flex items-center pr-4',
+                            active ? 'text-white' : 'text-klaq-600',
                           )}
                         >
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
@@ -115,7 +115,7 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
               />
               <p className="mt-4 text-sm text-gray-900">
                 {intl.formatMessage({
-                  id: "edit-event.address-not-found",
+                  id: 'edit-event.address-not-found',
                 })}
               </p>
             </div>

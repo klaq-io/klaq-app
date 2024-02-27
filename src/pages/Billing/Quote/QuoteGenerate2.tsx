@@ -1,16 +1,4 @@
-import { PageLayout } from "layouts";
-import { useIntl } from "react-intl";
-import { initialValues, validationSchema } from "./generateQuoteForm";
-import { useFormik } from "formik";
-import {
-  Button,
-  CardContainer,
-  Label,
-  SelectField,
-  TextField,
-} from "components";
-import { Combobox, Transition } from "@headlessui/react";
-import { MainEvent } from "interface/Event/main-event.interface";
+import { Combobox, Transition } from '@headlessui/react';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -21,29 +9,41 @@ import {
   PlusIcon,
   UsersIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import { useSelector } from "react-redux";
-import { getMainEventsByStatus } from "redux/MainEvent/selectors";
-import { EventStatus } from "redux/Events/slices";
-import { Alert } from "components/Alert/Alert";
-import { classNames } from "utils/utils";
-import { useFetchProductItems } from "redux/Products/hooks";
-import { getAllProducts } from "redux/Products/selectors";
-import { ProductItem } from "redux/Products/slices";
-import { DiscountType } from "interface/Invoice/invoice.interface";
-import { add, formatISO } from "date-fns";
-import { useCreateQuote } from "redux/Quote/hooks";
-import { useParams, useSearchParams } from "react-router-dom";
+} from '@heroicons/react/24/outline';
+import {
+  Button,
+  CardContainer,
+  Label,
+  SelectField,
+  TextField,
+} from 'components';
+import { Alert } from 'components/Alert/Alert';
+import { add, formatISO } from 'date-fns';
+import { useFormik } from 'formik';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { DiscountType } from 'interface/Invoice/invoice.interface';
+import { PageLayout } from 'layouts';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { EventStatus } from 'redux/Events/slices';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
+import { getMainEventsByStatus } from 'redux/MainEvent/selectors';
+import { useFetchProductItems } from 'redux/Products/hooks';
+import { getAllProducts } from 'redux/Products/selectors';
+import { ProductItem } from 'redux/Products/slices';
+import { useCreateQuote } from 'redux/Quote/hooks';
+import { classNames } from 'utils/utils';
+import { initialValues, validationSchema } from './generateQuoteForm';
 
 export const QuoteGeneratePage = () => {
   const intl = useIntl();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const fromEventId = searchParams.get("fromEventId");
-  const [query, setQuery] = useState("");
-  const [mainEventId, setMainEventId] = useState("");
+  const [searchParams] = useSearchParams();
+  const fromEventId = searchParams.get('fromEventId');
+  const [query, setQuery] = useState('');
+  const [mainEventId, setMainEventId] = useState('');
   const [, fetchMainEvents] = useFetchMainEvents();
   const [{ isLoading: isSubmitting }, createQuote] = useCreateQuote();
 
@@ -53,12 +53,12 @@ export const QuoteGeneratePage = () => {
         state,
         EventStatus.INBOX,
         EventStatus.QUOTE_SENT,
-        EventStatus.QUOTE_REJECTED
-      )
+        EventStatus.QUOTE_REJECTED,
+      ),
     ) || [].reverse();
 
   const filteredEvents =
-    query === ""
+    query === ''
       ? []
       : mainEvents.filter((event) => {
           return (
@@ -80,20 +80,20 @@ export const QuoteGeneratePage = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values) => {
       createQuote(values, mainEventId);
     },
   });
 
   const QUOTE_VALID_UNTIL: { [key: string]: Date } = {
-    "15": add(new Date(formik.values.issuedOn), { days: 15 }),
-    "30": add(new Date(formik.values.issuedOn), { days: 30 }),
-    "45": add(new Date(formik.values.issuedOn), { days: 45 }),
-    "90": add(new Date(formik.values.issuedOn), { days: 90 }),
+    '15': add(new Date(formik.values.issuedOn), { days: 15 }),
+    '30': add(new Date(formik.values.issuedOn), { days: 30 }),
+    '45': add(new Date(formik.values.issuedOn), { days: 45 }),
+    '90': add(new Date(formik.values.issuedOn), { days: 90 }),
   };
 
   const filteredProducts = (idx: number) =>
-    idx && formik.values.products[idx].title === ""
+    idx && formik.values.products[idx].title === ''
       ? []
       : products.filter((productItem) => {
           return productItem.title
@@ -103,7 +103,7 @@ export const QuoteGeneratePage = () => {
 
   const handleAutocompleteElement = (
     index: number,
-    suggestion: ProductItem
+    suggestion: ProductItem,
   ) => {
     formik.setValues({
       ...formik.values,
@@ -113,40 +113,40 @@ export const QuoteGeneratePage = () => {
               title: suggestion.title,
               vtaRate: suggestion.vtaRate,
               price: suggestion.price,
-              description: suggestion.description ?? "",
+              description: suggestion.description ?? '',
               quantity: 1,
               discount: 0,
               discountType: DiscountType.PERCENT,
             }
-          : product
+          : product,
       ),
     });
   };
 
-  const VTA_RATE = ["0", "2.1", "5.5", "10", "20"];
+  const VTA_RATE = ['0', '2.1', '5.5', '10', '20'];
 
   const handleSetMainEvent = (mainEvent: MainEvent) => {
     setMainEventId(mainEvent.id);
-    formik.setFieldValue("customer", mainEvent.customer);
+    formik.setFieldValue('customer', mainEvent.customer);
     if (mainEvent && mainEvent.products && mainEvent.products.length > 0) {
       formik.setFieldValue(
-        "products",
+        'products',
         mainEvent.products.map((eventProduct) => {
           const actualProduct = products.find(
-            (product) => product.id === eventProduct.productId
+            (product) => product.id === eventProduct.productId,
           );
           return actualProduct
             ? {
                 title: actualProduct.title,
                 vtaRate: actualProduct.vtaRate,
                 price: actualProduct.price,
-                description: actualProduct.description ?? "",
+                description: actualProduct.description ?? '',
                 quantity: 1,
                 discount: 0,
                 discountType: DiscountType.PERCENT,
               }
             : initialValues.products[0];
-        })
+        }),
       );
     }
   };
@@ -162,7 +162,7 @@ export const QuoteGeneratePage = () => {
     formik.setValues({
       ...formik.values,
       products: formik.values.products.filter(
-        (product, productIndex) => productIndex !== index
+        (product, productIndex) => productIndex !== index,
       ),
     });
   };
@@ -176,7 +176,7 @@ export const QuoteGeneratePage = () => {
 
   const handleMovePositionElement = (index: number, direction: string) => {
     const newIndex =
-      direction === "up" ? index - 1 : direction === "down" ? index + 1 : index;
+      direction === 'up' ? index - 1 : direction === 'down' ? index + 1 : index;
     const products = [...formik.values.products];
     const product = products[index];
     products[index] = products[newIndex];
@@ -205,7 +205,7 @@ export const QuoteGeneratePage = () => {
   const subtotal = formik.values.products.reduce(
     (acc, product) =>
       acc + getProductSubtotal(formik.values.products.indexOf(product)),
-    0
+    0,
   );
 
   const tax = formik.values.products.reduce(
@@ -213,7 +213,7 @@ export const QuoteGeneratePage = () => {
       acc +
       getProductSubtotal(formik.values.products.indexOf(product)) *
         (Number(product.vtaRate) / 100),
-    0
+    0,
   );
 
   const total = subtotal + tax;
@@ -221,17 +221,17 @@ export const QuoteGeneratePage = () => {
   useEffect(() => {
     fetchMainEvents();
     fetchProducts();
-    formik.setFieldValue("issuedOn", new Date().toISOString().split("T")[0]);
+    formik.setFieldValue('issuedOn', new Date().toISOString().split('T')[0]);
     formik.setFieldValue(
-      "validUntil",
-      add(new Date(), { days: 15 }).toISOString().split("T")[0]
+      'validUntil',
+      add(new Date(), { days: 15 }).toISOString().split('T')[0],
     );
   }, []);
 
   useEffect(() => {
     if (fromEventId) {
       const mainEvent = mainEvents.find(
-        (mainEvent) => mainEvent.id === fromEventId
+        (mainEvent) => mainEvent.id === fromEventId,
       );
       if (mainEvent) {
         handleSetMainEvent(mainEvent);
@@ -245,12 +245,12 @@ export const QuoteGeneratePage = () => {
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             {intl.formatMessage({
-              id: "quote-generate.header",
+              id: 'quote-generate.header',
             })}
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
             {intl.formatMessage({
-              id: "quote-generate.description",
+              id: 'quote-generate.description',
             })}
           </p>
         </div>
@@ -262,7 +262,7 @@ export const QuoteGeneratePage = () => {
               <div className="flex flex-col space-y-4">
                 <h1 className="text-base font-semibold leading-6 text-gray-900">
                   {intl.formatMessage({
-                    id: "quote-generate.attach-event.title",
+                    id: 'quote-generate.attach-event.title',
                   })}
                 </h1>
                 <Combobox
@@ -271,6 +271,7 @@ export const QuoteGeneratePage = () => {
                     handleSetMainEvent(mainEvent);
                   }}
                 >
+                  {/* eslint-disable-next-line  @typescript-eslint/no-unused-vars */}
                   {({ activeOption }) => (
                     <>
                       <div className="relative">
@@ -283,13 +284,13 @@ export const QuoteGeneratePage = () => {
                         <Combobox.Input
                           className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                           placeholder={intl.formatMessage({
-                            id: "quote.attach-to-event.search",
+                            id: 'quote.attach-to-event.search',
                           })}
                           onChange={(event) => setQuery(event.target.value)}
                           displayValue={(mainEvent: MainEvent) =>
                             mainEvent
                               ? `${new Date(
-                                  mainEvent.subEvents[0].date
+                                  mainEvent.subEvents[0].date,
                                 ).toLocaleDateString()} - ${
                                   mainEvent.customer.name
                                 } - ${
@@ -297,7 +298,7 @@ export const QuoteGeneratePage = () => {
                                 } - ${intl.formatMessage({
                                   id: `events.status.${mainEvent.status}`,
                                 })}`
-                              : ""
+                              : ''
                           }
                         />
                         <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -308,21 +309,21 @@ export const QuoteGeneratePage = () => {
                         </Combobox.Button>
                       </div>
                       <Combobox.Options className="flex absolute z-10 mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {query === "" || filteredEvents.length > 0 ? (
+                        {query === '' || filteredEvents.length > 0 ? (
                           <div
                             className={classNames(
-                              "max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4"
+                              'max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4',
                             )}
                           >
-                            {query === "" && (
+                            {query === '' && (
                               <h2 className="mb-4 mt-2 text-xs font-semibold text-gray-500">
                                 {intl.formatMessage({
-                                  id: "quote.attach-to-event.recent",
+                                  id: 'quote.attach-to-event.recent',
                                 })}
                               </h2>
                             )}
                             <div className="-mx-2 text-sm text-gray-700">
-                              {(query === ""
+                              {(query === ''
                                 ? mainEvents.slice(0, 5)
                                 : filteredEvents
                               ).map((mainEvent) => (
@@ -332,8 +333,8 @@ export const QuoteGeneratePage = () => {
                                   value={mainEvent}
                                   className={({ active }) =>
                                     classNames(
-                                      "relativeflex cursor-default select-none items-center rounded-md p-2",
-                                      active && "bg-gray-100 text-gray-900"
+                                      'relativeflex cursor-default select-none items-center rounded-md p-2',
+                                      active && 'bg-gray-100 text-gray-900',
                                     )
                                   }
                                 >
@@ -341,19 +342,19 @@ export const QuoteGeneratePage = () => {
                                     <>
                                       <span className="ml-3 flex-auto truncate">
                                         {new Date(
-                                          mainEvent.subEvents[0].date
-                                        ).toLocaleDateString()}{" "}
-                                        - {mainEvent.customer.name} -{" "}
-                                        {mainEvent.subEvents[0].type} -{" "}
+                                          mainEvent.subEvents[0].date,
+                                        ).toLocaleDateString()}{' '}
+                                        - {mainEvent.customer.name} -{' '}
+                                        {mainEvent.subEvents[0].type} -{' '}
                                         {intl.formatMessage({
                                           id: `events.status.${mainEvent.status}`,
-                                        })}{" "}
+                                        })}{' '}
                                       </span>
                                       {selected && (
                                         <span
                                           className={classNames(
-                                            "absolute inset-y-0 right-0 flex items-center pr-4",
-                                            active && "text-klaq-600"
+                                            'absolute inset-y-0 right-0 flex items-center pr-4',
+                                            active && 'text-klaq-600',
                                           )}
                                         >
                                           <CheckIcon
@@ -369,7 +370,7 @@ export const QuoteGeneratePage = () => {
                             </div>
                           </div>
                         ) : (
-                          query !== "" &&
+                          query !== '' &&
                           filteredEvents.length === 0 && (
                             <div className="px-6 py-14 text-center text-sm sm:px-14">
                               <UsersIcon
@@ -378,13 +379,13 @@ export const QuoteGeneratePage = () => {
                               />
                               <p className="mt-4 font-semibold text-gray-900">
                                 {intl.formatMessage({
-                                  id: "quote.attach-to-event.not-found.title",
+                                  id: 'quote.attach-to-event.not-found.title',
                                 })}
                               </p>
                               <p className="mt-2 text-gray-500">
                                 {intl.formatMessage(
                                   {
-                                    id: "quote.attach-to-event.not-found.description",
+                                    id: 'quote.attach-to-event.not-found.description',
                                   },
                                   {
                                     btn: (...chunks: any) => (
@@ -396,12 +397,12 @@ export const QuoteGeneratePage = () => {
                                         {chunks.join()}
                                       </Button>
                                     ),
-                                  }
+                                  },
                                 )}
                               </p>
                               <p className="mt-2 text-gray-500">
                                 {intl.formatMessage({
-                                  id: "quote.attach-to-event.not-found.info",
+                                  id: 'quote.attach-to-event.not-found.info',
                                 })}
                               </p>
                             </div>
@@ -415,10 +416,10 @@ export const QuoteGeneratePage = () => {
                   <Alert
                     status="info"
                     title={intl.formatMessage({
-                      id: "quote-generate.attach-event.info.title",
+                      id: 'quote-generate.attach-event.info.title',
                     })}
                     text={intl.formatMessage({
-                      id: "quote-generate.attach-event.info.description",
+                      id: 'quote-generate.attach-event.info.description',
                     })}
                   />
                 )}
@@ -437,23 +438,23 @@ export const QuoteGeneratePage = () => {
                 <div className="flex flex-col space-y-4">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "invoice-generate.informations.title",
+                      id: 'invoice-generate.informations.title',
                     })}
                   </h1>
                   <div className="grid grid-cols-3 gap-4">
                     <TextField
                       className="col-span-1"
                       label={intl.formatMessage({
-                        id: "quote-generate.informations.quote-number.label",
+                        id: 'quote-generate.informations.quote-number.label',
                       })}
                       name="invoice-number"
-                      value={"D-001-2024"}
+                      value={'D-001-2024'}
                       disabled
                     />
                     <TextField
                       className="col-span-1"
                       label={intl.formatMessage({
-                        id: "invoice-generate.informations.issued-on.label",
+                        id: 'invoice-generate.informations.issued-on.label',
                       })}
                       type="date"
                       name="issuedOn"
@@ -462,7 +463,7 @@ export const QuoteGeneratePage = () => {
                       error={
                         formik.errors.issuedOn && formik.touched.issuedOn
                           ? intl.formatMessage({
-                              id: "quote.generate.error.issued-on",
+                              id: 'quote.generate.error.issued-on',
                             })
                           : null
                       }
@@ -470,10 +471,10 @@ export const QuoteGeneratePage = () => {
                     <div className="col-span-1" />
                     <TextField
                       label={intl.formatMessage({
-                        id: "quote-generate.informations.object.label",
+                        id: 'quote-generate.informations.object.label',
                       })}
                       placeholder={intl.formatMessage({
-                        id: "quote-generate.informations.object.placeholder",
+                        id: 'quote-generate.informations.object.placeholder',
                       })}
                       name="object"
                       onChange={formik.handleChange}
@@ -481,10 +482,10 @@ export const QuoteGeneratePage = () => {
                     />
                     <TextField
                       label={intl.formatMessage({
-                        id: "invoice-generate.informations.order-form-id.label",
+                        id: 'invoice-generate.informations.order-form-id.label',
                       })}
                       placeholder={intl.formatMessage({
-                        id: "invoice-generate.informations.order-form-id.placeholder",
+                        id: 'invoice-generate.informations.order-form-id.placeholder',
                       })}
                       name="orderFormId"
                       onChange={formik.handleChange}
@@ -495,7 +496,7 @@ export const QuoteGeneratePage = () => {
                 <div className="flex flex-col space-y-2">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "invoice-generate.products.title",
+                      id: 'invoice-generate.products.title',
                     })}
                   </h1>
                   {formik.values.products.map((product, index) => (
@@ -508,7 +509,7 @@ export const QuoteGeneratePage = () => {
                               formik.values.products.length === 1 || index === 0
                             }
                             onClick={() =>
-                              handleMovePositionElement(index, "up")
+                              handleMovePositionElement(index, 'up')
                             }
                             className="disabled:cursor-not-allowed disabled:opacity-30 text-gray-900"
                           >
@@ -517,7 +518,7 @@ export const QuoteGeneratePage = () => {
                           <button
                             type="button"
                             onClick={() =>
-                              handleMovePositionElement(index, "down")
+                              handleMovePositionElement(index, 'down')
                             }
                             disabled={
                               formik.values.products.length === 1 ||
@@ -553,7 +554,7 @@ export const QuoteGeneratePage = () => {
                         <div className="col-span-full">
                           <Label htmlFor={`product-name-{index}`}>
                             {intl.formatMessage({
-                              id: "invoice-generate.products.name.label",
+                              id: 'invoice-generate.products.name.label',
                             })}
                           </Label>
                           <Combobox
@@ -564,7 +565,7 @@ export const QuoteGeneratePage = () => {
                             <Combobox.Input
                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                               placeholder={intl.formatMessage({
-                                id: "products.new-product.input.name",
+                                id: 'products.new-product.input.name',
                               })}
                               value={formik.values.products[index].title}
                               onChange={formik.handleChange}
@@ -579,16 +580,16 @@ export const QuoteGeneratePage = () => {
                                         value={productItem}
                                         className={({ active }) =>
                                           classNames(
-                                            "relative cursor-default select-none py-2 pl-3 pr-9 flex",
+                                            'relative cursor-default select-none py-2 pl-3 pr-9 flex',
                                             active
-                                              ? "bg-klaq-600 text-white"
-                                              : "text-gray-900"
+                                              ? 'bg-klaq-600 text-white'
+                                              : 'text-gray-900',
                                           )
                                         }
                                         onClick={() =>
                                           handleAutocompleteElement(
                                             index,
-                                            productItem
+                                            productItem,
                                           )
                                         }
                                       >
@@ -599,7 +600,7 @@ export const QuoteGeneratePage = () => {
                                           {productItem.price}€
                                         </p>
                                       </Combobox.Option>
-                                    )
+                                    ),
                                   )}
                                 </Combobox.Options>
                               )}
@@ -607,7 +608,7 @@ export const QuoteGeneratePage = () => {
                         </div>
                         <TextField
                           label={intl.formatMessage({
-                            id: "invoice-generate.products.quantity.label",
+                            id: 'invoice-generate.products.quantity.label',
                           })}
                           type="number"
                           min={1}
@@ -620,7 +621,7 @@ export const QuoteGeneratePage = () => {
                         <div className="col-span-1">
                           <Label htmlFor={`product-price-{index}`}>
                             {intl.formatMessage({
-                              id: "invoice-generate.products.default-price.label",
+                              id: 'invoice-generate.products.default-price.label',
                             })}
                           </Label>
                           <div className="relative mt-2 rounded-md shadow-sm">
@@ -636,7 +637,7 @@ export const QuoteGeneratePage = () => {
                               name={`products.${index}.price`}
                               className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                               placeholder={intl.formatMessage({
-                                id: "products.new-product.input.default-price",
+                                id: 'products.new-product.input.default-price',
                               })}
                               aria-describedby="price-currency"
                             />
@@ -652,7 +653,7 @@ export const QuoteGeneratePage = () => {
                         </div>
                         <SelectField
                           label={intl.formatMessage({
-                            id: "invoice-generate.products.default-vta-rate.label",
+                            id: 'invoice-generate.products.default-vta-rate.label',
                           })}
                           name={`products.${index}.vtaRate`}
                           onChange={formik.handleChange}
@@ -668,7 +669,7 @@ export const QuoteGeneratePage = () => {
                         <div className="col-span-1 flex space-x-2">
                           <TextField
                             label={intl.formatMessage({
-                              id: "invoice-generate.products.discount.label",
+                              id: 'invoice-generate.products.discount.label',
                             })}
                             name={`products.${index}.discount`}
                             onChange={formik.handleChange}
@@ -681,7 +682,7 @@ export const QuoteGeneratePage = () => {
                                 ? formik.values.products[index].discount
                                 : formik.setFieldValue(
                                     `products.${index}.discount`,
-                                    0
+                                    0,
                                   )
                             }
                           />
@@ -701,10 +702,10 @@ export const QuoteGeneratePage = () => {
                         </div>
                         <TextField
                           label={intl.formatMessage({
-                            id: "invoice-generate.products.short-description.label",
+                            id: 'invoice-generate.products.short-description.label',
                           })}
                           placeholder={intl.formatMessage({
-                            id: "invoice-generate.products.short-description.placeholder",
+                            id: 'invoice-generate.products.short-description.placeholder',
                           })}
                           name={`products.${index}.description`}
                           onChange={formik.handleChange}
@@ -719,7 +720,7 @@ export const QuoteGeneratePage = () => {
                             formik.touched.products[index] &&
                             formik.touched.products[index].description
                               ? intl.formatMessage({
-                                  id: "invoice-generate.products.short-description.error",
+                                  id: 'invoice-generate.products.short-description.error',
                                 })
                               : null
                           }
@@ -727,7 +728,7 @@ export const QuoteGeneratePage = () => {
                         <div className="col-span-1">
                           <Label htmlFor={`product-price-{index}`}>
                             {intl.formatMessage({
-                              id: "invoice-generate.products.total.label.subtotal",
+                              id: 'invoice-generate.products.total.label.subtotal',
                             })}
                           </Label>
                           <div className="relative mt-2 rounded-md shadow-sm">
@@ -755,7 +756,7 @@ export const QuoteGeneratePage = () => {
                         <div className="col-span-1">
                           <Label htmlFor={`product-price-{index}`}>
                             {intl.formatMessage({
-                              id: "invoice-generate.products.total.label.total",
+                              id: 'invoice-generate.products.total.label.total',
                             })}
                           </Label>
                           <div className="relative mt-2 rounded-md shadow-sm">
@@ -792,7 +793,7 @@ export const QuoteGeneratePage = () => {
                       color="primary"
                     >
                       {intl.formatMessage({
-                        id: "quote.generate.button.add-product",
+                        id: 'quote.generate.button.add-product',
                       })}
                     </Button>
                   </div>
@@ -800,7 +801,7 @@ export const QuoteGeneratePage = () => {
                 <div className="flex flex-col space-y-4">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "invoice-generate.total.title",
+                      id: 'invoice-generate.total.title',
                     })}
                   </h1>
 
@@ -809,7 +810,7 @@ export const QuoteGeneratePage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.subtotal",
+                            id: 'invoice-generate.total.label.subtotal',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -819,7 +820,7 @@ export const QuoteGeneratePage = () => {
                       <div className="flex space-x-12">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.tax",
+                            id: 'invoice-generate.total.label.tax',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -829,7 +830,7 @@ export const QuoteGeneratePage = () => {
                       <div className="flex justify-between">
                         <span className="font-semibold text-gray-900">
                           {intl.formatMessage({
-                            id: "invoice-generate.total.label.total",
+                            id: 'invoice-generate.total.label.total',
                           })}
                         </span>
                         <span className="font-semibold text-gray-900">
@@ -842,7 +843,7 @@ export const QuoteGeneratePage = () => {
                 <div className="flex flex-col space-y-4">
                   <h1 className="text-base font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "quote-generate.payment-condition.title",
+                      id: 'quote-generate.payment-condition.title',
                     })}
                   </h1>
                   <div className="grid grid-cols-3 gap-4">
@@ -850,7 +851,7 @@ export const QuoteGeneratePage = () => {
                       <SelectField
                         className="col-span-1"
                         label={intl.formatMessage({
-                          id: "invoice-generate.informations.due-on.label",
+                          id: 'invoice-generate.informations.due-on.label',
                         })}
                         name="validUntil"
                         onChange={formik.handleChange}
@@ -868,7 +869,7 @@ export const QuoteGeneratePage = () => {
                           >
                             {intl.formatMessage({
                               id: `invoice-generate.informations.due-on.days.${validUntil}`,
-                            })}{" "}
+                            })}{' '}
                             (
                             {QUOTE_VALID_UNTIL[validUntil].toLocaleDateString()}
                             )

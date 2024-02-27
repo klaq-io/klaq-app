@@ -2,21 +2,21 @@ import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
-} from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { PageLayout } from "../../layouts";
+} from '@heroicons/react/24/outline';
+import { DangerModal, KebabMenu } from 'components';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { PageLayout } from '../../layouts';
 import {
   useDeleteProductItem,
   useFetchProductItems,
-} from "../../redux/Products/hooks";
-import { getAllProducts } from "../../redux/Products/selectors";
-import { NewProducts } from "./NewProducts";
-import { EditProduct } from "./EditProduct";
-import { DangerModal, DropdownMenu, KebabMenu } from "components";
-import { shortenString } from "../../utils/utils";
-import { ProductItem } from "../../redux/Products/slices";
+} from '../../redux/Products/hooks';
+import { getAllProducts } from '../../redux/Products/selectors';
+import { ProductItem } from '../../redux/Products/slices';
+import { shortenString } from '../../utils/utils';
+import { EditProduct } from './EditProduct';
+import { NewProducts } from './NewProducts';
 
 export const Products = () => {
   const intl = useIntl();
@@ -26,10 +26,10 @@ export const Products = () => {
 
   const [, deleteProduct] = useDeleteProductItem();
 
-  const [openSidePanel, setOpenSidePanel] = useState(false);
-  const [openEditSidePanel, setEditOpenSidePanel] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [productToEdit, setProductToEdit] = useState("");
+  const [shouldOpenSidePanel, setOpenSidePanel] = useState(false);
+  const [shouldOpenEditSidePanel, setEditOpenSidePanel] = useState(false);
+  const [shouldOpenDeleteModal, setOpenDeleteModal] = useState(false);
+  const [productToEdit, setProductToEdit] = useState('');
 
   const handleOpenSidePanel = () => {
     setOpenSidePanel(true);
@@ -52,15 +52,15 @@ export const Products = () => {
 
   const optionsDropdownMenu = (productId: string) => [
     {
-      name: "products.my-products.button.edit",
+      name: 'products.my-products.button.edit',
       onClick: () => handleEditProduct(productId),
       icon: PencilSquareIcon,
     },
     {
-      name: "products.my-products.button.delete",
+      name: 'products.my-products.button.delete',
       onClick: () => handleModalOpening(productId),
       icon: TrashIcon,
-      iconColor: "text-danger-500 group-hover:text-danger-500",
+      iconColor: 'text-danger-500 group-hover:text-danger-500',
     },
   ];
 
@@ -74,12 +74,12 @@ export const Products = () => {
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             {intl.formatMessage({
-              id: "products.title",
+              id: 'products.title',
             })}
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
             {intl.formatMessage({
-              id: "products.description",
+              id: 'products.description',
             })}
           </p>
         </div>
@@ -90,13 +90,13 @@ export const Products = () => {
             <div className="sm:flex-auto">
               <h1 className="text-base font-semibold leading-6 text-gray-900">
                 {intl.formatMessage({
-                  id: "products.my-products.header",
-                })}{" "}
+                  id: 'products.my-products.header',
+                })}{' '}
                 ({productItems.length})
               </h1>
               <p className="mt-2 text-sm text-gray-500">
                 {intl.formatMessage({
-                  id: "products.my-products.description",
+                  id: 'products.my-products.description',
                 })}
               </p>
             </div>
@@ -107,7 +107,7 @@ export const Products = () => {
                 className="block rounded-md bg-klaq-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-klaq-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-klaq-600"
               >
                 {intl.formatMessage({
-                  id: "products.new-product.submit",
+                  id: 'products.new-product.submit',
                 })}
               </button>
             </div>
@@ -124,7 +124,7 @@ export const Products = () => {
                         className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                       >
                         {intl.formatMessage({
-                          id: "products.my-products.title",
+                          id: 'products.my-products.title',
                         })}
                       </th>
                       <th
@@ -132,7 +132,7 @@ export const Products = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "products.my-products.short-description",
+                          id: 'products.my-products.short-description',
                         })}
                       </th>
                       <th
@@ -140,7 +140,7 @@ export const Products = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "products.my-products.vta-rate",
+                          id: 'products.my-products.vta-rate',
                         })}
                       </th>
                       <th
@@ -148,7 +148,7 @@ export const Products = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: "products.my-products.price",
+                          id: 'products.my-products.price',
                         })}
                       </th>
                       <th
@@ -211,12 +211,12 @@ export const Products = () => {
 
                 <h3 className="mt-2 text-sm font-semibold text-gray-900">
                   {intl.formatMessage({
-                    id: "products.no-product",
+                    id: 'products.no-product',
                   })}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
                   {intl.formatMessage({
-                    id: "products.get-started",
+                    id: 'products.get-started',
                   })}
                 </p>
               </button>
@@ -225,36 +225,36 @@ export const Products = () => {
         </div>
       </div>
       <DangerModal
-        isOpen={openDeleteModal}
+        isOpen={shouldOpenDeleteModal}
         setOpen={setOpenDeleteModal}
         onClick={() => handleDeleteProduct(productToEdit)}
         title={intl.formatMessage({
-          id: "products.delete-product.modal.title",
+          id: 'products.delete-product.modal.title',
         })}
         message={intl.formatMessage(
           {
-            id: "products.delete-product.modal.message",
+            id: 'products.delete-product.modal.message',
           },
           {
             productTitle: productItems.find(
-              (product: any) => product.id === productToEdit
+              (product: any) => product.id === productToEdit,
             )?.title,
-          }
+          },
         )}
         button1={intl.formatMessage({
-          id: "products.delete-product.modal.button.delete",
+          id: 'products.delete-product.modal.button.delete',
         })}
         button2={intl.formatMessage({
-          id: "products.delete-product.modal.button.cancel",
+          id: 'products.delete-product.modal.button.cancel',
         })}
       />
       <EditProduct
         productId={productToEdit}
-        openSidePanel={openEditSidePanel}
+        shouldOpenSidePanel={shouldOpenEditSidePanel}
         setOpenSidePanel={setEditOpenSidePanel}
       />
       <NewProducts
-        openSidePanel={openSidePanel}
+        shouldOpenSidePanel={shouldOpenSidePanel}
         setOpenSidePanel={setOpenSidePanel}
       />
     </PageLayout>

@@ -4,11 +4,11 @@ import {
   BuildingOfficeIcon,
   CreditCardIcon,
   LockClosedIcon,
-  UserIcon
-} from "@heroicons/react/24/outline";
-import { useIntl } from "react-intl";
-import { PATHS } from "routes";
-import { classNames } from "utils/utils";
+  UserIcon,
+} from '@heroicons/react/24/outline';
+import { useIntl } from 'react-intl';
+import { PATHS } from 'routes';
+import { classNames } from 'utils/utils';
 
 export const SettingsNavbar = () => {
   const intl = useIntl();
@@ -17,39 +17,39 @@ export const SettingsNavbar = () => {
 
   const tabs = [
     {
-      name: "navbar.profile",
+      name: 'navbar.profile',
       href: PATHS.PROFILE,
       icon: UserIcon,
       current: currentPage === PATHS.PROFILE,
     },
     {
-      name: "navbar.company",
+      name: 'navbar.company',
       href: PATHS.COMPANY,
       icon: BuildingOfficeIcon,
       current: currentPage === PATHS.COMPANY,
     },
     {
-      name: "navbar.bank-account",
+      name: 'navbar.bank-account',
       href: PATHS.BANK_ACCOUNT,
       icon: BuildingLibraryIcon,
       current: currentPage === PATHS.BANK_ACCOUNT,
     },
     {
-      name: "navbar.integrations",
+      name: 'navbar.integrations',
       href: PATHS.INTEGRATIONS,
       icon: ArrowsPointingInIcon,
       current: currentPage === PATHS.INTEGRATIONS,
     },
 
     {
-      name: "navbar.subscriptions",
+      name: 'navbar.subscriptions',
       href: PATHS.SUBSCRIPTION,
       icon: CreditCardIcon,
       current: currentPage === PATHS.SUBSCRIPTION,
     },
 
     {
-      name: "navbar.security",
+      name: 'navbar.security',
       href: PATHS.SECURITY,
       icon: LockClosedIcon,
       current: currentPage === PATHS.SECURITY,
@@ -85,18 +85,18 @@ export const SettingsNavbar = () => {
                 href={tab.href}
                 className={classNames(
                   tab.current
-                    ? "border-klaq-500 text-klaq-600"
-                    : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                  "group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium"
+                    ? 'border-klaq-500 text-klaq-600'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                  'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium',
                 )}
-                aria-current={tab.current ? "page" : undefined}
+                aria-current={tab.current ? 'page' : undefined}
               >
                 <tab.icon
                   className={classNames(
                     tab.current
-                      ? "text-klaq-500"
-                      : "text-gray-400 group-hover:text-gray-500",
-                    "-ml-0.5 mr-2 h-5 w-5"
+                      ? 'text-klaq-500'
+                      : 'text-gray-400 group-hover:text-gray-500',
+                    '-ml-0.5 mr-2 h-5 w-5',
                   )}
                   aria-hidden="true"
                 />

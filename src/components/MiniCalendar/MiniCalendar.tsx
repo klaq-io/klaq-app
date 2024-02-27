@@ -1,7 +1,7 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { CalendarDaysIcon, EyeIcon } from "@heroicons/react/24/outline";
-import { EventBadge } from "components/Event";
-import { NewEventModal } from "components/Modal";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { EventBadge } from 'components/Event';
+import { NewEventModal } from 'components/Modal';
 import {
   add,
   eachDayOfInterval,
@@ -14,26 +14,24 @@ import {
   parse,
   startOfToday,
   startOfWeek,
-} from "date-fns";
-import { enUS, fr } from "date-fns/esm/locale";
-import { SubEvent } from "interface/Event/subevent.interface";
-import { useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Customer } from "redux/Customer/slices";
-import { useFetchMainEvents } from "redux/MainEvent/hooks";
-import {
-  getMainEvents
-} from "redux/MainEvent/selectors";
-import { EventStatus } from "../../redux/Events/slices";
-import { PATHS } from "../../routes";
+} from 'date-fns';
+import { enUS, fr } from 'date-fns/esm/locale';
+import { SubEvent } from 'interface/Event/subevent.interface';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Customer } from 'redux/Customer/slices';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
+import { getMainEvents } from 'redux/MainEvent/selectors';
+import { EventStatus } from '../../redux/Events/slices';
+import { PATHS } from '../../routes';
 import {
   classNames,
   getDayStr,
   getMonthStr,
   getSubEventsListFromMainEvents,
-} from "../../utils/utils";
+} from '../../utils/utils';
 
 type Event = SubEvent & {
   customer: Customer;
@@ -50,8 +48,8 @@ export const MiniCalendar = () => {
 
   const today = startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
-  const [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
-  const firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
+  const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
+  const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
 
   const daysList = eachDayOfInterval({
     start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),
@@ -62,30 +60,33 @@ export const MiniCalendar = () => {
   const mainEvents = useSelector(getMainEvents);
 
   const subEventsList = mainEvents.flatMap((e) =>
-    getSubEventsListFromMainEvents(e)
+    getSubEventsListFromMainEvents(e),
   );
 
-  const subEventsByDay = subEventsList.reduce((subEventsByDay, event) => {
-    const date = format(new Date(event.date), "yyyy-MM-dd");
-    return {
-      ...subEventsByDay,
-      [date]: (subEventsByDay[date] || []).concat(event),
-    };
-  }, {} as { [key: string]: Event[] });
+  const subEventsByDay = subEventsList.reduce(
+    (subEventsByDay, event) => {
+      const date = format(new Date(event.date), 'yyyy-MM-dd');
+      return {
+        ...subEventsByDay,
+        [date]: (subEventsByDay[date] || []).concat(event),
+      };
+    },
+    {} as { [key: string]: Event[] },
+  );
 
   const days = daysList.map((day) => ({
     date: day,
-    events: subEventsByDay[format(day, "yyyy-MM-dd")] || [],
+    events: subEventsByDay[format(day, 'yyyy-MM-dd')] || [],
   }));
 
   const nextMonth = () => {
     const firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 });
-    setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
+    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
   };
 
   const prevMonth = () => {
     const firstDayPrevMonth = add(firstDayCurrentMonth, { months: -1 });
-    setCurrentMonth(format(firstDayPrevMonth, "MMM-yyyy"));
+    setCurrentMonth(format(firstDayPrevMonth, 'MMM-yyyy'));
   };
 
   const handleEventDetails = (id: string) => {
@@ -112,7 +113,7 @@ export const MiniCalendar = () => {
             <h2 className="flex-auto text-sm font-semibold text-gray-900">
               <time>
                 {intl.formatMessage({ id: getMonthStr(firstDayCurrentMonth) })}
-                {format(firstDayCurrentMonth, " yyyy")}
+                {format(firstDayCurrentMonth, ' yyyy')}
               </time>
             </h2>
             <button
@@ -133,61 +134,61 @@ export const MiniCalendar = () => {
             </button>
           </div>
           <div className="mt-10 grid grid-cols-7 text-center text-xs leading-6 text-gray-500">
-            <div>{intl.formatMessage({ id: "events.day.monday" }).at(0)}</div>
-            <div>{intl.formatMessage({ id: "events.day.tuesday" }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.monday' }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.tuesday' }).at(0)}</div>
             <div>
-              {intl.formatMessage({ id: "events.day.wednesday" }).at(0)}
+              {intl.formatMessage({ id: 'events.day.wednesday' }).at(0)}
             </div>
-            <div>{intl.formatMessage({ id: "events.day.thursday" }).at(0)}</div>
-            <div>{intl.formatMessage({ id: "events.day.friday" }).at(0)}</div>
-            <div>{intl.formatMessage({ id: "events.day.saturday" }).at(0)}</div>
-            <div>{intl.formatMessage({ id: "events.day.sunday" }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.thursday' }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.friday' }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.saturday' }).at(0)}</div>
+            <div>{intl.formatMessage({ id: 'events.day.sunday' }).at(0)}</div>
           </div>
           <div className="mt-2 grid grid-cols-7 text-sm">
             {days.map((day, dayIdx) => (
               <div
                 key={day.date.toString()}
                 className={classNames(
-                  dayIdx > 6 && "border-t border-gray-200",
-                  "py-2"
+                  dayIdx > 6 && 'border-t border-gray-200',
+                  'py-2',
                 )}
               >
                 <button
                   onClick={() => setSelectedDay(day.date)}
                   type="button"
                   className={classNames(
-                    isEqual(day.date, selectedDay) && "text-white",
+                    isEqual(day.date, selectedDay) && 'text-white',
                     !isEqual(day.date, selectedDay) &&
                       isToday(day.date) &&
-                      "text-danger-600",
+                      'text-danger-600',
                     !isEqual(day.date, selectedDay) &&
                       !isToday(day.date) &&
                       isSameMonth(day.date, firstDayCurrentMonth) &&
-                      "text-gray-900",
+                      'text-gray-900',
                     !isEqual(day.date, selectedDay) &&
                       !isToday(day.date) &&
                       !isSameMonth(day.date, firstDayCurrentMonth) &&
-                      "text-gray-400",
+                      'text-gray-400',
                     isEqual(day.date, selectedDay) &&
                       isToday(day.date) &&
-                      "bg-danger-600",
+                      'bg-danger-600',
                     isEqual(day.date, selectedDay) &&
                       !isToday(day.date) &&
-                      "bg-gray-900",
-                    !isEqual(day.date, selectedDay) && "hover:bg-gray-200",
+                      'bg-gray-900',
+                    !isEqual(day.date, selectedDay) && 'hover:bg-gray-200',
                     (isEqual(day.date, selectedDay) || isToday(day.date)) &&
-                      "font-semibold",
-                    "mx-auto flex h-8 w-8 items-center justify-center rounded-full flex-col"
+                      'font-semibold',
+                    'mx-auto flex h-8 w-8 items-center justify-center rounded-full flex-col',
                   )}
                 >
                   <time
-                    dateTime={format(day.date, "yyyy-MM-dd")}
+                    dateTime={format(day.date, 'yyyy-MM-dd')}
                     onDoubleClick={() => {
                       setSelectedDate(day.date);
                       setOpenNewEvent(true);
                     }}
                   >
-                    {format(day.date, "d")}
+                    {format(day.date, 'd')}
                   </time>
                   {day.events.length && !isEqual(day.date, selectedDay) ? (
                     <span className="-m-2 text-danger-600">•</span>
@@ -201,18 +202,18 @@ export const MiniCalendar = () => {
           <h2 className="text-base font-semibold leading-6 text-gray-900">
             {intl.formatMessage({
               id: getDayStr(selectedDay),
-            })}{" "}
-            {format(selectedDay, "d ")}
+            })}{' '}
+            {format(selectedDay, 'd ')}
             {intl.formatMessage({
               id: getMonthStr(selectedDay),
-            })}{" "}
-            {format(selectedDay, " yyyy")}
+            })}{' '}
+            {format(selectedDay, ' yyyy')}
           </h2>
           <ol className="border-t border-gray-200 mt-4 space-y-1 text-sm leading-6 text-gray-500">
             {subEventsByDay &&
-            subEventsByDay[format(selectedDay, "yyyy-MM-dd")] &&
-            subEventsByDay[format(selectedDay, "yyyy-MM-dd")].length > 0 ? (
-              subEventsByDay[format(selectedDay, "yyyy-MM-dd")].map((event) => (
+            subEventsByDay[format(selectedDay, 'yyyy-MM-dd')] &&
+            subEventsByDay[format(selectedDay, 'yyyy-MM-dd')].length > 0 ? (
+              subEventsByDay[format(selectedDay, 'yyyy-MM-dd')].map((event) => (
                 <li
                   key={event.id}
                   className="group flex items-center space-x-4 rounded-xl px-4 py-2 focus-within:bg-gray-100 hover:bg-gray-100 hover:cursor-pointer"
@@ -225,7 +226,7 @@ export const MiniCalendar = () => {
                         <time dateTime={event.startTime}>
                           {event.startTime}
                         </time>
-                      ) : null}{" "}
+                      ) : null}{' '}
                       {event.endTime ? (
                         <>
                           -
@@ -250,19 +251,19 @@ export const MiniCalendar = () => {
                 />
                 <p className="mt-4 font-semibold text-gray-900">
                   {intl.formatMessage({
-                    id: "calendar.no-events.header",
+                    id: 'calendar.no-events.header',
                   })}
                 </p>
                 <p className="mt-2 text-gray-500">
                   {intl.formatMessage(
                     {
-                      id: "calendar.no-events.description",
+                      id: 'calendar.no-events.description',
                     },
                     {
-                      date: format(selectedDay, "d MMMM yyyy", {
-                        locale: intl.locale == "fr-FR" ? fr : enUS,
+                      date: format(selectedDay, 'd MMMM yyyy', {
+                        locale: intl.locale == 'fr-FR' ? fr : enUS,
                       }),
-                    }
+                    },
                   )}
                 </p>
               </div>

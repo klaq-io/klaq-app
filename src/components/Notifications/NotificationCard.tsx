@@ -1,8 +1,8 @@
-import { InboxArrowDownIcon } from "@heroicons/react/24/outline";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { Notification } from "interface/Notifications/notification.interface";
-import { FC } from "react";
+import { InboxArrowDownIcon } from '@heroicons/react/24/outline';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import { Notification } from 'interface/Notifications/notification.interface';
+import { FC } from 'react';
 
 type NotificationCardProps = {
   notification: Notification;
@@ -10,7 +10,7 @@ type NotificationCardProps = {
 };
 
 export const NotificationCard: FC<NotificationCardProps> = (
-  props: NotificationCardProps
+  props: NotificationCardProps,
 ) => {
   const { notification, shouldShowContent = true } = props;
 
@@ -35,12 +35,12 @@ export const NotificationCard: FC<NotificationCardProps> = (
         )}
         <div className="flex items-center space-x-2 justify-between text-sm text-gray-500">
           <p>
-            {format(new Date(notification.createdAt), "eeee, HH:mm", {
+            {format(new Date(notification.createdAt), 'eeee, HH:mm', {
               locale: fr,
             })}
           </p>
           <p>
-            {format(new Date(notification.createdAt), "dd MMMM yyyy", {
+            {format(new Date(notification.createdAt), 'dd MMMM yyyy', {
               locale: fr,
             })}
           </p>

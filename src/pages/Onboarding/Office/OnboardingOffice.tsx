@@ -1,19 +1,19 @@
-import { useIntl } from "react-intl";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { useFormik } from "formik";
-import { SelectOptions, initialValues, validationSchema } from "./form";
+import { useIntl } from 'react-intl';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
+import { useFormik } from 'formik';
+import { SelectOptions, initialValues, validationSchema } from './form';
 import {
   useFetchCompany,
   useUpdateCompany,
-} from "../../../redux/Company/hooks";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getCompany } from "../../../redux/Company/selectors";
-import { Button } from "components";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../../routes";
-import { useUpdateOnboardingStatus } from "../../../redux/User/hooks";
-import { OnboardingStatus } from "../../../interface/user.interface";
+} from '../../../redux/Company/hooks';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getCompany } from '../../../redux/Company/selectors';
+import { Button } from 'components';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../../routes';
+import { useUpdateOnboardingStatus } from '../../../redux/User/hooks';
+import { OnboardingStatus } from '../../../interface/user.interface';
 
 export const OnboardingOffice = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export const OnboardingOffice = () => {
               city: company?.city,
               zip: company?.zip,
               country: company?.country,
-            }
+            },
           )}
         </h2>
       </div>
@@ -242,7 +242,7 @@ export const OnboardingOffice = () => {
                 }
               >
                 {intl.formatMessage({
-                  id: "onboarding.office.submit",
+                  id: 'onboarding.office.submit',
                 })}
               </Button>
             </div>

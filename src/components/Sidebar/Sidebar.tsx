@@ -1,4 +1,4 @@
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure, Menu, Transition } from '@headlessui/react';
 import {
   ArrowRightOnRectangleIcon,
   CalendarIcon,
@@ -11,78 +11,74 @@ import {
   HomeIcon,
   LifebuoyIcon,
   ShoppingBagIcon,
-  UsersIcon
-} from "@heroicons/react/24/outline";
-import { CardContainer } from "components/Card";
-import { Skeleton } from "components/Skeleton";
-import { Fragment, useEffect } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useFetchUser, useSignout } from "redux/Login/hooks";
-import { getUser } from "redux/Login/selectors";
-import { handleClickHelp } from "utils/clickOnCrisp";
-import KlaqLogo from "../../assets/logo-pres.png";
-import { PATHS } from "../../routes";
-
-type Props = {
-  classes?: string;
-};
+  UsersIcon,
+} from '@heroicons/react/24/outline';
+import { CardContainer } from 'components/Card';
+import { Skeleton } from 'components/Skeleton';
+import { Fragment, useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useFetchUser, useSignout } from 'redux/Login/hooks';
+import { getUser } from 'redux/Login/selectors';
+import { handleClickHelp } from 'utils/clickOnCrisp';
+import KlaqLogo from '../../assets/logo-pres.png';
+import { PATHS } from '../../routes';
 
 const userNavigation = [
-  { name: "navbar.profile", href: PATHS.PROFILE },
-  { name: "navbar.integrations", href: PATHS.INTEGRATIONS },
-  { name: "navbar.company", href: PATHS.COMPANY },
+  { name: 'navbar.profile', href: PATHS.PROFILE },
+  { name: 'navbar.integrations', href: PATHS.INTEGRATIONS },
+  { name: 'navbar.company', href: PATHS.COMPANY },
   // { name: "navbar.billing", href: "#" },
 ];
 
 function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
-export const Sidebar = (props: Props) => {
+export const Sidebar = () => {
   const intl = useIntl();
 
-  const currentPage = `/${window.location.pathname.split("/")[1]}`;
+  const currentPage = `/${window.location.pathname.split('/')[1]}`;
 
   const navigation = [
     {
-      name: "sidebar.dashboard",
+      name: 'sidebar.dashboard',
       href: PATHS.DASHBOARD,
       icon: HomeIcon,
       current: currentPage === PATHS.DASHBOARD,
     },
     {
-      name: "sidebar.calendar",
+      name: 'sidebar.calendar',
       href: PATHS.CALENDAR,
       icon: CalendarIcon,
       current: currentPage === PATHS.CALENDAR,
     },
     {
-      name: "sidebar.events",
+      name: 'sidebar.events',
       href: PATHS.EVENTS,
       icon: FolderIcon,
       current: currentPage === PATHS.EVENTS,
     },
     {
-      name: "sidebar.customers",
+      name: 'sidebar.customers',
       href: PATHS.CUSTOMERS,
       icon: UsersIcon,
       current: currentPage === PATHS.CUSTOMERS,
     },
     {
-      name: "sidebar.invoices",
+      name: 'sidebar.invoices',
       href: PATHS.INVOICES,
       icon: DocumentCheckIcon,
       current: currentPage === PATHS.INVOICES || currentPage === PATHS.INVOICE,
     },
     {
-      name: "sidebar.quotes",
+      name: 'sidebar.quotes',
       icon: ClipboardDocumentIcon,
       href: PATHS.QUOTES,
       current: currentPage === PATHS.QUOTES || currentPage === PATHS.QUOTE,
     },
     {
-      name: "sidebar.products",
+      name: 'sidebar.products',
       href: PATHS.PRODUCTS,
       icon: ShoppingBagIcon,
       current: currentPage === PATHS.PRODUCTS,
@@ -127,7 +123,7 @@ export const Sidebar = (props: Props) => {
                 item.submenu ? (
                   <Disclosure
                     defaultOpen={item.submenu.some(
-                      (subitem: any) => subitem.current
+                      (subitem: any) => subitem.current,
                     )}
                     as="div"
                   >
@@ -137,9 +133,9 @@ export const Sidebar = (props: Props) => {
                           <item.icon
                             className={classNames(
                               item.current
-                                ? "text-white"
-                                : "text-klaq-200 group-hover:text-white",
-                              "h-6 w-6 shrink-0"
+                                ? 'text-white'
+                                : 'text-klaq-200 group-hover:text-white',
+                              'h-6 w-6 shrink-0',
                             )}
                             aria-hidden="true"
                           />
@@ -168,9 +164,9 @@ export const Sidebar = (props: Props) => {
                                 href={subitem.href}
                                 className={classNames(
                                   subitem.current
-                                    ? "bg-klaq-700 text-white"
-                                    : "text-klaq-200 hover:text-white hover:bg-klaq-700",
-                                  "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                    ? 'bg-klaq-700 text-white'
+                                    : 'text-klaq-200 hover:text-white hover:bg-klaq-700',
+                                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                                 )}
                               >
                                 {intl.formatMessage({
@@ -189,17 +185,17 @@ export const Sidebar = (props: Props) => {
                       href={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-klaq-700 text-white"
-                          : "text-klaq-200 hover:text-white hover:bg-klaq-700",
-                        "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                          ? 'bg-klaq-700 text-white'
+                          : 'text-klaq-200 hover:text-white hover:bg-klaq-700',
+                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                       )}
                     >
                       <item.icon
                         className={classNames(
                           item.current
-                            ? "text-white"
-                            : "text-klaq-200 group-hover:text-white",
-                          "h-6 w-6 shrink-0"
+                            ? 'text-white'
+                            : 'text-klaq-200 group-hover:text-white',
+                          'h-6 w-6 shrink-0',
                         )}
                         aria-hidden="true"
                       />
@@ -208,7 +204,7 @@ export const Sidebar = (props: Props) => {
                       })}
                     </a>
                   </li>
-                )
+                ),
               )}
             </ul>
           </li>
@@ -229,13 +225,13 @@ export const Sidebar = (props: Props) => {
                   ) : (
                     <div
                       className={classNames(
-                        "flex items-center justify-center h-8 w-8 rounded-full bg-gray-200"
+                        'flex items-center justify-center h-8 w-8 rounded-full bg-gray-200',
                       )}
                     >
                       <span className="font-semibold text-gray-600">
                         {user && user.firstName && user.lastName
                           ? `${user.firstName.charAt(0)}${user.lastName.charAt(
-                              0
+                              0,
                             )}`
                           : null}
                       </span>
@@ -250,7 +246,7 @@ export const Sidebar = (props: Props) => {
                     <span className="hidden lg:flex lg:items-center">
                       <span
                         className={classNames(
-                          "ml-4 text-sm font-semibold leading-6 text-gray-900"
+                          'ml-4 text-sm font-semibold leading-6 text-gray-900',
                         )}
                         aria-hidden="true"
                       >
@@ -278,8 +274,8 @@ export const Sidebar = (props: Props) => {
                             <a
                               href={item.href}
                               className={classNames(
-                                active ? "bg-gray-50" : "",
-                                "block px-3 py-1 text-sm leading-6 text-gray-900"
+                                active ? 'bg-gray-50' : '',
+                                'block px-3 py-1 text-sm leading-6 text-gray-900',
                               )}
                             >
                               {intl.formatMessage({ id: item.name })}
@@ -294,7 +290,7 @@ export const Sidebar = (props: Props) => {
                           // onClick={handleLogout}
                           className="hover:bg-gray-50 block px-3 py-1 text-sm leading-6 text-danger-600 cursor-pointer hover:bg-gray"
                         >
-                          {intl.formatMessage({ id: "navbar.logout" })}
+                          {intl.formatMessage({ id: 'navbar.logout' })}
                         </a>
                       </Menu.Item>
                     </div>
@@ -305,8 +301,8 @@ export const Sidebar = (props: Props) => {
             <a
               href={PATHS.PROFILE}
               className={classNames(
-                "group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white",
-                currentPage === PATHS.SETTINGS ? "bg-klaq-700 text-white" : ""
+                'group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-klaq-200 hover:bg-klaq-700 hover:text-white',
+                currentPage === PATHS.SETTINGS ? 'bg-klaq-700 text-white' : '',
               )}
             >
               <Cog6ToothIcon
@@ -314,7 +310,7 @@ export const Sidebar = (props: Props) => {
                 aria-hidden="true"
               />
               {intl.formatMessage({
-                id: "sidebar.settings",
+                id: 'sidebar.settings',
               })}
             </a>
             <a
@@ -326,7 +322,7 @@ export const Sidebar = (props: Props) => {
                 aria-hidden="true"
               />
               {intl.formatMessage({
-                id: "sidebar.help",
+                id: 'sidebar.help',
               })}
             </a>
 
@@ -339,7 +335,7 @@ export const Sidebar = (props: Props) => {
                 className="h-6 w-6 shrink-0 text-klaq-200 group-hover:text-white"
                 aria-hidden="true"
               />
-              {intl.formatMessage({ id: "navbar.logout" })}
+              {intl.formatMessage({ id: 'navbar.logout' })}
             </a>
           </li>
           {/* <li className="mt-auto" key="sidebar-footer">

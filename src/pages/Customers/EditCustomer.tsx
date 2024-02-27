@@ -2,26 +2,26 @@ import {
   BuildingLibraryIcon,
   HomeIcon,
   UserIcon,
-} from "@heroicons/react/24/outline";
-import { useFormik } from "formik";
-import { FC, useState } from "react";
-import { useIntl } from "react-intl";
-import { Button, SearchCompany } from "components";
-import SidePanel from "components/SidePanel";
-import { useUpdateCustomer } from "../../redux/Customer/hooks";
-import { Customer, CustomerType } from "../../redux/Customer/slices";
-import { initialValues, validationSchema } from "./form";
-import { Suggestion } from "interface/suggestion.interface";
+} from '@heroicons/react/24/outline';
+import { useFormik } from 'formik';
+import { FC, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { Button, SearchCompany } from 'components';
+import SidePanel from 'components/SidePanel';
+import { useUpdateCustomer } from '../../redux/Customer/hooks';
+import { Customer, CustomerType } from '../../redux/Customer/slices';
+import { initialValues, validationSchema } from './form';
+import { Suggestion } from 'interface/suggestion.interface';
 
 type Props = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
   customer?: Customer;
 };
 
 export const EditCustomer: FC<Props> = (props: Props) => {
   const intl = useIntl();
-  const { open, setOpen, customer } = props;
+  const { isOpen, setOpen, customer } = props;
   const [customerCompany, setCustomerCompany] = useState<
     Suggestion | undefined
   >();
@@ -52,9 +52,9 @@ export const EditCustomer: FC<Props> = (props: Props) => {
 
   return (
     <SidePanel
-      isOpen={open}
+      isOpen={isOpen}
       setOpen={setOpen}
-      titleId={"customers.edit-customer.header"}
+      titleId={'customers.edit-customer.header'}
     >
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col space-y-4">
@@ -64,7 +64,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.client-type",
+                id: 'customers.new-customer.label.client-type',
               })}
             </label>
             <div className="mt-2 flex flex-row space-x-4">
@@ -72,8 +72,8 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 variant="contained"
                 color={
                   formik.values.type === CustomerType.COMPANY
-                    ? "primary"
-                    : "secondary"
+                    ? 'primary'
+                    : 'secondary'
                 }
                 onClick={() => handleSetCompany(CustomerType.COMPANY)}
                 type="button"
@@ -85,15 +85,15 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.new-customer.input.client-type.company",
+                  id: 'customers.new-customer.input.client-type.company',
                 })}
               </Button>
               <Button
                 variant="contained"
                 color={
                   formik.values.type === CustomerType.PRIVATE
-                    ? "primary"
-                    : "secondary"
+                    ? 'primary'
+                    : 'secondary'
                 }
                 onClick={() => handleSetCompany(CustomerType.PRIVATE)}
                 type="button"
@@ -102,7 +102,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.new-customer.input.client-type.private",
+                  id: 'customers.new-customer.input.client-type.private',
                 })}
               </Button>
             </div>
@@ -115,7 +115,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.look-for-company",
+                    id: 'customers.new-customer.label.look-for-company',
                   })}
                 </label>
                 <div className="mt-2">
@@ -123,7 +123,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                     customerCompany={customerCompany}
                     setCustomerCompany={setCustomerCompany}
                     placeholder={intl.formatMessage({
-                      id: "onboarding.search-company.input",
+                      id: 'onboarding.search-company.input',
                     })}
                   />
                 </div>
@@ -154,7 +154,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.name",
+                    id: 'customers.new-customer.label.name',
                   })}
                 </label>
                 <div className="mt-2">
@@ -185,7 +185,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.siret",
+                    id: 'customers.new-customer.label.siret',
                   })}
                 </label>
                 <div className="mt-2">
@@ -217,7 +217,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.vat-number",
+                    id: 'customers.new-customer.label.vat-number',
                   })}
                 </label>
                 <div className="mt-2">
@@ -271,7 +271,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.first-name",
+                id: 'customers.new-customer.label.first-name',
               })}
             </label>
             <div className="mt-2">
@@ -302,7 +302,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.last-name",
+                id: 'customers.new-customer.label.last-name',
               })}
             </label>
             <div className="mt-2">
@@ -333,7 +333,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.email",
+                id: 'customers.new-customer.label.email',
               })}
             </label>
             <div className="mt-2">
@@ -364,7 +364,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.phone",
+                id: 'customers.new-customer.label.phone',
               })}
             </label>
             <div className="mt-2">
@@ -414,7 +414,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.address",
+                id: 'customers.new-customer.label.address',
               })}
             </label>
             <div className="mt-2">
@@ -445,7 +445,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.city",
+                id: 'customers.new-customer.label.city',
               })}
             </label>
             <div className="mt-2">
@@ -476,7 +476,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.zip",
+                id: 'customers.new-customer.label.zip',
               })}
             </label>
             <div className="mt-2">
@@ -507,7 +507,7 @@ export const EditCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.country",
+                id: 'customers.new-customer.label.country',
               })}
             </label>
             <div className="mt-2">

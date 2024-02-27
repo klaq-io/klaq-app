@@ -1,14 +1,14 @@
-import { MapPinIcon } from "@heroicons/react/24/solid";
-import WebMercatorViewport from "@math.gl/web-mercator";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { useEffect, useRef, useState } from "react";
+import { MapPinIcon } from '@heroicons/react/24/solid';
+import WebMercatorViewport from '@math.gl/web-mercator';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { useEffect, useRef, useState } from 'react';
 import Map, {
   FullscreenControl,
   Layer,
   Marker,
   NavigationControl,
-  Source
-} from "react-map-gl";
+  Source,
+} from 'react-map-gl';
 
 export type MapProps = {
   data: any;
@@ -25,7 +25,7 @@ export const EventMap = (props: MapProps) => {
 
   const waypoints = data.waypoints;
   const bound = viewport.fitBounds(
-    waypoints.map((waypoint: any) => waypoint.location)
+    waypoints.map((waypoint: any) => waypoint.location),
   );
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export const EventMap = (props: MapProps) => {
     <div ref={mapContainerRef} className="w-full h-full">
       <Map
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
-        mapLib={import("mapbox-gl")}
-        style={{ width: "100%", height: "100%" }}
+        mapLib={import('mapbox-gl')}
+        style={{ width: '100%', height: '100%' }}
         mapStyle="mapbox://styles/mapbox/streets-v12"
         id="mapData"
         initialViewState={{ ...bound, zoom: 7 }}
@@ -51,12 +51,12 @@ export const EventMap = (props: MapProps) => {
             type="line"
             source="my-data"
             layout={{
-              "line-join": "round",
-              "line-cap": "round",
+              'line-join': 'round',
+              'line-cap': 'round',
             }}
             paint={{
-              "line-color": "rgba(3, 170, 238, 0.5)",
-              "line-width": 5,
+              'line-color': 'rgba(3, 170, 238, 0.5)',
+              'line-width': 5,
             }}
           />
         </Source>

@@ -1,6 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Fragment } from 'react';
 
 type InfoModalProps = {
   button1: string;

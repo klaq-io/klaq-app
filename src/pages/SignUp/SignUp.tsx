@@ -1,26 +1,27 @@
-import { useIntl } from "react-intl";
-import { OnboardingLayout } from "../../layouts/OnboardingLayout/OnboardingLayout";
-import { PATHS } from "../../routes";
-import { useFormik } from "formik";
-import { initialValues, validationSchema } from "./form";
-import PhoneInput from "react-phone-input-2";
-import { Button } from "components";
-import { useSignUp } from "../../redux/Login/hooks";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import backgroundAuth from "assets/background-auth.jpeg";
-import { useState } from "react";
-import { useUpdateSettings } from "redux/User/hooks";
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import backgroundAuth from 'assets/background-auth.jpeg';
+import { Button } from 'components';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import { useIntl } from 'react-intl';
+import PhoneInput from 'react-phone-input-2';
+import { useUpdateSettings } from 'redux/User/hooks';
+import { OnboardingLayout } from '../../layouts/OnboardingLayout/OnboardingLayout';
+import { useSignUp } from '../../redux/Login/hooks';
+import { PATHS } from '../../routes';
+import { initialValues, validationSchema } from './form';
 
 export const SignUp = () => {
   const intl = useIntl();
 
   const [{ isLoading }, signUp] = useSignUp();
   const [, updateSettings] = useUpdateSettings();
-  const [mailNotificationEnabled, setEnabledMailNotification] = useState(true);
-  const [cguAccepted, setAcceptedCgu] = useState(false);
+  const [isMailNotificationEnabled, setEnabledMailNotification] =
+    useState(true);
+  const [isCGUAccepted, setAcceptedCgu] = useState(false);
 
   const setPhoneNumber = (value: string) => {
-    formik.setFieldValue("phone", value);
+    formik.setFieldValue('phone', value);
   };
 
   const formik = useFormik({
@@ -29,7 +30,7 @@ export const SignUp = () => {
     onSubmit: async (values) => {
       await signUp(values);
       await updateSettings({
-        isMarketingNotificationEnabled: mailNotificationEnabled,
+        isMarketingNotificationEnabled: isMailNotificationEnabled,
       });
     },
   });
@@ -41,19 +42,19 @@ export const SignUp = () => {
         </h1>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           {intl.formatMessage({
-            id: "sign-up.header",
+            id: 'sign-up.header',
           })}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
           {intl.formatMessage({
-            id: "forget-password.login.text",
-          })}{" "}
+            id: 'forget-password.login.text',
+          })}{' '}
           <a
             href={PATHS.LOGIN}
             className="font-semibold text-klaq-600 hover:text-klaq-500"
           >
             {intl.formatMessage({
-              id: "forget-password.login.link",
+              id: 'forget-password.login.link',
             })}
           </a>
         </p>
@@ -66,7 +67,7 @@ export const SignUp = () => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "sign-up.label.email",
+                id: 'sign-up.label.email',
               })}
             </label>
             <div className="mt-2">
@@ -79,13 +80,13 @@ export const SignUp = () => {
                 required
                 className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
-                  id: "sign-up.input.email",
+                  id: 'sign-up.input.email',
                 })}
               />
               {formik.errors.email && formik.touched.email ? (
                 <p className="mt-2 text-sm text-danger-600" id="email-error">
                   {intl.formatMessage({
-                    id: "sign-up.error.email",
+                    id: 'sign-up.error.email',
                   })}
                 </p>
               ) : null}
@@ -97,7 +98,7 @@ export const SignUp = () => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "sign-up.label.password",
+                id: 'sign-up.label.password',
               })}
             </label>
             <div className="mt-2">
@@ -110,13 +111,13 @@ export const SignUp = () => {
                 required
                 className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
-                  id: "sign-up.input.password",
+                  id: 'sign-up.input.password',
                 })}
               />
               {formik.errors.password && formik.touched.password ? (
                 <p className="mt-2 text-sm text-danger-600" id="email-error">
                   {intl.formatMessage({
-                    id: "sign-up.error.password",
+                    id: 'sign-up.error.password',
                   })}
                 </p>
               ) : null}
@@ -128,19 +129,19 @@ export const SignUp = () => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "sign-up.label.phone",
+                id: 'sign-up.label.phone',
               })}
             </label>
             <div className="mt-2">
               <PhoneInput
                 inputProps={{
-                  name: "phone",
+                  name: 'phone',
                   required: true,
                   autoFocus: true,
                   className:
-                    "block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm",
+                    'block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm',
                 }}
-                country={"fr"}
+                country={'fr'}
                 value={formik.values.phone}
                 onChange={setPhoneNumber}
                 enableAreaCodes={false}
@@ -152,7 +153,7 @@ export const SignUp = () => {
               {formik.errors.phone && formik.touched.phone ? (
                 <p className="mt-2 text-sm text-danger-600" id="email-error">
                   {intl.formatMessage({
-                    id: "sign-up.error.phone",
+                    id: 'sign-up.error.phone',
                   })}
                 </p>
               ) : null}
@@ -162,9 +163,9 @@ export const SignUp = () => {
             <div className="flex h-6 items-center">
               <input
                 onChange={() =>
-                  setEnabledMailNotification(!mailNotificationEnabled)
+                  setEnabledMailNotification(!isMailNotificationEnabled)
                 }
-                checked={mailNotificationEnabled}
+                checked={isMailNotificationEnabled}
                 type="checkbox"
                 className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
               />
@@ -172,7 +173,7 @@ export const SignUp = () => {
             <div className="ml-3 text-sm leading-6">
               <span className="text-gray-500">
                 {intl.formatMessage({
-                  id: "sign-up.label.newsletter",
+                  id: 'sign-up.label.newsletter',
                 })}
               </span>
             </div>
@@ -180,8 +181,8 @@ export const SignUp = () => {
           <div className="relative flex items-start">
             <div className="flex h-6 items-center">
               <input
-                onChange={() => setAcceptedCgu(!cguAccepted)}
-                checked={cguAccepted}
+                onChange={() => setAcceptedCgu(!isCGUAccepted)}
+                checked={isCGUAccepted}
                 type="checkbox"
                 className="h-4 w-4 rounded border-gray-300 text-klaq-600 focus:ring-klaq-600"
               />
@@ -195,7 +196,7 @@ export const SignUp = () => {
                   className="font-semibold text-klaq-600 hover:text-klaq-500"
                 >
                   {intl.formatMessage({
-                    id: "sign-up.label.cgu",
+                    id: 'sign-up.label.cgu',
                   })}
                 </a>
               </span>
@@ -207,11 +208,11 @@ export const SignUp = () => {
               color="primary"
               variant="contained"
               type="submit"
-              disabled={!cguAccepted}
+              disabled={!isCGUAccepted}
               trailingIcon={<ArrowRightIcon className="-mr-1 ml-2 h-5 w-5" />}
             >
               {intl.formatMessage({
-                id: "sign-up.submit",
+                id: 'sign-up.submit',
               })}
             </Button>
           </div>

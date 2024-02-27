@@ -1,15 +1,15 @@
-import { MapPinIcon } from "@heroicons/react/24/solid";
-import WebMercatorViewport from "@math.gl/web-mercator";
-import { MainEvent } from "interface/Event/main-event.interface";
-import { useEffect, useRef, useState } from "react";
+import { MapPinIcon } from '@heroicons/react/24/solid';
+import WebMercatorViewport from '@math.gl/web-mercator';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { useEffect, useRef, useState } from 'react';
 import Map, {
   FullscreenControl,
   Layer,
   Marker,
   NavigationControl,
-  Source
-} from "react-map-gl";
-import { classNames } from "utils/utils";
+  Source,
+} from 'react-map-gl';
+import { classNames } from 'utils/utils';
 
 type EventMapProps = {
   eventId: string;
@@ -46,7 +46,7 @@ export const EventMapV2 = (props: EventMapProps) => {
   useEffect(() => {
     if (waypoints && waypoints.length > 0) {
       setBound(
-        viewport.fitBounds(waypoints.map((waypoint: any) => waypoint.location))
+        viewport.fitBounds(waypoints.map((waypoint: any) => waypoint.location)),
       );
     }
   }, [waypoints]);
@@ -56,10 +56,10 @@ export const EventMapV2 = (props: EventMapProps) => {
       <div ref={mapContainerRef} className="w-full h-full">
         <Map
           mapboxAccessToken={
-            "pk.eyJ1Ijoia2xhcSIsImEiOiJjbGxlZTZlY2UwNTgzM2VwZjlja3l1dXZ2In0.3srguGfdt3R1Xa0NB8UmDw"
+            'pk.eyJ1Ijoia2xhcSIsImEiOiJjbGxlZTZlY2UwNTgzM2VwZjlja3l1dXZ2In0.3srguGfdt3R1Xa0NB8UmDw'
           }
-          mapLib={import("mapbox-gl")}
-          style={{ width: "100%", height: "100%" }}
+          mapLib={import('mapbox-gl')}
+          style={{ width: '100%', height: '100%' }}
           mapStyle="mapbox://styles/mapbox/streets-v12"
           id="mapData"
           initialViewState={{ ...bound, zoom: 7 }}
@@ -74,12 +74,12 @@ export const EventMapV2 = (props: EventMapProps) => {
               type="line"
               source="my-data"
               layout={{
-                "line-join": "round",
-                "line-cap": "round",
+                'line-join': 'round',
+                'line-cap': 'round',
               }}
               paint={{
-                "line-color": "rgba(3, 170, 238, 0.5)",
-                "line-width": 5,
+                'line-color': 'rgba(3, 170, 238, 0.5)',
+                'line-width': 5,
               }}
             />
           </Source>
@@ -91,12 +91,12 @@ export const EventMapV2 = (props: EventMapProps) => {
             >
               <MapPinIcon
                 className={classNames(
-                  "w-8 h-8",
+                  'w-8 h-8',
                   idx === 0
-                    ? "text-klaq-500"
+                    ? 'text-klaq-500'
                     : idx === waypoints.length - 1
-                    ? "text-klaq-500"
-                    : "text-red-500"
+                      ? 'text-klaq-500'
+                      : 'text-red-500',
                 )}
               />
             </Marker>

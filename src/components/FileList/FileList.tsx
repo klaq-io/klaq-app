@@ -1,8 +1,8 @@
-import { DocumentIcon, PaperClipIcon } from "@heroicons/react/24/outline";
-import { Button } from "components/Button";
-import { Document } from "interface/document.interface";
-import { useIntl } from "react-intl";
-import { useFetchDocumentUrl } from "redux/Document/hooks";
+import { DocumentIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import { Button } from 'components/Button';
+import { Document } from 'interface/document.interface';
+import { useIntl } from 'react-intl';
+import { useFetchDocumentUrl } from 'redux/Document/hooks';
 
 type FileListProps = {
   fileList?: Document[];
@@ -20,8 +20,8 @@ export const FileList = (props: FileListProps) => {
   };
 
   const convertFiletoBlobAndDownload = async (url: string) => {
-    const a = document.createElement("a");
-    a.style.display = "none";
+    const a = document.createElement('a');
+    a.style.display = 'none';
     a.href = url;
     document.body.appendChild(a);
     a.click();
@@ -74,12 +74,12 @@ export const FileList = (props: FileListProps) => {
 
       <h3 className="mt-2 text-sm font-semibold text-gray-900">
         {intl.formatMessage({
-          id: "customers.customer-details.no-documents-found.header",
+          id: 'customers.customer-details.no-documents-found.header',
         })}
       </h3>
       <p className="mt-1 text-sm text-gray-500">
         {intl.formatMessage({
-          id: "customers.customer-details.no-documents-found.description",
+          id: 'customers.customer-details.no-documents-found.description',
         })}
       </p>
     </div>

@@ -1,36 +1,31 @@
-import { useIntl } from "react-intl";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import { type } from "@testing-library/user-event/dist/type";
-import { initialValues, validationSchema } from "./form";
-import { Button } from "components";
+import { Combobox } from '@headlessui/react';
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  ChevronUpDownIcon,
   CheckIcon,
-} from "@heroicons/react/24/outline";
-import { useFetchUser } from "../../../redux/Login/hooks";
-import { useSelector } from "react-redux";
-import { getUser } from "../../../redux/Login/selectors";
-import { subYears } from "date-fns";
+  ChevronUpDownIcon,
+} from '@heroicons/react/24/outline';
+import { Button } from 'components';
+import { subYears } from 'date-fns';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   OnboardingStatus,
   PerformingCategory,
-} from "../../../interface/user.interface";
-import { Combobox } from "@headlessui/react";
-import { classNames } from "../../../utils/utils";
+} from '../../../interface/user.interface';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
+import { useFetchUser } from '../../../redux/Login/hooks';
+import { getUser } from '../../../redux/Login/selectors';
 import {
   useUpdateOnboardingStatus,
   useUpdateUser,
-} from "../../../redux/User/hooks";
-import { PATHS } from "../../../routes";
-import { useNavigate } from "react-router-dom";
-
-type Props = {
-  classes?: string;
-};
+} from '../../../redux/User/hooks';
+import { PATHS } from '../../../routes';
+import { classNames } from '../../../utils/utils';
+import { initialValues, validationSchema } from './form';
 
 enum STEP {
   REAL_NAME,
@@ -43,11 +38,11 @@ export enum selectOptions {
   NO,
 }
 
-export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
+export const OnboardingPerformer = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const [step, setStep] = useState(STEP.REAL_NAME);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [selectCategory, setSelectCategory] = useState(undefined);
 
   const [{ isLoading }, updateUser] = useUpdateUser();
@@ -76,9 +71,9 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   });
 
   const translationsKeys = {
-    [STEP.REAL_NAME]: "real-name",
-    [STEP.STAGE_NAME]: "stage-name",
-    [STEP.CATEGORY]: "category",
+    [STEP.REAL_NAME]: 'real-name',
+    [STEP.STAGE_NAME]: 'stage-name',
+    [STEP.CATEGORY]: 'category',
   };
 
   const perfCategoryKeys = Object.keys(PerformingCategory);
@@ -86,11 +81,11 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   const perfCategory = perfCategoryKeys.map((key) =>
     intl.formatMessage({
       id: `onboarding.performer.select.category.${key.toLowerCase()}`,
-    })
+    }),
   );
 
   const filteredPerformingCategory =
-    query === ""
+    query === ''
       ? perfCategoryKeys
       : perfCategoryKeys.filter((key, index) => {
           return perfCategory[index]
@@ -108,7 +103,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue("category", query);
+    formik.setFieldValue('category', query);
   }, [selectCategory === PerformingCategory.OTHER]);
 
   return (
@@ -130,8 +125,8 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
               firstName: formik.values.firstName,
               email: user?.email,
               phone: user?.phone,
-              br: (chunks: any) => <br />,
-            }
+              br: () => <br />,
+            },
           )}
         </h2>
       </div>
@@ -218,7 +213,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                     name="birthDate"
                     type="date"
                     required
-                    max={subYears(new Date(), 18).toISOString().split("T")[0]}
+                    max={subYears(new Date(), 18).toISOString().split('T')[0]}
                     className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                     placeholder={intl.formatMessage({
                       id: `onboarding.performer.input.birthday`,
@@ -257,7 +252,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   }
                 >
                   {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
+                    id: 'onboarding.performer.button.next',
                   })}
                 </Button>
               </div>
@@ -281,7 +276,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                             ? intl.formatMessage({
                                 id: `onboarding.performer.select.category.${key.toLowerCase()}`,
                               })
-                            : ""
+                            : ''
                         }
                       />
                       <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -297,10 +292,10 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                             value={key}
                             className={({ active }) =>
                               classNames(
-                                "relative cursor-default select-none py-2 pl-3 pr-9",
+                                'relative cursor-default select-none py-2 pl-3 pr-9',
                                 active
-                                  ? "bg-klaq-600 text-white"
-                                  : "text-gray-900"
+                                  ? 'bg-klaq-600 text-white'
+                                  : 'text-gray-900',
                               )
                             }
                           >
@@ -308,8 +303,8 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                               <>
                                 <span
                                   className={classNames(
-                                    "block truncate",
-                                    selected && "font-semibold"
+                                    'block truncate',
+                                    selected && 'font-semibold',
                                   )}
                                 >
                                   {intl.formatMessage({
@@ -320,8 +315,8 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                                 {selected && (
                                   <span
                                     className={classNames(
-                                      "absolute inset-y-0 right-0 flex items-center pr-4",
-                                      active ? "text-white" : "text-klaq-600"
+                                      'absolute inset-y-0 right-0 flex items-center pr-4',
+                                      active ? 'text-white' : 'text-klaq-600',
                                     )}
                                   >
                                     <CheckIcon
@@ -377,7 +372,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   onClick={() => setStep(STEP.REAL_NAME)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
+                    id: 'onboarding.performer.button.previous',
                   })}
                 </Button>
                 <Button
@@ -393,7 +388,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   onClick={() => setStep(STEP.STAGE_NAME)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.performer.button.next",
+                    id: 'onboarding.performer.button.next',
                   })}
                 </Button>
               </div>
@@ -443,7 +438,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   onClick={() => setStep(STEP.CATEGORY)}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.performer.button.previous",
+                    id: 'onboarding.performer.button.previous',
                   })}
                 </Button>
                 <Button
@@ -454,7 +449,7 @@ export const OnboardingPerformer: React.FC<Props> = (props: Props) => {
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({
-                    id: "onboarding.performer.button.submit",
+                    id: 'onboarding.performer.button.submit',
                   })}
                 </Button>
               </div>

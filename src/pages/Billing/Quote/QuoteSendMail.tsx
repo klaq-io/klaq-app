@@ -1,36 +1,30 @@
-import { useFormik } from "formik";
-import { initialValues } from "./sendQuoteForm";
-import { PageLayout } from "layouts";
-import { Transition } from "@headlessui/react";
-import { useSelector } from "react-redux";
-import { getInvoice } from "redux/Invoice/selectors";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button, CardContainer, TextField } from "components";
-import { useIntl } from "react-intl";
-import { useEffect } from "react";
-import {
-  useDownloadInvoicePDF,
-  useFetchInvoice,
-  useSendInvoiceByEmail,
-} from "redux/Invoice/hooks";
-import { useFetchUser } from "redux/Login/hooks";
-import { getUser } from "redux/Login/selectors";
-import { CustomerType } from "redux/Customer/slices";
-import {
-  DiscountType,
-  InvoiceProduct,
-} from "interface/Invoice/invoice.interface";
+import { Transition } from '@headlessui/react';
 import {
   ArrowDownTrayIcon,
   PaperAirplaneIcon,
-} from "@heroicons/react/24/outline";
-import { getQuoteById } from "redux/Quote/selectors";
+} from '@heroicons/react/24/outline';
+import { Button, CardContainer, TextField } from 'components';
+import { useFormik } from 'formik';
+import {
+  DiscountType,
+  InvoiceProduct,
+} from 'interface/Invoice/invoice.interface';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
+import { useFetchUser } from 'redux/Login/hooks';
+import { getUser } from 'redux/Login/selectors';
 import {
   useDownloadQuoteDocument,
   useFetchQuote,
   useSendQuote,
-} from "redux/Quote/hooks";
-import { PATHS } from "routes";
+} from 'redux/Quote/hooks';
+import { getQuoteById } from 'redux/Quote/selectors';
+import { PATHS } from 'routes';
+import { initialValues } from './sendQuoteForm';
 
 export const QuoteSendMailPage = () => {
   const intl = useIntl();
@@ -40,14 +34,16 @@ export const QuoteSendMailPage = () => {
   const [{ isLoading: isSending }, sendQuoteByEmail] = useSendQuote();
   const [, fetchUser] = useFetchUser();
 
-  const quote = useSelector((state: any) => getQuoteById(state, id!));
+  const quote = useSelector((state: any) => getQuoteById(state, id));
   const user = useSelector(getUser);
 
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
     useDownloadQuoteDocument();
 
   const isCustomerPro =
-    quote && quote.mainEvent.customer.type === CustomerType.COMPANY;
+    quote &&
+    quote.mainEvent.customer &&
+    quote.mainEvent.customer.type === CustomerType.COMPANY;
 
   const formik = useFormik({
     initialValues: quote
@@ -55,27 +51,28 @@ export const QuoteSendMailPage = () => {
           ...initialValues,
           to: quote.mainEvent.customer.email,
           subject: intl.formatMessage({
-            id: "quote.send.default.subject",
+            id: 'quote.send.default.subject',
           }),
           message: intl.formatMessage(
             {
-              id: "quote.send.default.message",
+              id: 'quote.send.default.message',
             },
             {
               stageName: user.stageName,
               type: quote.mainEvent.title.toLowerCase(),
               date: quote
                 ? new Date(
-                    quote.mainEvent.subEvents[0].date
+                    quote.mainEvent.subEvents[0].date,
                   ).toLocaleDateString()
-                : "",
-            }
+                : '',
+            },
           ),
         }
       : initialValues,
     onSubmit: async (values) => {
-      await sendQuoteByEmail(values, id!);
-      navigate(PATHS.QUOTE + "/" + id + "/details");
+      if (!id) return;
+      await sendQuoteByEmail(values, id);
+      navigate(PATHS.QUOTES);
     },
     enableReinitialize: true,
   });
@@ -91,14 +88,14 @@ export const QuoteSendMailPage = () => {
   const subtotal =
     quote?.products.reduce(
       (acc, product) => acc + getProductSubtotal(product),
-      0
+      0,
     ) || 0;
 
   const tax =
     quote?.products.reduce(
       (acc, product) =>
         acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
-      0
+      0,
     ) || 0;
 
   const total = subtotal + tax;
@@ -141,7 +138,7 @@ export const QuoteSendMailPage = () => {
                     <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm text-gray-700">
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
-                          id: "quote.send.content.quote-number",
+                          id: 'quote.send.content.quote-number',
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
@@ -149,7 +146,7 @@ export const QuoteSendMailPage = () => {
                       </dd>
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
-                          id: "quote.send.content.valid-until",
+                          id: 'quote.send.content.valid-until',
                         })}
                       </dt>
                       <dd className="text-gray-900 font-semibold">
@@ -158,7 +155,7 @@ export const QuoteSendMailPage = () => {
                       <dt className="col-end-1 ">
                         {intl.formatMessage({
                           id: `quote.send.content.total.${
-                            isCustomerPro ? "tax-excluded" : "tax-included"
+                            isCustomerPro ? 'tax-excluded' : 'tax-included'
                           }`,
                         })}
                       </dt>
@@ -171,7 +168,7 @@ export const QuoteSendMailPage = () => {
                 <CardContainer className="flex flex-col space-y-4 px-4 py-5 sm:p-6 w-full h-full sm:w-1/2">
                   <TextField
                     label={intl.formatMessage({
-                      id: "quote.send.label.to",
+                      id: 'quote.send.label.to',
                     })}
                     name="to"
                     value={formik.values.to}
@@ -180,7 +177,7 @@ export const QuoteSendMailPage = () => {
                   />
                   <TextField
                     label={intl.formatMessage({
-                      id: "quote.send.label.object",
+                      id: 'quote.send.label.object',
                     })}
                     name="subject"
                     value={formik.values.subject}
@@ -189,7 +186,7 @@ export const QuoteSendMailPage = () => {
                   <>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "quote.send.label.message",
+                        id: 'quote.send.label.message',
                       })}
                     </label>
                     <div className="mt-2">
@@ -217,11 +214,11 @@ export const QuoteSendMailPage = () => {
                       <label className="font-medium text-gray-900">
                         {intl.formatMessage(
                           {
-                            id: "quote.send.label.cc",
+                            id: 'quote.send.label.cc',
                           },
                           {
                             email: user.email,
-                          }
+                          },
                         )}
                       </label>
                     </div>
@@ -232,11 +229,11 @@ export const QuoteSendMailPage = () => {
                       type="button"
                       variant="outlined"
                       color="primary"
-                      onClick={() => downloadQuote(quote!.id, quote!.number)}
+                      onClick={() => downloadQuote(quote.id, quote.number)}
                       isLoading={isDownloadingQuote}
                     >
                       {intl.formatMessage({
-                        id: "quote.send.button.download",
+                        id: 'quote.send.button.download',
                       })}
                     </Button>
                     <Button
@@ -248,7 +245,7 @@ export const QuoteSendMailPage = () => {
                       isLoading={isSending}
                     >
                       {intl.formatMessage({
-                        id: "quote.send.button.send",
+                        id: 'quote.send.button.send',
                       })}
                     </Button>
                   </div>

@@ -1,13 +1,13 @@
-import { MainEvent } from "interface/Event/main-event.interface";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useFetchMainEvent, useFetchMainEvents } from "redux/MainEvent/hooks";
-import { getMainEvent } from "redux/MainEvent/selectors";
-import { EventDetailsBody } from "./EventDetailsBody";
-import { EventDetailsHeader } from "./EventDetailsHeader";
-import { Transition } from "@headlessui/react";
+import { Transition } from '@headlessui/react';
+import { MainEvent } from 'interface/Event/main-event.interface';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useFetchMainEvents } from 'redux/MainEvent/hooks';
+import { getMainEvent } from 'redux/MainEvent/selectors';
+import { EventDetailsBody } from './EventDetailsBody';
+import { EventDetailsHeader } from './EventDetailsHeader';
 
 export type MainEventDetailsPageProps = {
   event: MainEvent;
@@ -16,7 +16,7 @@ export type MainEventDetailsPageProps = {
 export const EventDetailsPage = () => {
   const { id } = useParams();
   const [{ isLoading }, fetchEvents] = useFetchMainEvents();
-  const event = useSelector((state: any) => getMainEvent(state, id!));
+  const event = useSelector((state: any) => getMainEvent(state, id));
 
   useEffect(() => {
     fetchEvents();

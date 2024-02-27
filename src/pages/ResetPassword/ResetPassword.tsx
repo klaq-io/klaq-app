@@ -1,14 +1,14 @@
-import { useFormik } from "formik";
-import { LoginLayout } from "../../layouts";
-import { initialValues, validationSchema } from "./form";
-import { useResetPassword } from "../../redux/Login/hooks";
-import { useIntl } from "react-intl";
-import { Button } from "components";
+import { useFormik } from 'formik';
+import { LoginLayout } from '../../layouts';
+import { initialValues, validationSchema } from './form';
+import { useResetPassword } from '../../redux/Login/hooks';
+import { useIntl } from 'react-intl';
+import { Button } from 'components';
 
 export const ResetPassword = () => {
   const intl = useIntl();
   const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
+  const token = params.get('token');
 
   const [, resetPassword] = useResetPassword();
 
@@ -32,12 +32,12 @@ export const ResetPassword = () => {
             </h1>
             <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
               {intl.formatMessage({
-                id: "reset-password.header",
+                id: 'reset-password.header',
               })}
             </h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">
               {intl.formatMessage({
-                id: "reset-password.text",
+                id: 'reset-password.text',
               })}
             </p>
           </div>
@@ -51,7 +51,7 @@ export const ResetPassword = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     {intl.formatMessage({
-                      id: "reset-password.label.password",
+                      id: 'reset-password.label.password',
                     })}
                   </label>
                   <div className="mt-2">
@@ -63,7 +63,7 @@ export const ResetPassword = () => {
                       onChange={formik.handleChange}
                       className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
-                        id: "reset-password.input.password",
+                        id: 'reset-password.input.password',
                       })}
                     />
                     {formik.errors.password && formik.touched.password ? (
@@ -72,7 +72,7 @@ export const ResetPassword = () => {
                         id="email-error"
                       >
                         {intl.formatMessage({
-                          id: "reset-password.error.password",
+                          id: 'reset-password.error.password',
                         })}
                       </p>
                     ) : null}
@@ -84,7 +84,7 @@ export const ResetPassword = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     {intl.formatMessage({
-                      id: "reset-password.label.password-confirmation",
+                      id: 'reset-password.label.password-confirmation',
                     })}
                   </label>
                   <div className="mt-2">
@@ -96,7 +96,7 @@ export const ResetPassword = () => {
                       onChange={formik.handleChange}
                       className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       placeholder={intl.formatMessage({
-                        id: "reset-password.input.password-confirmation",
+                        id: 'reset-password.input.password-confirmation',
                       })}
                     />
                     {formik.errors.confirmPassword &&
@@ -106,7 +106,7 @@ export const ResetPassword = () => {
                         id="email-error"
                       >
                         {intl.formatMessage({
-                          id: "reset-password.error.password-confirmation",
+                          id: 'reset-password.error.password-confirmation',
                         })}
                       </p>
                     ) : null}
@@ -115,7 +115,7 @@ export const ResetPassword = () => {
                 <div>
                   <Button type="submit" color="primary" variant="contained">
                     {intl.formatMessage({
-                      id: "reset-password.submit",
+                      id: 'reset-password.submit',
                     })}
                   </Button>
                 </div>

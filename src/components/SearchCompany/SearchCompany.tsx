@@ -1,19 +1,19 @@
-import { Combobox } from "@headlessui/react";
+import { Combobox } from '@headlessui/react';
 import {
   BuildingLibraryIcon,
   CheckIcon,
   UserGroupIcon,
   UserIcon,
-} from "@heroicons/react/24/outline";
-import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+} from '@heroicons/react/24/outline';
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CompanyLegalForm,
   Suggestion,
-} from "../../interface/suggestion.interface";
-import { useFetchSuggestions } from "../../redux/Company/hooks";
-import { PATHS } from "../../routes";
-import { classNames } from "../../utils/utils";
+} from '../../interface/suggestion.interface';
+import { useFetchSuggestions } from '../../redux/Company/hooks';
+import { PATHS } from '../../routes';
+import { classNames } from '../../utils/utils';
 
 type Props = {
   customerCompany?: Suggestion;
@@ -23,8 +23,12 @@ type Props = {
 };
 
 export const SearchCompany: FC<Props> = (props: Props) => {
-  const { customerCompany, setCustomerCompany, shouldUpdateOnboarding, placeholder } =
-    props;
+  const {
+    customerCompany,
+    setCustomerCompany,
+    shouldUpdateOnboarding,
+    placeholder,
+  } = props;
   const params = new URLSearchParams(document.location.search);
   const navigate = useNavigate();
 
@@ -38,7 +42,7 @@ export const SearchCompany: FC<Props> = (props: Props) => {
   const handleOnboarding = (suggestion: Suggestion) => {
     navigate(
       `${PATHS.ONBOARDING_COMPANY}?companyType=${params.get(
-        "companyType"
+        'companyType',
       )}&activityType=${suggestion.activityType}&inseeLegalFormCode=${
         suggestion.inseeLegalFormCode
       }&legalForm=${suggestion.legalForm}&legalName=${
@@ -49,7 +53,7 @@ export const SearchCompany: FC<Props> = (props: Props) => {
         suggestion.registrationDate
       }&address=${suggestion.address}&city=${suggestion.city}&zip=${
         suggestion.zip
-      }&tradeName=${suggestion.tradeName}&country=${suggestion.country}`
+      }&tradeName=${suggestion.tradeName}&country=${suggestion.country}`,
     );
   };
 
@@ -61,7 +65,7 @@ export const SearchCompany: FC<Props> = (props: Props) => {
           className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
           onChange={(event) => fetchCompanySuggestions(event.target.value)}
           displayValue={(suggestion: Suggestion) =>
-            suggestion !== null ? suggestion?.legalName : ""
+            suggestion !== null ? suggestion?.legalName : ''
           }
         />
         <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
@@ -73,24 +77,26 @@ export const SearchCompany: FC<Props> = (props: Props) => {
                 value={suggestion}
                 className={({ active }) =>
                   classNames(
-                    "relative cursor-default select-none py-2 pl-3 pr-9",
-                    active ? "bg-klaq-600 text-white" : "text-gray-900"
+                    'relative cursor-default select-none py-2 pl-3 pr-9',
+                    active ? 'bg-klaq-600 text-white' : 'text-gray-900',
                   )
                 }
-                onClick={() => shouldUpdateOnboarding && handleOnboarding(suggestion)}
+                onClick={() =>
+                  shouldUpdateOnboarding && handleOnboarding(suggestion)
+                }
               >
                 {({ active, selected }) => (
                   <>
                     <span
                       className={classNames(
-                        "flex flex-row truncate space-x-2",
-                        selected && "font-semibold"
+                        'flex flex-row truncate space-x-2',
+                        selected && 'font-semibold',
                       )}
                     >
                       {suggestion.legalForm === CompanyLegalForm.ASSOCIATION ? (
                         <UserGroupIcon className="h-5 w-5" aria-hidden="true" />
                       ) : suggestion.legalForm ===
-                        CompanyLegalForm["Entrepreneur individuel"] ? (
+                        CompanyLegalForm['Entrepreneur individuel'] ? (
                         <UserIcon className="h-5 w-5" aria-hidden="true" />
                       ) : (
                         <BuildingLibraryIcon
@@ -104,8 +110,8 @@ export const SearchCompany: FC<Props> = (props: Props) => {
                     {selected && (
                       <span
                         className={classNames(
-                          "absolute inset-y-0 right-0 flex items-center pr-4",
-                          active ? "text-white" : "text-klaq-600"
+                          'absolute inset-y-0 right-0 flex items-center pr-4',
+                          active ? 'text-white' : 'text-klaq-600',
                         )}
                       >
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />

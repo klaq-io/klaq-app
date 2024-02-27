@@ -1,19 +1,15 @@
-import { useIntl } from "react-intl";
-import { OnboardingLayout } from "../../../layouts/OnboardingLayout/OnboardingLayout";
-import { Button } from "components";
-import { useEffect } from "react";
-import { useFetchUser } from "../../../redux/Login/hooks";
-import { useSelector } from "react-redux";
-import { getUser } from "../../../redux/Login/selectors";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../../routes";
+import { useIntl } from 'react-intl';
+import { OnboardingLayout } from '../../../layouts/OnboardingLayout/OnboardingLayout';
+import { Button } from 'components';
+import { useEffect } from 'react';
+import { useFetchUser } from '../../../redux/Login/hooks';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../../redux/Login/selectors';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../../routes';
 
-type Props = {
-  classes?: string;
-};
-
-export const OnboardingIntermittent = (props: Props) => {
+export const OnboardingIntermittent = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const [{ isLoading }, fetchUser] = useFetchUser();
@@ -58,7 +54,7 @@ export const OnboardingIntermittent = (props: Props) => {
                 required
                 className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
-                  id: "onboarding.intermittent.input.email",
+                  id: 'onboarding.intermittent.input.email',
                 })}
                 defaultValue={user.email}
               />
@@ -75,7 +71,7 @@ export const OnboardingIntermittent = (props: Props) => {
               onClick={handlePrevious}
             >
               {intl.formatMessage({
-                id: "onboarding.company-form.button.previous",
+                id: 'onboarding.company-form.button.previous',
               })}
             </Button>
             <Button
@@ -85,7 +81,7 @@ export const OnboardingIntermittent = (props: Props) => {
               // TODO: link with mailchimp
             >
               {intl.formatMessage({
-                id: "onboarding.intermittent.submit",
+                id: 'onboarding.intermittent.submit',
               })}
             </Button>
           </div>

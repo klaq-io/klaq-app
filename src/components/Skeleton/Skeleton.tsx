@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { classNames } from "../../utils/utils";
+import { FC } from 'react';
+import { classNames } from '../../utils/utils';
 
 type Props = {
-  variant: "text" | "circle" | "rectangular" | "rounded";
+  variant: 'text' | 'circle' | 'rectangular' | 'rounded';
   width: string | number;
   height: string | number;
   className?: string;
@@ -11,34 +11,34 @@ type Props = {
 export const Skeleton: FC<Props> = (props: Props) => {
   const { variant, width, height, className } = props;
   return (
-    <div className="flex flex-row items-center h-full space-x-5 animate-pulse">
-      {variant === "circle" && (
+    <div className="flex flex-row items-center h-full space-x-5 animate-pulse overflow-hidden">
+      {variant === 'circle' && (
         <div
           className={classNames(
-            "bg-gray-300 rounded-full",
+            'bg-gray-300 rounded-full',
             `h-${height}`,
             `w-${width}`,
-            className
+            className,
           )}
         ></div>
       )}
-      {variant === "rounded" && (
+      {variant === 'rounded' && (
         <div
           className={classNames(
-            "bg-gray-300 rounded-md ",
+            'bg-gray-300 rounded-md ',
             `h-${height}`,
             `w-${width}`,
-            className
+            className,
           )}
         ></div>
       )}
-      {variant === "text" && (
+      {variant === 'text' && (
         <div
           className={classNames(
-            "bg-gray-300",
+            'bg-gray-300',
             `h-${height}`,
             `w-${width}`,
-            className
+            className,
           )}
         ></div>
       )}

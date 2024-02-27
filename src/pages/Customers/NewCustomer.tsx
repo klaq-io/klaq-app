@@ -1,33 +1,31 @@
-import { useFormik } from "formik";
-import SidePanel from "components/SidePanel";
-import { initialValues, validationSchema } from "./form";
-import { useIntl } from "react-intl";
-import { Button } from "components";
 import {
   BuildingLibraryIcon,
   HomeIcon,
   PlusIcon,
-  PlusSmallIcon,
   UserIcon,
-} from "@heroicons/react/24/outline";
-import { CustomerType } from "../../redux/Customer/slices";
-import { SearchCompany } from "components";
-import { Suggestion } from "../../interface/suggestion.interface";
-import { FC, useEffect, useState } from "react";
-import { useCreateCustomer } from "../../redux/Customer/hooks";
+} from '@heroicons/react/24/outline';
+import { Button, SearchCompany } from 'components';
+import SidePanel from 'components/SidePanel';
+import { useFormik } from 'formik';
+import { FC, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { Suggestion } from '../../interface/suggestion.interface';
+import { useCreateCustomer } from '../../redux/Customer/hooks';
+import { CustomerType } from '../../redux/Customer/slices';
+import { initialValues, validationSchema } from './form';
 
 type Props = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setOpen: (isOpen: boolean) => void;
 };
 
 export const NewCustomer: FC<Props> = (props: Props) => {
   const intl = useIntl();
-  const { open, setOpen } = props;
+  const { isOpen, setOpen } = props;
   const [customerCompany, setCustomerCompany] = useState<
     Suggestion | undefined
   >();
-  const [addAddress, setAddAddress] = useState<boolean>(false);
+  const [shouldAddAddress, setAddAddress] = useState<boolean>(false);
 
   const [{ isLoading }, createCustomer] = useCreateCustomer();
 
@@ -48,12 +46,12 @@ export const NewCustomer: FC<Props> = (props: Props) => {
     validationSchema,
     onSubmit: (values, { resetForm }) => {
       if (formik.values.type === CustomerType.PRIVATE) {
-        values.legalRegistrationNumber = "";
-        values.legalVATNumber = "";
-        values.address = "";
-        values.zipcode = "";
-        values.city = "";
-        values.country = "";
+        values.legalRegistrationNumber = '';
+        values.legalVATNumber = '';
+        values.address = '';
+        values.zipcode = '';
+        values.city = '';
+        values.country = '';
       }
       createCustomer(values);
       setOpen(false);
@@ -73,9 +71,9 @@ export const NewCustomer: FC<Props> = (props: Props) => {
 
   return (
     <SidePanel
-      isOpen={open}
+      isOpen={isOpen}
       setOpen={setOpen}
-      titleId={"customers.new-customer.header"}
+      titleId={'customers.new-customer.header'}
     >
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col space-y-4">
@@ -85,7 +83,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.client-type",
+                id: 'customers.new-customer.label.client-type',
               })}
             </label>
             <div className="mt-2 flex flex-row space-x-4">
@@ -93,8 +91,8 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                 variant="contained"
                 color={
                   formik.values.type === CustomerType.COMPANY
-                    ? "primary"
-                    : "secondary"
+                    ? 'primary'
+                    : 'secondary'
                 }
                 onClick={() => handleSetCompany(CustomerType.COMPANY)}
                 type="button"
@@ -106,15 +104,15 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.new-customer.input.client-type.company",
+                  id: 'customers.new-customer.input.client-type.company',
                 })}
               </Button>
               <Button
                 variant="contained"
                 color={
                   formik.values.type === CustomerType.PRIVATE
-                    ? "primary"
-                    : "secondary"
+                    ? 'primary'
+                    : 'secondary'
                 }
                 onClick={() => handleSetCompany(CustomerType.PRIVATE)}
                 type="button"
@@ -123,7 +121,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                 }
               >
                 {intl.formatMessage({
-                  id: "customers.new-customer.input.client-type.private",
+                  id: 'customers.new-customer.input.client-type.private',
                 })}
               </Button>
             </div>
@@ -136,7 +134,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.look-for-company",
+                    id: 'customers.new-customer.label.look-for-company',
                   })}
                 </label>
                 <div className="mt-2">
@@ -144,7 +142,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                     customerCompany={customerCompany}
                     setCustomerCompany={setCustomerCompany}
                     placeholder={intl.formatMessage({
-                      id: "onboarding.search-company.input",
+                      id: 'onboarding.search-company.input',
                     })}
                   />
                 </div>
@@ -175,7 +173,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.name",
+                    id: 'customers.new-customer.label.name',
                   })}
                 </label>
                 <div className="mt-2">
@@ -206,7 +204,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.siret",
+                    id: 'customers.new-customer.label.siret',
                   })}
                 </label>
                 <div className="mt-2">
@@ -238,7 +236,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.vat-number",
+                    id: 'customers.new-customer.label.vat-number',
                   })}
                 </label>
                 <div className="mt-2">
@@ -292,7 +290,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.first-name",
+                id: 'customers.new-customer.label.first-name',
               })}
             </label>
             <div className="mt-2">
@@ -323,7 +321,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.last-name",
+                id: 'customers.new-customer.label.last-name',
               })}
             </label>
             <div className="mt-2">
@@ -354,7 +352,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.email",
+                id: 'customers.new-customer.label.email',
               })}
             </label>
             <div className="mt-2">
@@ -385,7 +383,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               {intl.formatMessage({
-                id: "customers.new-customer.label.phone",
+                id: 'customers.new-customer.label.phone',
               })}
             </label>
             <div className="mt-2">
@@ -410,7 +408,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
             </div>
           </div>
 
-          {addAddress === true && (
+          {shouldAddAddress === true && (
             <>
               {/** divider */}
               <div>
@@ -438,7 +436,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.address",
+                    id: 'customers.new-customer.label.address',
                   })}
                 </label>
                 <div className="mt-2">
@@ -469,7 +467,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.city",
+                    id: 'customers.new-customer.label.city',
                   })}
                 </label>
                 <div className="mt-2">
@@ -500,7 +498,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.zip",
+                    id: 'customers.new-customer.label.zip',
                   })}
                 </label>
                 <div className="mt-2">
@@ -531,7 +529,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   {intl.formatMessage({
-                    id: "customers.new-customer.label.country",
+                    id: 'customers.new-customer.label.country',
                   })}
                 </label>
                 <div className="mt-2">
@@ -568,7 +566,7 @@ export const NewCustomer: FC<Props> = (props: Props) => {
                 id: `customers.edit-customer.submit`,
               })}
             </Button>
-            {addAddress === false && (
+            {shouldAddAddress === false && (
               <Button
                 type="button"
                 color="primary"

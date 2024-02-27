@@ -1,23 +1,29 @@
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
-import { CardContainer } from "components";
-import { PageLayout } from "layouts";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import {
-  useFetchInvoiceDocument
-} from "redux/Invoice/hooks";
+import { ArrowLeftIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { Button, CardContainer } from 'components';
+import { PageLayout } from 'layouts';
+import { useEffect } from 'react';
+import { useIntl } from 'react-intl';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFetchInvoiceDocument } from 'redux/Invoice/hooks';
 
 export const InvoiceViewPage = () => {
   const { id } = useParams<{ id: string }>();
+  const intl = useIntl();
+  const navigate = useNavigate();
 
-  const [{ data, isLoading }, fetchInvoicePDF] = useFetchInvoiceDocument();
+  const [{ isLoading }, fetchInvoicePDF] = useFetchInvoiceDocument();
 
   const displayPDF = async () => {
     const data = await fetchInvoicePDF(id);
-    const blob = new Blob([data], { type: "application/pdf" });
+    const blob = new Blob([data], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
-    const iframe = document.querySelector("iframe");
-    iframe!.src = url;
+    const iframe = document.querySelector('iframe');
+    if (!iframe) return;
+    iframe.src = url;
+  };
+
+  const handlePrevious = () => {
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -37,6 +43,23 @@ export const InvoiceViewPage = () => {
           </CardContainer>
         </div>
       )}
+      <div className="md:flex md:items-center md:justify-between">
+        <div className="min-w-0 flex-1">
+          <Button
+            type="button"
+            variant="text"
+            color="secondary"
+            leadingIcon={
+              <ArrowLeftIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+            }
+            onClick={handlePrevious}
+          >
+            {intl.formatMessage({
+              id: 'customers.customer-details.button.previous',
+            })}
+          </Button>
+        </div>
+      </div>
       <iframe src="" width="100%" height="100%" />
     </PageLayout>
   );

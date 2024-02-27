@@ -1,25 +1,25 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { Button, SettingsNavbar } from "components";
-import { format, subYears } from "date-fns";
-import { useFormik } from "formik";
-import { PageLayout } from "layouts";
-import { FC, LegacyRef, useEffect, useRef } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useFetchUser } from "redux/Login/hooks";
-import { getUser } from "redux/Login/selectors";
+import { UserCircleIcon } from '@heroicons/react/24/outline';
+import { Button, SettingsNavbar } from 'components';
+import { format, subYears } from 'date-fns';
+import { useFormik } from 'formik';
+import { PageLayout } from 'layouts';
+import { LegacyRef, useEffect, useRef } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useFetchUser } from 'redux/Login/hooks';
+import { getUser } from 'redux/Login/selectors';
 import {
   useDeleteLogo,
   useUpdateLogo,
   useUpdateSettings,
   useUpdateUser,
-} from "redux/User/hooks";
+} from 'redux/User/hooks';
 import {
   PrivateInformationSkeleton,
   PublicInformationSkeleton,
-} from "./Skeleton";
-import { initialValues, validationSchema } from "./form";
-import { settingsInitialValues } from "./settings-form";
+} from './Skeleton';
+import { initialValues, validationSchema } from './form';
+import { settingsInitialValues } from './settings-form';
 
 export const Profile = () => {
   const intl = useIntl();
@@ -41,8 +41,8 @@ export const Profile = () => {
       ...initialValues,
       ...user,
       birthDate: user.birthDate
-        ? format(new Date(user.birthDate), "yyyy-MM-dd")
-        : "",
+        ? format(new Date(user.birthDate), 'yyyy-MM-dd')
+        : '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -73,8 +73,8 @@ export const Profile = () => {
       email: user.email,
       phone: user.phone,
       birthDate: user.birthDate
-        ? format(new Date(user.birthDate), "yyyy-MM-dd")
-        : "",
+        ? format(new Date(user.birthDate), 'yyyy-MM-dd')
+        : '',
     });
   };
 
@@ -105,12 +105,12 @@ export const Profile = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.profile.header",
+                id: 'settings.profile.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.profile.description",
+                id: 'settings.profile.description',
               })}
             </p>
           </div>
@@ -127,7 +127,7 @@ export const Profile = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.profile.label.stage-name",
+                        id: 'settings.profile.label.stage-name',
                       })}
                     </label>
                     <div className="mt-2">
@@ -138,7 +138,7 @@ export const Profile = () => {
                         name="stageName"
                         id="stageName"
                         placeholder={intl.formatMessage({
-                          id: "settings.profile.input.stage-name",
+                          id: 'settings.profile.input.stage-name',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -155,7 +155,7 @@ export const Profile = () => {
                   <div className="sm:col-span-4">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.profile.label.public-email",
+                        id: 'settings.profile.label.public-email',
                       })}
                     </label>
                     <div className="mt-2">
@@ -166,7 +166,7 @@ export const Profile = () => {
                         value={formik.values.publicEmail}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.profile.input.public-email",
+                          id: 'settings.profile.input.public-email',
                         })}
                         className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -184,7 +184,7 @@ export const Profile = () => {
                   <div className="sm:col-span-4">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.profile.label.public-phone",
+                        id: 'settings.profile.label.public-phone',
                       })}
                     </label>
                     <div className="mt-2">
@@ -195,7 +195,7 @@ export const Profile = () => {
                         value={formik.values.publicPhone}
                         onChange={formik.handleChange}
                         placeholder={intl.formatMessage({
-                          id: "settings.profile.input.public-phone",
+                          id: 'settings.profile.input.public-phone',
                         })}
                         className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -216,7 +216,7 @@ export const Profile = () => {
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       {intl.formatMessage({
-                        id: "settings.profile.label.website",
+                        id: 'settings.profile.label.website',
                       })}
                     </label>
                     <div className="mt-2">
@@ -232,7 +232,7 @@ export const Profile = () => {
                           id="website"
                           className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder={intl.formatMessage({
-                            id: "settings.profile.input.website",
+                            id: 'settings.profile.input.website',
                           })}
                         />
                       </div>
@@ -249,7 +249,7 @@ export const Profile = () => {
                   onClick={handleResetProfileInfo}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -260,7 +260,7 @@ export const Profile = () => {
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>
@@ -272,12 +272,12 @@ export const Profile = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.personal.header",
+                id: 'settings.personal.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.personal.description",
+                id: 'settings.personal.description',
               })}
             </p>
           </div>
@@ -294,7 +294,7 @@ export const Profile = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.personal.label.first-name",
+                        id: 'settings.personal.label.first-name',
                       })}
                     </label>
                     <div className="mt-2">
@@ -305,7 +305,7 @@ export const Profile = () => {
                         name="firstName"
                         id="firstName"
                         placeholder={intl.formatMessage({
-                          id: "settings.personal.input.first-name",
+                          id: 'settings.personal.input.first-name',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -322,7 +322,7 @@ export const Profile = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.personal.label.last-name",
+                        id: 'settings.personal.label.last-name',
                       })}
                     </label>
                     <div className="mt-2">
@@ -333,7 +333,7 @@ export const Profile = () => {
                         name="lastName"
                         id="lastName"
                         placeholder={intl.formatMessage({
-                          id: "settings.personal.input.last-name",
+                          id: 'settings.personal.input.last-name',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -350,7 +350,7 @@ export const Profile = () => {
                   <div className="sm:col-span-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       {intl.formatMessage({
-                        id: "settings.personal.label.birthday",
+                        id: 'settings.personal.label.birthday',
                       })}
                     </label>
                     <div className="mt-2">
@@ -361,10 +361,10 @@ export const Profile = () => {
                         name="birthDate"
                         id="birthDate"
                         max={
-                          subYears(new Date(), 18).toISOString().split("T")[0]
+                          subYears(new Date(), 18).toISOString().split('T')[0]
                         }
                         placeholder={intl.formatMessage({
-                          id: "settings.personal.input.birthday",
+                          id: 'settings.personal.input.birthday',
                         })}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -384,7 +384,7 @@ export const Profile = () => {
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       {intl.formatMessage({
-                        id: "settings.personal.label.email",
+                        id: 'settings.personal.label.email',
                       })}
                     </label>
                     <div className="mt-2">
@@ -396,7 +396,7 @@ export const Profile = () => {
                         onChange={formik.handleChange}
                         disabled={true}
                         placeholder={intl.formatMessage({
-                          id: "settings.personal.input.email",
+                          id: 'settings.personal.input.email',
                         })}
                         className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -416,7 +416,7 @@ export const Profile = () => {
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       {intl.formatMessage({
-                        id: "settings.personal.label.phone",
+                        id: 'settings.personal.label.phone',
                       })}
                     </label>
                     <div className="mt-2">
@@ -428,7 +428,7 @@ export const Profile = () => {
                         onChange={formik.handleChange}
                         disabled={true}
                         placeholder={intl.formatMessage({
-                          id: "settings.personal.input.phone",
+                          id: 'settings.personal.input.phone',
                         })}
                         className="disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
                       />
@@ -451,7 +451,7 @@ export const Profile = () => {
                   onClick={handleResetPersonalInfo}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -462,7 +462,7 @@ export const Profile = () => {
                   isLoading={isLoading}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>
@@ -474,12 +474,12 @@ export const Profile = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.profile.logo.header",
+                id: 'settings.profile.logo.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.profile.logo.description",
+                id: 'settings.profile.logo.description',
               })}
             </p>
           </div>
@@ -489,7 +489,7 @@ export const Profile = () => {
                 <div className="sm:col-span-full">
                   <h3 className="text-sm font-semibold leading-6 text-gray-900">
                     {intl.formatMessage({
-                      id: "settings.profile.logo.label",
+                      id: 'settings.profile.logo.label',
                     })}
                   </h3>
                 </div>
@@ -522,7 +522,7 @@ export const Profile = () => {
                     ref={hiddenLogoInput}
                     onChange={(event) => {
                       handleFileUpload(
-                        event.target.files ? event.target.files[0] : null
+                        event.target.files ? event.target.files[0] : null,
                       );
                       event.preventDefault();
                     }}
@@ -538,7 +538,7 @@ export const Profile = () => {
                 onClick={deleteLogo}
               >
                 {intl.formatMessage({
-                  id: "settings.button.delete",
+                  id: 'settings.button.delete',
                 })}
               </Button>
               <Button
@@ -549,7 +549,7 @@ export const Profile = () => {
                 onClick={handleFileUploadClick}
               >
                 {intl.formatMessage({
-                  id: "settings.profile.logo.change",
+                  id: 'settings.profile.logo.change',
                 })}
               </Button>
             </div>
@@ -560,12 +560,12 @@ export const Profile = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.notifications.header",
+                id: 'settings.notifications.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.notifications.description",
+                id: 'settings.notifications.description',
               })}
             </p>
           </div>
@@ -595,12 +595,12 @@ export const Profile = () => {
                       <div className="ml-3 text-sm leading-6">
                         <label className="font-medium text-gray-900">
                           {intl.formatMessage({
-                            id: "settings.notifications.options.changelog.header",
+                            id: 'settings.notifications.options.changelog.header',
                           })}
                         </label>
                         <p className="text-gray-500">
                           {intl.formatMessage({
-                            id: "settings.notifications.options.changelog.description",
+                            id: 'settings.notifications.options.changelog.description',
                           })}
                         </p>
                       </div>
@@ -625,12 +625,12 @@ export const Profile = () => {
                           className="font-medium text-gray-900"
                         >
                           {intl.formatMessage({
-                            id: "settings.notifications.options.new-deal.header",
+                            id: 'settings.notifications.options.new-deal.header',
                           })}
                         </label>
                         <p id="comments-description" className="text-gray-500">
                           {intl.formatMessage({
-                            id: "settings.notifications.options.new-deal.description",
+                            id: 'settings.notifications.options.new-deal.description',
                           })}
                         </p>
                       </div>
@@ -652,12 +652,12 @@ export const Profile = () => {
                       <div className="ml-3 text-sm leading-6">
                         <label className="font-medium text-gray-900">
                           {intl.formatMessage({
-                            id: "settings.notifications.options.marketing.header",
+                            id: 'settings.notifications.options.marketing.header',
                           })}
                         </label>
                         <p className="text-gray-500">
                           {intl.formatMessage({
-                            id: "settings.notifications.options.marketing.description",
+                            id: 'settings.notifications.options.marketing.description',
                           })}
                         </p>
                       </div>
@@ -673,7 +673,7 @@ export const Profile = () => {
                   onClick={handleResetPersonalInfo}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.cancel",
+                    id: 'settings.button.cancel',
                   })}
                 </Button>
                 <Button
@@ -684,7 +684,7 @@ export const Profile = () => {
                   isLoading={isUpdatingSettings}
                 >
                   {intl.formatMessage({
-                    id: "settings.button.submit",
+                    id: 'settings.button.submit',
                   })}
                 </Button>
               </div>
@@ -696,12 +696,12 @@ export const Profile = () => {
           <div className="px-4 sm:px-0">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               {intl.formatMessage({
-                id: "settings.delete.header",
+                id: 'settings.delete.header',
               })}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               {intl.formatMessage({
-                id: "settings.delete.description",
+                id: 'settings.delete.description',
               })}
             </p>
           </div>
@@ -715,7 +715,7 @@ export const Profile = () => {
                 <div className="sm:col-span-full">
                   <p className="text-sm leading-6 text-gray-600">
                     {intl.formatMessage({
-                      id: "settings.delete.disclaimer",
+                      id: 'settings.delete.disclaimer',
                     })}
                   </p>
                 </div>
@@ -726,7 +726,7 @@ export const Profile = () => {
                     className="rounded-md bg-danger-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-danger-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger-600"
                   >
                     {intl.formatMessage({
-                      id: "settings.delete.button",
+                      id: 'settings.delete.button',
                     })}
                   </button>
                 </div>

@@ -1,14 +1,14 @@
-import { useFormik } from "formik";
-import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
-import { LoginLayout } from "../../layouts";
-import { useLogin } from "../../redux/Login/hooks";
-import { PATHS } from "../../routes";
-import { initialValues, validationSchema } from "./form";
-import { Button } from "components";
-import KlaqLogo from "../../assets/klaq.png";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import backgroundAuth from "assets/background-auth.jpeg";
+import { useFormik } from 'formik';
+import { useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { LoginLayout } from '../../layouts';
+import { useLogin } from '../../redux/Login/hooks';
+import { PATHS } from '../../routes';
+import { initialValues, validationSchema } from './form';
+import { Button } from 'components';
+import KlaqLogo from '../../assets/klaq.png';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import backgroundAuth from 'assets/background-auth.jpeg';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -38,19 +38,19 @@ export const Login = () => {
             </h1>
             <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
               {intl.formatMessage({
-                id: "login.header",
+                id: 'login.header',
               })}
             </h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">
               {intl.formatMessage({
-                id: "login.signup.text",
+                id: 'login.signup.text',
               })}
               <a
                 href={PATHS.SIGN_UP}
                 className="font-semibold text-klaq-600 hover:text-klaq-500"
               >
                 {intl.formatMessage({
-                  id: "login.signup.link",
+                  id: 'login.signup.link',
                 })}
               </a>
             </p>
@@ -65,7 +65,7 @@ export const Login = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     {intl.formatMessage({
-                      id: "login.label.email",
+                      id: 'login.label.email',
                     })}
                   </label>
                   <div className="mt-2">
@@ -79,7 +79,7 @@ export const Login = () => {
                       required
                       className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
-                        id: "login.input.email",
+                        id: 'login.input.email',
                       })}
                     />
                   </div>
@@ -91,7 +91,7 @@ export const Login = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     {intl.formatMessage({
-                      id: "login.label.password",
+                      id: 'login.label.password',
                     })}
                   </label>
                   <div className="mt-2">
@@ -105,7 +105,7 @@ export const Login = () => {
                       required
                       className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                       placeholder={intl.formatMessage({
-                        id: "login.input.password",
+                        id: 'login.input.password',
                       })}
                     />
                   </div>
@@ -118,7 +118,7 @@ export const Login = () => {
                       className="font-semibold text-klaq-600 hover:text-klaq-500 cursor-pointer"
                     >
                       {intl.formatMessage({
-                        id: "login.forget-password",
+                        id: 'login.forget-password',
                       })}
                     </a>
                   </div>
@@ -133,7 +133,7 @@ export const Login = () => {
                       }
                     >
                       {intl.formatMessage({
-                        id: "login.submit",
+                        id: 'login.submit',
                       })}
                     </Button>
                   </div>

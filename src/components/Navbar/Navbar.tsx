@@ -1,42 +1,33 @@
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from '@headlessui/react';
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
-  PlusIcon
-} from "@heroicons/react/24/outline";
-import { NewEventModal } from "components/Modal";
-import { NotificationWidget } from "components/Notifications";
-import { Fragment, useEffect, useState } from "react";
-import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useFetchCompany } from "../../redux/Company/hooks";
-import { getCompany } from "../../redux/Company/selectors";
-import { useFetchUser, useSignout } from "../../redux/Login/hooks";
-import { getUser } from "../../redux/Login/selectors";
-import { PATHS } from "../../routes";
-import { classNames } from "../../utils/utils";
-import { Skeleton } from "../Skeleton";
-
-type Props = {
-  classes?: string;
-};
+  PlusIcon,
+} from '@heroicons/react/24/outline';
+import { NewEventModal } from 'components/Modal';
+import { NotificationWidget } from 'components/Notifications';
+import { Fragment, useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useFetchUser, useSignout } from '../../redux/Login/hooks';
+import { getUser } from '../../redux/Login/selectors';
+import { PATHS } from '../../routes';
+import { classNames } from '../../utils/utils';
+import { Skeleton } from '../Skeleton';
 
 const userNavigation = [
-  { name: "navbar.profile", href: PATHS.PROFILE },
-  { name: "navbar.integrations", href: PATHS.INTEGRATIONS },
-  { name: "navbar.company", href: PATHS.COMPANY },
+  { name: 'navbar.profile', href: PATHS.PROFILE },
+  { name: 'navbar.integrations', href: PATHS.INTEGRATIONS },
+  { name: 'navbar.company', href: PATHS.COMPANY },
   // { name: "navbar.billing", href: "#" },
 ];
 
-export const Navbar = (props: Props) => {
+export const Navbar = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
   const [isNewEventOpened, setNewEventOpen] = useState(false);
-
-  const [, fetchCompany] = useFetchCompany();
-  const company = useSelector(getCompany);
 
   const [{ isLoading: isFetchingUser }, fetchUser] = useFetchUser();
   const user = useSelector(getUser);
@@ -49,7 +40,6 @@ export const Navbar = (props: Props) => {
   };
 
   useEffect(() => {
-    fetchCompany();
     fetchUser();
   }, []);
 
@@ -61,7 +51,7 @@ export const Navbar = (props: Props) => {
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
         <form className="relative flex flex-1" action="#" method="GET">
           <label htmlFor="search-field" className="sr-only">
-            {intl.formatMessage({ id: "navbar.searchbar" })}
+            {intl.formatMessage({ id: 'navbar.searchbar' })}
           </label>
 
           <MagnifyingGlassIcon
@@ -71,7 +61,7 @@ export const Navbar = (props: Props) => {
           <input
             id="search-field"
             className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-            placeholder={intl.formatMessage({ id: "navbar.searchbar" })}
+            placeholder={intl.formatMessage({ id: 'navbar.searchbar' })}
             type="search"
             name="search"
           />
@@ -107,7 +97,7 @@ export const Navbar = (props: Props) => {
               ) : (
                 <div
                   className={classNames(
-                    "flex items-center justify-center h-8 w-8 rounded-full bg-gray-200"
+                    'flex items-center justify-center h-8 w-8 rounded-full bg-gray-200',
                   )}
                 >
                   <span className="font-semibold text-gray-600">
@@ -126,7 +116,7 @@ export const Navbar = (props: Props) => {
                 <span className="hidden lg:flex lg:items-center">
                   <span
                     className={classNames(
-                      "ml-4 text-sm font-semibold leading-6 text-gray-900"
+                      'ml-4 text-sm font-semibold leading-6 text-gray-900',
                     )}
                     aria-hidden="true"
                   >
@@ -158,8 +148,8 @@ export const Navbar = (props: Props) => {
                         <a
                           href={item.href}
                           className={classNames(
-                            active ? "bg-gray-50" : "",
-                            "block px-3 py-1 text-sm leading-6 text-gray-900"
+                            active ? 'bg-gray-50' : '',
+                            'block px-3 py-1 text-sm leading-6 text-gray-900',
                           )}
                         >
                           {intl.formatMessage({ id: item.name })}
@@ -174,7 +164,7 @@ export const Navbar = (props: Props) => {
                       onClick={handleLogout}
                       className="hover:bg-gray-50 block px-3 py-1 text-sm leading-6 text-danger-600 cursor-pointer hover:bg-gray"
                     >
-                      {intl.formatMessage({ id: "navbar.logout" })}
+                      {intl.formatMessage({ id: 'navbar.logout' })}
                     </a>
                   </Menu.Item>
                 </div>

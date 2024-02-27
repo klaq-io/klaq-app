@@ -5,37 +5,37 @@ import {
   StyleSheet,
   Text,
   View,
-} from "@react-pdf/renderer";
+} from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "Poppins",
+    fontFamily: 'Poppins',
     fontSize: 14,
     paddingTop: 64,
     paddingLeft: 64,
     paddingRight: 64,
     lineHeight: 1.5,
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   logo: {
     width: 74,
     height: 66,
-    marginLeft: "auto",
-    marginRight: "auto",
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   product: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 24,
   },
 });
 
 Font.register({
-  family: "Poppins",
+  family: 'Poppins',
   fonts: [
     {
-      src: "https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJbecmNE.woff2",
+      src: 'https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJbecmNE.woff2',
     },
   ],
 });

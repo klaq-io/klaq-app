@@ -1,20 +1,20 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import flatten from "flat";
-import ReactDOM from "react-dom/client";
-import { IntlProvider } from "react-intl";
-import { Provider } from "react-redux";
-import { initSentry } from "sentry";
-import App from "./App";
-import "./index.css";
-import * as msg_fr from "./lang/fr.json";
-import store from "./redux/store";
-import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import flatten from 'flat';
+import ReactDOM from 'react-dom/client';
+import { IntlProvider } from 'react-intl';
+import { Provider } from 'react-redux';
+import { initSentry } from 'sentry';
+import App from './App';
+import './index.css';
+import * as msg_fr from './lang/fr.json';
+import store from './redux/store';
+import reportWebVitals from './reportWebVitals';
 /* eslint-disable */
 const language = navigator.language.split(/[-_]/)[0];
 /* eslint-enable */
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 
 initSentry();
@@ -31,7 +31,7 @@ root.render(
         <App />
       </Provider>
     </IntlProvider>
-  </GoogleOAuthProvider>
+  </GoogleOAuthProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
