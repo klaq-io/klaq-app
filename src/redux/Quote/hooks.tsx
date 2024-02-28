@@ -112,8 +112,6 @@ export const useEditQuote = () => {
 };
 
 export const useSendQuote = () => {
-  const dispatch = useDispatch();
-
   return useAsyncCallback(
     async (
       values: {
@@ -125,8 +123,7 @@ export const useSendQuote = () => {
       id: string,
     ) => {
       try {
-        const { data } = await webClient.post(`/quote/${id}/send`, values);
-        dispatch(setQuote(data));
+        await webClient.post(`/quote/${id}/send`, values);
         KlaqToast('success', 'quote-send');
       } catch (error: any) {
         console.error(error);

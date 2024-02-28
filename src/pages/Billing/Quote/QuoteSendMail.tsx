@@ -46,29 +46,30 @@ export const QuoteSendMailPage = () => {
     quote.mainEvent.customer.type === CustomerType.COMPANY;
 
   const formik = useFormik({
-    initialValues: quote
-      ? {
-          ...initialValues,
-          to: quote.mainEvent.customer.email,
-          subject: intl.formatMessage({
-            id: 'quote.send.default.subject',
-          }),
-          message: intl.formatMessage(
-            {
-              id: 'quote.send.default.message',
-            },
-            {
-              stageName: user.stageName,
-              type: quote.mainEvent.title.toLowerCase(),
-              date: quote
-                ? new Date(
-                    quote.mainEvent.subEvents[0].date,
-                  ).toLocaleDateString()
-                : '',
-            },
-          ),
-        }
-      : initialValues,
+    initialValues:
+      quote && quote.mainEvent && quote.mainEvent.customer
+        ? {
+            ...initialValues,
+            to: quote.mainEvent.customer.email,
+            subject: intl.formatMessage({
+              id: 'quote.send.default.subject',
+            }),
+            message: intl.formatMessage(
+              {
+                id: 'quote.send.default.message',
+              },
+              {
+                stageName: user.stageName,
+                type: quote.mainEvent.title.toLowerCase(),
+                date: quote
+                  ? new Date(
+                      quote.mainEvent.subEvents[0].date,
+                    ).toLocaleDateString()
+                  : '',
+              },
+            ),
+          }
+        : initialValues,
     onSubmit: async (values) => {
       if (!id) return;
       await sendQuoteByEmail(values, id);
