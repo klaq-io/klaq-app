@@ -17,6 +17,7 @@ import {
   useRetrieveAddress,
 } from '../../redux/Map/hooks';
 import { classNames } from '../../utils/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 type MapAutocompleteInputProps = {
   defaultAddress: string;
@@ -32,13 +33,14 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
   const [suggestions, setSuggestions] = useState<AddressSuggestions>([]);
   const [, getAutocompleteSuggestions] = useGetAutocompleteSuggestions();
   const [, retrieveAddress] = useRetrieveAddress();
+  const sessionToken = uuidv4();
 
   const setSuggestion = async (mapboxId: string) => {
-    setAddress(await retrieveAddress(mapboxId));
+    setAddress(await retrieveAddress(mapboxId, sessionToken));
   };
 
   const fetchSuggestions = async (query: string) => {
-    setSuggestions(await getAutocompleteSuggestions(query));
+    setSuggestions(await getAutocompleteSuggestions(query, sessionToken));
   };
 
   return (

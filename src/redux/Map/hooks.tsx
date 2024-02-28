@@ -6,9 +6,11 @@ import webClient from '../../utils/webclient';
 
 export const useGetAutocompleteSuggestions = () => {
   return useAsyncCallback(
-    async (query: string): Promise<AddressSuggestions> => {
+    async (query: string, session_token): Promise<AddressSuggestions> => {
       try {
-        const { data } = await webClient.get(`map/suggestions?query=${query}`);
+        const { data } = await webClient.get(
+          `map/suggestions?query=${query}&session_token=${session_token}`,
+        );
         return data;
       } catch (error: any) {
         console.error(error);
@@ -20,9 +22,14 @@ export const useGetAutocompleteSuggestions = () => {
 
 export const useRetrieveAddress = () => {
   return useAsyncCallback(
-    async (mapboxId: string): Promise<RetrieveAddress> => {
+    async (
+      mapboxId: string,
+      session_token: string,
+    ): Promise<RetrieveAddress> => {
       try {
-        const { data } = await webClient.get(`map/retrieve?id=${mapboxId}`);
+        const { data } = await webClient.get(
+          `map/retrieve?id=${mapboxId}&session_token=${session_token}`,
+        );
         return data;
       } catch (error: any) {
         console.error(error);
