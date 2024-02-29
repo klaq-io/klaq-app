@@ -41,6 +41,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
   const handleDeleteEvent = () => {
     setOpenDelete(false);
     updateArchivedStatus(event.id, true);
+    navigate(PATHS.EVENTS);
   };
   const menu = [
     {
