@@ -135,6 +135,17 @@ export const useUpdateCustomer = () => {
   );
 };
 
+export const useUpdateArchivedStatus = () => {
+  return useAsyncCallback(async (id: string, isArchived: boolean) => {
+    try {
+      await webClient.patch(`/customer/${id}/archive`, { isArchived });
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
+};
+
 export const useDeleteCustomer = () => {
   const dispatch = useDispatch();
 

@@ -34,7 +34,7 @@ export const Customers = () => {
   const [shouldOpenNewCustomerPanel, setOpenNewCustomerPanel] = useState(false);
   const [shouldOpenEditCustomerPanel, setOpenEditCustomerPanel] =
     useState(false);
-  const [shouldOpenDeleteCustomerModal, setOpenDeleteCustomerModal] =
+  const [shouldOpenDeleteCustomerModal, setOpenArchiveCustomerModal] =
     useState(false);
 
   const [, deleteCustomer] = useDeleteCustomer();
@@ -68,12 +68,12 @@ export const Customers = () => {
 
   const handleOpenDeleteCustomerModal = (customer: Customer) => {
     setSelectedCustomer(customer);
-    setOpenDeleteCustomerModal(true);
+    setOpenArchiveCustomerModal(true);
   };
 
-  const handleDeleteCustomer = (customer?: Customer) => {
+  const handleArchiveCustomer = (customer?: Customer) => {
     if (!customer) return;
-    setOpenDeleteCustomerModal(false);
+    setOpenArchiveCustomerModal(false);
     deleteCustomer(customer.id);
   };
 
@@ -159,13 +159,13 @@ export const Customers = () => {
                     onChange={(e) => setQuery(e.target.value)}
                     value={query}
                     type="text"
-                    className="hidden w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
+                    className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
                     placeholder={intl.formatMessage({
                       id: 'customers.input.search',
                     })}
                   />
                 </div>
-                <button
+                {/* <button
                   type="button"
                   className="bg-white relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
@@ -180,7 +180,7 @@ export const Customers = () => {
                     className="-mr-1 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                </button>
+                </button> */}
               </div>
 
               <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white">
@@ -330,22 +330,22 @@ export const Customers = () => {
       />
       <DangerModal
         isOpen={shouldOpenDeleteCustomerModal}
-        setOpen={setOpenDeleteCustomerModal}
-        onClick={() => handleDeleteCustomer(selectedCustomer)}
+        setOpen={setOpenArchiveCustomerModal}
+        onClick={() => handleArchiveCustomer(selectedCustomer)}
         title={intl.formatMessage({
-          id: 'customers.delete-customer.modal.title',
+          id: 'customers.archive-customer.modal.title',
         })}
         message={intl.formatMessage(
           {
-            id: 'customers.delete-customer.modal.message',
+            id: 'customers.archive-customer.modal.message',
           },
           { customerName: selectedCustomer?.name },
         )}
         button1={intl.formatMessage({
-          id: 'customers.delete-customer.modal.button.delete',
+          id: 'customers.archive-customer.modal.button.delete',
         })}
         button2={intl.formatMessage({
-          id: 'customers.delete-customer.modal.button.cancel',
+          id: 'customers.archive-customer.modal.button.cancel',
         })}
       />
     </PageLayout>

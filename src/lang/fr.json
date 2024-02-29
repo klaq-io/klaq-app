@@ -649,7 +649,8 @@
         "edit": "Modifier",
         "delete": "Supprimer",
         "look": "Voir",
-        "sort": "Filtrer"
+        "sort": "Filtrer",
+        "archive": "Archiver"
       }
     },
     "new-customer": {
@@ -707,13 +708,13 @@
       "header": "Éditer le client",
       "submit": "Modifier le client"
     },
-    "delete-customer": {
+    "archive-customer": {
       "modal": {
-        "title": "Supprimer le client",
-        "message": "Êtes-vous sûr de vouloir supprimer le client {customerName} ?",
+        "title": "Archiver le client",
+        "message": "Êtes-vous sûr de vouloir archiver le client {customerName} ?",
         "button": {
           "cancel": "Annuler",
-          "delete": "Supprimer"
+          "delete": "Archiver"
         }
       }
     },
