@@ -48,7 +48,7 @@ export const CustomerDetails = () => {
   const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
 
   const [selectedDocumentType, setSelectedDucomentType] = useState(
-    DocumentType.INVOICE,
+    DocumentType.EVENT,
   );
   const [shouldOpenEditCustomerPanel, setOpenEditCustomerPanel] =
     useState(false);
@@ -251,22 +251,19 @@ export const CustomerDetails = () => {
             <div>
               <Button
                 variant={
-                  DocumentType.INVOICE === selectedDocumentType
+                  DocumentType.EVENT === selectedDocumentType
                     ? 'outlined'
                     : 'contained'
                 }
                 color="secondary"
                 type="button"
-                onClick={() => setSelectedDucomentType(DocumentType.INVOICE)}
+                onClick={() => setSelectedDucomentType(DocumentType.EVENT)}
                 leadingIcon={
-                  <DocumentCheckIcon
-                    className="-ml-0.5 h-5 w-5"
-                    aria-hidden="true"
-                  />
+                  <FolderIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
                 }
               >
                 {intl.formatMessage({
-                  id: 'customers.customer-details.button.invoices',
+                  id: 'customers.customer-details.button.events',
                 })}
               </Button>
             </div>
@@ -295,22 +292,26 @@ export const CustomerDetails = () => {
             <div className="ml-2">
               <Button
                 variant={
-                  DocumentType.EVENT === selectedDocumentType
+                  DocumentType.INVOICE === selectedDocumentType
                     ? 'outlined'
                     : 'contained'
                 }
                 color="secondary"
                 type="button"
-                onClick={() => setSelectedDucomentType(DocumentType.EVENT)}
+                onClick={() => setSelectedDucomentType(DocumentType.INVOICE)}
                 leadingIcon={
-                  <FolderIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                  <DocumentCheckIcon
+                    className="-ml-0.5 h-5 w-5"
+                    aria-hidden="true"
+                  />
                 }
               >
                 {intl.formatMessage({
-                  id: 'customers.customer-details.button.events',
+                  id: 'customers.customer-details.button.invoices',
                 })}
               </Button>
             </div>
+
             <div className="ml-auto">
               <Button
                 onClick={() => setOpenNewEvent(true)}

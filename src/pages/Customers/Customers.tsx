@@ -202,14 +202,14 @@ export const Customers = () => {
                           id: 'customers.my-customers.contact',
                         })}
                       </th>
-                      <th
+                      {/* <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
                           id: 'customers.my-customers.location',
                         })}
-                      </th>
+                      </th> */}
                       <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
@@ -258,11 +258,11 @@ export const Customers = () => {
                               </a>
                             </div>
                           </td>
-                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          {/* <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                             <div className="font-medium text-gray-500">
                               {customer.city}
                             </div>
-                          </td>
+                          </td> */}
                           <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                             <div className="font-medium text-gray-500">
                               <CustomerStatus

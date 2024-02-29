@@ -632,7 +632,7 @@
 
   "customers": {
     "header": "Clients",
-    "description": "Liste de vos clients. Vous avez {nb} clients.",
+    "description": "Vous avez {nb} clients dans votre annuaire.",
     "no-customers": "Ajouter mon premier client",
     "get-started": "Cliquer pour commencer à ajouter un client",
     "my-customers": {
@@ -642,8 +642,8 @@
       "name": "Nom",
       "contact": "Contact",
       "location": "Localisation",
-      "status": "Status",
-      "value": "Valeur",
+      "status": "Statut",
+      "value": "Facturé & Payé",
       "button": {
         "header": "Options",
         "edit": "Modifier",
@@ -745,7 +745,7 @@
       },
       "no-documents-found": {
         "header": "Aucun document",
-        "description": "Aucun document n'a été trouvé pour ce client"
+        "description": "Aucun document n'a été associé à ce client"
       }
     },
     "status": {
@@ -967,7 +967,7 @@
       "customer": "Client",
       "issued-on": "Date d'émission",
       "valid-until": "Date d'échéance",
-      "status": "Status",
+      "status": "Statut",
       "total": "Montant (HT)"
     },
     "menu": {
@@ -1283,7 +1283,7 @@
         "customer": "Client",
         "issued-on": "Date d'émission",
         "valid-until": "Date d'expiration",
-        "status": "Status",
+        "status": "Statut",
         "total": "Montant (HT)"
       },
       "menu": {
