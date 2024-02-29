@@ -174,3 +174,17 @@ export const useFetchMainEvents = () => {
     }
   });
 };
+
+export const useUpdateArchivedStatus = () => {
+  return useAsyncCallback(async (eventId: string, isArchived: boolean) => {
+    try {
+      const { data } = await webClient.patch(`/event/${eventId}/archive`, {
+        isArchived,
+      });
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      return error.response;
+    }
+  });
+};

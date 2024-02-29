@@ -1,6 +1,4 @@
 import {
-  BarsArrowUpIcon,
-  ChevronDownIcon,
   EyeIcon,
   MagnifyingGlassIcon,
   PencilSquareIcon,
@@ -14,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { PageLayout } from '../../layouts';
 import {
-  useDeleteCustomer,
   useFetchCustomers,
+  useUpdateArchivedStatus,
 } from '../../redux/Customer/hooks';
 import { getCustomers } from '../../redux/Customer/selectors';
 import { Customer } from '../../redux/Customer/slices';
@@ -37,7 +35,7 @@ export const Customers = () => {
   const [shouldOpenDeleteCustomerModal, setOpenArchiveCustomerModal] =
     useState(false);
 
-  const [, deleteCustomer] = useDeleteCustomer();
+  const [, updateArchiveCustomerStatus] = useUpdateArchivedStatus();
 
   const [{ isLoading }, fetchCustomers] = useFetchCustomers();
   const customers = useSelector(getCustomers);
@@ -74,7 +72,8 @@ export const Customers = () => {
   const handleArchiveCustomer = (customer?: Customer) => {
     if (!customer) return;
     setOpenArchiveCustomerModal(false);
-    deleteCustomer(customer.id);
+    updateArchiveCustomerStatus(customer.id, true);
+    fetchCustomers();
   };
 
   const handleEditCustomer = (customer: Customer) => {

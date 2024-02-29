@@ -710,11 +710,11 @@
     },
     "archive-customer": {
       "modal": {
-        "title": "Archiver le client",
-        "message": "Êtes-vous sûr de vouloir archiver le client {customerName} ?",
+        "title": "Supprimer le client",
+        "message": "Êtes-vous sûr de vouloir supprimer le client {customerName} ?",
         "button": {
           "cancel": "Annuler",
-          "delete": "Archiver"
+          "delete": "Supprimer"
         }
       }
     },
@@ -922,6 +922,7 @@
     "button": {
       "attach-files": "Voir les documents attachés",
       "edit": "Éditer l'évènement",
+      "delete": "Supprimer",
       "quote": {
         "edit": "Éditer le devis",
         "look": "Voir le devis",
@@ -931,6 +932,14 @@
         "edit": "Éditer la facture",
         "look": "Voir la facture",
         "send": "Envoyer la facture"
+      }
+    },
+    "delete-modal": {
+      "title": "Supprimer l'évènement",
+      "message": "Êtes-vous sûr de vouloir supprimer l'évènement ?",
+      "button": {
+        "cancel": "Annuler",
+        "delete": "Supprimer"
       }
     }
   },
