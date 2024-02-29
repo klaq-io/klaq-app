@@ -69,7 +69,7 @@
       "last-name": "Veuillez saisir votre nom",
       "email": "Veuillez saisir votre adresse e-mail",
       "password": "Veuillez saisir votre mot de passe, celui doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial",
-      "phone": "Veuillez saisir votre numéro de téléphone portable"
+      "phone": "Veuillez saisir un numéro de téléphone portable valide"
     },
     "submit": "Continuer"
   },

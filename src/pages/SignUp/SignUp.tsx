@@ -34,6 +34,7 @@ export const SignUp = () => {
       });
     },
   });
+
   return (
     <OnboardingLayout backgroundImg={backgroundAuth}>
       <div>
@@ -141,6 +142,18 @@ export const SignUp = () => {
                   className:
                     'block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm',
                 }}
+                isValid={(value, country: any) => {
+                  if (value.match(/12345/)) {
+                    formik.setFieldError('phone', 'error');
+                    return 'Invalid value: ' + value + ', ' + country.name;
+                  } else if (value.match(/1234/)) {
+                    formik.setFieldError('phone', 'error');
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }}
+                prefix="+"
                 country={'fr'}
                 value={formik.values.phone}
                 onChange={setPhoneNumber}

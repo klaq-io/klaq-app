@@ -46,7 +46,9 @@ export const OnboardingCompany = () => {
       {
         activityType: params.get('activityType')!,
         inseeLegalFormCode: params.get('inseeLegalFormCode')!,
-        legalForm: params.get('legalForm')!,
+        legalForm:
+          params.get('legalForm') ||
+          CompanyLegalForm['Entrepreneur individuel'],
         legalName: params.get('legalName')!,
         legalRegistrationNumber: params.get('legalRegistrationNumber')!,
         legalVATNumber:
@@ -92,7 +94,10 @@ export const OnboardingCompany = () => {
 
   useEffect(() => {
     const fetchCompany = async () => {
-      if (type !== companyType.association)
+      if (
+        type !== companyType.association &&
+        formik.values.legalRegistrationNumber
+      )
         setCompany(
           await fetchCompanyInformation(formik.values.legalRegistrationNumber),
         );
@@ -518,6 +523,12 @@ export const OnboardingCompany = () => {
                   variant="contained"
                   color="primary"
                   onClick={() => handleStep(STEP.ADDRESS)}
+                  disabled={
+                    !formik.values.address ||
+                    !formik.values.city ||
+                    !formik.values.zip ||
+                    !formik.values.country
+                  }
                 >
                   {intl.formatMessage({
                     id: 'onboarding.company-form.button.submit',

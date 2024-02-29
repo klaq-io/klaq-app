@@ -15,7 +15,7 @@ import { Button } from 'components';
 import Countdown from 'react-countdown';
 
 const OTP_LENGTH = 6;
-const DELAY = 60;
+const DELAY = 30;
 const SECONDS_IN_MILLISECONDS = 1000;
 const DELAY_IN_MILLISECONDS = DELAY * SECONDS_IN_MILLISECONDS;
 
