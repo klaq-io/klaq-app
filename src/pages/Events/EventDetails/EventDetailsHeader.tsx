@@ -3,14 +3,17 @@ import {
   ClockIcon,
   MapPinIcon,
   PencilSquareIcon,
+  TrashIcon,
   UserCircleIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline';
 import {
   CardContainer,
+  DangerModal,
   EditEventModal,
   EventBadgeButton,
   EventMapV2,
+  KebabMenu,
 } from 'components';
 import { format } from 'date-fns';
 import { useState } from 'react';
@@ -23,41 +26,34 @@ import { formatPhoneNumber } from 'utils/customer';
 import { getRemainingTime } from 'utils/time';
 import { getDayStr, getMonthStr } from 'utils/utils';
 import { MainEventDetailsPageProps } from './EventDetailsPage';
+import { useUpdateArchivedStatus } from 'redux/MainEvent/hooks';
 
 export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
   const { event } = props;
   const intl = useIntl();
   const navigate = useNavigate();
   const [shouldOpenEditor, setOpenEditor] = useState(false);
+  const [shouldOpenDelete, setOpenDelete] = useState(false);
+  const [, updateArchivedStatus] = useUpdateArchivedStatus();
 
   const eventDate = new Date(event.subEvents[0].date);
-  // const menu = [
-  //   {
-  //     name: intl.formatMessage({ id: "Editer" }),
-  //     icon: PencilSquareIcon,
-  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-  //   },
-  //   {
-  //     name: intl.formatMessage({ id: "Ajouter une facture" }),
-  //     icon: PlusSmallIcon,
-  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-  //   },
-  //   {
-  //     name: intl.formatMessage({ id: "Ajouter un devis" }),
-  //     icon: PlusSmallIcon,
-  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/edit`),
-  //   },
-  //   {
-  //     name: intl.formatMessage({ id: "Dupliquer" }),
-  //     icon: ArrowTopRightOnSquareIcon,
-  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/duplicate`),
-  //   },
-  //   {
-  //     name: intl.formatMessage({ id: "Supprimer" }),
-  //     icon: TrashIcon,
-  //     onClick: () => navigate(`${PATHS.EVENTS}/${event.id}/delete`),
-  //   },
-  // ];
+
+  const handleDeleteEvent = () => {
+    setOpenDelete(false);
+    updateArchivedStatus(event.id, true);
+  };
+  const menu = [
+    {
+      name: intl.formatMessage({ id: 'event-details.button.edit' }),
+      icon: PencilSquareIcon,
+      onClick: () => setOpenEditor(true),
+    },
+    {
+      name: intl.formatMessage({ id: 'event-details.button.delete' }),
+      icon: TrashIcon,
+      onClick: () => setOpenDelete(true),
+    },
+  ];
 
   return (
     <>
@@ -86,7 +82,7 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
             <span className="text-gray-900 font-semibold">
               {getRemainingTime(eventDate)}
             </span>
-            {/* <KebabMenu items={menu} buttonSize="lg" /> */}
+            <KebabMenu items={menu} buttonSize="lg" />
           </span>
         </CardContainer>
         <div className="flex flex-row space-x-4">
@@ -169,6 +165,21 @@ export const EventDetailsHeader = (props: MainEventDetailsPageProps) => {
         isOpen={shouldOpenEditor}
         setOpen={setOpenEditor}
         event={event}
+      />
+      <DangerModal
+        isOpen={shouldOpenDelete}
+        setOpen={setOpenDelete}
+        onClick={() => handleDeleteEvent()}
+        title={intl.formatMessage({ id: 'event-details.delete-modal.title' })}
+        message={intl.formatMessage({
+          id: 'event-details.delete-modal.message',
+        })}
+        button1={intl.formatMessage({
+          id: 'event-details.delete-modal.button.delete',
+        })}
+        button2={intl.formatMessage({
+          id: 'event-details.delete-modal.button.cancel',
+        })}
       />
     </>
   );
