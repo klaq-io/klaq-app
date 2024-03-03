@@ -36,7 +36,8 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
   const sessionToken = uuidv4();
 
   const setSuggestion = async (mapboxId: string) => {
-    setAddress(await retrieveAddress(mapboxId, sessionToken));
+    const retrievedAddress = await retrieveAddress(mapboxId, sessionToken);
+    setAddress(retrievedAddress);
   };
 
   const fetchSuggestions = async (query: string) => {
@@ -52,9 +53,14 @@ export const MapAutocompleteInput: FC<MapAutocompleteInputProps> = (
         <Combobox.Input
           className="w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6"
           onChange={(event) => fetchSuggestions(event.target.value)}
-          displayValue={(suggestion: AddressSuggestion) =>
-            suggestion !== null ? suggestion.full_address : defaultAddress
-          }
+          displayValue={(suggestion: AddressSuggestion) => {
+            console.log(suggestion);
+            return suggestion !== null && suggestion.full_address
+              ? suggestion.full_address
+              : suggestion.name
+                ? suggestion.name
+                : defaultAddress;
+          }}
         />
         <Combobox.Button className="absolute inset-y-0 pl-3 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <ChevronUpDownIcon
