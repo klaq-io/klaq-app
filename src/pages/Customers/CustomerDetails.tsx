@@ -26,7 +26,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchInvoicesForCustomer } from 'redux/Invoice/hooks';
 import { useFetchQuotesForCustomer } from 'redux/Quote/hooks';
-import { formatPhoneNumber } from 'utils/customer';
+import { formatPhoneNumber, getCustomerValue } from 'utils/customer';
 import { PageLayout } from '../../layouts';
 import { useFetchCustomers } from '../../redux/Customer/hooks';
 import { getCustomer } from '../../redux/Customer/selectors';
@@ -208,7 +208,7 @@ export const CustomerDetails = () => {
                       id: 'customers.customer-details.deals-amount',
                     },
                     {
-                      amount: getPipeValueForCustomer(customer),
+                      amount: getCustomerValue(invoices),
                     },
                   )}
                 </p>

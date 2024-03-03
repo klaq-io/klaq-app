@@ -50,18 +50,18 @@ enum SECTION {
 const Navigation = () => {
   const intl = useIntl();
   const [query, setQuery] = useSearchParams();
-  const selectedSection = query.get('section') || SECTION.ACTIONS;
+  const selectedSection = query.get('section') || SECTION.ASSISTANT;
 
   const secondaryNavigation = [
-    {
-      section: SECTION.ACTIONS,
-      icon: ChevronUpDownIcon,
-      current: selectedSection === SECTION.ACTIONS,
-    },
     {
       section: SECTION.ASSISTANT,
       icon: MagnifyingGlassIcon,
       current: selectedSection === SECTION.ASSISTANT,
+    },
+    {
+      section: SECTION.ACTIONS,
+      icon: ChevronUpDownIcon,
+      current: selectedSection === SECTION.ACTIONS,
     },
     {
       section: SECTION.PRODUCTS,
@@ -802,7 +802,7 @@ export const EventDetailsBody = (props: MainEventDetailsPageProps) => {
   const { event } = props;
 
   const [query] = useSearchParams();
-  const selectedSection = query.get('section') || SECTION.ACTIONS;
+  const selectedSection = query.get('section') || SECTION.ASSISTANT;
 
   return (
     <>

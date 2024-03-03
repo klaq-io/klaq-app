@@ -97,6 +97,8 @@ export const Profile = () => {
     if (hiddenLogoInput.current) hiddenLogoInput.current.click();
   };
 
+  console.log(formik.values, formik.errors);
+
   return (
     <PageLayout>
       <SettingsNavbar />

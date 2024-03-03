@@ -729,7 +729,7 @@
       "contact": "Contact",
       "first-interact": "Premier contact le {date}",
       "last-interact": "Dernier contact le {date}",
-      "deals-amount": "Montant total des évènements: {amount}€",
+      "deals-amount": "Montant total facturés H.T. : {amount}€",
       "deals-count": "Nombre d'évènements: {count}",
       "button": {
         "button": "Options",

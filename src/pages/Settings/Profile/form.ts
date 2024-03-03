@@ -21,5 +21,5 @@ export const validationSchema = Yup.object({
   birthDate: Yup.string().required('Required'),
   publicEmail: Yup.string().required('Required'),
   publicPhone: Yup.string().required('Required'),
-  website: Yup.string(),
+  website: Yup.string().notRequired(),
 });
