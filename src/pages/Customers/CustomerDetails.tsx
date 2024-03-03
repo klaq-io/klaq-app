@@ -31,7 +31,7 @@ import { PageLayout } from '../../layouts';
 import { useFetchCustomers } from '../../redux/Customer/hooks';
 import { getCustomer } from '../../redux/Customer/selectors';
 import { CustomerType } from '../../redux/Customer/slices';
-import { formatSiret, getPipeValueForCustomer } from '../../utils/utils';
+import { formatSiret } from '../../utils/utils';
 import EditCustomer from './EditCustomer';
 
 const DocumentType = {
