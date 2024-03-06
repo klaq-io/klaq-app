@@ -876,7 +876,7 @@
       "no-booking": {
         "infobox": {
           "title": "Aucune réservation",
-          "content": "Vous n'avez pas encore réservé d'autres événements à cette date. Pensez à vérifier votre calendrier."
+          "content": "Vous n'avez pas encore réservé d'autres événements à cette date. Pensez à vérifier <a>votre calendrier</a>."
         }
       },
       "overlap": {

@@ -1,7 +1,8 @@
 import { Alert } from 'components/Alert';
+import { MiniCalendarPopUp } from 'components/MiniCalendar';
 import { isAfter, isBefore, isSameDay } from 'date-fns';
 import { MainEvent } from 'interface/Event/main-event.interface';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +23,8 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
   const intl = useIntl();
   const { event } = props;
   const navigate = useNavigate();
+  const [shouldOpenMiniCalendarPopUp, setShouldOpenMiniCalendarPopUp] =
+    useState(false);
 
   const [, fetchEvents] = useFetchMainEvents();
 
@@ -168,15 +171,33 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
       </Alert>
     )
   ) : (
-    <Alert
-      status="success"
-      title={intl.formatMessage({
-        id: 'event-details.assistant.no-booking.infobox.title',
-      })}
-    >
-      {intl.formatMessage({
-        id: 'event-details.assistant.no-booking.infobox.content',
-      })}
-    </Alert>
+    <>
+      <Alert
+        status="success"
+        title={intl.formatMessage({
+          id: 'event-details.assistant.no-booking.infobox.title',
+        })}
+      >
+        {intl.formatMessage(
+          {
+            id: 'event-details.assistant.no-booking.infobox.content',
+          },
+          {
+            a: (chunk: any) => (
+              <button
+                onClick={() => setShouldOpenMiniCalendarPopUp(true)}
+                className="font-semibold"
+              >
+                {chunk.join()}
+              </button>
+            ),
+          },
+        )}
+      </Alert>
+      <MiniCalendarPopUp
+        shoudBeOpened={shouldOpenMiniCalendarPopUp}
+        setOpen={setShouldOpenMiniCalendarPopUp}
+      />
+    </>
   );
 };
