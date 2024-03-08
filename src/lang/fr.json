@@ -733,6 +733,7 @@
       "last-interact": "Dernier contact le {date}",
       "deals-amount": "Montant total facturés H.T. : {amount}€",
       "deals-count": "Nombre d'évènements: {count}",
+      "deals-signed": "Nombre d'évènements facturés et payés: {count}",
       "button": {
         "button": "Options",
         "previous": "Précédent",

@@ -33,6 +33,7 @@ import { getCustomer } from '../../redux/Customer/selectors';
 import { CustomerType } from '../../redux/Customer/slices';
 import { formatSiret } from '../../utils/utils';
 import EditCustomer from './EditCustomer';
+import { EventStatus } from 'redux/Events/slices';
 
 const DocumentType = {
   INVOICE: 'invoice',
@@ -201,6 +202,22 @@ export const CustomerDetails = () => {
                 </p>
               </div>
               <div className="flex flex-row space-x-2 items-center">
+                <DocumentCheckIcon className="h-5 w-5 inline-block mr-2" />
+                <p className="text-sm text-gray-900">
+                  {intl.formatMessage(
+                    {
+                      id: 'customers.customer-details.deals-signed',
+                    },
+                    {
+                      count:
+                        customer?.mainEvents?.filter(
+                          (event) => event.status === EventStatus.WIN,
+                        ).length || 0,
+                    },
+                  )}
+                </p>
+              </div>
+              <div className="flex flex-row space-x-2 items-center">
                 <BanknotesIcon className="h-5 w-5 inline-block mr-2" />
                 <p className="text-sm text-gray-900">
                   {intl.formatMessage(
@@ -215,13 +232,21 @@ export const CustomerDetails = () => {
               </div>
               <div className="flex flex-row space-x-2 items-center">
                 <PhoneIcon className="h-5 w-5 inline-block mr-2" />
-                <p className="text-sm text-gray-900">
+                <a
+                  href={`tel:${customer?.phone}`}
+                  className="text-sm text-gray-900"
+                >
                   {formatPhoneNumber(customer?.phone) || 'N/A'}
-                </p>
+                </a>
               </div>
               <div className="flex flex-row space-x-2 items-center">
                 <EnvelopeIcon className="h-5 w-5 inline-block mr-2" />
-                <p className="text-sm text-gray-900">{customer?.email}</p>
+                <a
+                  href={`mailto:${customer?.email}`}
+                  className="text-sm text-gray-900"
+                >
+                  {customer?.email}
+                </a>
               </div>
               <div className="flex flex-row space-x-2 items-center">
                 <HomeIcon className="h-5 w-5 inline-block mr-2" />
