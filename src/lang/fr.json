@@ -644,6 +644,8 @@
       "location": "Localisation",
       "status": "Statut",
       "value": "Facturé & Payé",
+      "enquiry": "Nombre de demandes entrantes",
+      "signed": "Nombre d'évènements facturés",
       "button": {
         "header": "Options",
         "edit": "Modifier",

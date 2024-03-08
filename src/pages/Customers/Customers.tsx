@@ -5,7 +5,7 @@ import {
   PlusIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
-import { Button, CustomerStatus, DangerModal, KebabMenu } from 'components';
+import { Button, DangerModal, KebabMenu } from 'components';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,6 @@ import { getCustomers } from '../../redux/Customer/selectors';
 import { Customer } from '../../redux/Customer/slices';
 import { EventStatus } from '../../redux/Events/slices';
 import { PATHS } from '../../routes';
-import { getPipeValueForCustomer } from '../../utils/utils';
 import EditCustomer from './EditCustomer';
 import { NewCustomer } from './NewCustomer';
 
@@ -202,20 +201,12 @@ export const Customers = () => {
                           id: 'customers.my-customers.contact',
                         })}
                       </th>
-                      {/* <th
-                        scope="col"
-                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-                      >
-                        {intl.formatMessage({
-                          id: 'customers.my-customers.location',
-                        })}
-                      </th> */}
                       <th
                         scope="col"
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: 'customers.my-customers.status',
+                          id: 'customers.my-customers.enquiry',
                         })}
                       </th>
                       <th
@@ -223,7 +214,7 @@ export const Customers = () => {
                         className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
-                          id: 'customers.my-customers.value',
+                          id: 'customers.my-customers.signed',
                         })}
                       </th>
                       <th
@@ -258,21 +249,18 @@ export const Customers = () => {
                               </a>
                             </div>
                           </td>
-                          {/* <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                             <div className="font-medium text-gray-500">
-                              {customer.city}
-                            </div>
-                          </td> */}
-                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
-                            <div className="font-medium text-gray-500">
-                              <CustomerStatus
-                                status={getCustomerStatus(customer)}
-                              />
+                              {customer.mainEvents?.length}
                             </div>
                           </td>
-                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+                          <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                             <div className="font-medium text-gray-500">
-                              {getPipeValueForCustomer(customer)} €
+                              {
+                                customer.mainEvents?.filter(
+                                  (event) => event.status === EventStatus.WIN,
+                                ).length
+                              }
                             </div>
                           </td>
                           <td className="relative py-3.5 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
