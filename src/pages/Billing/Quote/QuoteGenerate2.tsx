@@ -27,9 +27,8 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { EventStatus } from 'redux/Events/slices';
 import { useFetchMainEvents } from 'redux/MainEvent/hooks';
-import { getMainEventsByStatus } from 'redux/MainEvent/selectors';
+import { getMainEvents } from 'redux/MainEvent/selectors';
 import { useFetchProductItems } from 'redux/Products/hooks';
 import { getAllProducts } from 'redux/Products/selectors';
 import { ProductItem } from 'redux/Products/slices';
@@ -47,15 +46,7 @@ export const QuoteGeneratePage = () => {
   const [, fetchMainEvents] = useFetchMainEvents();
   const [{ isLoading: isSubmitting }, createQuote] = useCreateQuote();
 
-  const mainEvents =
-    useSelector((state: any) =>
-      getMainEventsByStatus(
-        state,
-        EventStatus.INBOX,
-        EventStatus.QUOTE_SENT,
-        EventStatus.QUOTE_REJECTED,
-      ),
-    ) || [].reverse();
+  const mainEvents = useSelector(getMainEvents) || [].reverse();
 
   const filteredEvents =
     query === ''

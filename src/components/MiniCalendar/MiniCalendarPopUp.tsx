@@ -3,15 +3,15 @@ import { MiniCalendar } from 'components';
 import { Fragment } from 'react';
 
 type Props = {
-  shoudBeOpened: boolean;
+  shouldBeOpened: boolean;
   setOpen: (shouldBeOpened: boolean) => void;
 };
 
 export const MiniCalendarPopUp = (props: Props) => {
-  const { shoudBeOpened, setOpen } = props;
+  const { shouldBeOpened, setOpen } = props;
 
   return (
-    <Transition.Root show={shoudBeOpened} as={Fragment}>
+    <Transition.Root show={shouldBeOpened} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}

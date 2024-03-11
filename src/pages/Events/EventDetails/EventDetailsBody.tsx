@@ -17,16 +17,19 @@ import {
   CommentaryFeed,
 } from 'components';
 import { Alert } from 'components/Alert/Alert';
+import { NewEnquiryAlert } from 'components/BookedData/NewEnquiryAlert';
 import { isPast, isToday } from 'date-fns';
 import { Status } from 'enum/status.enum';
 import { useFormik } from 'formik';
 import { MainEvent } from 'interface/Event/main-event.interface';
 import { InvoiceStatus } from 'interface/Invoice/invoice.interface';
 import { QuoteStatus } from 'interface/Quote/quote.interface';
+import EditCustomer from 'pages/Customers/EditCustomer';
 import { Fragment, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { CustomerType } from 'redux/Customer/slices';
 import { useFetchMainEvents, useUpdateMainEvent } from 'redux/MainEvent/hooks';
 import { useFetchProductItems } from 'redux/Products/hooks';
 import { getAllProducts } from 'redux/Products/selectors';
@@ -35,8 +38,6 @@ import { PATHS } from 'routes';
 import { classNames, getTimeStr } from 'utils/utils';
 import { MainEventDetailsPageProps } from './EventDetailsPage';
 import { initialValues, validationSchema } from './update-event-form';
-import { CustomerType } from 'redux/Customer/slices';
-import EditCustomer from 'pages/Customers/EditCustomer';
 
 enum SECTION {
   PRODUCTS = 'products',
@@ -500,32 +501,35 @@ const AssistantSection = (event: MainEvent) => {
           },
         )}
       </h1>
+      <NewEnquiryAlert event={event} />
       <BookedDateAlert event={event} />
-      <Alert
-        title={intl.formatMessage({
-          id: 'event-details.assistant.location.infobox.title',
-        })}
-        status="info"
-      >
-        <div className="flex flex-col">
-          <p>
-            {intl.formatMessage(
-              {
-                id: 'event-details.assistant.location.infobox.content',
-              },
-              {
-                distance: distance,
-                duration: getTimeStr(duration),
-                b: (chunk: any) => (
-                  <span className="text-blue-700 font-semibold">
-                    {chunk.join()}
-                  </span>
-                ),
-              },
-            )}
-          </p>
-        </div>
-      </Alert>
+      {!!distance && !!duration && (
+        <Alert
+          title={intl.formatMessage({
+            id: 'event-details.assistant.location.infobox.title',
+          })}
+          status="info"
+        >
+          <div className="flex flex-col">
+            <p>
+              {intl.formatMessage(
+                {
+                  id: 'event-details.assistant.location.infobox.content',
+                },
+                {
+                  distance: distance,
+                  duration: getTimeStr(duration),
+                  b: (chunk: any) => (
+                    <span className="text-blue-700 font-semibold">
+                      {chunk.join()}
+                    </span>
+                  ),
+                },
+              )}
+            </p>
+          </div>
+        </Alert>
+      )}
     </CardContainer>
   );
 };

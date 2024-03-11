@@ -9,8 +9,8 @@ type Props = {
 
 const statusColor: { [key in EventStatus]: string } = {
   [EventStatus.INBOX]: 'text-blue-400 bg-blue-400/10 ring-blue-400/20',
-  // [EventStatus.QUALIFICATION]:
-  //   "text-indigo-400 bg-indigo-400/10 ring-indigo-400/30",
+  [EventStatus.QUALIFICATION]:
+    'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
   [EventStatus.QUOTE_SENT]: 'text-pink-400 bg-pink-400/10 ring-pink-400/30',
   // [EventStatus.QUOTE_OPENED]: "text-pink-400 bg-pink-400/10 ring-pink-400/30",
   [EventStatus.QUOTE_ACCEPTED]:

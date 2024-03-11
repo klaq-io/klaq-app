@@ -887,6 +887,15 @@
           "title": "Chevauchement d'événements",
           "content": "Vous avez déjà un événement prévu pour cette date. <a>{eventTitle}</a> est prévu à {time}."
         }
+      },
+      "new-enquiry": {
+        "infobox": {
+          "title": "Nouvelle demande entrante",
+          "button": {
+            "accept": "Accepter",
+            "reject": "Décliner et supprimer"
+          }
+        }
       }
     },
     "location": {

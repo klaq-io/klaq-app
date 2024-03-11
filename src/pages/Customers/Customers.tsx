@@ -50,18 +50,18 @@ export const Customers = () => {
             customer.phone.includes(query),
         );
 
-  const getCustomerStatus = (customer: Customer) => {
-    // TODO: change it to a better logic
-    if (!customer.mainEvents || customer.mainEvents.length === 0) return 'new';
-    const eventsStatus = customer.mainEvents.flatMap((event) => event.status);
-    if (!customer.mainEvents.length) return 'new';
-    if (eventsStatus.includes(EventStatus.INBOX)) return 'in-deal';
+  // const getCustomerStatus = (customer: Customer) => {
+  //   // TODO: change it to a better logic
+  //   if (!customer.mainEvents || customer.mainEvents.length === 0) return 'new';
+  //   const eventsStatus = customer.mainEvents.flatMap((event) => event.status);
+  //   if (!customer.mainEvents.length) return 'new';
+  //   if (eventsStatus.includes(EventStatus.INBOX)) return 'in-deal';
 
-    if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
-      return 'recurring';
-    if (eventsStatus.includes(EventStatus.LOST)) return 'lost';
-    return 'none';
-  };
+  //   if (eventsStatus.filter((status) => status === EventStatus.WIN).length >= 2)
+  //     return 'recurring';
+  //   if (eventsStatus.includes(EventStatus.LOST)) return 'lost';
+  //   return 'none';
+  // };
 
   const handleOpenDeleteCustomerModal = (customer: Customer) => {
     setSelectedCustomer(customer);

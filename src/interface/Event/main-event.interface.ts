@@ -7,6 +7,7 @@ import { Invoice } from 'interface/Invoice/invoice.interface';
 import { Quote } from 'interface/Quote/quote.interface';
 import { EventProduct } from './event-product.interface';
 import { Directions } from 'interface/Map/directions.interface';
+import { UTMSource } from 'enum/utm-source.enum';
 
 export interface MainEvent {
   id: string;
@@ -24,6 +25,7 @@ export interface MainEvent {
   invoices?: Invoice[];
   products?: EventProduct[];
   directions?: Directions;
+  source: UTMSource;
 }
 
 export interface MainEventCreator {

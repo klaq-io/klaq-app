@@ -195,7 +195,7 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
         )}
       </Alert>
       <MiniCalendarPopUp
-        shoudBeOpened={shouldOpenMiniCalendarPopUp}
+        shouldBeOpened={shouldOpenMiniCalendarPopUp}
         setOpen={setShouldOpenMiniCalendarPopUp}
       />
     </>

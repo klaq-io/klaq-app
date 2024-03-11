@@ -36,7 +36,7 @@ export interface Coordinates {
 
 export enum EventStatus {
   INBOX = 'INBOX',
-  // QUALIFICATION = "QUALIFICATION",
+  QUALIFICATION = 'QUALIFICATION',
   QUOTE_SENT = 'QUOTE_SENT',
   // QUOTE_OPENED = "QUOTE_OPENED",
   QUOTE_ACCEPTED = 'QUOTE_ACCEPTED',
