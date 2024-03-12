@@ -66,16 +66,16 @@ export const Sidebar = () => {
       current: currentPage === PATHS.CUSTOMERS,
     },
     {
-      name: 'sidebar.invoices',
-      href: PATHS.INVOICES,
-      icon: DocumentCheckIcon,
-      current: currentPage === PATHS.INVOICES || currentPage === PATHS.INVOICE,
-    },
-    {
       name: 'sidebar.quotes',
       icon: ClipboardDocumentIcon,
       href: PATHS.QUOTES,
       current: currentPage === PATHS.QUOTES || currentPage === PATHS.QUOTE,
+    },
+    {
+      name: 'sidebar.invoices',
+      href: PATHS.INVOICES,
+      icon: DocumentCheckIcon,
+      current: currentPage === PATHS.INVOICES || currentPage === PATHS.INVOICE,
     },
     {
       name: 'sidebar.products',

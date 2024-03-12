@@ -825,8 +825,10 @@
     },
     "tabs": {
       "all": "Tous",
-      "new": "Nouveau",
+      "new": "Nouveauté",
       "upcoming": "À venir",
+      "ready": "Prêt",
+      "done": "Terminé",
       "overdue": "En retard",
       "pending": "En attente",
       "lost": "Perdu",
@@ -863,7 +865,7 @@
       "header": "Actions à effectuer"
     },
     "assistant": {
-      "header": "Assistant <b>(alimenté par intelligence artificielle)</b>",
+      "header": "Assistant",
       "location": {
         "infobox": {
           "title": "Votre trajet",

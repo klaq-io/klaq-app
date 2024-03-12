@@ -59,21 +59,29 @@ export const Events = () => {
     getMainEventsByStatus(state, EventStatus.INBOX),
   );
 
+  const eventsDoneList = useSelector((state: any) =>
+    getMainEventsByStatus(
+      state,
+      EventStatus.DONE,
+      EventStatus.INVOICE_OVERDUE,
+      EventStatus.WIN,
+      EventStatus.INVOICE_SENT,
+    ),
+  );
+
+  const eventsReadyList = useSelector((state: any) =>
+    getMainEventsByStatus(state, EventStatus.READY, EventStatus.QUOTE_ACCEPTED),
+  );
+
   const lostEvents = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.LOST, EventStatus.QUOTE_REJECTED),
   );
 
-  const upcomingEvents = useSelector((state: any) =>
-    getMainEventsByStatus(
-      state,
-      EventStatus.QUOTE_ACCEPTED,
-
-      EventStatus.READY,
-    ),
-  );
   const pendingEvents = useSelector((state: any) =>
     getMainEventsByStatus(
       state,
+      EventStatus.QUALIFICATION,
+      EventStatus.QUOTE_REJECTED,
       EventStatus.QUOTE_SENT,
       EventStatus.INVOICE_SENT,
     ),
@@ -100,14 +108,7 @@ export const Events = () => {
             endDate,
           )
         : [],
-    UPCOMING:
-      upcomingEvents && upcomingEvents.length
-        ? getSubEventsFromPeriod(
-            upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-            startDate,
-            endDate,
-          )
-        : [],
+
     PENDING:
       pendingEvents && pendingEvents.length
         ? getSubEventsFromPeriod(
@@ -136,6 +137,22 @@ export const Events = () => {
       lostEvents && lostEvents.length
         ? getSubEventsFromPeriod(
             lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate,
+          )
+        : [],
+    DONE:
+      eventsDoneList && eventsDoneList.length
+        ? getSubEventsFromPeriod(
+            eventsDoneList.flatMap((e) => getSubEventsListFromMainEvents(e)),
+            startDate,
+            endDate,
+          )
+        : [],
+    READY:
+      eventsReadyList && eventsReadyList.length
+        ? getSubEventsFromPeriod(
+            eventsReadyList.flatMap((e) => getSubEventsListFromMainEvents(e)),
             startDate,
             endDate,
           )
@@ -177,88 +194,40 @@ export const Events = () => {
 
   const tabs = [
     {
+      name: 'all',
+      current: 'all' === searchParams.get('tab') ? true : false,
+      events: EVENTS.ALL,
+      pipeValue: getQuotePipeValueV2(mainEvents),
+    },
+    {
       name: 'new',
       current: 'new' === searchParams.get('tab') ? true : false,
       events: EVENTS.NEW,
-      pipeValue: getQuotePipeValueV2(upcomingEvents),
-    },
-    {
-      name: 'upcoming',
-      current: 'upcoming' === searchParams.get('tab') ? true : false,
-      events:
-        upcomingEvents && upcomingEvents.length
-          ? getSubEventsFromPeriod(
-              upcomingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
-      pipeValue: getQuotePipeValueV2(upcomingEvents),
+      pipeValue: getQuotePipeValueV2(newEventsList),
     },
     {
       name: 'pending',
       current: 'pending' === searchParams.get('tab') ? true : false,
-      events:
-        pendingEvents && pendingEvents.length
-          ? getSubEventsFromPeriod(
-              pendingEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
+      events: EVENTS.PENDING,
       pipeValue: getQuotePipeValueV2(pendingEvents),
     },
     {
-      name: 'overdue',
-      current: 'overdue' === searchParams.get('tab') ? true : false,
-      events:
-        overdueEvents && overdueEvents.length
-          ? getSubEventsFromPeriod(
-              overdueEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
-      pipeValue: getQuotePipeValueV2(overdueEvents),
+      name: 'ready',
+      current: 'ready' === searchParams.get('tab') ? true : false,
+      events: EVENTS.READY,
+      pipeValue: getQuotePipeValueV2(eventsReadyList),
     },
     {
-      name: 'past',
-      current: 'past' === searchParams.get('tab') ? true : false,
-      events:
-        pastEvents && pastEvents.length
-          ? getSubEventsFromPeriod(
-              pastEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
-      pipeValue: getQuotePipeValueV2(pastEvents),
+      name: 'done',
+      current: 'done' === searchParams.get('tab') ? true : false,
+      events: EVENTS.DONE,
+      pipeValue: getQuotePipeValueV2(eventsDoneList),
     },
     {
       name: 'lost',
       current: 'lost' === searchParams.get('tab') ? true : false,
-      events:
-        lostEvents && lostEvents.length
-          ? getSubEventsFromPeriod(
-              lostEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
+      events: EVENTS.LOST,
       pipeValue: getQuotePipeValueV2(lostEvents),
-    },
-    {
-      name: 'all',
-      current: 'all' === searchParams.get('tab') ? true : false,
-      events:
-        mainEvents && mainEvents.length
-          ? getSubEventsFromPeriod(
-              mainEvents.flatMap((e) => getSubEventsListFromMainEvents(e)),
-              startDate,
-              endDate,
-            )
-          : [],
-      pipeValue: getQuotePipeValueV2(mainEvents),
     },
   ];
 
