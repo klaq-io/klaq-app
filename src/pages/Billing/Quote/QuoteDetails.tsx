@@ -11,11 +11,7 @@ import {
 import { CardContainer, Label, Tooltip } from 'components';
 import { QuoteBadgeButton } from 'components/Quote/QuoteBadgeButton';
 import { format } from 'date-fns';
-import {
-  DiscountType,
-  InvoiceProduct,
-} from 'interface/Invoice/invoice.interface';
-import { QuoteProduct, QuoteStatus } from 'interface/Quote/quote.interface';
+import { QuoteStatus } from 'interface/Quote/quote.interface';
 import { PageLayout } from 'layouts';
 import EditCustomer from 'pages/Customers/EditCustomer';
 import { useEffect, useState } from 'react';
@@ -23,7 +19,8 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CustomerType } from 'redux/Customer/slices';
-import { useDownloadQuoteDocument, useFetchQuote } from 'redux/Quote/hooks';
+import { getUser } from 'redux/Login/selectors';
+import { useDownloadQuoteDocument, useFetchQuotes } from 'redux/Quote/hooks';
 import { getQuoteById } from 'redux/Quote/selectors';
 import { PATHS } from 'routes';
 
@@ -32,40 +29,15 @@ export const QuoteDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [{ isLoading }, fetchQuote] = useFetchQuote();
+  const [{ isLoading }, fetchQuotes] = useFetchQuotes();
   const quote = useSelector((state: any) => getQuoteById(state, id));
+  const user = useSelector(getUser);
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
     useDownloadQuoteDocument();
 
   const [, setOpenDeleteInvoice] = useState(false);
 
   const [shouldOpenNewCustomer, setOpenNewCustomer] = useState(false);
-
-  const getProductSubtotal = (product: QuoteProduct) => {
-    const discount =
-      product.discountType === DiscountType.PERCENT
-        ? product.price * (product.discount / 100)
-        : product.discount;
-    return product.price * product.quantity - discount;
-  };
-
-  const subtotal =
-    quote?.products.reduce(
-      (acc, product) => acc + getProductSubtotal(product),
-      0,
-    ) || 0;
-
-  const tax =
-    quote?.products.reduce(
-      (acc, product) =>
-        acc + getProductSubtotal(product) * (Number(product.vtaRate) / 100),
-      0,
-    ) || 0;
-
-  const total = subtotal + tax;
-
-  const hasAtLeastOneDiscount =
-    !!quote && quote.products.some((product) => Number(product.discount) !== 0);
 
   const handleGoToEdit = () => {
     if (!quote) return;
@@ -83,11 +55,11 @@ export const QuoteDetailsPage = () => {
   };
 
   useEffect(() => {
-    fetchQuote(id);
+    fetchQuotes();
   }, [shouldOpenNewCustomer]);
 
   useEffect(() => {
-    fetchQuote(id);
+    fetchQuotes();
   }, []);
 
   return (
@@ -106,129 +78,10 @@ export const QuoteDetailsPage = () => {
           >
             <div className="sm:flex sm:space-x-4 h-full">
               <CardContainer className="flex flex-col space-y-8 px-4 py-5 sm:p-6 w-full h-full sm:w-3/4">
-                <div className="flex flex-col h-full overflow-y-scroll">
-                  <table className="text-left text-sm leading-6">
-                    <colgroup>
-                      <col className="w-full" />
-                      <col />
-                      <col />
-                      <col />
-                      <col />
-                      {hasAtLeastOneDiscount && <col />}
-                    </colgroup>
-                    <thead className="bg-gray-900 text-white whitespace-nowrap">
-                      <tr>
-                        <th scope="col" className="px-2 py-3 font-semibold">
-                          Produits
-                        </th>
-                        <th
-                          scope="col"
-                          className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
-                        >
-                          Qté
-                        </th>
-                        <th
-                          scope="col"
-                          className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
-                        >
-                          Prix unitaire HT (€)
-                        </th>
-                        <th
-                          scope="col"
-                          className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
-                        >
-                          TVA (%)
-                        </th>
-                        {hasAtLeastOneDiscount && (
-                          <th
-                            scope="col"
-                            className="hidden py-3 pl-8 pr-0 text-center font-semibold sm:table-cell"
-                          >
-                            Réduction
-                          </th>
-                        )}
-
-                        <th
-                          scope="col"
-                          className="py-3 pl-8 pr-2 text-left font-semibold"
-                        >
-                          Total HT
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {quote.products.map((product: InvoiceProduct) => (
-                        <tr
-                          key={product.id}
-                          className="border-b-2 border-gray-100"
-                        >
-                          <td className="max-w-0 px-2 py-5 align-top overflow-wrap">
-                            <div className="font-medium font-semibold text-gray-900">
-                              {product.title}
-                            </div>
-                            <div className="text-gray-900">
-                              {product.description}
-                            </div>
-                          </td>
-                          <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                            {product.quantity}
-                          </td>
-                          <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                            {product.price} €
-                          </td>
-                          <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                            {product.vtaRate}%
-                          </td>
-                          {hasAtLeastOneDiscount && (
-                            <td className="hidden py-5 pl-8 pr-0 text-center align-top tabular-nums text-gray-900 sm:table-cell">
-                              {product.discount}{' '}
-                              {product.discountType === DiscountType.PERCENT
-                                ? '%'
-                                : '€'}
-                            </td>
-                          )}
-                          <td className="py-5 pl-8 pr-0 text-left align-top tabular-nums text-gray-700">
-                            {getProductSubtotal(product).toFixed(2)} €
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="mt-auto bg-gray-50 p-4 flex">
-                    <div className="ml-auto flex flex-col">
-                      <div className="flex justify-between">
-                        <span className="font-semibold text-gray-900">
-                          {intl.formatMessage({
-                            id: 'invoice-generate.total.label.subtotal',
-                          })}
-                        </span>
-                        <span className="font-semibold text-gray-900">
-                          {subtotal.toFixed(2)} €
-                        </span>
-                      </div>
-                      <div className="flex space-x-12">
-                        <span className="font-semibold text-gray-900">
-                          {intl.formatMessage({
-                            id: 'invoice-generate.total.label.tax',
-                          })}
-                        </span>
-                        <span className="font-semibold text-gray-900">
-                          {tax.toFixed(2)} €
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-semibold text-gray-900">
-                          {intl.formatMessage({
-                            id: 'invoice-generate.total.label.total',
-                          })}
-                        </span>
-                        <span className="font-semibold text-gray-900">
-                          {total.toFixed(2)} €
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <iframe
+                  src={`${process.env.REACT_APP_API_URL}/quote/render/${quote.id}/${user.id}`}
+                  className="w-full h-full overflow-y-scroll"
+                />
               </CardContainer>
               <div className="sm:flex flex-col space-y-4 min-h-fit w-full sm:w-1/4 h-full">
                 <div className="flex justify-between">
@@ -248,23 +101,27 @@ export const QuoteDetailsPage = () => {
                       <EnvelopeIcon className="h-5 w-5" />
                     </button>
                   </Tooltip>
-                  <Tooltip text="Télécharger" position="bottom">
-                    <button
-                      onClick={() => downloadQuote(quote.id, quote.number)}
-                      disabled={isDownloadingQuote}
-                      className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                    >
-                      <ArrowDownTrayIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
-                  <Tooltip text="Voir" position="bottom">
-                    <button
-                      onClick={handleGoToPDF}
-                      className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
-                    >
-                      <EyeIcon className="h-5 w-5" />
-                    </button>
-                  </Tooltip>
+                  {!!quote.documentId && (
+                    <Tooltip text="Télécharger" position="bottom">
+                      <button
+                        onClick={() => downloadQuote(quote.id, quote.number)}
+                        disabled={isDownloadingQuote}
+                        className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                      >
+                        <ArrowDownTrayIcon className="h-5 w-5" />
+                      </button>
+                    </Tooltip>
+                  )}
+                  {!!quote.documentId && (
+                    <Tooltip text="Voir" position="bottom">
+                      <button
+                        onClick={handleGoToPDF}
+                        className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
+                      >
+                        <EyeIcon className="h-5 w-5" />
+                      </button>
+                    </Tooltip>
+                  )}
 
                   {quote.status === QuoteStatus.DRAFT ? (
                     <>

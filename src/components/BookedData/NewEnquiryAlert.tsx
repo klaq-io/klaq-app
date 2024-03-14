@@ -1,4 +1,4 @@
-import { AlertWithButtons } from 'components';
+import { AlertWithButtons, MailPopUp } from 'components';
 import { DangerModal } from 'components/Modal';
 import { Status } from 'enum/status.enum';
 import { MainEvent } from 'interface/Event/main-event.interface';
@@ -21,7 +21,8 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
   const { event } = props;
   const navigate = useNavigate();
   const intl = useIntl();
-  const [shouldOpenDelete, setOpenDelete] = useState(false);
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
+  const [shouldOpenDelete, setOpenDelete] = useState<boolean>(false);
   const [, updateArchivedStatus] = useUpdateArchivedStatus();
   const [, updateEventStatus] = useUpdateMainEventStatus();
   const [, fetchEvents] = useFetchMainEvents();
@@ -58,7 +59,9 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
               text: intl.formatMessage({
                 id: 'event-details.assistant.new-enquiry.infobox.button.reject',
               }),
-              onClick: () => setOpenDelete(true),
+              onClick: () => {
+                setMailPopupOpen(true);
+              },
             },
           ]}
           title={intl.formatMessage({
@@ -80,6 +83,20 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
         button2={intl.formatMessage({
           id: 'event-details.delete-modal.button.cancel',
         })}
+      />
+      <MailPopUp
+        open={isMailPopUpOpened}
+        setOpen={setMailPopupOpen}
+        content={{
+          to: event.customer.email,
+          message: intl.formatMessage({
+            id: 'email.template.unavailable.content',
+          }),
+          subject: intl.formatMessage({
+            id: 'email.template.unavailable.subject',
+          }),
+        }}
+        actionAfter={() => setOpenDelete(true)}
       />
     </>
   );

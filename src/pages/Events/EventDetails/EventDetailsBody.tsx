@@ -488,49 +488,51 @@ const AssistantSection = (event: MainEvent) => {
   const duration = (directions?.routes[0].duration || 0) / 2;
 
   return (
-    <CardContainer className="p-4 w-full flex flex-col space-y-4">
-      <h1 className="text-gray-900 font-semibold">
-        {intl.formatMessage(
-          {
-            id: 'event-details.assistant.header',
-          },
-          {
-            b: (chunk: any) => (
-              <span className="text-klaq-500 text-sm">{chunk.join()}</span>
-            ),
-          },
+    <>
+      <CardContainer className="p-4 w-full flex flex-col space-y-4">
+        <h1 className="text-gray-900 font-semibold">
+          {intl.formatMessage(
+            {
+              id: 'event-details.assistant.header',
+            },
+            {
+              b: (chunk: any) => (
+                <span className="text-klaq-500 text-sm">{chunk.join()}</span>
+              ),
+            },
+          )}
+        </h1>
+        <NewEnquiryAlert event={event} />
+        <BookedDateAlert event={event} />
+        {!!distance && !!duration && (
+          <Alert
+            title={intl.formatMessage({
+              id: 'event-details.assistant.location.infobox.title',
+            })}
+            status="info"
+          >
+            <div className="flex flex-col">
+              <p>
+                {intl.formatMessage(
+                  {
+                    id: 'event-details.assistant.location.infobox.content',
+                  },
+                  {
+                    distance: distance,
+                    duration: getTimeStr(duration),
+                    b: (chunk: any) => (
+                      <span className="text-blue-700 font-semibold">
+                        {chunk.join()}
+                      </span>
+                    ),
+                  },
+                )}
+              </p>
+            </div>
+          </Alert>
         )}
-      </h1>
-      <NewEnquiryAlert event={event} />
-      <BookedDateAlert event={event} />
-      {!!distance && !!duration && (
-        <Alert
-          title={intl.formatMessage({
-            id: 'event-details.assistant.location.infobox.title',
-          })}
-          status="info"
-        >
-          <div className="flex flex-col">
-            <p>
-              {intl.formatMessage(
-                {
-                  id: 'event-details.assistant.location.infobox.content',
-                },
-                {
-                  distance: distance,
-                  duration: getTimeStr(duration),
-                  b: (chunk: any) => (
-                    <span className="text-blue-700 font-semibold">
-                      {chunk.join()}
-                    </span>
-                  ),
-                },
-              )}
-            </p>
-          </div>
-        </Alert>
-      )}
-    </CardContainer>
+      </CardContainer>
+    </>
   );
 };
 

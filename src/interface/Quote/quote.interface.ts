@@ -12,6 +12,7 @@ export type NewQuote = Omit<
   | 'products'
   | 'createdAt'
   | 'updatedAt'
+  | 'isOpen'
 > & {
   products: NewQuoteProduct[];
 };
@@ -29,6 +30,7 @@ export interface Quote {
   number: string;
   orderFormId?: string;
   object?: string;
+  isOpen: boolean;
 }
 
 export interface QuoteProduct {

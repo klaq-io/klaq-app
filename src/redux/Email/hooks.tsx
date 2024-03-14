@@ -88,3 +88,40 @@ export const useResendVerificationEmail = () => {
     }
   });
 };
+
+export const useSendMail = () => {
+  return useAsyncCallback(
+    async (values: {
+      to: string;
+      subject: string;
+      message: string;
+      cc?: boolean;
+    }) => {
+      try {
+        await webClient.post('email/send', values);
+        toast.custom(
+          <ToastNotification
+            status="success"
+            titleId={`toast.success.email-sent.title`}
+            messageId={`toast.success.email-sent.message`}
+          />,
+          { duration: 1500, position: 'top-right' },
+        );
+      } catch (error: any) {
+        const code = error.response.data.code
+          ? error.response.data.code.toLowerCase()
+          : 'default';
+        toast.custom(
+          <ToastNotification
+            status="danger"
+            titleId={`toast.error.${code}.title`}
+            messageId={`toast.error.${code}.message`}
+          />,
+          { duration: 1500, position: 'top-right' },
+        );
+        console.error(error);
+        return error.response;
+      }
+    },
+  );
+};

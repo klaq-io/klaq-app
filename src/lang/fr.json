@@ -841,7 +841,9 @@
       "overdue": "Aucun évènement en retard de paiement",
       "past": "Aucun évènement passé",
       "lost": "Aucun évènement perdu",
-      "all": "Aucun évènement"
+      "all": "Aucun évènement",
+      "ready": "Aucun évènement prêt",
+      "done": "Aucun évènement terminé"
     },
     "filter": {
       "this_week": "Cette semaine",
@@ -1601,8 +1603,24 @@
     "description": "Nous vous recommandons d'utiliser Klaq sur ordinateur. L'application mobile est en cours de développement 😉"
   },
 
+  "email": {
+    "template": {
+      "unavailable": {
+        "subject": "Indisponibilité pour la date demandée - Merci pour votre intérêt",
+        "content": "Bonjour,\n\nJe vous remercie vivement pour votre intérêt envers mes services. Malheureusement, je suis indisponible à la date que vous avez spécifiée, ce qui m'empêche d'accepter favorablement votre demande. \nJe vous renouvelle mes remerciements et vous souhaite bon courage dans vos recherches. \n\nCordialement, \n{{stageName}}"
+      }
+    },
+    "button": {
+      "send": "Envoyer"
+    }
+  },
+
   "toast": {
     "success": {
+      "email-sent": {
+        "title": "Succès",
+        "message": "L'email a bien été envoyé"
+      },
       "create-customer": {
         "title": "Succès",
         "message": "Le client a bien été créé"

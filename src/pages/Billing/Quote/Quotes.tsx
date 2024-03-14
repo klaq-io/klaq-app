@@ -1,12 +1,16 @@
 import {
   ArrowDownTrayIcon,
   DocumentDuplicateIcon,
-  EyeIcon,
+  EyeIcon as EyeIconOutline,
   MagnifyingGlassIcon,
   PaperAirplaneIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline';
-import { HandThumbUpIcon } from '@heroicons/react/24/solid';
+import {
+  EyeIcon,
+  EyeSlashIcon,
+  HandThumbUpIcon,
+} from '@heroicons/react/24/solid';
 import { Button, CreateNewQuoteModal, KebabMenu, Skeleton } from 'components';
 import { QuoteBadgeButton } from 'components/Quote/QuoteBadgeButton';
 import { Quote, QuoteStatus } from 'interface/Quote/quote.interface';
@@ -52,7 +56,7 @@ export const Quotes = () => {
   const optionMenu = (quote: Quote) => [
     {
       name: 'quote.list.menu.view',
-      icon: EyeIcon,
+      icon: EyeIconOutline,
       onClick: () => handleView(quote.id),
     },
     {
@@ -280,6 +284,9 @@ export const Quotes = () => {
                       id: 'quote.list.table.total',
                     })}
                   </th>
+                  <th>
+                    <span className="sr-only">Quote Opened</span>
+                  </th>
                   <th
                     scope="col"
                     className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-semibold text-gray-900"
@@ -336,6 +343,15 @@ export const Quotes = () => {
                               )
                               .toFixed(2)}{' '}
                             €
+                          </div>
+                        </td>
+                        <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                          <div className="font-medium text-gray-500">
+                            {quote.isOpen ? (
+                              <EyeIcon className="h-5 w-5 text-green-500" />
+                            ) : (
+                              <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                            )}
                           </div>
                         </td>
                         <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
