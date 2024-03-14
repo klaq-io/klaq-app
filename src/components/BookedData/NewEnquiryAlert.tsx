@@ -85,7 +85,7 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
         })}
       />
       <MailPopUp
-        open={isMailPopUpOpened}
+        isOpen={isMailPopUpOpened}
         setOpen={setMailPopupOpen}
         content={{
           to: event.customer.email,
