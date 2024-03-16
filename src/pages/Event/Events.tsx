@@ -198,36 +198,42 @@ export const Events = () => {
       current: 'all' === searchParams.get('tab') ? true : false,
       events: EVENTS.ALL,
       pipeValue: getQuotePipeValueV2(mainEvents),
+      animate: false,
     },
     {
       name: 'new',
       current: 'new' === searchParams.get('tab') ? true : false,
       events: EVENTS.NEW,
       pipeValue: getQuotePipeValueV2(newEventsList),
+      animate: !!newEventsList.length,
     },
     {
       name: 'pending',
       current: 'pending' === searchParams.get('tab') ? true : false,
       events: EVENTS.PENDING,
       pipeValue: getQuotePipeValueV2(pendingEvents),
+      animate: false,
     },
     {
       name: 'ready',
       current: 'ready' === searchParams.get('tab') ? true : false,
       events: EVENTS.READY,
       pipeValue: getQuotePipeValueV2(eventsReadyList),
+      animate: false,
     },
     {
       name: 'done',
       current: 'done' === searchParams.get('tab') ? true : false,
       events: EVENTS.DONE,
       pipeValue: getQuotePipeValueV2(eventsDoneList),
+      animate: false,
     },
     {
       name: 'lost',
       current: 'lost' === searchParams.get('tab') ? true : false,
       events: EVENTS.LOST,
       pipeValue: getQuotePipeValueV2(lostEvents),
+      animate: false,
     },
   ];
 
@@ -299,7 +305,10 @@ export const Events = () => {
                   }
                   aria-current={tab.current ? 'page' : undefined}
                 >
-                  <span>
+                  <span className="relative">
+                    {!!tab.animate && (
+                      <span className="absolute right-0 top-0 block h-2 w-2 rounded-full bg-klaq-400 ring-2 ring-white animate-ping"></span>
+                    )}
                     {intl.formatMessage({
                       id: `events.tabs.${tab.name}`,
                     })}

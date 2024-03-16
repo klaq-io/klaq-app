@@ -428,8 +428,8 @@
       "no-products-found": "Aucun produit n'a été trouvé en utilisant ces termes de recherche",
       "product-get-started": "Cliquer pour commencer à ajouter un produit",
       "infobox": {
-        "title": "Pourquoi ajouter des produits ?",
-        "content": "Ajouter un produit à un événement vous permet de savoir quels sont les prestations/services que vous comptez offrir à votre client. Cela vous permettra de générer des devis et des factures plus rapidement. Le budget fixé par votre client s'élève à <b>{budget}€</b>."
+        "title": "Pourquoi attacher des produits ?",
+        "content": "Attacher un produit à un événement vous permet de savoir quels sont les prestations/services que vous comptez offrir à votre client. Cela vous permettra de générer des devis et des factures plus rapidement. Le budget fixé par votre client s'élève à <b>{budget}€</b>."
       }
     },
     "commentaries": {
@@ -894,7 +894,7 @@
       },
       "new-enquiry": {
         "infobox": {
-          "title": "Nouvelle demande entrante",
+          "title": "Nouvelle demande entrante du {date}",
           "button": {
             "accept": "Accepter",
             "reject": "Décliner et supprimer"

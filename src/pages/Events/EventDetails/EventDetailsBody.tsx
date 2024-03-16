@@ -502,6 +502,7 @@ const AssistantSection = (event: MainEvent) => {
             },
           )}
         </h1>
+
         <NewEnquiryAlert event={event} />
         <BookedDateAlert event={event} />
         {!!distance && !!duration && (

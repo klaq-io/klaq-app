@@ -1,5 +1,6 @@
 import { AlertWithButtons, MailPopUp } from 'components';
 import { DangerModal } from 'components/Modal';
+import { differenceInDays, differenceInHours } from 'date-fns';
 import { Status } from 'enum/status.enum';
 import { MainEvent } from 'interface/Event/main-event.interface';
 import { useState } from 'react';
@@ -17,6 +18,12 @@ type NewEnquiryAlertProps = {
   event: MainEvent;
 };
 
+enum DEAL_WARMNESS {
+  HOT,
+  WARM,
+  COLD,
+}
+
 export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
   const { event } = props;
   const navigate = useNavigate();
@@ -26,6 +33,7 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
   const [, updateArchivedStatus] = useUpdateArchivedStatus();
   const [, updateEventStatus] = useUpdateMainEventStatus();
   const [, fetchEvents] = useFetchMainEvents();
+  const eventCreationDate = new Date(event.createdAt);
 
   const handleDeleteEvent = async () => {
     setOpenDelete(false);
@@ -41,6 +49,20 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
       },
       event.id,
     );
+  };
+
+  const getDealWarmness = () => {
+    const now = new Date();
+    const hoursDifference = differenceInHours(now, eventCreationDate);
+    const daysDifference = differenceInDays(now, eventCreationDate);
+
+    if (hoursDifference < 24) {
+      return DEAL_WARMNESS.HOT;
+    }
+    if (daysDifference < 7) {
+      return DEAL_WARMNESS.WARM;
+    }
+    return DEAL_WARMNESS.COLD;
   };
 
   return (
@@ -64,9 +86,12 @@ export const NewEnquiryAlert = (props: NewEnquiryAlertProps) => {
               },
             },
           ]}
-          title={intl.formatMessage({
-            id: 'event-details.assistant.new-enquiry.infobox.title',
-          })}
+          title={`${intl.formatMessage(
+            {
+              id: 'event-details.assistant.new-enquiry.infobox.title',
+            },
+            { date: eventCreationDate.toLocaleDateString() },
+          )} ${getDealWarmness() === DEAL_WARMNESS.HOT ? '🔥🔥🔥' : getDealWarmness() === DEAL_WARMNESS.WARM ? '🔥' : '❄️'} `}
         />
       )}
       <DangerModal

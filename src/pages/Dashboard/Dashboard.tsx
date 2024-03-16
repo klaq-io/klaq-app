@@ -129,11 +129,11 @@ export const Dashboard = () => {
             >
               <dt>
                 <div className="absolute rounded-md bg-klaq-500 p-3">
+                  {!!item.animate && (
+                    <span className="absolute right-0 top-0 block h-2 w-2 rounded-full bg-klaq-400 ring-2 ring-white animate-ping"></span>
+                  )}
                   <item.icon
-                    className={classNames(
-                      'h-6 w-6 text-white',
-                      item.animate && 'animate-pulse',
-                    )}
+                    className={classNames('h-6 w-6 text-white')}
                     aria-hidden="true"
                   />
                 </div>

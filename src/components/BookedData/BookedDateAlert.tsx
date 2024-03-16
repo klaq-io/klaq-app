@@ -197,6 +197,7 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
       <MiniCalendarPopUp
         shouldBeOpened={shouldOpenMiniCalendarPopUp}
         setOpen={setShouldOpenMiniCalendarPopUp}
+        startDate={new Date(event.subEvents[0].date)}
       />
     </>
   );

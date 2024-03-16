@@ -39,14 +39,19 @@ type Event = SubEvent & {
   status: EventStatus;
 };
 
-export const MiniCalendar = () => {
+type MiniCalendarProps = {
+  startDate?: Date;
+};
+
+export const MiniCalendar = (props: MiniCalendarProps) => {
+  const { startDate } = props;
   const intl = useIntl();
   const navigate = useNavigate();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
 
-  const today = startOfToday();
+  const today = startDate ? startDate : startOfToday();
   const [selectedDay, setSelectedDay] = useState(today);
   const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
   const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
