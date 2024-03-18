@@ -24,6 +24,7 @@ export interface User {
   updatedAt: Date;
   logoUrl?: string;
   settings: Settings;
+  biography?: string;
 }
 
 export type UserSliceType = User;
