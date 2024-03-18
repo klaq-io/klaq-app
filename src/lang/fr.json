@@ -1368,14 +1368,16 @@
         "website": "www.example.com",
         "public-email": "Saisissez votre adresse e-mail",
         "public-phone": "Saisissez votre numéro de téléphone",
-        "category": "Saisissez votre catégorie"
+        "category": "Saisissez votre catégorie",
+        "biography": "Je suis John Doe, un photographe passionné qui explore la beauté et la complexité du monde à travers mon objectif. En tant que conteur visuel, j'aspire à inspirer et à émerveiller les spectateurs avec mes images évocatrices, continuant ainsi à partager ma vision du monde à travers la photographie."
       },
       "label": {
         "stage-name": "Nom de scène",
         "website": "Site internet",
         "public-email": "Adresse email public",
         "public-phone": "Numéro de téléphone public",
-        "category": "Catégorie"
+        "category": "Catégorie",
+        "biography": "Biographie"
       },
       "error": {
         "stage-name": "Veuillez saisir votre nom de scène",
