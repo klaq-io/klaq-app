@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { EventStatus } from 'redux/Events/slices';
 import { useFetchMainEvents } from 'redux/MainEvent/hooks';
 import {
   getEventAfterEvent,
@@ -41,11 +42,19 @@ export const BookedDateAlert = (props: BookedDateAlertProps) => {
       eventBefore && new Date(eventBefore.subEvents[0].date);
     const eventAfterDate = eventAfter && new Date(eventAfter.subEvents[0].date);
 
-    if (eventAfterDate && isSameDay(eventDate, eventAfterDate)) {
+    if (
+      eventAfterDate &&
+      isSameDay(eventDate, eventAfterDate) &&
+      eventAfter.status !== EventStatus.LOST
+    ) {
       return eventAfter;
     }
 
-    if (eventBeforeDate && isSameDay(eventDate, eventBeforeDate)) {
+    if (
+      eventBeforeDate &&
+      isSameDay(eventDate, eventBeforeDate) &&
+      eventBefore.status !== EventStatus.LOST
+    ) {
       return eventBefore;
     }
 
