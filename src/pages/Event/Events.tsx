@@ -6,10 +6,7 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchMainEvents } from 'redux/MainEvent/hooks';
-import {
-  getMainEvents,
-  getMainEventsByStatus,
-} from 'redux/MainEvent/selectors';
+import { getMainEventsByStatus } from 'redux/MainEvent/selectors';
 import { getQuotePipeValueV2 } from 'utils/quote';
 import { PageLayout } from '../../layouts';
 import { EventStatus } from '../../redux/Events/slices';
