@@ -2,11 +2,9 @@ import {
   ArrowRightIcon,
   EyeIcon,
   EyeSlashIcon,
-  XMarkIcon,
-  CheckIcon,
 } from '@heroicons/react/24/outline';
 import backgroundAuth from 'assets/background-auth.jpeg';
-import { Button } from 'components';
+import { Button, PasswordStrengthIndicator } from 'components';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -16,8 +14,6 @@ import { OnboardingLayout } from '../../layouts/OnboardingLayout/OnboardingLayou
 import { useSignUp } from '../../redux/Login/hooks';
 import { PATHS } from '../../routes';
 import { initialValues, validationSchema } from './form';
-import { classNames } from 'utils/utils';
-import { PasswordStrengthIndicator } from 'components';
 
 export const SignUp = () => {
   const intl = useIntl();
