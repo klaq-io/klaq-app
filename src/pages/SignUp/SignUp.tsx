@@ -17,6 +17,7 @@ import { useSignUp } from '../../redux/Login/hooks';
 import { PATHS } from '../../routes';
 import { initialValues, validationSchema } from './form';
 import { classNames } from 'utils/utils';
+import { PasswordStrengthIndicator } from 'components';
 
 export const SignUp = () => {
   const intl = useIntl();
@@ -136,78 +137,30 @@ export const SignUp = () => {
                 )}
               </button>
             </div>
-            <span
-              className={classNames(
-                'mt-2 text-sm block flex',
-                formik.values.password.match(/^.*[A-Z]+.*$/)
-                  ? 'text-success-600'
-                  : 'text-danger-600',
-              )}
-            >
-              {formik.values.password.match(/^.*[A-Z]+.*$/) ? (
-                <CheckIcon className="w-5 h-5" />
-              ) : (
-                <XMarkIcon className="w-5 h-5" />
-              )}
-
-              {intl.formatMessage({
-                id: 'sign-up.error.password.upperkeys',
-              })}
-            </span>
-            <span
-              className={classNames(
-                'mt-2 text-sm block flex',
-                formik.values.password.match(/^.*[0-9]+.*$/)
-                  ? 'text-success-600'
-                  : 'text-danger-600',
-              )}
-            >
-              {formik.values.password.match(/^.*[0-9]+.*$/) ? (
-                <CheckIcon className="w-5 h-5" />
-              ) : (
-                <XMarkIcon className="w-5 h-5" />
-              )}
-
-              {intl.formatMessage({
-                id: 'sign-up.error.password.numbers',
-              })}
-            </span>
-            <span
-              className={classNames(
-                'mt-2 text-sm block flex',
-                formik.values.password.match(/^.*[!@#$%^&*]+.*$/)
-                  ? 'text-success-600'
-                  : 'text-danger-600',
-              )}
-            >
-              {formik.values.password.match(/^.*[!@#$%^&*]+.*$/) ? (
-                <CheckIcon className="w-5 h-5" />
-              ) : (
-                <XMarkIcon className="w-5 h-5" />
-              )}
-
-              {intl.formatMessage({
-                id: 'sign-up.error.password.special-keys',
-              })}
-            </span>
-            <span
-              className={classNames(
-                'mt-2 text-sm block flex',
-                formik.values.password.match(/^.{10,}$/)
-                  ? 'text-success-600'
-                  : 'text-danger-600',
-              )}
-            >
-              {formik.values.password.match(/^.{10,}$/) ? (
-                <CheckIcon className="w-5 h-5" />
-              ) : (
-                <XMarkIcon className="w-5 h-5" />
-              )}
-
-              {intl.formatMessage({
-                id: 'sign-up.error.password.minimum-keys',
-              })}
-            </span>
+            {formik.values.password && formik.submitCount > 0 && (
+              <div className="mt-4">
+                <PasswordStrengthIndicator
+                  regex={/^.*[A-Z]+.*$/}
+                  message="sign-up.error.password.upperkeys"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.*[0-9]+.*$/}
+                  message="sign-up.error.password.numbers"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.*[!@#$%^&*]+.*$/}
+                  message="sign-up.error.password.special-keys"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.{10,}$/}
+                  message="sign-up.error.password.minimum-keys"
+                  password={formik.values.password}
+                />
+              </div>
+            )}
           </div>
           <div>
             <label
