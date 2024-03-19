@@ -97,23 +97,15 @@ export const Events = () => {
     getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE),
   );
 
-  const mainEvents: MainEvent[] = [];
+  const mainEventsSet = new Set<MainEvent>();
 
-  const EventsTab = [
-    newEventsList,
-    pendingEvents,
-    eventsReadyList,
-    eventsDoneList,
-    lostEvents,
-  ];
+  newEventsList.forEach((event) => mainEventsSet.add(event));
+  pendingEvents.forEach((event) => mainEventsSet.add(event));
+  eventsReadyList.forEach((event) => mainEventsSet.add(event));
+  eventsDoneList.forEach((event) => mainEventsSet.add(event));
+  lostEvents.forEach((event) => mainEventsSet.add(event));
 
-  EventsTab.forEach((eventsList) => {
-    eventsList.forEach((event) => {
-      if (!mainEvents.includes(event)) {
-        mainEvents.push(event);
-      }
-    });
-  });
+  const mainEvents: MainEvent[] = Array.from(mainEventsSet);
 
   const EVENTS = {
     NEW:
