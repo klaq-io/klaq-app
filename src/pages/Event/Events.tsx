@@ -21,6 +21,7 @@ import {
   getThisWeekDates,
   getThisYearDates,
 } from '../../utils/utils';
+import { MainEvent } from 'interface/Event/main-event.interface';
 
 enum FILTER_OPTIONS {
   THIS_WEEK = 'THIS_WEEK',
@@ -53,7 +54,7 @@ export const Events = () => {
   const [{ isLoading: isLoadingEvents }, fetchMainEvents] =
     useFetchMainEvents();
 
-  const mainEvents = useSelector(getMainEvents);
+  // const mainEvents = useSelector(getMainEvents);
 
   const newEventsList = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INBOX),
@@ -74,7 +75,7 @@ export const Events = () => {
   );
 
   const lostEvents = useSelector((state: any) =>
-    getMainEventsByStatus(state, EventStatus.LOST, EventStatus.QUOTE_REJECTED),
+    getMainEventsByStatus(state, EventStatus.LOST),
   );
 
   const pendingEvents = useSelector((state: any) =>
@@ -98,6 +99,24 @@ export const Events = () => {
   const overdueEvents = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE),
   );
+
+  const mainEvents: MainEvent[] = [];
+
+  const EventsTab = [
+    newEventsList,
+    pendingEvents,
+    eventsReadyList,
+    eventsDoneList,
+    lostEvents,
+  ];
+
+  EventsTab.forEach((eventsList) => {
+    eventsList.forEach((event) => {
+      if (!mainEvents.includes(event)) {
+        mainEvents.push(event);
+      }
+    });
+  });
 
   const EVENTS = {
     NEW:
