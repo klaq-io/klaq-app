@@ -10,6 +10,7 @@ export const initialValues = {
   publicEmail: '',
   publicPhone: '',
   website: '',
+  biography: '',
 };
 
 export const validationSchema = Yup.object({
@@ -22,4 +23,5 @@ export const validationSchema = Yup.object({
   publicEmail: Yup.string().required('Required'),
   publicPhone: Yup.string().required('Required'),
   website: Yup.string().notRequired(),
+  biography: Yup.string().notRequired(),
 });

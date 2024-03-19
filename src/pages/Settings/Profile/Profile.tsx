@@ -1,5 +1,5 @@
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { Button, SettingsNavbar } from 'components';
+import { Button, SettingsNavbar, TextArea } from 'components';
 import { format, subYears } from 'date-fns';
 import { useFormik } from 'formik';
 import { PageLayout } from 'layouts';
@@ -237,6 +237,20 @@ export const Profile = () => {
                         />
                       </div>
                     </div>
+                  </div>
+                  <div className="sm:col-span-full">
+                    <TextArea
+                      label={intl.formatMessage({
+                        id: 'settings.profile.label.biography',
+                      })}
+                      name="biography"
+                      value={formik.values.biography}
+                      onChange={formik.handleChange}
+                      placeholder={intl.formatMessage({
+                        id: 'settings.profile.input.biography',
+                      })}
+                      rows={4}
+                    />
                   </div>
                 </div>
               </div>

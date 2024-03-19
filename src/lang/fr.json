@@ -68,7 +68,12 @@
       "first-name": "Veuillez saisir votre prénom",
       "last-name": "Veuillez saisir votre nom",
       "email": "Veuillez saisir votre adresse e-mail",
-      "password": "Veuillez saisir votre mot de passe, celui doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial",
+      "password": {
+        "upperkeys": "Votre mot de passe doit contenir au moins 1 lettre majuscule",
+        "numbers": "Votre mot de passe doit contenir au moins 1 chiffre",
+        "special-keys": "Votre mot de passe doit contenir au moins 1 caractère spécial (!@#$%^&*)",
+        "minimum-keys": "Votre mot de passe doit contenir au moins 10 caractères"
+      },
       "phone": "Veuillez saisir un numéro de téléphone portable valide"
     },
     "submit": "Continuer"
@@ -1368,14 +1373,16 @@
         "website": "www.example.com",
         "public-email": "Saisissez votre adresse e-mail",
         "public-phone": "Saisissez votre numéro de téléphone",
-        "category": "Saisissez votre catégorie"
+        "category": "Saisissez votre catégorie",
+        "biography": "Je suis John Doe, un photographe passionné qui explore la beauté et la complexité du monde à travers mon objectif. En tant que conteur visuel, j'aspire à inspirer et à émerveiller les spectateurs avec mes images évocatrices, continuant ainsi à partager ma vision du monde à travers la photographie."
       },
       "label": {
         "stage-name": "Nom de scène",
         "website": "Site internet",
         "public-email": "Adresse email public",
         "public-phone": "Numéro de téléphone public",
-        "category": "Catégorie"
+        "category": "Catégorie",
+        "biography": "Biographie"
       },
       "error": {
         "stage-name": "Veuillez saisir votre nom de scène",

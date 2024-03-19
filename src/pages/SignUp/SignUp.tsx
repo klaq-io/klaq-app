@@ -1,6 +1,10 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/outline';
 import backgroundAuth from 'assets/background-auth.jpeg';
-import { Button } from 'components';
+import { Button, PasswordStrengthIndicator } from 'components';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -19,6 +23,8 @@ export const SignUp = () => {
   const [isMailNotificationEnabled, setEnabledMailNotification] =
     useState(true);
   const [isCGUAccepted, setAcceptedCgu] = useState(false);
+
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const setPhoneNumber = (value: string) => {
     formik.setFieldValue('phone', value);
@@ -102,27 +108,55 @@ export const SignUp = () => {
                 id: 'sign-up.label.password',
               })}
             </label>
-            <div className="mt-2">
+            <div className="mt-2 relative">
               <input
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 id="password"
                 name="password"
-                type="password"
+                type={isPasswordHidden ? 'password' : 'text'}
                 required
                 className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
                   id: 'sign-up.input.password',
                 })}
               />
-              {formik.errors.password && formik.touched.password ? (
-                <p className="mt-2 text-sm text-danger-600" id="email-error">
-                  {intl.formatMessage({
-                    id: 'sign-up.error.password',
-                  })}
-                </p>
-              ) : null}
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-klaq-500"
+                onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+              >
+                {isPasswordHidden ? (
+                  <EyeSlashIcon className="w-5 h-5" />
+                ) : (
+                  <EyeIcon className="w-5 h-5" />
+                )}
+              </button>
             </div>
+            {formik.values.password && formik.submitCount > 0 && (
+              <div className="mt-4">
+                <PasswordStrengthIndicator
+                  regex={/^.*[A-Z]+.*$/}
+                  message="sign-up.error.password.upperkeys"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.*[0-9]+.*$/}
+                  message="sign-up.error.password.numbers"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.*[!@#$%^&*]+.*$/}
+                  message="sign-up.error.password.special-keys"
+                  password={formik.values.password}
+                />
+                <PasswordStrengthIndicator
+                  regex={/^.{10,}$/}
+                  message="sign-up.error.password.minimum-keys"
+                  password={formik.values.password}
+                />
+              </div>
+            )}
           </div>
           <div>
             <label
