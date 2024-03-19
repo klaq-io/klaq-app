@@ -7,12 +7,18 @@ import { PATHS } from '../../routes';
 import { initialValues, validationSchema } from './form';
 import { Button } from 'components';
 import KlaqLogo from '../../assets/klaq.png';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/outline';
 import backgroundAuth from 'assets/background-auth.jpeg';
+import { useState } from 'react';
 
 export const Login = () => {
   const navigate = useNavigate();
   const intl = useIntl();
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const [{ isLoading }, fetchUseLogin] = useLogin();
 
@@ -94,13 +100,13 @@ export const Login = () => {
                       id: 'login.label.password',
                     })}
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <input
                       onChange={formik.handleChange}
                       value={formik.values.password}
                       id="password"
                       name="password"
-                      type="password"
+                      type={isPasswordHidden ? 'password' : 'text'}
                       autoComplete="current-password"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
@@ -108,6 +114,17 @@ export const Login = () => {
                         id: 'login.input.password',
                       })}
                     />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-klaq-500"
+                      onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                    >
+                      {isPasswordHidden ? (
+                        <EyeSlashIcon className="w-5 h-5" />
+                      ) : (
+                        <EyeIcon className="w-5 h-5" />
+                      )}
+                    </button>
                   </div>
                 </div>
 

@@ -1,4 +1,10 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  XMarkIcon,
+  CheckIcon,
+} from '@heroicons/react/24/outline';
 import backgroundAuth from 'assets/background-auth.jpeg';
 import { Button } from 'components';
 import { useFormik } from 'formik';
@@ -10,6 +16,7 @@ import { OnboardingLayout } from '../../layouts/OnboardingLayout/OnboardingLayou
 import { useSignUp } from '../../redux/Login/hooks';
 import { PATHS } from '../../routes';
 import { initialValues, validationSchema } from './form';
+import { classNames } from 'utils/utils';
 
 export const SignUp = () => {
   const intl = useIntl();
@@ -19,6 +26,8 @@ export const SignUp = () => {
   const [isMailNotificationEnabled, setEnabledMailNotification] =
     useState(true);
   const [isCGUAccepted, setAcceptedCgu] = useState(false);
+
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const setPhoneNumber = (value: string) => {
     formik.setFieldValue('phone', value);
@@ -102,27 +111,103 @@ export const SignUp = () => {
                 id: 'sign-up.label.password',
               })}
             </label>
-            <div className="mt-2">
+            <div className="mt-2 relative">
               <input
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 id="password"
                 name="password"
-                type="password"
+                type={isPasswordHidden ? 'password' : 'text'}
                 required
                 className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-klaq-500 focus:bg-white focus:outline-none focus:ring-klaq-500 sm:text-sm"
                 placeholder={intl.formatMessage({
                   id: 'sign-up.input.password',
                 })}
               />
-              {formik.errors.password && formik.touched.password ? (
-                <p className="mt-2 text-sm text-danger-600" id="email-error">
-                  {intl.formatMessage({
-                    id: 'sign-up.error.password',
-                  })}
-                </p>
-              ) : null}
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-klaq-500"
+                onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+              >
+                {isPasswordHidden ? (
+                  <EyeSlashIcon className="w-5 h-5" />
+                ) : (
+                  <EyeIcon className="w-5 h-5" />
+                )}
+              </button>
             </div>
+            <span
+              className={classNames(
+                'mt-2 text-sm block flex',
+                formik.values.password.match(/^.*[A-Z]+.*$/)
+                  ? 'text-success-600'
+                  : 'text-danger-600',
+              )}
+            >
+              {formik.values.password.match(/^.*[A-Z]+.*$/) ? (
+                <CheckIcon className="w-5 h-5" />
+              ) : (
+                <XMarkIcon className="w-5 h-5" />
+              )}
+
+              {intl.formatMessage({
+                id: 'sign-up.error.password.upperkeys',
+              })}
+            </span>
+            <span
+              className={classNames(
+                'mt-2 text-sm block flex',
+                formik.values.password.match(/^.*[0-9]+.*$/)
+                  ? 'text-success-600'
+                  : 'text-danger-600',
+              )}
+            >
+              {formik.values.password.match(/^.*[0-9]+.*$/) ? (
+                <CheckIcon className="w-5 h-5" />
+              ) : (
+                <XMarkIcon className="w-5 h-5" />
+              )}
+
+              {intl.formatMessage({
+                id: 'sign-up.error.password.numbers',
+              })}
+            </span>
+            <span
+              className={classNames(
+                'mt-2 text-sm block flex',
+                formik.values.password.match(/^.*[!@#$%^&*]+.*$/)
+                  ? 'text-success-600'
+                  : 'text-danger-600',
+              )}
+            >
+              {formik.values.password.match(/^.*[!@#$%^&*]+.*$/) ? (
+                <CheckIcon className="w-5 h-5" />
+              ) : (
+                <XMarkIcon className="w-5 h-5" />
+              )}
+
+              {intl.formatMessage({
+                id: 'sign-up.error.password.special-keys',
+              })}
+            </span>
+            <span
+              className={classNames(
+                'mt-2 text-sm block flex',
+                formik.values.password.match(/^.{10,}$/)
+                  ? 'text-success-600'
+                  : 'text-danger-600',
+              )}
+            >
+              {formik.values.password.match(/^.{10,}$/) ? (
+                <CheckIcon className="w-5 h-5" />
+              ) : (
+                <XMarkIcon className="w-5 h-5" />
+              )}
+
+              {intl.formatMessage({
+                id: 'sign-up.error.password.minimum-keys',
+              })}
+            </span>
           </div>
           <div>
             <label
