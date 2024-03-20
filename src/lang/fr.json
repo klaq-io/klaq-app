@@ -637,7 +637,7 @@
 
   "customers": {
     "header": "Clients",
-    "description": "Vous avez {nb} clients dans votre annuaire.",
+    "description": "Vous avez {nb} client(s) dans votre annuaire.",
     "no-customers": "Ajouter mon premier client",
     "get-started": "Cliquer pour commencer à ajouter un client",
     "my-customers": {
@@ -657,7 +657,12 @@
         "delete": "Supprimer",
         "look": "Voir",
         "sort": "Filtrer",
-        "archive": "Archiver"
+        "archive": "Archiver",
+        "filter": {
+          "company": "Entreprises",
+          "customer": "Particuliers",
+          "all": "Tous"
+        }
       }
     },
     "new-customer": {
