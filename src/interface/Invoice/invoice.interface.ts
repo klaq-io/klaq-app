@@ -12,6 +12,7 @@ export type NewInvoice = Omit<
   | 'products'
   | 'createdAt'
   | 'updatedAt'
+  | 'isOpen'
 > & {
   products: NewInvoiceProduct[];
 };
@@ -32,6 +33,7 @@ export interface Invoice {
   paymentMethod: PaymentMethod;
   onlinePaymentAccepted: boolean;
   isFinal: boolean;
+  isOpen: boolean;
 }
 
 export interface InvoiceProduct {

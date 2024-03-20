@@ -6,10 +6,7 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchMainEvents } from 'redux/MainEvent/hooks';
-import {
-  getMainEvents,
-  getMainEventsByStatus,
-} from 'redux/MainEvent/selectors';
+import { getMainEventsByStatus } from 'redux/MainEvent/selectors';
 import { getQuotePipeValueV2 } from 'utils/quote';
 import { PageLayout } from '../../layouts';
 import { EventStatus } from '../../redux/Events/slices';
@@ -53,8 +50,6 @@ export const Events = () => {
   const [{ isLoading: isLoadingEvents }, fetchMainEvents] =
     useFetchMainEvents();
 
-  const mainEvents = useSelector(getMainEvents);
-
   const newEventsList = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INBOX),
   );
@@ -97,6 +92,16 @@ export const Events = () => {
   );
   const overdueEvents = useSelector((state: any) =>
     getMainEventsByStatus(state, EventStatus.INVOICE_OVERDUE),
+  );
+
+  const mainEvents = Array.from(
+    new Set([
+      ...newEventsList,
+      ...pendingEvents,
+      ...eventsReadyList,
+      ...eventsDoneList,
+      ...lostEvents,
+    ]),
   );
 
   const EVENTS = {

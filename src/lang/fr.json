@@ -649,8 +649,8 @@
       "location": "Localisation",
       "status": "Statut",
       "value": "Facturé & Payé",
-      "enquiry": "Nombre de demandes entrantes",
-      "signed": "Nombre d'évènements facturés",
+      "enquiry": "Demandes entrantes",
+      "signed": "Évènements facturés",
       "button": {
         "header": "Options",
         "edit": "Modifier",
@@ -1793,7 +1793,7 @@
       },
       "auth-weak-password": {
         "title": "Erreur",
-        "message": "Le mot de passe doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractères spécial"
+        "message": "Le mot de passe doit contenir au moins 10 caractères, 1 chiffre, 1 lettre majuscule et 1 caractère spécial"
       },
       "auth-invalid-password": {
         "title": "Erreur",

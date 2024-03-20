@@ -1,4 +1,8 @@
-import { HandThumbUpIcon } from '@heroicons/react/20/solid';
+import {
+  EyeSlashIcon,
+  EyeIcon as EyeIconSolid,
+  HandThumbUpIcon,
+} from '@heroicons/react/20/solid';
 import {
   ArrowDownTrayIcon,
   ExclamationTriangleIcon,
@@ -276,6 +280,9 @@ export const InvoicesPage = () => {
                     id: 'invoices.table.total',
                   })}
                 </th>
+                <th>
+                  <span className="sr-only">Invoice Opened</span>
+                </th>
                 <th
                   scope="col"
                   className="relative py-3.5 pl-3 pr-4 sm:pr-6 text-right text-sm font-semibold text-gray-900"
@@ -356,6 +363,15 @@ export const InvoicesPage = () => {
                       <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
                         <div className="font-medium text-gray-500">
                           {getInvoiceSubtotal(invoice).toFixed(2)} €
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 lg:table-cell text-center">
+                        <div className="font-medium text-gray-500">
+                          {invoice.isOpen ? (
+                            <EyeIconSolid className="h-5 w-5 text-green-500" />
+                          ) : (
+                            <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                          )}
                         </div>
                       </td>
                       <td className="relative py-3.5 pr-4 text-right text-sm font-medium sm:pr-6">
