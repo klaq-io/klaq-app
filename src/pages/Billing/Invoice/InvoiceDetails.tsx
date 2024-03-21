@@ -99,10 +99,17 @@ export const InvoiceDetailsPage = () => {
           >
             <div className="sm:flex sm:space-x-4 h-full">
               <CardContainer className="flex flex-col space-y-8 px-4 py-5 sm:p-6 w-full h-full sm:w-3/4">
-                <iframe
-                  src={`${process.env.REACT_APP_API_URL}/invoice/render/${invoice.id}/${user.id}`}
-                  className="w-full h-full overflow-y-scroll"
-                />
+                {invoice.isFinal ? (
+                  <iframe
+                    src={`${process.env.REACT_APP_API_URL}/invoice/render/${invoice.id}/${user.id}`}
+                    className="w-full h-full overflow-y-scroll"
+                  />
+                ) : (
+                  <iframe
+                    src={`${process.env.REACT_APP_API_URL}/invoice/render/${invoice.id}/${user.id}`}
+                    className="w-full h-full overflow-y-scroll"
+                  />
+                )}
               </CardContainer>
               <div className="sm:flex flex-col space-y-4 min-h-fit w-full sm:w-1/4 h-full">
                 <div className="flex justify-between">
