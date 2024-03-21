@@ -4,6 +4,9 @@ import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
+  UserIcon,
+  BuildingLibraryIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
 import { Button, DangerModal, KebabMenu } from 'components';
 import { useEffect, useState } from 'react';
@@ -16,7 +19,7 @@ import {
   useUpdateArchivedStatus,
 } from '../../redux/Customer/hooks';
 import { getCustomers } from '../../redux/Customer/selectors';
-import { Customer } from '../../redux/Customer/slices';
+import { Customer, CustomerType } from '../../redux/Customer/slices';
 import { EventStatus } from '../../redux/Events/slices';
 import { PATHS } from '../../routes';
 import EditCustomer from './EditCustomer';
@@ -25,6 +28,10 @@ import { NewCustomer } from './NewCustomer';
 export const Customers = () => {
   const intl = useIntl();
   const navigate = useNavigate();
+
+  const [filteredCustomerType, setFilteredCustomerType] = useState<
+    CustomerType | undefined
+  >(undefined);
 
   const [query, setQuery] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState<Customer>();
@@ -40,14 +47,18 @@ export const Customers = () => {
   const customers = useSelector(getCustomers);
   const filteredCustomers =
     query === ''
-      ? customers
+      ? customers.filter(
+          (customer) =>
+            !filteredCustomerType || customer.type === filteredCustomerType,
+        )
       : customers.filter(
           (customer) =>
-            customer.name?.toLowerCase().includes(query.toLowerCase()) ||
-            customer.firstName.toLowerCase().includes(query.toLowerCase()) ||
-            customer.lastName.toLowerCase().includes(query.toLowerCase()) ||
-            customer.email.toLowerCase().includes(query.toLowerCase()) ||
-            customer.phone.includes(query),
+            (!filteredCustomerType || customer.type === filteredCustomerType) &&
+            (customer.name?.toLowerCase().includes(query.toLowerCase()) ||
+              customer.firstName.toLowerCase().includes(query.toLowerCase()) ||
+              customer.lastName.toLowerCase().includes(query.toLowerCase()) ||
+              customer.email.toLowerCase().includes(query.toLowerCase()) ||
+              customer.phone.includes(query)),
         );
 
   // const getCustomerStatus = (customer: Customer) => {
@@ -83,6 +94,10 @@ export const Customers = () => {
   const handleCustomerDetails = (id: string) => {
     const path = generatePath(PATHS.CUSTOMER_DETAILS, { id });
     navigate(path);
+  };
+
+  const handleFilterButtonClick = (customerType: CustomerType | undefined) => {
+    setFilteredCustomerType(customerType);
   };
 
   const optionsMenuItems = (customer: Customer) => [
@@ -145,25 +160,92 @@ export const Customers = () => {
           </div>
           {customers && customers.length ? (
             <>
-              <div className="mt-10 ml-auto w-2/4 flex rounded-md shadow-sm">
-                <div className="relative flex-grow focus-within:z-10">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlassIcon
-                      className="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
+              <div className="mt-10 flex justify-between ">
+                <div className="flex flex-row space-x-4">
+                  <Button
+                    variant="contained"
+                    color={
+                      filteredCustomerType === undefined
+                        ? 'primary'
+                        : 'secondary'
+                    }
+                    onClick={() => handleFilterButtonClick(undefined)}
+                    type="button"
+                    leadingIcon={
+                      <UserGroupIcon
+                        className="-ml-0.5 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    }
+                  >
+                    {intl.formatMessage({
+                      id: 'customers.my-customers.button.filter.all',
+                    })}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color={
+                      filteredCustomerType === CustomerType.COMPANY
+                        ? 'primary'
+                        : 'secondary'
+                    }
+                    onClick={() =>
+                      handleFilterButtonClick(CustomerType.COMPANY)
+                    }
+                    type="button"
+                    leadingIcon={
+                      <BuildingLibraryIcon
+                        className="-ml-0.5 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    }
+                  >
+                    {intl.formatMessage({
+                      id: 'customers.my-customers.button.filter.company',
+                    })}
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color={
+                      filteredCustomerType === CustomerType.PRIVATE
+                        ? 'primary'
+                        : 'secondary'
+                    }
+                    onClick={() =>
+                      handleFilterButtonClick(CustomerType.PRIVATE)
+                    }
+                    type="button"
+                    leadingIcon={
+                      <UserIcon
+                        className="-ml-0.5 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    }
+                  >
+                    {intl.formatMessage({
+                      id: 'customers.my-customers.button.filter.customer',
+                    })}
+                  </Button>
+                </div>
+                <div className="w-2/4 rounded-md shadow-sm">
+                  <div className=" relative flex-grow focus-within:z-10">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <MagnifyingGlassIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <input
+                      onChange={(e) => setQuery(e.target.value)}
+                      value={query}
+                      type="text"
+                      className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-8 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
+                      placeholder={intl.formatMessage({
+                        id: 'customers.input.search',
+                      })}
                     />
                   </div>
-                  <input
-                    onChange={(e) => setQuery(e.target.value)}
-                    value={query}
-                    type="text"
-                    className="hidden w-full rounded-md border-0 py-1.5 pl-10 text-sm leading-6 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:block"
-                    placeholder={intl.formatMessage({
-                      id: 'customers.input.search',
-                    })}
-                  />
-                </div>
-                {/* <button
+                  {/* <button
                   type="button"
                   className="bg-white relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
@@ -179,8 +261,8 @@ export const Customers = () => {
                     aria-hidden="true"
                   />
                 </button> */}
+                </div>
               </div>
-
               <div className="-mx-4 mt-4 sm:mx-0 sm:rounded-lg bg-white">
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead>
@@ -203,7 +285,7 @@ export const Customers = () => {
                       </th>
                       <th
                         scope="col"
-                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                        className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
                           id: 'customers.my-customers.enquiry',
@@ -211,7 +293,7 @@ export const Customers = () => {
                       </th>
                       <th
                         scope="col"
-                        className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
+                        className="hidden px-3 py-3.5 text-center text-sm font-semibold text-gray-900 lg:table-cell"
                       >
                         {intl.formatMessage({
                           id: 'customers.my-customers.signed',
