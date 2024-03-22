@@ -870,11 +870,22 @@
       "assistant": "Assistant",
       "tasks": "Tâches",
       "logs": "Suivi",
-      "billing": "Documents",
-      "products": "Produits"
+      "billing": "Facturation",
+      "products": "Produits",
+      "documents": "Documents"
     },
     "actions": {
       "header": "Actions à effectuer"
+    },
+    "billing": {
+      "no-quotes": {
+        "header": "Créer un devis",
+        "description": "Cliquer pour commencer à créer un devis"
+      },
+      "no-invoices": {
+        "header": "Créer une facture",
+        "description": "Cliquer pour commencer à créer un facture"
+      }
     },
     "assistant": {
       "header": "Assistant",

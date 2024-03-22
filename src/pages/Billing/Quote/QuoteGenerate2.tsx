@@ -667,7 +667,6 @@ export const QuoteGeneratePage = () => {
                             value={formik.values.products[index].discount}
                             type="number"
                             className="w-2/3"
-                            min={0}
                             onBlur={() =>
                               formik.values.products[index].discount
                                 ? formik.values.products[index].discount

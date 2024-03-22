@@ -1,4 +1,5 @@
 import { DocumentIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import { EyeSlashIcon, EyeIcon } from '@heroicons/react/24/solid';
 import { Button } from 'components/Button';
 import { InvoiceBadge } from 'components/Invoice';
 import { QuoteBadge } from 'components/Quote';
@@ -51,6 +52,13 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
                 €
               </span>
             </div>
+            <span className="mr-4">
+              {document.isOpen ? (
+                <EyeIcon className="h-5 w-5 text-green-500" />
+              ) : (
+                <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+              )}
+            </span>
             <div className="ml-4 flex-shrink-0">
               <span className="mr-4">
                 {type === 'quote' ? (
@@ -66,16 +74,6 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
                 onClick={() => handleDocumentDetails(document)}
               >
                 Voir
-              </Button>
-            </div>
-            <div className="ml-4 flex-shrink-0">
-              <Button
-                type="button"
-                variant="link"
-                color="primary"
-                // onClick={() => getDownloadUrlForDocument(file.id)}
-              >
-                Télécharger
               </Button>
             </div>
           </div>
