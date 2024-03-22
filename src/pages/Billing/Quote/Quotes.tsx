@@ -23,11 +23,17 @@ import { useDownloadQuoteDocument, useFetchQuotes } from 'redux/Quote/hooks';
 import { getQuotes } from 'redux/Quote/selectors';
 import { PATHS } from 'routes';
 import { classNames } from 'utils/utils';
+import { MailPopUp } from 'components';
+import { getUser } from 'redux/Login/selectors';
 
 export const Quotes = () => {
   const navigate = useNavigate();
   const intl = useIntl();
 
+  const user = useSelector(getUser);
+
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
+  const [shouldOpenDelete, setOpenDelete] = useState<boolean>(false);
   const [shouldOpenNewQuote, setOpenNewQuote] = useState(false);
   const [params, setParams] = useSearchParams();
   const query = params.get('q') || '';
@@ -67,7 +73,9 @@ export const Quotes = () => {
     {
       name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
-      onClick: () => handleSendByMail(quote.id),
+      onClick: () => {
+        setMailPopupOpen(true);
+      },
     },
     {
       name: 'quote.list.menu.download',
@@ -358,6 +366,33 @@ export const Quotes = () => {
                           <KebabMenu
                             items={optionMenu(quote)}
                             buttonSize="md"
+                          />
+                          <MailPopUp
+                            type="QUOTE"
+                            documentId={quote.id}
+                            isOpen={isMailPopUpOpened}
+                            setOpen={setMailPopupOpen}
+                            content={{
+                              to: quote.mainEvent.customer.email,
+                              message: intl.formatMessage(
+                                {
+                                  id: 'email.template.quote.content',
+                                },
+                                {
+                                  stageName: user.stageName,
+                                  type: quote.mainEvent.title.toLowerCase(),
+                                  date: quote
+                                    ? new Date(
+                                        quote.mainEvent.subEvents[0].date,
+                                      ).toLocaleDateString()
+                                    : '',
+                                },
+                              ),
+                              subject: intl.formatMessage({
+                                id: 'email.template.quote.subject',
+                              }),
+                            }}
+                            actionAfter={() => setOpenDelete(true)}
                           />
                         </td>
                       </tr>
