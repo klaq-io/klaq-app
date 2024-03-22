@@ -180,8 +180,8 @@ export const Dashboard = () => {
           ))}
         </dl>
         <div className="flex flex-row justify-between">
-          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight">
-            {`${greetingByTime()} ${user.firstName ?? ''} !`}
+          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight capitalize">
+            {`${greetingByTime()} ${user.firstName ? user.firstName.toLowerCase() : ''} !`}
           </h2>
           <Button
             variant="contained"
