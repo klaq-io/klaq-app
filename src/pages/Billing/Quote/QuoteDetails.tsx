@@ -8,7 +8,7 @@ import {
   TrashIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
-import { CardContainer, Label, Tooltip } from 'components';
+import { CardContainer, Label, MailPopUp, Tooltip } from 'components';
 import { QuoteBadgeButton } from 'components/Quote/QuoteBadgeButton';
 import { format } from 'date-fns';
 import { QuoteStatus } from 'interface/Quote/quote.interface';
@@ -30,6 +30,7 @@ export const QuoteDetailsPage = () => {
   const { id } = useParams();
 
   const [{ isLoading }, fetchQuotes] = useFetchQuotes();
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
   const quote = useSelector((state: any) => getQuoteById(state, id));
   const user = useSelector(getUser);
   const [{ isLoading: isDownloadingQuote }, downloadQuote] =
@@ -47,11 +48,6 @@ export const QuoteDetailsPage = () => {
   const handleGoToPDF = () => {
     if (!quote) return;
     navigate(`${PATHS.QUOTE}/${quote.id}/pdf`);
-  };
-
-  const handleGoToSend = () => {
-    if (!quote) return;
-    navigate(`${PATHS.QUOTE}/${quote.id}/send`);
   };
 
   useEffect(() => {
@@ -95,7 +91,7 @@ export const QuoteDetailsPage = () => {
                   </Tooltip>
                   <Tooltip text="Envoyer par email" position="bottom">
                     <button
-                      onClick={handleGoToSend}
+                      onClick={() => setMailPopupOpen(true)}
                       className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
                     >
                       <EnvelopeIcon className="h-5 w-5" />
@@ -245,20 +241,34 @@ export const QuoteDetailsPage = () => {
         />
       )}
 
-      {/* {quote && (
-        <DangerModal
-          isOpen={openDeleteInvoice}
-          setOpen={setOpenDeleteInvoice}
-          title="Voulez-vous vraiment supprimer cette facture ?"
-          message="Confirmez-vous cette démarche ?"
-          button2={"Annuler"}
-          button1={"Supprimer"}
-          onClick={() => {
-            deleteQuote(quote.id);
-            setOpenDeleteInvoice(false);
+      {quote && (
+        <MailPopUp
+          type="QUOTE"
+          documentId={quote.id}
+          isOpen={isMailPopUpOpened}
+          setOpen={setMailPopupOpen}
+          content={{
+            to: quote.mainEvent.customer.email,
+            message: intl.formatMessage(
+              {
+                id: 'email.template.quote.content',
+              },
+              {
+                stageName: user.stageName,
+                type: quote.mainEvent.title.toLowerCase(),
+                date: quote
+                  ? new Date(
+                      quote.mainEvent.subEvents[0].date,
+                    ).toLocaleDateString()
+                  : '',
+              },
+            ),
+            subject: intl.formatMessage({
+              id: 'email.template.quote.subject',
+            }),
           }}
         />
-      )} */}
+      )}
     </PageLayout>
   );
 };

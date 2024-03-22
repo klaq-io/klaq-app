@@ -33,6 +33,7 @@ export const Quotes = () => {
   const user = useSelector(getUser);
 
   const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
+  const [quoteToSend, setQuoteToSend] = useState<Quote | undefined>();
   const [shouldOpenNewQuote, setOpenNewQuote] = useState(false);
   const [params, setParams] = useSearchParams();
   const query = params.get('q') || '';
@@ -69,6 +70,7 @@ export const Quotes = () => {
       name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
       onClick: () => {
+        setQuoteToSend(quote);
         setMailPopupOpen(true);
       },
     },
@@ -362,32 +364,6 @@ export const Quotes = () => {
                             items={optionMenu(quote)}
                             buttonSize="md"
                           />
-                          <MailPopUp
-                            type="QUOTE"
-                            documentId={quote.id}
-                            isOpen={isMailPopUpOpened}
-                            setOpen={setMailPopupOpen}
-                            content={{
-                              to: quote.mainEvent.customer.email,
-                              message: intl.formatMessage(
-                                {
-                                  id: 'email.template.quote.content',
-                                },
-                                {
-                                  stageName: user.stageName,
-                                  type: quote.mainEvent.title.toLowerCase(),
-                                  date: quote
-                                    ? new Date(
-                                        quote.mainEvent.subEvents[0].date,
-                                      ).toLocaleDateString()
-                                    : '',
-                                },
-                              ),
-                              subject: intl.formatMessage({
-                                id: 'email.template.quote.subject',
-                              }),
-                            }}
-                          />
                         </td>
                       </tr>
                     ))
@@ -420,6 +396,34 @@ export const Quotes = () => {
         isOpen={shouldOpenNewQuote}
         setOpen={setOpenNewQuote}
       />
+      {quoteToSend && (
+        <MailPopUp
+          type="QUOTE"
+          documentId={quoteToSend.id}
+          isOpen={isMailPopUpOpened}
+          setOpen={setMailPopupOpen}
+          content={{
+            to: quoteToSend.mainEvent.customer.email,
+            message: intl.formatMessage(
+              {
+                id: 'email.template.quote.content',
+              },
+              {
+                stageName: user.stageName,
+                type: quoteToSend.mainEvent.title.toLowerCase(),
+                date: quoteToSend
+                  ? new Date(
+                      quoteToSend.mainEvent.subEvents[0].date,
+                    ).toLocaleDateString()
+                  : '',
+              },
+            ),
+            subject: intl.formatMessage({
+              id: 'email.template.quote.subject',
+            }),
+          }}
+        />
+      )}
     </PageLayout>
   );
 };

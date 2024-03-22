@@ -1052,7 +1052,7 @@
     },
     "reminder": {
       "subject": "⏰ Relance: Vous avez reçu une facture",
-      "message": "Bonjour,\n\nJe vous écris pour vous rappeler que vous avez omis de régler votre facture numéro {invoiceNumber} pour un total de {total}€. Selon nos dossiers, cette facture est maintenant en retard de {daysLate} jours.\n\nNous espérons que vous avez simplement oublié de la régler et que vous nous ferez parvenir votre paiement dans les prochains jours. Si vous avez des questions concernant votre facture ou si vous avez besoin d’aide pour régler votre paiement, n’hésitez pas à nous contacter.\n\nCordialement,\n{stageName}"
+      "message": "Bonjour,\n\nJe vous écris pour vous rappeler que vous avez omis de régler votre facture numéro {invoiceNumber}. Selon nos dossiers, cette facture est maintenant en retard de {daysLate} jours.\n\nNous espérons que vous avez simplement oublié de la régler et que vous nous ferez parvenir votre paiement dans les prochains jours. Si vous avez des questions concernant votre facture ou si vous avez besoin d’aide pour régler votre paiement, n’hésitez pas à nous contacter.\n\nCordialement,\n{stageName}"
     },
     "download": "Télécharger la facture",
     "send": "Envoyer la facture"
