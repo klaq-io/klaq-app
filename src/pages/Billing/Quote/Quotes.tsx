@@ -33,7 +33,6 @@ export const Quotes = () => {
   const user = useSelector(getUser);
 
   const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
-  const [shouldOpenDelete, setOpenDelete] = useState<boolean>(false);
   const [shouldOpenNewQuote, setOpenNewQuote] = useState(false);
   const [params, setParams] = useSearchParams();
   const query = params.get('q') || '';

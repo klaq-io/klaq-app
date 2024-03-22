@@ -37,7 +37,6 @@ export const InvoicesPage = () => {
   const user = useSelector(getUser);
 
   const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
-  const [shouldOpenDelete, setOpenDelete] = useState<boolean>(false);
 
   const invoices = useSelector(getInvoices);
   const [{ isLoading }, fetchInvoices] = useFetchInvoices();
