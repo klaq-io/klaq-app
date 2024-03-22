@@ -1631,6 +1631,14 @@
       "unavailable": {
         "subject": "Indisponibilité pour la date demandée - Merci pour votre intérêt",
         "content": "Bonjour,\n\nJe vous remercie vivement pour votre intérêt envers mes services. Malheureusement, je suis indisponible à la date que vous avez spécifiée, ce qui m'empêche d'accepter favorablement votre demande. \nJe vous renouvelle mes remerciements et vous souhaite bon courage dans vos recherches. \n\nCordialement, \n{{stageName}}"
+      },
+      "quote": {
+        "subject": "Vous avez reçu un devis",
+        "content": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
+      },
+      "invoice": {
+        "subject": "Vous avez reçu une facture",
+        "content": "Bonjour,\n\nVeuillez trouver ci-joint la facture pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
       }
     },
     "button": {

@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { useSendMail } from 'redux/Email/hooks';
 import { getUser } from 'redux/Login/selectors';
 import { initialValues } from './form';
+import { useSendQuote } from 'redux/Quote/hooks';
+import { useSendInvoiceByEmail } from 'redux/Invoice/hooks';
 
 type MailContentProps = {
   to?: string;
@@ -17,6 +19,8 @@ type MailContentProps = {
 };
 
 type MailPopUpProps = {
+  type?: 'INVOICE' | 'QUOTE' | 'REGULAR';
+  documentId?: string;
   isOpen: boolean;
   setOpen: (isOpen: boolean) => void;
   content?: MailContentProps;
@@ -24,7 +28,10 @@ type MailPopUpProps = {
 };
 
 export const MailPopUp = (props: MailPopUpProps) => {
-  const { isOpen, setOpen, content, actionAfter } = props;
+  const { type, documentId, isOpen, setOpen, content, actionAfter } = props;
+  const [{ isLoading: isSendingQuote }, sendQuoteByEmail] = useSendQuote();
+  const [{ isLoading: isSendingInvoice }, sendInvoiceByEmail] =
+    useSendInvoiceByEmail();
 
   const [{ isLoading }, sendMail] = useSendMail();
   const user = useSelector(getUser);
@@ -40,7 +47,17 @@ export const MailPopUp = (props: MailPopUpProps) => {
       message: replaceKnownVariables(content?.message || ''),
     },
     onSubmit: async (values) => {
-      await sendMail(values);
+      switch (type) {
+        case 'INVOICE':
+          await sendInvoiceByEmail(values, documentId ?? '');
+          break;
+        case 'QUOTE':
+          await sendQuoteByEmail(values, documentId ?? '');
+          break;
+        default:
+          await sendMail(values);
+          break;
+      }
       setOpen(false);
       if (actionAfter) {
         actionAfter();
@@ -143,7 +160,9 @@ export const MailPopUp = (props: MailPopUpProps) => {
                       variant="contained"
                       color="primary"
                       onClick={formik.submitForm}
-                      isLoading={isLoading}
+                      isLoading={
+                        isLoading || isSendingQuote || isSendingInvoice
+                      }
                     >
                       {intl.formatMessage({
                         id: 'email.button.send',

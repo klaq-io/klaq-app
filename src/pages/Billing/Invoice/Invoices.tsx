@@ -15,7 +15,7 @@ import { Button, InvoiceBadge, KebabMenu } from 'components';
 import { isPast } from 'date-fns';
 import { Invoice, InvoiceStatus } from 'interface/Invoice/invoice.interface';
 import { PageLayout } from 'layouts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -28,6 +28,8 @@ import { PATHS } from 'routes';
 import { getInvoiceSubtotal } from 'utils/invoice';
 import { classNames } from 'utils/utils';
 import { QuoteListSkeleton } from '../Quote';
+import { MailPopUp } from 'components';
+import { getUser } from 'redux/Login/selectors';
 
 export const InvoicesPage = () => {
   const navigate = useNavigate();
@@ -35,6 +37,10 @@ export const InvoicesPage = () => {
 
   const [params, setParams] = useSearchParams();
   const query = params.get('q') || '';
+
+  const user = useSelector(getUser);
+
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
 
   const invoices = useSelector(getInvoices);
   const [{ isLoading }, fetchInvoices] = useFetchInvoices();
@@ -66,7 +72,9 @@ export const InvoicesPage = () => {
     {
       name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
-      onClick: () => handleSendByMail(invoice.id),
+      onClick: () => {
+        setMailPopupOpen(true);
+      },
     },
     {
       name: 'quote.list.menu.download',
@@ -85,10 +93,6 @@ export const InvoicesPage = () => {
 
   const handleEdit = (invoiceId: string) => {
     navigate(PATHS.INVOICE + '/' + invoiceId + '/edit');
-  };
-
-  const handleSendByMail = (invoiceId: string) => {
-    navigate(PATHS.INVOICE + '/' + invoiceId + '/send');
   };
 
   const handleSendReminder = (invoiceId: string) => {
@@ -380,6 +384,32 @@ export const InvoicesPage = () => {
                           buttonSize="md"
                         />
                       </td>
+                      <MailPopUp
+                        type="INVOICE"
+                        documentId={invoice.id}
+                        isOpen={isMailPopUpOpened}
+                        setOpen={setMailPopupOpen}
+                        content={{
+                          to: invoice.mainEvent.customer.email,
+                          message: intl.formatMessage(
+                            {
+                              id: 'email.template.invoice.content',
+                            },
+                            {
+                              stageName: user.stageName,
+                              type: invoice.mainEvent.title.toLowerCase(),
+                              date: invoice
+                                ? new Date(
+                                    invoice.mainEvent.subEvents[0].date,
+                                  ).toLocaleDateString()
+                                : '',
+                            },
+                          ),
+                          subject: intl.formatMessage({
+                            id: 'email.template.invoice.subject',
+                          }),
+                        }}
+                      />
                     </tr>
                   ))
                 ) : (
