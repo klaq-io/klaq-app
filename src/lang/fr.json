@@ -1275,7 +1275,7 @@
         "to": "Envoyer à",
         "object": "Objet",
         "message": "Message",
-        "cc": "Envoyer une copie à {email}"
+        "cc": "Ajouter en copie sur {email}"
       },
       "input": {
         "to": "Saisissez l'adresse e-mail",

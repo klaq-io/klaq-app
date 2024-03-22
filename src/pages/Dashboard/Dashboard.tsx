@@ -82,7 +82,7 @@ export const Dashboard = () => {
       animate: !!inboxMainEvents.length,
       onClick: () =>
         navigate(
-          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`,
+          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=new&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`,
         ),
     },
     {
