@@ -199,16 +199,14 @@ export const EnquiryForm = () => {
               ) : null}
             </div>
             <div className="col-span-full">
-              <Label htmlFor="note">
-                Informations complémentaires sur votre évènement
-              </Label>
+              <Label htmlFor="note">Votre message</Label>
               <textarea
                 value={formik.values.note}
                 onChange={formik.handleChange}
                 rows={4}
                 name="note"
                 id="text"
-                placeholder="N'hésitez pas à être le plus précis possible ! Cela n'engage à rien. Je prends le temps dès le premier contact d'apprendre à vous connaître pour répondre parfaitement à vos besoins."
+                placeholder="N'hésitez pas à être le plus précis possible !"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6"
               />
             </div>
