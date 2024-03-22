@@ -29,8 +29,8 @@ type MailPopUpProps = {
 
 export const MailPopUp = (props: MailPopUpProps) => {
   const { type, documentId, isOpen, setOpen, content, actionAfter } = props;
-  const [{ isLoading: isSending }, sendQuoteByEmail] = useSendQuote();
-  const [{ isLoading: isSendingEmail }, sendInvoiceByEmail] =
+  const [{ isLoading: isSendingQuote }, sendQuoteByEmail] = useSendQuote();
+  const [{ isLoading: isSendingInvoice }, sendInvoiceByEmail] =
     useSendInvoiceByEmail();
 
   const [{ isLoading }, sendMail] = useSendMail();
@@ -160,7 +160,9 @@ export const MailPopUp = (props: MailPopUpProps) => {
                       variant="contained"
                       color="primary"
                       onClick={formik.submitForm}
-                      isLoading={isLoading}
+                      isLoading={
+                        isLoading || isSendingQuote || isSendingInvoice
+                      }
                     >
                       {intl.formatMessage({
                         id: 'email.button.send',

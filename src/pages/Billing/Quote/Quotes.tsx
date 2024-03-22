@@ -43,10 +43,6 @@ export const Quotes = () => {
 
   const [, downloadQuote] = useDownloadQuoteDocument();
 
-  const handleSendByMail = (id: string) => {
-    navigate(PATHS.QUOTE + '/' + id + '/send/');
-  };
-
   const handleNewQuote = () => {
     navigate(PATHS.QUOTE_GENERATE);
   };
@@ -392,7 +388,6 @@ export const Quotes = () => {
                                 id: 'email.template.quote.subject',
                               }),
                             }}
-                            actionAfter={() => setOpenDelete(true)}
                           />
                         </td>
                       </tr>

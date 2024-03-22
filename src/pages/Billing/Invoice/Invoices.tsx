@@ -394,7 +394,6 @@ export const InvoicesPage = () => {
                             id: 'email.template.invoice.subject',
                           }),
                         }}
-                        actionAfter={() => setOpenDelete(true)}
                       />
                     </tr>
                   ))
