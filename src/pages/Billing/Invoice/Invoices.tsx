@@ -75,6 +75,7 @@ export const InvoicesPage = () => {
       icon: PaperAirplaneIcon,
       onClick: () => {
         setInvoiceToSend(invoice);
+        setShouldSendReminder(false);
         setMailPopupOpen(true);
       },
     },
@@ -417,7 +418,7 @@ export const InvoicesPage = () => {
           isOpen={isMailPopUpOpened}
           setOpen={setMailPopupOpen}
           content={
-            shouldSendReminder && true
+            shouldSendReminder
               ? {
                   to: invoiceToSend.mainEvent.customer.email,
                   subject: intl.formatMessage({
