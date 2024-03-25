@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from '../states';
 import { User } from '../../interface/user.interface';
+import { CommentaryType } from 'enum/commentary-type.enum';
 
 export interface Commentary {
   id: string;
@@ -10,12 +11,6 @@ export interface Commentary {
   user: User;
   type: CommentaryType;
 }
-
-export enum CommentaryType {
-  COMMENTED = 'COMMENTED',
-  EVENT_STATUS_UPDATED = 'EVENT_STATUS_UPDATED',
-}
-
 export const commentarySlice = createSlice({
   name: 'commentary',
   initialState,

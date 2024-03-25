@@ -1,9 +1,10 @@
 import { useAsyncCallback } from '@react-hooks-library/core';
 import { useDispatch } from 'react-redux';
 import webClient from '../../utils/webclient';
-import { CommentaryType, setCommentaries, setCommentary } from './slices';
+import { setCommentaries, setCommentary } from './slices';
 import toast from 'react-hot-toast';
 import { ToastNotification } from 'components';
+import { CommentaryType } from 'enum/commentary-type.enum';
 
 export const useFetchCommentaries = () => {
   const dispatch = useDispatch();

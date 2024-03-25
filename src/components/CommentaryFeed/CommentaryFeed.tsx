@@ -22,11 +22,11 @@ import {
   useFetchCommentaries,
 } from '../../redux/Commentary/hooks';
 import { getCommentaries } from '../../redux/Commentary/selectors';
-import { CommentaryType } from '../../redux/Commentary/slices';
 import { EventStatus } from '../../redux/Events/slices';
 import { classNames } from '../../utils/utils';
 import { Button } from '../Button';
 import { initialValues, validationSchema } from './form';
+import { CommentaryType } from 'enum/commentary-type.enum';
 
 type Props = {
   isCommentingAllowed?: boolean;
@@ -129,7 +129,7 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
               >
                 <div className="w-px bg-gray-200" />
               </div>
-              {commentary.type === CommentaryType.COMMENTED ? (
+              {commentary.type === CommentaryType.COMMENTED && (
                 <>
                   <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
                     {commentary.user.logoUrl ? (
@@ -176,7 +176,48 @@ export const CommentaryFeed: FC<Props> = (props: Props) => {
                     </p>
                   </div>
                 </>
-              ) : (
+              )}
+              {commentary.type === CommentaryType.KLAQ_COMMENTED && (
+                <>
+                  <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
+                    <BoltIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
+                  </span>
+                  <div className="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 bg-white">
+                    <div className="flex justify-between gap-x-4">
+                      <div className="py-0.5 text-xs leading-5 text-gray-500">
+                        <span className="font-medium text-gray-900">{`KlaqBOT`}</span>{' '}
+                        {intl.formatMessage({
+                          id: 'edit-event.commentaries.commented',
+                        })}
+                      </div>
+                      <time
+                        dateTime={format(
+                          new Date(commentary.createdAt),
+                          "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
+                        )}
+                        className="flex-none py-0.5 text-xs leading-5 text-gray-500"
+                      >
+                        {intl.formatMessage(
+                          {
+                            id: `edit-event.commentaries.publicated-time.${
+                              publicatedTime(new Date(commentary.createdAt))
+                                .message
+                            }`,
+                          },
+                          {
+                            time: publicatedTime(new Date(commentary.createdAt))
+                              .time,
+                          },
+                        )}
+                      </time>
+                    </div>
+                    <p className="text-sm leading-6 text-gray-500">
+                      {`Note additionnelle : ${commentary.text}`}
+                    </p>
+                  </div>
+                </>
+              )}
+              {commentary.type === CommentaryType.EVENT_STATUS_UPDATED && (
                 <>
                   <span className="relative mt-3 rounded-full bg-gray-200 flex-none w-6 h-6">
                     <BoltIcon className="absolute inset-0 m-auto w-4 h-4 text-gray-400" />
