@@ -870,11 +870,22 @@
       "assistant": "Assistant",
       "tasks": "Tâches",
       "logs": "Suivi",
-      "billing": "Documents",
-      "products": "Produits"
+      "billing": "Facturation",
+      "products": "Produits",
+      "documents": "Documents"
     },
     "actions": {
       "header": "Actions à effectuer"
+    },
+    "billing": {
+      "no-quotes": {
+        "header": "Créer un devis",
+        "description": "Cliquer pour commencer à créer un devis"
+      },
+      "no-invoices": {
+        "header": "Créer une facture",
+        "description": "Cliquer pour commencer à créer un facture"
+      }
     },
     "assistant": {
       "header": "Assistant",
@@ -1041,7 +1052,7 @@
     },
     "reminder": {
       "subject": "⏰ Relance: Vous avez reçu une facture",
-      "message": "Bonjour,\n\nJe vous écris pour vous rappeler que vous avez omis de régler votre facture numéro {invoiceNumber} pour un total de {total}€. Selon nos dossiers, cette facture est maintenant en retard de {daysLate} jours.\n\nNous espérons que vous avez simplement oublié de la régler et que vous nous ferez parvenir votre paiement dans les prochains jours. Si vous avez des questions concernant votre facture ou si vous avez besoin d’aide pour régler votre paiement, n’hésitez pas à nous contacter.\n\nCordialement,\n{stageName}"
+      "message": "Bonjour,\n\nJe vous écris pour vous rappeler que vous avez omis de régler votre facture numéro {invoiceNumber}. Selon nos dossiers, cette facture est maintenant en retard de {daysLate} jours.\n\nNous espérons que vous avez simplement oublié de la régler et que vous nous ferez parvenir votre paiement dans les prochains jours. Si vous avez des questions concernant votre facture ou si vous avez besoin d’aide pour régler votre paiement, n’hésitez pas à nous contacter.\n\nCordialement,\n{stageName}"
     },
     "download": "Télécharger la facture",
     "send": "Envoyer la facture"
@@ -1620,6 +1631,14 @@
       "unavailable": {
         "subject": "Indisponibilité pour la date demandée - Merci pour votre intérêt",
         "content": "Bonjour,\n\nJe vous remercie vivement pour votre intérêt envers mes services. Malheureusement, je suis indisponible à la date que vous avez spécifiée, ce qui m'empêche d'accepter favorablement votre demande. \nJe vous renouvelle mes remerciements et vous souhaite bon courage dans vos recherches. \n\nCordialement, \n{{stageName}}"
+      },
+      "quote": {
+        "subject": "Vous avez reçu un devis",
+        "content": "Bonjour,\n\nVeuillez trouver ci-joint le devis pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
+      },
+      "invoice": {
+        "subject": "Vous avez reçu une facture",
+        "content": "Bonjour,\n\nVeuillez trouver ci-joint la facture pour votre évènement \"{type}\" du {date}.\n\nCordialement,\n{stageName}"
       }
     },
     "button": {

@@ -141,7 +141,7 @@ const BillingSection = (event: MainEvent) => {
   };
 
   return (
-    <div className="flex space-x-4 w-full">
+    <div className="flex flex-col space-y-4 w-full">
       <CardContainer className="p-4 w-full flex flex-col space-y-4">
         <span className="flex justify-between items-center">
           <span className="text-gray-900 font-semibold">
@@ -153,7 +153,36 @@ const BillingSection = (event: MainEvent) => {
             <PlusCircleIcon className="h-8 w-8 text-klaq-500 hover:text-klaq-600" />
           </button>
         </span>
-        <BillingDocumentList documents={event.quotes} type="quote" />
+        {event.quotes && event.quotes.length ? (
+          <BillingDocumentList documents={event.quotes} type="quote" />
+        ) : (
+          <div>
+            <button
+              onClick={handleGenerateQuote}
+              type="button"
+              className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+            >
+              <PlusIcon
+                className="mx-auto h-12 w-12 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              />
+
+              <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                {intl.formatMessage({
+                  id: 'event-details.billing.no-quotes.header',
+                })}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {intl.formatMessage({
+                  id: 'event-details.billing.no-quotes.description',
+                })}
+              </p>
+            </button>
+          </div>
+        )}
       </CardContainer>
 
       <CardContainer className="p-4 w-full flex flex-col space-y-4">
@@ -167,7 +196,36 @@ const BillingSection = (event: MainEvent) => {
             <PlusCircleIcon className="h-8 w-8 text-klaq-500 hover:text-klaq-600" />
           </button>
         </span>
-        <BillingDocumentList documents={event.invoices} type="invoice" />
+        {event.invoices && event.invoices.length ? (
+          <BillingDocumentList documents={event.invoices} type="invoice" />
+        ) : (
+          <div>
+            <button
+              onClick={handleGenerateInvoice}
+              type="button"
+              className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+            >
+              <PlusIcon
+                className="mx-auto h-12 w-12 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              />
+
+              <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                {intl.formatMessage({
+                  id: 'event-details.billing.no-invoices.header',
+                })}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {intl.formatMessage({
+                  id: 'event-details.billing.no-invoices.description',
+                })}
+              </p>
+            </button>
+          </div>
+        )}
       </CardContainer>
     </div>
   );

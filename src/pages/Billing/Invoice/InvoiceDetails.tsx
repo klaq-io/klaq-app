@@ -16,6 +16,7 @@ import {
   InfoModal,
   InvoiceBadge,
   Label,
+  MailPopUp,
   Tooltip,
 } from 'components';
 import { format } from 'date-fns';
@@ -44,6 +45,7 @@ export const InvoiceDetailsPage = () => {
   const { id } = useParams();
 
   const [{ isLoading }, fetchInvoice] = useFetchInvoice();
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
   const [{ isLoading: isUpdatingStatus }, updateInvoiceStatus] =
     useUpdateInvoiceStatus();
   const invoice = useSelector((state: any) => getInvoice(state, id));
@@ -68,11 +70,6 @@ export const InvoiceDetailsPage = () => {
   const handleGoToPDF = () => {
     if (!invoice) return;
     navigate(`${PATHS.INVOICE}/${invoice.id}/pdf`);
-  };
-
-  const handleGoToSend = () => {
-    if (!invoice) return;
-    navigate(`${PATHS.INVOICE}/${invoice.id}/send`);
   };
 
   useEffect(() => {
@@ -149,7 +146,7 @@ export const InvoiceDetailsPage = () => {
 
                       <Tooltip text="Envoyer par email" position="bottom">
                         <button
-                          onClick={handleGoToSend}
+                          onClick={() => setMailPopupOpen(true)}
                           className="bg-white text-gray-900 rounded-full p-3 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:animated-pulse"
                         >
                           <EnvelopeIcon className="h-5 w-5" />
@@ -349,6 +346,34 @@ export const InvoiceDetailsPage = () => {
           onClick={() => {
             deleteInvoice(invoice.id);
             setOpenDeleteInvoice(false);
+          }}
+        />
+      )}
+      {invoice && (
+        <MailPopUp
+          type="INVOICE"
+          documentId={invoice.id}
+          isOpen={isMailPopUpOpened}
+          setOpen={setMailPopupOpen}
+          content={{
+            to: invoice.mainEvent.customer.email,
+            message: intl.formatMessage(
+              {
+                id: 'email.template.invoice.content',
+              },
+              {
+                stageName: user.stageName,
+                type: invoice.mainEvent.title.toLowerCase(),
+                date: invoice
+                  ? new Date(
+                      invoice.mainEvent.subEvents[0].date,
+                    ).toLocaleDateString()
+                  : '',
+              },
+            ),
+            subject: intl.formatMessage({
+              id: 'email.template.invoice.subject',
+            }),
           }}
         />
       )}

@@ -82,7 +82,7 @@ export const Dashboard = () => {
       animate: !!inboxMainEvents.length,
       onClick: () =>
         navigate(
-          `${PATHS.EVENTS}?filter=THIS_YEAR&tab=0&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`,
+          `${PATHS.EVENTS}?filter=THIS_YEAR&startDate=${startOfYear}&endDate=${endOfYear}&tab=new`,
         ),
     },
     {
@@ -180,8 +180,8 @@ export const Dashboard = () => {
           ))}
         </dl>
         <div className="flex flex-row justify-between">
-          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight">
-            {`${greetingByTime()} ${user.firstName ?? ''} !`}
+          <h2 className="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-2xl sm:tracking-tight capitalize">
+            {`${greetingByTime()} ${user.firstName ? user.firstName.toLowerCase() : ''} !`}
           </h2>
           <Button
             variant="contained"

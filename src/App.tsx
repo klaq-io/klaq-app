@@ -22,7 +22,6 @@ import {
   InvoiceDetailsPage,
   InvoiceEditionPage,
   InvoiceGenerate,
-  InvoiceSendMailPage,
   InvoiceViewPage,
   InvoicesPage,
   Login,
@@ -38,7 +37,6 @@ import {
   QuoteDetailsPage,
   QuoteEditionPage,
   QuoteGeneratePage,
-  QuoteSendMailPage,
   QuoteViewPage,
   Quotes,
   ResetPassword,
@@ -123,7 +121,6 @@ function App() {
           <Route path={PATHS.QUOTE_PDF} element={<QuoteViewPage />} />
           <Route path={PATHS.QUOTE_DETAILS} element={<QuoteDetailsPage />} />
           <Route path={PATHS.QUOTE_EDIT} element={<QuoteEditionPage />} />
-          <Route path={PATHS.QUOTE_SEND} element={<QuoteSendMailPage />} />
           <Route path={PATHS.QUOTES} element={<Quotes />} />
           <Route path={PATHS.INVOICES} element={<InvoicesPage />} />
           <Route
@@ -133,7 +130,6 @@ function App() {
           <Route path={PATHS.INVOICE_GENERATE} element={<InvoiceGenerate />} />
           <Route path={PATHS.INVOICE_EDIT} element={<InvoiceEditionPage />} />
           <Route path={PATHS.INVOICE_PDF} element={<InvoiceViewPage />} />
-          <Route path={PATHS.INVOICE_SEND} element={<InvoiceSendMailPage />} />
           <Route path={PATHS.PROFILE} element={<Profile />} />
           <Route path={PATHS.COMPANY} element={<Company />} />
           <Route path={PATHS.INTEGRATIONS} element={<Integrations />} />

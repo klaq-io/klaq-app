@@ -1,6 +1,6 @@
 import {
-  EyeSlashIcon,
   EyeIcon as EyeIconSolid,
+  EyeSlashIcon,
   HandThumbUpIcon,
 } from '@heroicons/react/20/solid';
 import {
@@ -11,11 +11,11 @@ import {
   PaperAirplaneIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline';
-import { Button, InvoiceBadge, KebabMenu } from 'components';
-import { isPast } from 'date-fns';
+import { Button, InvoiceBadge, KebabMenu, MailPopUp } from 'components';
+import { differenceInDays, isPast } from 'date-fns';
 import { Invoice, InvoiceStatus } from 'interface/Invoice/invoice.interface';
 import { PageLayout } from 'layouts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -24,6 +24,7 @@ import {
   useFetchInvoices,
 } from 'redux/Invoice/hooks';
 import { getInvoices } from 'redux/Invoice/selectors';
+import { getUser } from 'redux/Login/selectors';
 import { PATHS } from 'routes';
 import { getInvoiceSubtotal } from 'utils/invoice';
 import { classNames } from 'utils/utils';
@@ -35,6 +36,12 @@ export const InvoicesPage = () => {
 
   const [params, setParams] = useSearchParams();
   const query = params.get('q') || '';
+
+  const user = useSelector(getUser);
+
+  const [isMailPopUpOpened, setMailPopupOpen] = useState<boolean>(false);
+  const [invoiceToSend, setInvoiceToSend] = useState<Invoice | undefined>();
+  const [shouldSendReminder, setShouldSendReminder] = useState<boolean>(false);
 
   const invoices = useSelector(getInvoices);
   const [{ isLoading }, fetchInvoices] = useFetchInvoices();
@@ -66,7 +73,10 @@ export const InvoicesPage = () => {
     {
       name: 'quote.list.menu.send',
       icon: PaperAirplaneIcon,
-      onClick: () => handleSendByMail(invoice.id),
+      onClick: () => {
+        setInvoiceToSend(invoice);
+        setMailPopupOpen(true);
+      },
     },
     {
       name: 'quote.list.menu.download',
@@ -85,15 +95,6 @@ export const InvoicesPage = () => {
 
   const handleEdit = (invoiceId: string) => {
     navigate(PATHS.INVOICE + '/' + invoiceId + '/edit');
-  };
-
-  const handleSendByMail = (invoiceId: string) => {
-    navigate(PATHS.INVOICE + '/' + invoiceId + '/send');
-  };
-
-  const handleSendReminder = (invoiceId: string) => {
-    if (!invoiceId) return;
-    navigate(PATHS.INVOICE + '/' + invoiceId + '/send?type=reminder');
   };
 
   const tabs = [
@@ -325,8 +326,11 @@ export const InvoicesPage = () => {
                           if (
                             isPast(new Date(invoice.validUntil)) &&
                             invoice.status !== InvoiceStatus.PAID
-                          )
-                            handleSendReminder(invoice.id);
+                          ) {
+                            setInvoiceToSend(invoice);
+                            setMailPopupOpen(true);
+                            setShouldSendReminder(true);
+                          }
                         }}
                       >
                         <div
@@ -406,6 +410,63 @@ export const InvoicesPage = () => {
           </table>
         </div>
       </div>
+      {invoiceToSend && (
+        <MailPopUp
+          type="INVOICE"
+          documentId={invoiceToSend.id}
+          isOpen={isMailPopUpOpened}
+          setOpen={setMailPopupOpen}
+          content={
+            shouldSendReminder && true
+              ? {
+                  to: invoiceToSend.mainEvent.customer.email,
+                  subject: intl.formatMessage({
+                    id: `invoice-send.reminder.subject`,
+                  }),
+                  message: intl.formatMessage(
+                    {
+                      id: `invoice-send.reminder.message`,
+                    },
+                    {
+                      stageName: user.stageName,
+                      type: invoiceToSend?.mainEvent.title.toLowerCase(),
+                      date: new Date(
+                        invoiceToSend.mainEvent.subEvents[0].date,
+                      ).toLocaleDateString(),
+                      emissionDate: new Date(
+                        invoiceToSend.issuedOn,
+                      ).toLocaleDateString(),
+                      invoiceNumber: invoiceToSend.number,
+                      daysLate: differenceInDays(
+                        new Date(),
+                        new Date(invoiceToSend.validUntil),
+                      ),
+                    },
+                  ),
+                }
+              : {
+                  to: invoiceToSend.mainEvent.customer.email,
+                  message: intl.formatMessage(
+                    {
+                      id: 'email.template.invoice.content',
+                    },
+                    {
+                      stageName: user.stageName,
+                      type: invoiceToSend.mainEvent.title.toLowerCase(),
+                      date: invoiceToSend
+                        ? new Date(
+                            invoiceToSend.mainEvent.subEvents[0].date,
+                          ).toLocaleDateString()
+                        : '',
+                    },
+                  ),
+                  subject: intl.formatMessage({
+                    id: 'email.template.invoice.subject',
+                  }),
+                }
+          }
+        />
+      )}
     </PageLayout>
   );
 };
