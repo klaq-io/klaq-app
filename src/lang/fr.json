@@ -754,7 +754,9 @@
         "invoices": "Factures",
         "quotes": "Devis",
         "events": "Évènements",
-        "new-event": "Créer un nouvel évènement"
+        "new-event": "Créer un nouvel évènement",
+        "call": "Appeler",
+        "go": "Voir l'évènement"
       },
       "no-documents-found": {
         "header": "Aucun document",

@@ -27,6 +27,7 @@ import {
   DiscountType,
   PaymentMethod,
 } from 'interface/Invoice/invoice.interface';
+import { Quote } from 'interface/Quote/quote.interface';
 import { PageLayout } from 'layouts';
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -40,7 +41,6 @@ import { useFetchProductItems } from 'redux/Products/hooks';
 import { getAllProducts } from 'redux/Products/selectors';
 import { ProductItem } from 'redux/Products/slices';
 import { useFetchQuotes } from 'redux/Quote/hooks';
-import { getQuoteById } from 'redux/Quote/selectors';
 import { PATHS } from 'routes';
 import { classNames } from 'utils/utils';
 import { initialValues, validationSchema } from './generateInvoiceForm';
@@ -58,7 +58,6 @@ export const InvoiceGenerate = () => {
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
-  const quote = useSelector((state: any) => getQuoteById(state, fromQuoteId));
 
   const [{ isLoading: isSubmitting }, createInvoice] = useCreateInvoice();
 
@@ -112,8 +111,9 @@ export const InvoiceGenerate = () => {
   };
 
   const handleSetMainEvent = (mainEvent: MainEvent) => {
+    console.log(mainEvent, 'mainEvent');
     formik.setFieldValue('customer', mainEvent.customer);
-    setMainEventId(mainEvent.id);
+    setMainEventId(() => mainEvent.id);
   };
 
   const handleAutocompleteElement = (
@@ -137,13 +137,6 @@ export const InvoiceGenerate = () => {
       ),
     });
   };
-
-  // const handleSetValidUntilDate = (date: Date) => {
-  //   formik.setValues({
-  //     ...formik.values,
-  //     validUntil: format(date, "yyyy-MM-dd"),
-  //   });
-  // };
 
   const handleAddElement = () => {
     formik.setValues({
@@ -226,10 +219,16 @@ export const InvoiceGenerate = () => {
   useEffect(() => {
     const fetchFromQuote = async () => {
       if (!fromQuoteId) return;
-      await fetchQuotes();
-      const mainEvent = mainEvents.find(
-        (mainEvent) => mainEvent.id === quote?.mainEvent.id,
+
+      const quotes = await fetchQuotes();
+      const quote: Quote = quotes.find(
+        (quote: Quote) => quote.id === fromQuoteId,
       );
+      const events = await fetchMainEvents();
+      const mainEvent = events.find(
+        (mainEvent: MainEvent) => mainEvent.id === quote?.mainEvent.id,
+      );
+
       formik.setValues({
         ...formik.values,
         products:

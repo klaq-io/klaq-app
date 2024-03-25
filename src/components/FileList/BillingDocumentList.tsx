@@ -1,8 +1,13 @@
-import { DocumentIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import {
+  DocumentDuplicateIcon,
+  DocumentIcon,
+  PaperClipIcon,
+} from '@heroicons/react/24/outline';
 import { EyeSlashIcon, EyeIcon } from '@heroicons/react/24/solid';
 import { Button } from 'components/Button';
 import { InvoiceBadge } from 'components/Invoice';
 import { QuoteBadge } from 'components/Quote';
+import { Tooltip } from 'components/Tooltip';
 import { Invoice } from 'interface/Invoice/invoice.interface';
 import { Quote } from 'interface/Quote/quote.interface';
 import { useIntl } from 'react-intl';
@@ -12,6 +17,11 @@ import { getInvoiceSubtotal } from 'utils/invoice';
 import { getSubtotalForQuote } from 'utils/quote';
 
 type DocumentType = 'quote' | 'invoice';
+
+const DOCUMENT_TYPE = {
+  quote: 'quote',
+  invoice: 'invoice',
+};
 
 type BillingDocumentProps = {
   documents?: Invoice[] | Quote[];
@@ -24,7 +34,8 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
   const navigate = useNavigate();
 
   const handleDocumentDetails = (document: Invoice | Quote) => {
-    const documentType = type === 'quote' ? PATHS.QUOTE : PATHS.INVOICE;
+    const documentType =
+      type === DOCUMENT_TYPE.quote ? PATHS.QUOTE : PATHS.INVOICE;
     navigate(`${documentType}/${document.id}/details`);
   };
 
@@ -46,27 +57,42 @@ export const BillingDocumentList = (props: BillingDocumentProps) => {
             <div className="ml-4 flex min-w-0 flex-1 gap-2 items-center">
               <span className="truncate font-medium">{document.number}</span>
               <span className="flex-shrink-0 text-gray-400">
-                {type === 'quote'
+                {type === DOCUMENT_TYPE.quote
                   ? getSubtotalForQuote(document as Quote).toFixed(2)
                   : getInvoiceSubtotal(document as Invoice).toFixed(2)}{' '}
                 €
               </span>
-            </div>
-            <span className="mr-4">
-              {document.isOpen ? (
-                <EyeIcon className="h-5 w-5 text-green-500" />
-              ) : (
-                <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+              {type === DOCUMENT_TYPE.quote && (
+                <button
+                  onClick={() =>
+                    navigate(
+                      `${PATHS.INVOICE_GENERATE}?fromQuote=${document.id}`,
+                    )
+                  }
+                >
+                  <Tooltip text="Transformer en facture" position="top">
+                    <DocumentDuplicateIcon className="h-5 w-5 text-gray-500" />
+                  </Tooltip>
+                </button>
               )}
-            </span>
-            <div className="ml-4 flex-shrink-0">
-              <span className="mr-4">
-                {type === 'quote' ? (
+            </div>
+
+            <div className="ml-4 flex space-x-4 items-center">
+              <span>
+                {type === DOCUMENT_TYPE.quote ? (
                   <QuoteBadge status={(document as Quote).status} />
                 ) : (
                   <InvoiceBadge status={(document as Invoice).status} />
                 )}
               </span>
+              <span>
+                {document.isOpen ? (
+                  <EyeIcon className="h-5 w-5 text-green-500" />
+                ) : (
+                  <EyeSlashIcon className="h-5 w-5 text-gray-500" />
+                )}
+              </span>
+
               <Button
                 type="button"
                 variant="link"
