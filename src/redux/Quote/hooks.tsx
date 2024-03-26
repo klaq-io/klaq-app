@@ -33,6 +33,7 @@ export const useFetchQuotes = () => {
     try {
       const { data } = await webClient.get(`/quote`);
       dispatch(setQuotes(data));
+      return data;
     } catch (error: any) {
       KlaqToast('danger', 'quote-get-error');
       console.error(error);
