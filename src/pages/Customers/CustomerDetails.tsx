@@ -1,5 +1,6 @@
 import {
   ArrowLeftIcon,
+  ArrowRightIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
   CalendarDaysIcon,
@@ -11,12 +12,15 @@ import {
   PaperAirplaneIcon,
   PencilSquareIcon,
   PhoneIcon,
+  PlusIcon,
+  TrashIcon,
   UserIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline';
 import {
   BillingDocumentList,
   Button,
+  DangerModal,
   KebabMenu,
   NewEventModal,
 } from 'components';
@@ -24,16 +28,20 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { EventStatus } from 'redux/Events/slices';
 import { useFetchInvoicesForCustomer } from 'redux/Invoice/hooks';
+import { useUpdateArchivedStatus as useUpdateArchivedMainEventStatus } from 'redux/MainEvent/hooks';
 import { useFetchQuotesForCustomer } from 'redux/Quote/hooks';
 import { formatPhoneNumber, getCustomerValue } from 'utils/customer';
 import { PageLayout } from '../../layouts';
-import { useFetchCustomers } from '../../redux/Customer/hooks';
+import {
+  useFetchCustomers,
+  useUpdateArchivedStatus,
+} from '../../redux/Customer/hooks';
 import { getCustomer } from '../../redux/Customer/selectors';
-import { CustomerType } from '../../redux/Customer/slices';
+import { Customer, CustomerType } from '../../redux/Customer/slices';
 import { formatSiret } from '../../utils/utils';
 import EditCustomer from './EditCustomer';
-import { EventStatus } from 'redux/Events/slices';
 
 const DocumentType = {
   INVOICE: 'invoice',
@@ -47,6 +55,11 @@ export const CustomerDetails = () => {
   const navigate = useNavigate();
 
   const [shouldOpenNewEvent, setOpenNewEvent] = useState(false);
+  const [shouldOpenDelete, setOpenDelete] = useState(false);
+  const [shouldOpenDeleteMainEvent, setOpenDeleteMainEvent] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const [, updateArchivedMainEventStatus] = useUpdateArchivedMainEventStatus();
+  const [, updateArchiveCustomerStatus] = useUpdateArchivedStatus();
 
   const [selectedDocumentType, setSelectedDucomentType] = useState(
     DocumentType.EVENT,
@@ -88,6 +101,19 @@ export const CustomerDetails = () => {
     );
   };
 
+  const handleDeleteEvent = () => {
+    if (!selectedEvent) return;
+    setOpenDeleteMainEvent(false);
+    updateArchivedMainEventStatus(selectedEvent, true);
+  };
+
+  const handleArchiveCustomer = (customer?: Customer) => {
+    if (!customer) return;
+    setOpenDelete(false);
+    updateArchiveCustomerStatus(customer.id, true);
+    fetchCustomers();
+  };
+
   const menuItems = [
     {
       name: 'customers.customer-details.button.edit',
@@ -101,6 +127,36 @@ export const CustomerDetails = () => {
       },
       icon: EnvelopeIcon,
     },
+    {
+      name: 'customers.customer-details.button.call',
+      onClick: () => {
+        window.location.href = `tel:${customer?.phone}`;
+      },
+      icon: PhoneIcon,
+    },
+    {
+      name: 'customers.customer-details.button.delete',
+      onClick: () => {
+        setOpenDelete(true);
+      },
+      icon: TrashIcon,
+    },
+  ];
+
+  const kebabMenuItems = (eventId: string) => [
+    {
+      name: 'customers.customer-details.button.go',
+      onClick: () => navigate(`/events/${eventId}/details`),
+      icon: ArrowRightIcon,
+    },
+    {
+      name: 'customers.customer-details.button.delete',
+      onClick: () => {
+        setSelectedEvent(eventId);
+        setOpenDeleteMainEvent(true);
+      },
+      icon: TrashIcon,
+    },
   ];
 
   useEffect(() => {
@@ -111,7 +167,7 @@ export const CustomerDetails = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <div className="flex flex-col space-y-8">
+      <div className="flex flex-col space-y-4">
         <div className="md:flex md:items-center md:justify-between">
           <div className="min-w-0 flex-1">
             <Button
@@ -388,18 +444,38 @@ export const CustomerDetails = () => {
                       </div>
                     </div>
                     <div className="ml-4 flex-shrink-0">
-                      <Button
-                        type="button"
-                        variant="link"
-                        color="primary"
-                        onClick={() => navigate(`/events/${event.id}/details`)}
-                      >
-                        Voir
-                      </Button>
+                      <KebabMenu items={kebabMenuItems(event.id)} />
                     </div>
                   </li>
                 ))}
               </ul>
+            ) : DocumentType.EVENT === selectedDocumentType ? (
+              <div>
+                <button
+                  onClick={() => setOpenNewEvent(true)}
+                  type="button"
+                  className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-klaq-500 focus:ring-offset-2"
+                >
+                  <PlusIcon
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  />
+
+                  <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                    {intl.formatMessage({
+                      id: 'events.no-events',
+                    })}
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {intl.formatMessage({
+                      id: 'events.get-started',
+                    })}
+                  </p>
+                </button>
+              </div>
             ) : null}
           </div>
         </div>
@@ -413,6 +489,41 @@ export const CustomerDetails = () => {
         isOpen={shouldOpenNewEvent}
         setOpen={setOpenNewEvent}
         suggestedCustomer={customer}
+      />
+      <DangerModal
+        isOpen={shouldOpenDelete}
+        setOpen={setOpenDelete}
+        onClick={() => handleArchiveCustomer(customer)}
+        title={intl.formatMessage({
+          id: 'customers.archive-customer.modal.title',
+        })}
+        message={intl.formatMessage(
+          {
+            id: 'customers.archive-customer.modal.message',
+          },
+          { customerName: customer?.name },
+        )}
+        button1={intl.formatMessage({
+          id: 'customers.archive-customer.modal.button.delete',
+        })}
+        button2={intl.formatMessage({
+          id: 'customers.archive-customer.modal.button.cancel',
+        })}
+      />
+      <DangerModal
+        isOpen={shouldOpenDeleteMainEvent}
+        setOpen={setOpenDeleteMainEvent}
+        onClick={() => handleDeleteEvent()}
+        title={intl.formatMessage({ id: 'event-details.delete-modal.title' })}
+        message={intl.formatMessage({
+          id: 'event-details.delete-modal.message',
+        })}
+        button1={intl.formatMessage({
+          id: 'event-details.delete-modal.button.delete',
+        })}
+        button2={intl.formatMessage({
+          id: 'event-details.delete-modal.button.cancel',
+        })}
       />
     </PageLayout>
   );
