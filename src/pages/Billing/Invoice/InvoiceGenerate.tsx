@@ -17,10 +17,11 @@ import {
   CardContainer,
   Label,
   SelectField,
+  TextArea,
   TextField,
 } from 'components';
 import { Alert } from 'components/Alert/Alert';
-import { add, formatISO } from 'date-fns';
+import { add, format, formatISO } from 'date-fns';
 import { useFormik } from 'formik';
 import { MainEvent } from 'interface/Event/main-event.interface';
 import {
@@ -33,7 +34,7 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchBankAccountDetails } from 'redux/BankAccountDetails/hooks';
-import { useCreateInvoice } from 'redux/Invoice/hooks';
+import { useCreateInvoice, useFetchInvoices } from 'redux/Invoice/hooks';
 import { useFetchMainEvents } from 'redux/MainEvent/hooks';
 import { getMainEvents } from 'redux/MainEvent/selectors';
 import { useFetchProductItems } from 'redux/Products/hooks';
@@ -44,6 +45,7 @@ import { getQuoteById } from 'redux/Quote/selectors';
 import { PATHS } from 'routes';
 import { classNames } from 'utils/utils';
 import { initialValues, validationSchema } from './generateInvoiceForm';
+import { getInvoices } from 'redux/Invoice/selectors';
 
 export const InvoiceGenerate = () => {
   const intl = useIntl();
@@ -55,16 +57,16 @@ export const InvoiceGenerate = () => {
   const [mainEventId, setMainEventId] = useState('');
   const [, fetchMainEvents] = useFetchMainEvents();
   const [, fetchQuotes] = useFetchQuotes();
+  const [, fetchInvoices] = useFetchInvoices();
 
   const [, fetchProducts] = useFetchProductItems();
   const products = useSelector(getAllProducts);
   const quote = useSelector((state: any) => getQuoteById(state, fromQuoteId));
+  const invoices = useSelector(getInvoices);
 
   const [{ isLoading: isSubmitting }, createInvoice] = useCreateInvoice();
 
   const [{ data }, fetchBankAccountsDetails] = useFetchBankAccountDetails();
-
-  const invoiceNumber = 'F-2023-0001';
 
   const mainEvents = useSelector(getMainEvents);
 
@@ -138,13 +140,6 @@ export const InvoiceGenerate = () => {
     });
   };
 
-  // const handleSetValidUntilDate = (date: Date) => {
-  //   formik.setValues({
-  //     ...formik.values,
-  //     validUntil: format(date, "yyyy-MM-dd"),
-  //   });
-  // };
-
   const handleAddElement = () => {
     formik.setValues({
       ...formik.values,
@@ -216,6 +211,7 @@ export const InvoiceGenerate = () => {
     fetchMainEvents();
     fetchProducts();
     fetchBankAccountsDetails();
+    fetchInvoices();
     formik.setFieldValue('issuedOn', new Date().toISOString().split('T')[0]);
     formik.setFieldValue(
       'validUntil',
@@ -474,7 +470,11 @@ export const InvoiceGenerate = () => {
                           id: 'invoice-generate.informations.invoice-number.label',
                         })}
                         name="invoice-number"
-                        value={invoiceNumber}
+                        value={`F-${format(new Date(), 'yyyy')}-${(
+                          invoices.length + 1
+                        )
+                          .toString()
+                          .padStart(4, '0')}`}
                         disabled
                       />
                       <TextField
@@ -728,7 +728,7 @@ export const InvoiceGenerate = () => {
                               </SelectField>
                             </span>
                           </div>
-                          <TextField
+                          <TextArea
                             label={intl.formatMessage({
                               id: 'invoice-generate.products.short-description.label',
                             })}
@@ -739,6 +739,7 @@ export const InvoiceGenerate = () => {
                             onChange={formik.handleChange}
                             value={formik.values.products[index].description}
                             className="col-span-2"
+                            rows={1}
                             error={
                               formik.errors.products &&
                               formik.errors.products.length > 0 &&

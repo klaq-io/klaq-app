@@ -15,6 +15,7 @@ import {
   CardContainer,
   Label,
   SelectField,
+  TextArea,
   TextField,
 } from 'components';
 import { add, format, formatISO } from 'date-fns';
@@ -425,7 +426,7 @@ export const QuoteEditionPage = () => {
                         <TextField
                           className="col-span-1"
                           label={intl.formatMessage({
-                            id: 'invoice-generate.informations.invoice-number.label',
+                            id: 'quote-generate.informations.quote-number.label',
                           })}
                           name="invoice-number"
                           value={quoteNumber}
@@ -660,7 +661,6 @@ export const QuoteEditionPage = () => {
                                 value={formik.values.products[index].discount}
                                 type="number"
                                 className="w-2/3"
-                                min={0}
                               />
                               <span className="w-1/3">
                                 <Label
@@ -682,7 +682,7 @@ export const QuoteEditionPage = () => {
                                 </SelectField>
                               </span>
                             </div>
-                            <TextField
+                            <TextArea
                               label={intl.formatMessage({
                                 id: 'invoice-generate.products.short-description.label',
                               })}
@@ -693,6 +693,7 @@ export const QuoteEditionPage = () => {
                               onChange={formik.handleChange}
                               value={formik.values.products[index].description}
                               className="col-span-2"
+                              rows={1}
                               error={
                                 formik.errors.products &&
                                 formik.errors.products.length > 0 &&

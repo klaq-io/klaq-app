@@ -596,7 +596,7 @@
       "header": "Nouveau produit",
       "description": "",
       "label": {
-        "name": "Nom du produit",
+        "name": "Libellé du produit",
         "short-description": "Description",
         "attach-file": "Ajouter une plaquette explicative",
         "default-vta-rate": "Taux de TVA",
@@ -1102,12 +1102,12 @@
     "products": {
       "title": "Produits",
       "name": {
-        "label": "Nom du produit"
+        "label": "Libellé du produit"
       },
       "short-description": {
-        "label": "Description courte",
+        "label": "Description",
         "placeholder": "Saisissez la description de votre produit",
-        "error": "Les champs nom, description courte, prix et quantité sont obligatoires"
+        "error": "Les champs nom, description, prix et quantité sont obligatoires"
       },
       "default-vta-rate": {
         "label": "Taux de TVA"
@@ -1225,7 +1225,7 @@
         "valid-until": "Valable jusqu'à",
         "address": "Adresse de facturation",
         "products": {
-          "name": "Nom du produit",
+          "name": "Libellé du produit",
           "short-description": "Description courte",
           "default-vta-rate": "Taux de TVA",
           "default-price": "Prix par défaut (Hors Taxes)",

@@ -33,7 +33,10 @@ export const EditCustomer: FC<Props> = (props: Props) => {
       ...initialValues,
       ...customer,
       ...customerCompany,
-      name: customerCompany?.legalName,
+      name:
+        CustomerType.COMPANY && customerCompany
+          ? customerCompany.legalName
+          : customer?.name,
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {

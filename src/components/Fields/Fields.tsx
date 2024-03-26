@@ -60,16 +60,18 @@ export const SelectField = (props: SelectFieldProps) => {
 
 type TextAreaProps = {
   label?: string;
+  error?: string | null;
 } & Omit<React.ComponentPropsWithoutRef<'textarea'>, 'id'>;
 
 export const TextArea = (props: TextAreaProps) => {
-  const { label, className } = props;
+  const { label, className, error } = props;
   const id = useId();
 
   return (
     <div className={className}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <textarea id={id} {...props} className={formClasses['klaq']} />
+      {error && <p className="mt-2 text-sm text-danger-600">{error}</p>}
     </div>
   );
 };

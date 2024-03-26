@@ -15,10 +15,11 @@ import {
   CardContainer,
   Label,
   SelectField,
+  TextArea,
   TextField,
 } from 'components';
 import { Alert } from 'components/Alert/Alert';
-import { add, formatISO } from 'date-fns';
+import { add, format, formatISO } from 'date-fns';
 import { useFormik } from 'formik';
 import { MainEvent } from 'interface/Event/main-event.interface';
 import { DiscountType } from 'interface/Invoice/invoice.interface';
@@ -32,9 +33,10 @@ import { getMainEvents } from 'redux/MainEvent/selectors';
 import { useFetchProductItems } from 'redux/Products/hooks';
 import { getAllProducts } from 'redux/Products/selectors';
 import { ProductItem } from 'redux/Products/slices';
-import { useCreateQuote } from 'redux/Quote/hooks';
+import { useCreateQuote, useFetchQuotes } from 'redux/Quote/hooks';
 import { classNames } from 'utils/utils';
 import { initialValues, validationSchema } from './generateQuoteForm';
+import { getQuotes } from 'redux/Quote/selectors';
 
 export const QuoteGeneratePage = () => {
   const intl = useIntl();
@@ -45,6 +47,8 @@ export const QuoteGeneratePage = () => {
   const [mainEventId, setMainEventId] = useState('');
   const [, fetchMainEvents] = useFetchMainEvents();
   const [{ isLoading: isSubmitting }, createQuote] = useCreateQuote();
+  const [, fetchQuotes] = useFetchQuotes();
+  const quotes = useSelector(getQuotes);
 
   const mainEvents = useSelector(getMainEvents) || [].reverse();
 
@@ -212,6 +216,7 @@ export const QuoteGeneratePage = () => {
   useEffect(() => {
     fetchMainEvents();
     fetchProducts();
+    fetchQuotes();
     formik.setFieldValue('issuedOn', new Date().toISOString().split('T')[0]);
     formik.setFieldValue(
       'validUntil',
@@ -439,7 +444,11 @@ export const QuoteGeneratePage = () => {
                         id: 'quote-generate.informations.quote-number.label',
                       })}
                       name="invoice-number"
-                      value={'D-001-2024'}
+                      value={`D-${format(new Date(), 'yyyy')}-${(
+                        quotes.length + 1
+                      )
+                        .toString()
+                        .padStart(4, '0')}`}
                       disabled
                     />
                     <TextField
@@ -690,7 +699,7 @@ export const QuoteGeneratePage = () => {
                             </SelectField>
                           </span>
                         </div>
-                        <TextField
+                        <TextArea
                           label={intl.formatMessage({
                             id: 'invoice-generate.products.short-description.label',
                           })}
@@ -701,6 +710,7 @@ export const QuoteGeneratePage = () => {
                           onChange={formik.handleChange}
                           value={formik.values.products[index].description}
                           className="col-span-2"
+                          rows={1}
                           error={
                             formik.errors.products &&
                             formik.errors.products.length > 0 &&
