@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 const formClasses = {
   klaq: 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-klaq-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200',
@@ -66,11 +66,33 @@ type TextAreaProps = {
 export const TextArea = (props: TextAreaProps) => {
   const { label, className, error } = props;
   const id = useId();
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const useAutosizeTextArea = (
+    textAreaRef: HTMLTextAreaElement | null,
+    value: unknown,
+  ) => {
+    useEffect(() => {
+      if (textAreaRef) {
+        textAreaRef.style.height = '0px';
+        const scrollHeight = textAreaRef.scrollHeight;
+
+        textAreaRef.style.height = scrollHeight + 'px';
+      }
+    }, [textAreaRef, value]);
+  };
+
+  useAutosizeTextArea(textAreaRef.current, props.value || '');
 
   return (
     <div className={className}>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <textarea id={id} {...props} className={formClasses['klaq']} />
+      <textarea
+        ref={textAreaRef}
+        id={id}
+        {...props}
+        className={formClasses['klaq']}
+      />
       {error && <p className="mt-2 text-sm text-danger-600">{error}</p>}
     </div>
   );

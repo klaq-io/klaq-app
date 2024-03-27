@@ -710,7 +710,6 @@ export const QuoteGeneratePage = () => {
                           onChange={formik.handleChange}
                           value={formik.values.products[index].description}
                           className="col-span-2"
-                          rows={1}
                           error={
                             formik.errors.products &&
                             formik.errors.products.length > 0 &&
