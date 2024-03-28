@@ -113,7 +113,6 @@ export const InvoiceGenerate = () => {
   };
 
   const handleSetMainEvent = (mainEvent: MainEvent) => {
-    console.log(mainEvent, 'mainEvent');
     formik.setFieldValue('customer', mainEvent.customer);
     setMainEventId(() => mainEvent.id);
   };
@@ -220,6 +219,17 @@ export const InvoiceGenerate = () => {
   }, []);
 
   useEffect(() => {
+    if (fromEventId) {
+      const mainEvent = mainEvents.find(
+        (mainEvent) => mainEvent.id === fromEventId,
+      );
+      if (mainEvent) {
+        handleSetMainEvent(mainEvent);
+      }
+    }
+  }, [fromEventId]);
+
+  useEffect(() => {
     const fetchFromQuote = async () => {
       if (!fromQuoteId) return;
 
@@ -234,6 +244,8 @@ export const InvoiceGenerate = () => {
 
       formik.setValues({
         ...formik.values,
+        issuedOn: new Date().toISOString().split('T')[0],
+        validUntil: add(new Date(), { days: 15 }).toISOString().split('T')[0],
         products:
           quote?.products.map((product) => ({
             title: product.title,
@@ -253,18 +265,7 @@ export const InvoiceGenerate = () => {
     if (fromQuoteId) {
       fetchFromQuote();
     }
-  }, [fromQuoteId, mainEvents.length > 0]);
-
-  useEffect(() => {
-    if (fromEventId) {
-      const mainEvent = mainEvents.find(
-        (mainEvent) => mainEvent.id === fromEventId,
-      );
-      if (mainEvent) {
-        handleSetMainEvent(mainEvent);
-      }
-    }
-  }, [fromEventId]);
+  }, [fromQuoteId]);
 
   return (
     <PageLayout>
